@@ -1,0 +1,57 @@
+{
+  "name": "theatrebase-cms",
+  "version": "0.0.0",
+  "description": "CMS (Content Management System) for managing site of theatrical productions and playtexts.",
+  "main": "src/server/app.js",
+  "scripts": {
+    "lint": "eslint --ext .js src/",
+    "lintspaces": "git ls-files | xargs lintspaces -e .editorconfig",
+    "test": "npm run lint && npm run lintspaces",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "nodemon built/main.js"
+  },
+  "pre-commit": [
+    "test"
+  ],
+  "author": "https://github.com/andygout",
+  "license": "MS-RSL",
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "morgan": "^1.5.1",
+    "prop-types": "^15.5.10",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-helmet": "^5.2.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "serve-favicon": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.22.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.0",
+    "eslint": "^4.11.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "favicons-webpack-plugin": "0.0.7",
+    "lintspaces-cli": "^0.6.0",
+    "node-sass": "^4.5.2",
+    "nodemon": "^1.11.0",
+    "pre-commit": "^1.2.2",
+    "sass-loader": "^6.0.3",
+    "webpack": "^2.4.1",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "engines": {
+    "node": "8.9.3"
+  }
+}
