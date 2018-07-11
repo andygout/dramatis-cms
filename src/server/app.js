@@ -4,6 +4,7 @@
 */
 
 import express from 'express';
+import exphbs from 'express-handlebars';
 import favicon from 'serve-favicon';
 import http from 'http';
 import logger from 'morgan';
@@ -20,6 +21,12 @@ import reducers from '../redux/reducers';
 import routes from '../react/routes';
 
 const app = express();
+
+const hbs = exphbs.create({ defaultLayout: 'main', extname: '.html' });
+
+app.engine('html', hbs.engine);
+
+app.set('view engine', 'html');
 
 // Path is relative to `built/main.js`.
 app.use(favicon(path.join(__dirname, 'favicons', 'favicon-16x16.png')));
@@ -60,27 +67,14 @@ app.get('*', (req, res) => {
 
 		const head = Helmet.rewind();
 
-		const html = `
-			<!DOCTYPE html>
-			<html>
-				<head>
-					${head.title.toString()}
-					<link rel="stylesheet" href="/main.css">
-					<script src="/main.js"></script>
-					<meta charset="utf-8">
-				</head>
-				<script id="react-client-data" type="text/json">
-					${JSON.stringify(preloadedState)}
-				</script>
-				<div id="app" class="app">
-					${reactHtml}
-				</div>
-			</html>
-		`.split('\n').map(line => line.trim()).join('');
-
-		res.write(html);
-
-		res.end();
+		res.render(
+			'react-mount',
+			{
+				headTitleHtml: head.title.toString(),
+				clientData: JSON.stringify(preloadedState),
+				reactHtml
+			}
+		);
 
 	});
 
