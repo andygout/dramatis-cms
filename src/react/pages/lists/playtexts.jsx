@@ -2,20 +2,18 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import PageTitle from '../components/page-title';
+import ListWrapper from '../../utils/list-wrapper';
 
 class Playtexts extends Component {
 
 	render () {
 
 		return (
-			<div>
-
-				<PageTitle pageTitle='Playtexts' />
-
-				<pre>{ JSON.stringify(this.props.playtexts, null, 4) }</pre>
-
-			</div>
+			<ListWrapper
+				instances={this.props.playtexts}
+				pageTitleText='Playtexts'
+			>
+			</ListWrapper>
 		);
 
 	};
