@@ -2,22 +2,17 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import SharedInstancePageComponents from '../components/shared-instance-page-components';
+import InstanceWrapper from '../../utils/instance-wrapper';
 
 class Production extends Component {
 
 	render () {
 
-		const { production } = this.props;
-
 		return (
-			<div>
-
-				<SharedInstancePageComponents instance={production} />
-
-				<pre>{ JSON.stringify(production, null, 4) }</pre>
-
-			</div>
+			<InstanceWrapper
+				instance={this.props.production}
+			>
+			</InstanceWrapper>
 		);
 
 	};
