@@ -9,9 +9,7 @@ class InstanceWrapper extends Component {
 
 	render () {
 
-		const { props } = this;
-
-		const { instance } = props;
+		const { instance, children } = this.props;
 
 		return (
 			<React.Fragment>
@@ -24,7 +22,7 @@ class InstanceWrapper extends Component {
 
 				<FormattedJson data={instance} />
 
-				{props.children}
+				{children}
 
 			</React.Fragment>
 		);
