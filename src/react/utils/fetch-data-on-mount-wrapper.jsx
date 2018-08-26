@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
@@ -8,7 +8,7 @@ import Footer from '../components/footer';
 import Header from '../components/header';
 import Nav from '../components/nav';
 
-class FetchDataOnMountWrapper extends Component {
+class FetchDataOnMountWrapper extends React.Component {
 
 	componentDidMount () {
 

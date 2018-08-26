@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import InstanceWrapper from '../../utils/instance-wrapper';
 
-class Theatre extends Component {
+class Theatre extends React.Component {
 
 	render () {
 
