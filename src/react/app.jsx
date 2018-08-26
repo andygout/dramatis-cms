@@ -19,14 +19,14 @@ class App extends Component {
 							exact={route.exact}
 							render={
 								props => {
-									const Component = route.component
+									const RouteComponent = route.component
 									return (
 										<FetchDataOnMountWrapper
 											{...props}
 											documentTitle={route.documentTitle}
 											fetchData={route.fetchData}
 										>
-											<Component />
+											<RouteComponent />
 										</FetchDataOnMountWrapper>
 									);
 								}
