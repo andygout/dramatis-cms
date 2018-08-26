@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import ListWrapper from '../../utils/list-wrapper';
 
-class Characters extends Component {
+class Characters extends React.Component {
 
 	render () {
 

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import routes from './routes';
 import FetchDataOnMountWrapper from './utils/fetch-data-on-mount-wrapper';
 
-class App extends Component {
+class App extends React.Component {
 
 	render () {
 
@@ -19,14 +19,14 @@ class App extends Component {
 							exact={route.exact}
 							render={
 								props => {
-									const Component = route.component
+									const RouteComponent = route.component;
 									return (
 										<FetchDataOnMountWrapper
 											{...props}
 											documentTitle={route.documentTitle}
 											fetchData={route.fetchData}
 										>
-											<Component />
+											<RouteComponent/>
 										</FetchDataOnMountWrapper>
 									);
 								}

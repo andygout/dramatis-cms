@@ -1,30 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import ContentHeader from '../components/content-header';
 import FormattedJson from '../components/formatted-json';
 import InstanceDocumentTitle from '../components/instance-document-title';
 import PageTitle from '../components/page-title';
 
-class InstanceWrapper extends Component {
+class InstanceWrapper extends React.Component {
 
 	render () {
 
-		const { props } = this;
-
-		const { instance } = props;
+		const { instance, children } = this.props;
 
 		return (
 			<React.Fragment>
 
-				<InstanceDocumentTitle instance={instance} />
+				<InstanceDocumentTitle instance={instance}/>
 
-				<ContentHeader text={instance.model} />
+				<ContentHeader text={instance.model}/>
 
-				<PageTitle pageTitle={instance.name} />
+				<PageTitle text={instance.name}/>
 
-				<FormattedJson data={instance} />
+				<FormattedJson data={instance}/>
 
-				{props.children}
+				{children}
 
 			</React.Fragment>
 		);
