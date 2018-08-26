@@ -15,7 +15,7 @@ const SharedInstancePageComponents = props => {
 
 			<ContentHeader text={instance.model} />
 
-			<PageTitle pageTitle={instance.name} />
+			<PageTitle text={instance.name} />
 
 		</div>
 	);
