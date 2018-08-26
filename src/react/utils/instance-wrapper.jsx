@@ -14,13 +14,13 @@ class InstanceWrapper extends Component {
 		return (
 			<React.Fragment>
 
-				<InstanceDocumentTitle instance={instance} />
+				<InstanceDocumentTitle instance={instance}/>
 
-				<ContentHeader text={instance.model} />
+				<ContentHeader text={instance.model}/>
 
-				<PageTitle text={instance.name} />
+				<PageTitle text={instance.name}/>
 
-				<FormattedJson data={instance} />
+				<FormattedJson data={instance}/>
 
 				{children}
 

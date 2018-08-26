@@ -10,9 +10,9 @@ const ErrorMessage = props => {
 	return (
 		<div>
 
-			<Helmet title={errorText} />
+			<Helmet title={errorText}/>
 
-			<PageTitle text={errorText} />
+			<PageTitle text={errorText}/>
 
 		</div>
 	);

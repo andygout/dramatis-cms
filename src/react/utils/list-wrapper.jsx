@@ -12,9 +12,9 @@ class ListWrapper extends Component {
 		return (
 			<React.Fragment>
 
-				<PageTitle text={pageTitleText} />
+				<PageTitle text={pageTitleText}/>
 
-				<FormattedJson data={instances} />
+				<FormattedJson data={instances}/>
 
 				{children}
 
