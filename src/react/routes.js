@@ -12,7 +12,7 @@ import Home from './pages/home';
 import NotFound from './pages/not-found';
 
 import { resetError } from '../redux/actions/error';
-import fetchModel from '../redux/actions/model';
+import { fetchModel } from '../redux/actions/model';
 
 export default [
 	{

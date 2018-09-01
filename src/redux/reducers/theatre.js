@@ -1,4 +1,8 @@
-import { REQUEST_THEATRE, RECEIVE_THEATRE } from '../utils/model-actions';
+import {
+	REQUEST_THEATRE,
+	RECEIVE_THEATRE,
+	RECEIVE_THEATRE_UPDATE
+} from '../utils/model-actions';
 
 const theatre = (state = {}, action) => {
 
@@ -8,6 +12,9 @@ const theatre = (state = {}, action) => {
 			return state;
 
 		case RECEIVE_THEATRE:
+			return action.payload;
+
+		case RECEIVE_THEATRE_UPDATE:
 			return action.payload;
 
 		default:
