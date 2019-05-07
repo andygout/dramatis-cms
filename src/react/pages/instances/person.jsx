@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import InstanceWrapper from '../../utils/instance-wrapper';
@@ -19,8 +19,8 @@ class Person extends React.Component {
 
 };
 
-Person.propTypes = { person: PropTypes.object.isRequired };
+Person.propTypes = { person: ImmutablePropTypes.map.isRequired };
 
-const mapStateToProps = ({ person }) => ({ person });
+const mapStateToProps = state => ({ person: state.get('person') });
 
 export default connect(mapStateToProps)(Person);
