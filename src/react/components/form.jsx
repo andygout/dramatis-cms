@@ -184,7 +184,7 @@ class Form extends React.Component {
 		}
 
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<form className="form" onSubmit={this.handleSubmit}>
 
 				{ renderAsForm(this.state) }
 
