@@ -1,0 +1,48 @@
+.fieldset {
+	margin: 0 0 20px 0;
+	padding: 10px 10px 20px;
+	background-color: $form-bg-color;
+	border: 2px solid $border-color;
+	border-radius: 5px;
+}
+
+.fieldset__header {
+	font-size: 16px;
+}
+
+.removal-button-container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.removal-button {
+	padding: 0px 10px;
+	background-color: $content-bg-color;
+	border: 1px solid $border-color;
+	border-radius: 5px;
+}
+
+.field {
+	margin: 5px 0 5px;
+}
+
+.field--nested {
+	padding-left: 20px;
+}
+
+.field__label {
+	font-weight: bold;
+}
+
+.field__input {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.button {
+	margin-top: 40px;
+	height: 22px;
+	width: 170px;
+	background-color: $button-bg-color;
+	cursor: pointer;
+}

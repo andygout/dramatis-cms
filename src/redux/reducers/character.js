@@ -1,4 +1,8 @@
-import { REQUEST_CHARACTER, RECEIVE_CHARACTER } from '../utils/model-actions';
+import {
+	REQUEST_CHARACTER,
+	RECEIVE_CHARACTER,
+	RECEIVE_CHARACTER_UPDATE
+} from '../utils/model-actions';
 
 const character = (state = {}, action) => {
 
@@ -8,6 +12,9 @@ const character = (state = {}, action) => {
 			return state;
 
 		case RECEIVE_CHARACTER:
+			return action.payload;
+
+		case RECEIVE_CHARACTER_UPDATE:
 			return action.payload;
 
 		default:

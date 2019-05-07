@@ -1,4 +1,8 @@
-import { REQUEST_PLAYTEXT, RECEIVE_PLAYTEXT } from '../utils/model-actions';
+import {
+	REQUEST_PLAYTEXT,
+	RECEIVE_PLAYTEXT,
+	RECEIVE_PLAYTEXT_UPDATE
+} from '../utils/model-actions';
 
 const playtext = (state = {}, action) => {
 
@@ -8,6 +12,9 @@ const playtext = (state = {}, action) => {
 			return state;
 
 		case RECEIVE_PLAYTEXT:
+			return action.payload;
+
+		case RECEIVE_PLAYTEXT_UPDATE:
 			return action.payload;
 
 		default:

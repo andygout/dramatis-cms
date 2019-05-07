@@ -1,4 +1,8 @@
-import { REQUEST_PRODUCTION, RECEIVE_PRODUCTION } from '../utils/model-actions';
+import {
+	REQUEST_PRODUCTION,
+	RECEIVE_PRODUCTION,
+	RECEIVE_PRODUCTION_UPDATE
+} from '../utils/model-actions';
 
 const production = (state = {}, action) => {
 
@@ -8,6 +12,9 @@ const production = (state = {}, action) => {
 			return state;
 
 		case RECEIVE_PRODUCTION:
+			return action.payload;
+
+		case RECEIVE_PRODUCTION_UPDATE:
 			return action.payload;
 
 		default:
