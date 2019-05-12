@@ -1,12 +1,11 @@
-import { getIn, setIn } from 'immutable';
-import PropTypes from 'prop-types';
+import { List, Map, is, getIn, removeIn, setIn, updateIn } from 'immutable';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import isObject from '../../lib/is-object';
-import objectHasNonEmptyString from '../../lib/object-has-non-empty-string';
-import wipeObjectBlank from '../../lib/wipe-object-blank';
+import createBlankMap from '../../lib/create-blank-map';
+import mapHasNonEmptyString from '../../lib/map-has-non-empty-string';
 import { updateModel } from '../../redux/actions/model';
 
 class Form extends React.Component {
@@ -15,7 +14,7 @@ class Form extends React.Component {
 
 		super(props);
 
-		this.state = props.instance;
+		this.state = this.createObjectWithImmutableContent(props.instance);
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -23,18 +22,27 @@ class Form extends React.Component {
 
 	componentDidUpdate (prevProps) {
 
-		// TODO: Use Lodash isEqual or Immutable.js here.
-		if (JSON.stringify(this.props) !== JSON.stringify(prevProps)) {
+		if (!is(prevProps.instance, this.props.instance)) {
 
-			this.setState(this.props.instance);
+			this.setState(this.createObjectWithImmutableContent(this.props.instance));
 
 		}
 
 	}
 
-	isDeleteButtonReqd (index, arrayLength) {
+	createObjectWithImmutableContent (immutableMap) {
 
-		return !((index + 1) === arrayLength);
+		const object = {};
+
+		immutableMap.entrySeq().forEach(([key, value]) => object[key] = value);
+
+		return object;
+
+	}
+
+	isDeleteButtonReqd (index, listSize) {
+
+		return !((index + 1) === listSize);
 
 	}
 
@@ -47,29 +55,23 @@ class Form extends React.Component {
 				.map(pathItem => typeof pathItem === 'number')
 				.lastIndexOf(true);
 
-		const statePathToInnermostArray = statePath.slice(0, indexOfLastNumberInStatePath);
+		const statePathToInnermostList = statePath.slice(0, indexOfLastNumberInStatePath);
 
-		const innermostArray = getIn(newStateForRootAttr, statePathToInnermostArray);
+		const innermostList = getIn(newStateForRootAttr, statePathToInnermostList);
 
-		// If changed input was in an array.
-		if (Array.isArray(innermostArray)) {
+		// If changed input was in a List.
+		if (List.isList(innermostList)) {
 
-			const lastArrayItem = innermostArray[innermostArray.length - 1];
+			const lastListItem = innermostList.get(-1);
 
-			const blankArrayItemAppendageRequired = objectHasNonEmptyString(lastArrayItem);
+			const blankListItemAppendageRequired = mapHasNonEmptyString(lastListItem);
 
-			if (blankArrayItemAppendageRequired) {
+			if (blankListItemAppendageRequired) {
 
-				const lastArrayItemCopy = Object.assign({}, lastArrayItem);
-
-				const blankArrayItem = wipeObjectBlank(lastArrayItemCopy);
+				const blankListItem = createBlankMap(lastListItem);
 
 				newStateForRootAttr =
-					setIn(
-						newStateForRootAttr,
-						statePathToInnermostArray,
-						[...innermostArray, blankArrayItem]
-					);
+					updateIn(newStateForRootAttr, statePathToInnermostList, list => list.push(blankListItem));
 
 			}
 
@@ -83,11 +85,7 @@ class Form extends React.Component {
 
 		const rootAttr = statePath.shift();
 
-		this.setState({
-			// TODO: Set state of most specific value rather than entire rootAttr value (as done here).
-			// See: npm immutability-helper `update()`.
-			[rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target.value)
-		});
+		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target.value) });
 
 	}
 
@@ -95,8 +93,9 @@ class Form extends React.Component {
 
 		event.preventDefault();
 
-		// TODO: Use Immutable `deleteIn()` once state is immutable, e.g.:
-		// this.setState({ [rootAttr]: this.state[rootAttr].deleteIn(statePath) });
+		const rootAttr = statePath.shift();
+
+		this.setState({ [rootAttr]: removeIn(this.state[rootAttr], statePath) });
 
 	}
 
@@ -113,11 +112,11 @@ class Form extends React.Component {
 		const concealedKeys = ['model', 'uuid'];
 
 		const handleValue = (value, statePath) =>
-			isObject(value)
+			Map.isMap(value)
 				? renderAsForm(value, statePath)
-				: Array.isArray(value)
+				: List.isList(value)
 					? value.map((item, index) =>
-							renderAsForm(item, [...statePath, index], this.isDeleteButtonReqd(index, value.length)))
+							renderAsForm(item, [...statePath, index], this.isDeleteButtonReqd(index, value.size)))
 					: (
 						<input
 							value={value || ''}
@@ -126,28 +125,19 @@ class Form extends React.Component {
 							type="text"
 							onChange={this.handleChange.bind(this, statePath)}
 						/>
-					)
+					);
 
-		const renderAsForm = (object, statePath = [], isDeleteButtonReqd = false) => {
+		const renderAsForm = (map, statePath = [], isDeleteButtonReqd = false) => {
 
-			const topLevelAttr = statePath.length === 0;
-
-			const ContainerTag = topLevelAttr ? 'fieldset' : 'div';
-
-			const containerClasses = [];
-			containerClasses.push(topLevelAttr ? 'fieldset' : 'field');
+			const containerClasses = ['field'];
 
 			const applyNestedClass = statePath.filter(item => isNaN(item)).length > 1;
+
 			if (applyNestedClass) containerClasses.push('field--nested');
-
-			const containerClass = containerClasses.join(' ');
-
-			const TextTag = topLevelAttr ? 'h2' : 'label';
-
-			const textClass = topLevelAttr ? 'fieldset__header' : 'field__label';
 
 			return (
 				<div key={statePath.join('-')}>
+
 					{
 						isDeleteButtonReqd
 							? (
@@ -161,23 +151,20 @@ class Form extends React.Component {
 							)
 							: null
 					}
+
 					{
-						Object.keys(object)
-							.filter(key => !concealedKeys.includes(key))
-							.map((key, index) =>
-								<ContainerTag className={containerClass} key={`${statePath.join('-')}-${key}`}>
+						map.entrySeq()
+							.map(([key, value]) =>
+								<div className={containerClasses.join(' ')} key={`${statePath.join('-')}-${key}`}>
 
-									<React.Fragment>
+									<label className="field__label">{key}:</label>
 
-										<TextTag className={textClass}>{key}:</TextTag>
+									{ handleValue(value, [...statePath, key]) }
 
-										{ handleValue(object[key], [...statePath, key]) }
-
-									</React.Fragment>
-
-								</ContainerTag>
+								</div>
 							)
 					}
+
 				</div>
 			);
 
@@ -186,7 +173,19 @@ class Form extends React.Component {
 		return (
 			<form className="form" onSubmit={this.handleSubmit}>
 
-				{ renderAsForm(this.state) }
+				{
+					Object.keys(this.state)
+						.filter(key => !concealedKeys.includes(key))
+						.map(key =>
+							<fieldset className="fieldset" key={key}>
+
+								<h2 className="fieldset__header">{key}:</h2>
+
+								{ handleValue(this.state[key], [key]) }
+
+							</fieldset>
+						)
+				}
 
 				<input className="button" type="submit" value="Submit"/>
 
@@ -197,7 +196,7 @@ class Form extends React.Component {
 
 }
 
-Form.propTypes = { instance: PropTypes.object.isRequired };
+Form.propTypes = { instance: ImmutablePropTypes.map.isRequired };
 
 const mapDispatchToProps = dispatch =>
 	bindActionCreators({ updateModel }, dispatch);

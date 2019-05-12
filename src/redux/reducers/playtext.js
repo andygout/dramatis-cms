@@ -1,10 +1,12 @@
+import { Map, fromJS } from 'immutable';
+
 import {
 	REQUEST_PLAYTEXT,
 	RECEIVE_PLAYTEXT,
 	RECEIVE_PLAYTEXT_UPDATE
 } from '../utils/model-actions';
 
-const playtext = (state = {}, action) => {
+const playtext = (state = Map({}), action) => {
 
 	switch (action.type) {
 
@@ -12,10 +14,10 @@ const playtext = (state = {}, action) => {
 			return state;
 
 		case RECEIVE_PLAYTEXT:
-			return action.payload;
+			return fromJS(action.payload);
 
 		case RECEIVE_PLAYTEXT_UPDATE:
-			return action.payload;
+			return fromJS(action.payload);
 
 		default:
 			return state;

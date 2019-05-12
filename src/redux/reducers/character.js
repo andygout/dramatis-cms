@@ -1,10 +1,12 @@
+import { Map, fromJS } from 'immutable';
+
 import {
 	REQUEST_CHARACTER,
 	RECEIVE_CHARACTER,
 	RECEIVE_CHARACTER_UPDATE
 } from '../utils/model-actions';
 
-const character = (state = {}, action) => {
+const character = (state = Map({}), action) => {
 
 	switch (action.type) {
 
@@ -12,10 +14,10 @@ const character = (state = {}, action) => {
 			return state;
 
 		case RECEIVE_CHARACTER:
-			return action.payload;
+			return fromJS(action.payload);
 
 		case RECEIVE_CHARACTER_UPDATE:
-			return action.payload;
+			return fromJS(action.payload);
 
 		default:
 			return state;

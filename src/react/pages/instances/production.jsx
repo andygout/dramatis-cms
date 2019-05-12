@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import InstanceWrapper from '../../utils/instance-wrapper';
@@ -19,8 +19,8 @@ class Production extends React.Component {
 
 };
 
-Production.propTypes = { production: PropTypes.object.isRequired };
+Production.propTypes = { production: ImmutablePropTypes.map.isRequired };
 
-const mapStateToProps = ({ production }) => ({ production });
+const mapStateToProps = state => ({ production: state.get('production') });
 
 export default connect(mapStateToProps)(Production);
