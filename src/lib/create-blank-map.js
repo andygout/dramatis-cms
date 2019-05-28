@@ -26,4 +26,4 @@ const createBlankMap = map => {
 
 };
 
-export default map => createBlankMap(map);
+export default createBlankMap;
