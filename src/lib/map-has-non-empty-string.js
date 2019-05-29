@@ -20,4 +20,4 @@ const searchForNonEmptyString = map => {
 
 };
 
-export default map => searchForNonEmptyString(map);
+export default searchForNonEmptyString;
