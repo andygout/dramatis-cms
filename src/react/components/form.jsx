@@ -129,24 +129,34 @@ class Form extends React.Component {
 
 		const renderAsForm = (map, statePath = [], isDeleteButtonReqd = false) => {
 
-			const containerClasses = ['field'];
+			const isArrayItem = statePath.some(item => !isNaN(item));
 
-			const applyNestedClass = statePath.filter(item => isNaN(item)).length > 1;
+			const isNestedArrayItem = statePath.filter(item => !isNaN(item)).length > 1;
 
-			if (applyNestedClass) containerClasses.push('field--nested');
+			const fieldsetModuleClasses = [];
+
+			if (isArrayItem) fieldsetModuleClasses.push('fieldset__module');
+
+			if (isNestedArrayItem) fieldsetModuleClasses.push('fieldset__module--nested');
 
 			return (
-				<div key={statePath.join('-')}>
+				<div className={fieldsetModuleClasses.join(' ')} key={statePath.join('-')}>
 
 					{
-						isDeleteButtonReqd
+						isArrayItem
 							? (
-								<div className="removal-button-container">
-									<a
-										href="#"
-										className="removal-button"
-										onClick={this.handleRemovalClick.bind(this, statePath)}
-									>X</a>
+								<div className="fieldset__removal-button-placeholder">
+									{
+										isDeleteButtonReqd
+											? (
+												<a
+													href="#"
+													className="fieldset__removal-button"
+													onClick={this.handleRemovalClick.bind(this, statePath)}
+												>X</a>
+											)
+											: null
+									}
 								</div>
 							)
 							: null
@@ -155,9 +165,12 @@ class Form extends React.Component {
 					{
 						map.entrySeq()
 							.map(([key, value]) =>
-								<div className={containerClasses.join(' ')} key={`${statePath.join('-')}-${key}`}>
+								<div
+									className={isArrayItem ? 'fieldset__module-component': ''}
+									key={`${statePath.join('-')}-${key}`}
+								>
 
-									<label className="field__label">{key}:</label>
+									<label className="fieldset__label">{key}:</label>
 
 									{ handleValue(value, [...statePath, key]) }
 
