@@ -1,3 +1,6 @@
+$removal-button-height: 18px;
+$removal-button-border-width: 1px;
+
 .form {
 	margin-top: 40px;
 }
@@ -14,30 +17,41 @@
 }
 
 .fieldset__header {
+	margin-bottom: 10px;
 	font-size: 16px;
 }
 
-.removal-button-container {
-	display: flex;
-	justify-content: flex-end;
-}
-
-.removal-button {
-	padding: 0px 10px;
-	background-color: $content-bg-color;
-	border: 1px solid $border-color;
+.fieldset__module {
+	padding: 5px;
+	margin-bottom: 5px;
+	border: 1px dashed $border-color;
 	border-radius: 5px;
 }
 
-.field {
-	margin: 5px 0 5px;
+.fieldset__module--nested {
+	margin: 5px;
 }
 
-.field--nested {
-	padding-left: 20px;
+.fieldset__module-component {
+	margin-bottom: 20px;
 }
 
-.field__label {
+.fieldset__removal-button-placeholder {
+	display: flex;
+	justify-content: flex-end;
+	min-height: $removal-button-height + ($removal-button-border-width * 2);
+}
+
+.fieldset__removal-button {
+	padding: 0px 10px;
+	height: $removal-button-height;
+	line-height: $removal-button-height;
+	background-color: $content-bg-color;
+	border: $removal-button-border-width solid $border-color;
+	border-radius: 5px;
+}
+
+.fieldset__label {
 	font-weight: bold;
 }
 
