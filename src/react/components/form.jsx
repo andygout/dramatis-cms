@@ -4,6 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import camelCaseToSentenceCase from '../../lib/camel-case-to-sentence-case';
 import createBlankMap from '../../lib/create-blank-map';
 import mapHasNonEmptyString from '../../lib/map-has-non-empty-string';
 import { updateModel } from '../../redux/actions/model';
@@ -170,7 +171,7 @@ class Form extends React.Component {
 									key={`${statePath.join('-')}-${key}`}
 								>
 
-									<label className="fieldset__label">{key}:</label>
+									<label className="fieldset__label">{camelCaseToSentenceCase(key)}:</label>
 
 									{ handleValue(value, [...statePath, key]) }
 
@@ -192,7 +193,7 @@ class Form extends React.Component {
 						.map(key =>
 							<fieldset className="fieldset" key={key}>
 
-								<h2 className="fieldset__header">{key}:</h2>
+								<h2 className="fieldset__header">{camelCaseToSentenceCase(key)}:</h2>
 
 								{ handleValue(this.state[key], [key]) }
 
