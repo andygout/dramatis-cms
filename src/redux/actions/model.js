@@ -19,7 +19,7 @@ const requestUpdate = model =>
 const receiveUpdate = instance =>
 	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}_UPDATE`], instance);
 
-export const fetchModel = (model, uuid = null) => dispatch => {
+export const fetchModel = (model, uuid = null) => async dispatch => {
 
 	const instance = uuid
 		? true
@@ -35,20 +35,25 @@ export const fetchModel = (model, uuid = null) => dispatch => {
 
 	if (instance) url += `/${uuid}/edit`;
 
-	return fetch(url, { mode: 'cors' })
-		.then(response => {
+	try {
 
-			if (response.status !== 200) throw new Error(response.statusText);
+		const response = await fetch(url, { mode: 'cors' });
 
-			return response.json();
+		if (response.status !== 200) throw new Error(response.statusText);
 
-		})
-		.then(instance => dispatch(receive(instance, model)))
-		.catch(({ message }) => dispatch(setError({ exists: true, message })));
+		const instance = await response.json();
+
+		dispatch(receive(instance, model))
+
+	} catch ({ message }) {
+
+		dispatch(setError({ exists: true, message }));
+
+	}
 
 }
 
-export const updateModel = instance => dispatch => {
+export const updateModel = instance => async dispatch => {
 
 	dispatch(requestUpdate(instance.model));
 
@@ -63,15 +68,20 @@ export const updateModel = instance => dispatch => {
 		body: JSON.stringify(instance)
 	};
 
-	return fetch(url, initObject)
-		.then(response => {
+	try {
 
-			if (response.status !== 200) throw new Error(response.statusText);
+		const response = await fetch(url, initObject);
 
-			return response.json();
+		if (response.status !== 200) throw new Error(response.statusText);
 
-		})
-		.then(instance => dispatch(receiveUpdate(instance)))
-		.catch(({ message }) => dispatch(setError({ exists: true, message })));
+		const instance = await response.json();
+
+		dispatch(receiveUpdate(instance));
+
+	} catch ({ message }) {
+
+		dispatch(setError({ exists: true, message }));
+
+	}
 
 }

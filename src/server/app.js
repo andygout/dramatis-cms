@@ -3,6 +3,9 @@
 	no-unused-vars: ["error", { "argsIgnorePattern": "next" }]
 */
 
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import express from 'express';
 import exphbs from 'express-handlebars';
 import favicon from 'serve-favicon';
@@ -45,7 +48,7 @@ const store = createStore(
 	applyMiddleware(...[thunkMiddleware])
 );
 
-app.get('*', (req, res) => {
+app.get('*', async (req, res) => {
 
 	const { dispatch, getState } = store;
 
@@ -61,24 +64,22 @@ app.get('*', (req, res) => {
 
 	});
 
-	Promise.all(fetchDataPromises).then(() => {
+	await Promise.all(fetchDataPromises);
 
-		const preloadedState = getState();
+	const preloadedState = getState();
 
-		const reactHtml = getReactHtml(req, store);
+	const reactHtml = getReactHtml(req, store);
 
-		const head = Helmet.rewind();
+	const head = Helmet.rewind();
 
-		res.render(
-			'react-mount',
-			{
-				headTitleHtml: head.title.toString(),
-				clientData: JSON.stringify(preloadedState),
-				reactHtml
-			}
-		);
-
-	});
+	res.render(
+		'react-mount',
+		{
+			headTitleHtml: head.title.toString(),
+			clientData: JSON.stringify(preloadedState),
+			reactHtml
+		}
+	);
 
 });
 
