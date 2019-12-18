@@ -60,6 +60,15 @@ $removal-button-border-width: 1px;
 	width: 100%;
 }
 
+.field__input--has-error {
+	border-color: $error-color;
+}
+
+.field__error-list-item {
+	list-style: disc inside none;
+	color: $error-color;
+}
+
 .button {
 	margin-top: 40px;
 	height: 22px;

@@ -23,7 +23,7 @@ class InstanceWrapper extends React.Component {
 
 				<FormattedJson data={instance}/>
 
-				<Form instance={instance}/>
+				<Form/>
 
 				{children}
 
