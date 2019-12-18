@@ -120,7 +120,7 @@ class Form extends React.Component {
 							renderAsForm(item, [...statePath, index], this.isDeleteButtonReqd(index, value.size)))
 					: (
 						<input
-							value={value || ''}
+							value={value}
 							className="field__input"
 							maxLength="1000"
 							type="text"
