@@ -15,7 +15,7 @@ class Form extends React.Component {
 
 		super(props);
 
-		this.state = this.createObjectWithImmutableContent(props.instance);
+		this.state = this.createObjectWithImmutableContent(props.formData);
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -23,9 +23,9 @@ class Form extends React.Component {
 
 	componentDidUpdate (prevProps) {
 
-		if (!is(prevProps.instance, this.props.instance)) {
+		if (!is(prevProps.formData, this.props.formData)) {
 
-			this.setState(this.createObjectWithImmutableContent(this.props.instance));
+			this.setState(this.createObjectWithImmutableContent(this.props.formData));
 
 		}
 
@@ -110,18 +110,21 @@ class Form extends React.Component {
 
 	render () {
 
-		const concealedKeys = ['model', 'uuid'];
+		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
 
-		const handleValue = (value, statePath) =>
+		const handleValue = (value, statePath, hasError) =>
 			Map.isMap(value)
 				? renderAsForm(value, statePath)
 				: List.isList(value)
 					? value.map((item, index) =>
-							renderAsForm(item, [...statePath, index], this.isDeleteButtonReqd(index, value.size)))
+						typeof item === 'string'
+							? <React.Fragment key={statePath.join('-')}>{item}</React.Fragment>
+							: renderAsForm(item, [...statePath, index], this.isDeleteButtonReqd(index, value.size))
+					)
 					: (
 						<input
 							value={value}
-							className="field__input"
+							className={`field__input${hasError ? ' field__input--has-error' : ''}`}
 							maxLength="1000"
 							type="text"
 							onChange={this.handleChange.bind(this, statePath)}
@@ -165,6 +168,7 @@ class Form extends React.Component {
 
 					{
 						map.entrySeq()
+							.filter(([key]) => !concealedKeys.includes(key))
 							.map(([key, value]) =>
 								<div
 									className={isArrayItem ? 'fieldset__module-component': ''}
@@ -173,7 +177,17 @@ class Form extends React.Component {
 
 									<label className="fieldset__label">{camelCaseToSentenceCase(key)}:</label>
 
-									{ handleValue(value, [...statePath, key]) }
+									{ handleValue(value, [...statePath, key], !!map.getIn(['errors', key])) }
+
+									{
+										map.getIn(['errors', key])
+											? map.getIn(['errors', key]).map(errorText =>
+												<ul key={`${statePath.join('-')}-${key}-error`}>
+													<li className="field__error-list-item">{errorText}</li>
+												</ul>
+											)
+											: null
+									}
 
 								</div>
 							)
@@ -195,7 +209,23 @@ class Form extends React.Component {
 
 								<h2 className="fieldset__header">{camelCaseToSentenceCase(key)}:</h2>
 
-								{ handleValue(this.state[key], [key]) }
+								{
+									handleValue(
+										this.state[key],
+										[key],
+										!!(this.state.errors && this.state.errors.get(key))
+									)
+								}
+
+								{
+									this.state.errors && this.state.errors.get(key)
+										? this.state.errors.get(key).map(errorText =>
+											<ul key={`${key}-error`}>
+												<li className="field__error-list-item">{errorText}</li>
+											</ul>
+										)
+										: null
+								}
 
 							</fieldset>
 						)
@@ -210,9 +240,11 @@ class Form extends React.Component {
 
 }
 
-Form.propTypes = { instance: ImmutablePropTypes.map.isRequired };
+Form.propTypes = { formData: ImmutablePropTypes.map.isRequired };
+
+const mapStateToProps = state => ({ formData: state.get('formData') });
 
 const mapDispatchToProps = dispatch =>
 	bindActionCreators({ updateModel }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

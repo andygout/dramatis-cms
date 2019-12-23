@@ -13,6 +13,9 @@ const request = model =>
 const receive = (instance, model) =>
 	createAction(actions[`RECEIVE_${model.toUpperCase()}`], instance);
 
+const receiveFormData = instance =>
+	createAction(actions['RECEIVE_FORM_DATA'], instance);
+
 const requestUpdate = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}_UPDATE`]);
 
@@ -21,7 +24,7 @@ const receiveUpdate = instance =>
 
 export const fetchModel = (model, uuid = null) => async dispatch => {
 
-	const instance = uuid
+	const isInstance = uuid
 		? true
 		: false;
 
@@ -29,11 +32,11 @@ export const fetchModel = (model, uuid = null) => async dispatch => {
 
 	let url = `${URL_BASE}/`;
 
-	url += instance
+	url += isInstance
 		? getPluralisedModel(model)
 		: model;
 
-	if (instance) url += `/${uuid}/edit`;
+	if (isInstance) url += `/${uuid}/edit`;
 
 	try {
 
@@ -43,7 +46,9 @@ export const fetchModel = (model, uuid = null) => async dispatch => {
 
 		const instance = await response.json();
 
-		dispatch(receive(instance, model))
+		dispatch(receive(instance, model));
+
+		if (isInstance) dispatch(receiveFormData(instance));
 
 	} catch ({ message }) {
 
@@ -76,7 +81,9 @@ export const updateModel = instance => async dispatch => {
 
 		const instance = await response.json();
 
-		dispatch(receiveUpdate(instance));
+		if (!instance.hasErrors) dispatch(receiveUpdate(instance));
+
+		dispatch(receiveFormData(instance));
 
 	} catch ({ message }) {
 

@@ -1,6 +1,7 @@
 import character from './character';
 import characters from './characters';
 import error from './error';
+import formData from './formData';
 import people from './people';
 import person from './person';
 import playtext from './playtext';
@@ -14,6 +15,7 @@ export default {
 	character,
 	characters,
 	error,
+	formData,
 	people,
 	person,
 	playtext,
