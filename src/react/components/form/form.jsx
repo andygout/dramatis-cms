@@ -1,13 +1,17 @@
+import classNames from 'classnames';
 import { List, Map, is, getIn, removeIn, setIn, updateIn } from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import camelCaseToSentenceCase from '../../lib/camel-case-to-sentence-case';
-import createBlankMap from '../../lib/create-blank-map';
-import mapHasNonEmptyString from '../../lib/map-has-non-empty-string';
-import { updateModel } from '../../redux/actions/model';
+import camelCaseToSentenceCase from '../../../lib/camel-case-to-sentence-case';
+import createBlankMap from '../../../lib/create-blank-map';
+import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
+import ArrayItem from './array-item';
+import Input from './input';
+import InputErrors from './input-errors';
+import { updateModel } from '../../../redux/actions/model';
 
 class Form extends React.Component {
 
@@ -41,7 +45,7 @@ class Form extends React.Component {
 
 	}
 
-	isDeleteButtonReqd (index, listSize) {
+	isRemovalButtonReqd (index, listSize) {
 
 		return !((index + 1) === listSize);
 
@@ -112,58 +116,48 @@ class Form extends React.Component {
 
 		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
 
-		const handleValue = (value, statePath, hasError) =>
+		const handleValue = (value, statePath, errors) =>
 			Map.isMap(value)
 				? renderAsForm(value, statePath)
 				: List.isList(value)
 					? value.map((item, index) =>
-						typeof item === 'string'
-							? <React.Fragment key={statePath.join('-')}>{item}</React.Fragment>
-							: renderAsForm(item, [...statePath, index], this.isDeleteButtonReqd(index, value.size))
+						renderAsForm(item, [...statePath, index], this.isRemovalButtonReqd(index, value.size))
 					)
 					: (
-						<input
-							value={value}
-							className={`field__input${hasError ? ' field__input--has-error' : ''}`}
-							maxLength="1000"
-							type="text"
-							onChange={this.handleChange.bind(this, statePath)}
-						/>
+						<React.Fragment>
+							<Input
+								value={value}
+								hasErrors={!!errors}
+								handleChange={this.handleChange.bind(this, statePath)}
+							/>
+							<InputErrors
+								errors={errors}
+								statePath={statePath}
+							/>
+						</React.Fragment>
 					);
 
-		const renderAsForm = (map, statePath = [], isDeleteButtonReqd = false) => {
+		const renderAsForm = (map, statePath = [], isRemovalButtonReqd = false) => {
 
 			const isArrayItem = statePath.some(item => !isNaN(item));
 
 			const isNestedArrayItem = statePath.filter(item => !isNaN(item)).length > 1;
 
-			const fieldsetModuleClasses = [];
-
-			if (isArrayItem) fieldsetModuleClasses.push('fieldset__module');
-
-			if (isNestedArrayItem) fieldsetModuleClasses.push('fieldset__module--nested');
+			const fieldsetModuleClassName = classNames({
+				'fieldset__module': isArrayItem,
+				'fieldset__module--nested': isNestedArrayItem
+			});
 
 			return (
-				<div className={fieldsetModuleClasses.join(' ')} key={statePath.join('-')}>
+				<div className={fieldsetModuleClassName} key={statePath.join('-')}>
 
 					{
-						isArrayItem
-							? (
-								<div className="fieldset__removal-button-placeholder">
-									{
-										isDeleteButtonReqd
-											? (
-												<a
-													href="#"
-													className="fieldset__removal-button"
-													onClick={this.handleRemovalClick.bind(this, statePath)}
-												>X</a>
-											)
-											: null
-									}
-								</div>
-							)
-							: null
+						isArrayItem && (
+							<ArrayItem
+								isRemovalButtonReqd={isRemovalButtonReqd}
+								handleRemovalClick={this.handleRemovalClick.bind(this, statePath)}
+							/>
+						)
 					}
 
 					{
@@ -177,16 +171,12 @@ class Form extends React.Component {
 
 									<label className="fieldset__label">{camelCaseToSentenceCase(key)}:</label>
 
-									{ handleValue(value, [...statePath, key], !!map.getIn(['errors', key])) }
-
 									{
-										map.getIn(['errors', key])
-											? map.getIn(['errors', key]).map(errorText =>
-												<ul key={`${statePath.join('-')}-${key}-error`}>
-													<li className="field__error-list-item">{errorText}</li>
-												</ul>
-											)
-											: null
+										handleValue(
+											value,
+											[...statePath, key],
+											map.getIn(['errors', key])
+										)
 									}
 
 								</div>
@@ -213,18 +203,8 @@ class Form extends React.Component {
 									handleValue(
 										this.state[key],
 										[key],
-										!!(this.state.errors && this.state.errors.get(key))
+										this.state.errors && this.state.errors.get(key)
 									)
-								}
-
-								{
-									this.state.errors && this.state.errors.get(key)
-										? this.state.errors.get(key).map(errorText =>
-											<ul key={`${key}-error`}>
-												<li className="field__error-list-item">{errorText}</li>
-											</ul>
-										)
-										: null
 								}
 
 							</fieldset>
