@@ -58,10 +58,10 @@ $removal-button-border-width: 1px;
 .field__input {
 	box-sizing: border-box;
 	width: 100%;
-}
 
-.field__input--has-error {
-	border-color: $error-color;
+	&--has-errors {
+		border-color: $error-color;
+	}
 }
 
 .field__error-list-item {
