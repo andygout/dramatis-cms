@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint --ext .js src/",
     "lintspaces": "git ls-files | xargs lintspaces -e .editorconfig",
-    "unit-test": "find spec -name '*.spec.js' | xargs mocha --require @babel/register spec",
+    "unit-test": "mocha --require @babel/register spec/**/*.spec.js",
     "test": "npm run lint && npm run lintspaces && npm run unit-test",
     "build": "webpack",
     "watch": "webpack --watch",
