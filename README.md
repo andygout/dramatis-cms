@@ -12,7 +12,7 @@ CMS (Content Management System) for managing site of theatrical productions and 
 
 ## To run linting checks
 - Ensure `$ npm install` has been run.
-- `$ npm run lint-checks`.
+- `$ npm run lint-check`.
 
 ## To run unit tests
 - Ensure `$ npm install` has been run.
