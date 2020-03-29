@@ -7,13 +7,14 @@
     "lint": "eslint --ext .js src/",
     "lintspaces": "git ls-files | xargs lintspaces -e .editorconfig",
     "unit-test": "mocha --require @babel/register test/**/*.test.js",
-    "checks": "npm run lint && npm run lintspaces && npm run unit-test",
+    "lint-checks": "npm run lint && npm run lintspaces",
     "build": "webpack",
     "watch": "webpack --watch",
     "start": "nodemon built/main.js"
   },
   "pre-commit": [
-    "checks"
+    "lint-checks",
+    "unit-test"
   ],
   "author": "https://github.com/andygout",
   "license": "MS-RSL",
