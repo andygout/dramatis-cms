@@ -2,7 +2,7 @@ import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import InstanceWrapper from '../../utils/instance-wrapper';
+import InstanceWrapper from '../../utils/InstanceWrapper';
 
 class Character extends React.Component {
 
