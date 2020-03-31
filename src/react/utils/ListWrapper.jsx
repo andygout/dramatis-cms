@@ -1,7 +1,7 @@
 import React from 'react';
 
-import FormattedJson from '../components/formatted-json';
-import PageTitle from '../components/page-title';
+import FormattedJson from '../components/FormattedJson';
+import PageTitle from '../components/PageTitle';
 
 class ListWrapper extends React.Component {
 
