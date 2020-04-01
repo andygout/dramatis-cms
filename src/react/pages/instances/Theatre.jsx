@@ -2,7 +2,7 @@ import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import InstanceWrapper from '../../utils/InstanceWrapper';
+import { InstanceWrapper } from '../../utils';
 
 class Theatre extends React.Component {
 

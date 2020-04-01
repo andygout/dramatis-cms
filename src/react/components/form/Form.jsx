@@ -8,9 +8,7 @@ import { bindActionCreators } from 'redux';
 import camelCaseToSentenceCase from '../../../lib/camel-case-to-sentence-case';
 import createBlankMap from '../../../lib/create-blank-map';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
-import ArrayItem from './ArrayItem';
-import Input from './Input';
-import InputErrors from './InputErrors';
+import { ArrayItem, Input, InputErrors } from '.';
 import { updateModel } from '../../../redux/actions/model';
 
 class Form extends React.Component {

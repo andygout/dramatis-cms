@@ -1,10 +1,6 @@
 import React from 'react';
 
-import ContentHeader from '../components/ContentHeader';
-import Form from '../components/form/Form';
-import FormattedJson from '../components/FormattedJson';
-import InstanceDocumentTitle from '../components/InstanceDocumentTitle';
-import PageTitle from '../components/PageTitle';
+import { ContentHeader, Form, FormattedJson, InstanceDocumentTitle, PageTitle } from '../components';
 
 class InstanceWrapper extends React.Component {
 
