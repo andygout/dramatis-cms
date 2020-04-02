@@ -1,7 +1,4 @@
-/* eslint
-	no-console: 0,
-	no-unused-vars: ["error", { "argsIgnorePattern": "next" }]
-*/
+/* eslint no-console: 0 */
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -10,20 +7,12 @@ import express from 'express';
 import exphbs from 'express-handlebars';
 import favicon from 'serve-favicon';
 import http from 'http';
-import { fromJS } from 'immutable';
 import logger from 'morgan';
 import path from 'path';
 import session from 'express-session';
 
-import { Helmet } from 'react-helmet';
-import { matchPath } from 'react-router-dom';
-import { applyMiddleware, createStore } from 'redux';
-import { combineReducers } from 'redux-immutable';
-import thunkMiddleware from 'redux-thunk';
-
-import getReactHtml from '../react/react-html';
-import reducers from '../redux/reducers';
-import routes from '../react/routes';
+import { errorHandlingMiddleware } from './middleware';
+import router from './router';
 
 const app = express();
 
@@ -33,107 +22,14 @@ app.engine('html', hbs.engine);
 
 app.set('view engine', 'html');
 
-// Path is relative to `built/main.js`.
-app.use(favicon(path.join(__dirname, 'favicons', 'favicon-16x16.png')));
-
-app.use(logger('dev'));
-
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
-
-app.use(express.static('public'));
-
-const store = createStore(
-	combineReducers(reducers),
-	fromJS({}),
-	applyMiddleware(...[thunkMiddleware])
+app.use(
+	favicon(path.join(__dirname, 'favicons', 'favicon-16x16.png')), // Path is relative to `built/main.js`.
+	logger('dev'),
+	session({ secret: 'secret', resave: false, saveUninitialized: true }),
+	express.static('public'),
+	router,
+	errorHandlingMiddleware
 );
-
-app.get('*', async (req, res) => {
-
-	const { dispatch, getState } = store;
-
-	const fetchDataPromises = [];
-
-	routes.some(route => {
-
-		const match = matchPath(req.url, route);
-
-		if (match && route.fetchData) route.fetchData.forEach(fn => fetchDataPromises.push(fn(dispatch, match)));
-
-		return match
-
-	});
-
-	await Promise.all(fetchDataPromises);
-
-	const preloadedState = getState();
-
-	const reactHtml = getReactHtml(req, store);
-
-	const head = Helmet.rewind();
-
-	res.render(
-		'react-mount',
-		{
-			headTitleHtml: head.title.toString(),
-			clientData: JSON.stringify(preloadedState),
-			reactHtml
-		}
-	);
-
-});
-
-// Catch 404 and forward to error handler
-app.use((req, res, next) => {
-
-	const err = new Error('Not Found');
-
-	err.status = 404;
-
-	next(err);
-
-});
-
-// Error handlers
-// Development error handler - will print stacktrace
-if (app.get('env') === 'development') {
-
-	app.use((err, req, res, next) => {
-
-		console.log(err);
-
-		const errStatus = err.status || 500;
-
-		const errMsg = `${errStatus} Error: ${err.message}`;
-
-		res.status(errStatus);
-
-		return res.render('partials/templates/error', {
-			page: { title: errMsg },
-			message: errMsg,
-			error: err
-		});
-
-	});
-
-}
-
-// Production error handler - no stacktraces leaked to user
-app.use((err, req, res, next) => {
-
-	const errStatus = err.status || 500;
-
-	const errMsg = `${errStatus} Error: ${err.message}`;
-
-	res.status(errStatus);
-
-	return res.render('partials/templates/error', {
-		page: { title: errMsg },
-		message: errMsg,
-		error: {}
-	});
-
-});
 
 const normalizePort = val => {
 
