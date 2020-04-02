@@ -11,7 +11,7 @@ import {
 	Theatres,
 	Home,
 	NotFound
-} from './pages'
+} from './pages';
 
 import { resetError } from '../redux/actions/error';
 import { fetchModel } from '../redux/actions/model';
