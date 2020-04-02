@@ -43,7 +43,7 @@ class Form extends React.Component {
 
 	}
 
-	isRemovalButtonReqd (index, listSize) {
+	isRemovalButtonRequired (index, listSize) {
 
 		return !((index + 1) === listSize);
 
@@ -119,7 +119,7 @@ class Form extends React.Component {
 				? renderAsForm(value, statePath)
 				: List.isList(value)
 					? value.map((item, index) =>
-						renderAsForm(item, [...statePath, index], this.isRemovalButtonReqd(index, value.size))
+						renderAsForm(item, [...statePath, index], this.isRemovalButtonRequired(index, value.size))
 					)
 					: (
 						<React.Fragment>
@@ -135,7 +135,7 @@ class Form extends React.Component {
 						</React.Fragment>
 					);
 
-		const renderAsForm = (map, statePath = [], isRemovalButtonReqd = false) => {
+		const renderAsForm = (map, statePath = [], isRemovalButtonRequired = false) => {
 
 			const isArrayItem = statePath.some(item => !isNaN(item));
 
@@ -152,7 +152,7 @@ class Form extends React.Component {
 					{
 						isArrayItem && (
 							<ArrayItem
-								isRemovalButtonReqd={isRemovalButtonReqd}
+								isRemovalButtonRequired={isRemovalButtonRequired}
 								handleRemovalClick={this.handleRemovalClick.bind(this, statePath)}
 							/>
 						)

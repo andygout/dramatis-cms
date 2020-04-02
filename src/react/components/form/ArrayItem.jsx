@@ -2,13 +2,13 @@ import React from 'react';
 
 const ArrayItem = props => {
 
-	const { isRemovalButtonReqd, handleRemovalClick } = props;
+	const { isRemovalButtonRequired, handleRemovalClick } = props;
 
 	return (
 		<div className="fieldset__removal-button-placeholder">
 
 			{
-				isRemovalButtonReqd && (
+				isRemovalButtonRequired && (
 					<a
 						href="#"
 						className="fieldset__removal-button"
