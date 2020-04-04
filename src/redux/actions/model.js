@@ -28,13 +28,20 @@ export const fetchModel = (model, uuid = null) => async dispatch => {
 		? true
 		: false;
 
+	// To prevent re-fetching the resource if it already exists in state,
+	// add `getState` to this function's args:
+	// `export const fetchModel = (model, uuid = null) => async (dispatch, getState) => {`
+	// and wrap the remaining code of this function in a conditional based on `apiCallRequired`:
+	// `const apiCallRequired = isInstance ? getState().getIn([model, 'uuid']) !== uuid : !getState().get(model).size;`
+	// This is not applied here because it is necessary for a CMS to display the most current data from source.
+
 	dispatch(request(model));
 
-	let url = `${URL_BASE}/`;
+	let url = URL_BASE;
 
 	url += isInstance
-		? getPluralisedModel(model)
-		: model;
+		? `/${getPluralisedModel(model)}`
+		: `/${model}`;
 
 	if (isInstance) url += `/${uuid}/edit`;
 
