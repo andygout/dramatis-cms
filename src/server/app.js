@@ -64,7 +64,7 @@ const onError = error => {
 
 };
 
-const port = normalizePort(process.env.PORT || '3002');
+const port = normalizePort(process.env.PORT || '3001');
 
 app.set('port', port);
 
