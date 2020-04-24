@@ -1,13 +1,13 @@
 {
   "name": "theatrebase-cms",
   "version": "0.0.0",
-  "description": "CMS (Content Management System) for managing site of theatrical productions and playtexts.",
+  "description": "Content Management System (CMS) for managing database of theatrical productions, playtexts, and associated data.",
   "main": "src/server/app.js",
   "scripts": {
     "lint": "eslint --ext .js src/",
     "lintspaces": "git ls-files | xargs lintspaces -e .editorconfig",
-    "unit-test": "mocha --require @babel/register test/**/*.test.js",
     "lint-check": "npm run lint && npm run lintspaces",
+    "unit-test": "mocha --require @babel/register test/**/*.test.js",
     "build": "webpack",
     "watch": "webpack --watch",
     "start": "nodemon built/main.js"
