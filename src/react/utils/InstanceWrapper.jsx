@@ -15,7 +15,7 @@ class InstanceWrapper extends React.Component {
 
 				<ContentHeader text={instance.get('model')}/>
 
-				<PageTitle text={instance.get('name')}/>
+				<PageTitle text={instance.get('name')} model={instance.get('model')}/>
 
 				<FormattedJson data={instance}/>
 

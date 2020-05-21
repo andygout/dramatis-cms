@@ -3,6 +3,8 @@ import { Map, fromJS } from 'immutable';
 import {
 	REQUEST_PERSON,
 	RECEIVE_PERSON,
+	RECEIVE_PERSON_TEMPLATE,
+	RECEIVE_PERSON_CREATE,
 	RECEIVE_PERSON_UPDATE
 } from '../utils/model-actions';
 
@@ -12,6 +14,12 @@ const person = (state = Map({}), action) => {
 
 		case REQUEST_PERSON:
 			return state;
+
+		case RECEIVE_PERSON_TEMPLATE:
+			return fromJS(action.payload);
+
+		case RECEIVE_PERSON_CREATE:
+			return fromJS(action.payload);
 
 		case RECEIVE_PERSON:
 			return fromJS(action.payload);

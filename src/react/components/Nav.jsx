@@ -20,6 +20,16 @@ const Nav = () => {
 
 				<li><Link to={'/theatres'}>Theatres</Link></li>
 
+				<li><Link to={'/characters/new'}>New character</Link></li>
+
+				<li><Link to={'/people/new'}>New person</Link></li>
+
+				<li><Link to={'/playtexts/new'}>New playtext</Link></li>
+
+				<li><Link to={'/productions/new'}>New production</Link></li>
+
+				<li><Link to={'/theatres/new'}>New theatre</Link></li>
+
 			</ul>
 
 		</nav>

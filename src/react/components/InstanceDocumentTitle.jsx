@@ -8,10 +8,14 @@ const DocumentTitle = props => {
 	const name = instance.get('name');
 	const model = instance.get('model');
 
+	if (name === undefined && model === undefined) return null;
+
+	const text = (name === '')
+		? `New ${model}`
+		: `${name} (${model})`;
+
 	return (
-		name !== undefined && model !== undefined
-			? <Helmet title={`${name} (${model})`}/>
-			: null
+		<Helmet title={text} />
 	);
 
 };
