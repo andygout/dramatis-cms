@@ -76,7 +76,7 @@ export const updateModel = instance => async dispatch => {
 			'Content-Type': 'application/json'
 		},
 		mode: 'cors',
-		method: 'POST',
+		method: 'PUT',
 		body: JSON.stringify(instance)
 	};
 
