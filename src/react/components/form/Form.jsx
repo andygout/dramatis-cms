@@ -3,13 +3,16 @@ import { List, Map, is, getIn, removeIn, setIn, updateIn } from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import camelCaseToSentenceCase from '../../../lib/camel-case-to-sentence-case';
 import createBlankMap from '../../../lib/create-blank-map';
+import getPluralisedModel from '../../../lib/get-pluralised-model';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
 import { ArrayItem, Input, InputErrors } from '.';
-import { updateModel } from '../../../redux/actions/model';
+import { createInstance, updateInstance } from '../../../redux/actions/model';
+import { formActions } from '../../../utils/constants';
 
 class Form extends React.Component {
 
@@ -17,7 +20,7 @@ class Form extends React.Component {
 
 		super(props);
 
-		this.state = this.createObjectWithImmutableContent(props.formData);
+		this.state = this.createStateObject(props.formData);
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -27,19 +30,27 @@ class Form extends React.Component {
 
 		if (!is(prevProps.formData, this.props.formData)) {
 
-			this.setState(this.createObjectWithImmutableContent(this.props.formData));
+			this.setState(this.createStateObject(this.props.formData));
 
 		}
 
 	}
 
-	createObjectWithImmutableContent (immutableMap) {
+	createStateObject (immutableMap) {
 
 		const object = {};
 
-		immutableMap.entrySeq().forEach(([key, value]) => object[key] = value);
+		immutableMap.entrySeq().forEach(([key, value]) => {
 
-		return object;
+			object[key] = value
+
+		});
+
+		return {
+			instance: object,
+			action: immutableMap.get('action'),
+			redirectToInstance: immutableMap.get('redirectToInstance')
+		};
 
 	}
 
@@ -51,7 +62,7 @@ class Form extends React.Component {
 
 	getNewStateForRootAttr (rootAttr, statePath, eventTargetValue) {
 
-		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, eventTargetValue);
+		let newStateForRootAttr = setIn(this.state.instance[rootAttr], statePath, eventTargetValue);
 
 		const indexOfLastNumberInStatePath =
 			statePath
@@ -88,7 +99,12 @@ class Form extends React.Component {
 
 		const rootAttr = statePath.shift();
 
-		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target.value) });
+		const instance = {
+			...this.state.instance,
+			...{ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target.value) }
+		};
+
+		this.setState({ instance });
 
 	}
 
@@ -98,7 +114,12 @@ class Form extends React.Component {
 
 		const rootAttr = statePath.shift();
 
-		this.setState({ [rootAttr]: removeIn(this.state[rootAttr], statePath) });
+		const instance = {
+			...this.state.instance,
+			...{ [rootAttr]: removeIn(this.state.instance[rootAttr], statePath) }
+		};
+
+		this.setState({ instance });
 
 	}
 
@@ -106,13 +127,30 @@ class Form extends React.Component {
 
 		event.preventDefault();
 
-		this.props.updateModel(this.state);
+		switch (this.state.instance.action) {
+
+			case formActions.CREATE:
+				return this.props.createInstance(this.state.instance);
+
+			case formActions.UPDATE:
+				return this.props.updateInstance(this.state.instance);
+
+		}
 
 	}
 
 	render () {
 
-		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
+		if (this.state.redirectToInstance) {
+
+			const pluralisedModel = getPluralisedModel(this.state.instance.model);
+
+			const instanceUuid = this.state.instance.uuid;
+
+			return <Redirect to={`/${pluralisedModel}/${instanceUuid}`} />;
+		}
+
+		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors', 'action', 'redirectToInstance'];
 
 		const handleValue = (value, statePath, errors) =>
 			Map.isMap(value)
@@ -190,7 +228,7 @@ class Form extends React.Component {
 			<form className="form" onSubmit={this.handleSubmit}>
 
 				{
-					Object.keys(this.state)
+					Object.keys(this.state.instance)
 						.filter(key => !concealedKeys.includes(key))
 						.map(key =>
 							<fieldset className="fieldset" key={key}>
@@ -199,9 +237,9 @@ class Form extends React.Component {
 
 								{
 									handleValue(
-										this.state[key],
+										this.state.instance[key],
 										[key],
-										this.state.errors && this.state.errors.get(key)
+										this.state.instance.errors && this.state.instance.errors.get(key)
 									)
 								}
 
@@ -223,6 +261,6 @@ Form.propTypes = { formData: ImmutablePropTypes.map.isRequired };
 const mapStateToProps = state => ({ formData: state.get('formData') });
 
 const mapDispatchToProps = dispatch =>
-	bindActionCreators({ updateModel }, dispatch);
+	bindActionCreators({ createInstance, updateInstance }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
