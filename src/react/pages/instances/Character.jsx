@@ -8,9 +8,12 @@ class Character extends React.Component {
 
 	render () {
 
+		const { character, characterFormData } = this.props;
+
 		return (
 			<InstanceWrapper
-				instance={this.props.character}
+				instance={character}
+				formData={characterFormData}
 			>
 			</InstanceWrapper>
 		);
@@ -19,8 +22,14 @@ class Character extends React.Component {
 
 };
 
-Character.propTypes = { character: ImmutablePropTypes.map.isRequired };
+Character.propTypes = {
+	character: ImmutablePropTypes.map.isRequired,
+	characterFormData: ImmutablePropTypes.map.isRequired
+};
 
-const mapStateToProps = state => ({ character: state.get('character') });
+const mapStateToProps = state => ({
+	character: state.get('character'),
+	characterFormData: state.get('characterFormData')
+});
 
 export default connect(mapStateToProps)(Character);

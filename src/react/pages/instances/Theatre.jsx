@@ -8,9 +8,12 @@ class Theatre extends React.Component {
 
 	render () {
 
+		const { theatre, theatreFormData } = this.props;
+
 		return (
 			<InstanceWrapper
-				instance={this.props.theatre}
+				instance={theatre}
+				formData={theatreFormData}
 			>
 			</InstanceWrapper>
 		);
@@ -19,8 +22,14 @@ class Theatre extends React.Component {
 
 };
 
-Theatre.propTypes = { theatre: ImmutablePropTypes.map.isRequired };
+Theatre.propTypes = {
+	theatre: ImmutablePropTypes.map.isRequired,
+	theatreFormData: ImmutablePropTypes.map.isRequired
+};
 
-const mapStateToProps = state => ({ theatre: state.get('theatre') });
+const mapStateToProps = state => ({
+	theatre: state.get('theatre'),
+	theatreFormData: state.get('theatreFormData')
+});
 
 export default connect(mapStateToProps)(Theatre);

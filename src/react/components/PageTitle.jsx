@@ -3,16 +3,12 @@ import React from 'react';
 
 const PageTitle = props => {
 
-	const isEmptyTextString = props.text === '';
+	const { text, isNewInstance } = props;
 
 	const pageTitleClassName = classNames({
 		'title-text': true,
-		'title-text--muted': isEmptyTextString
+		'title-text--muted': isNewInstance
 	});
-
-	const text = isEmptyTextString
-		? `New ${props.model}`
-		: props.text;
 
 	return (
 		<h1 className={pageTitleClassName}>

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 
 import { formActions } from '../../utils/constants';
 
-const DocumentTitle = props => {
+const withInstancePageTitle = PageTitle => props => {
 
 	const { name, model, formAction } = props;
 
@@ -15,7 +14,7 @@ const DocumentTitle = props => {
 				return `New ${model}`;
 
 			case formActions.UPDATE:
-				return `${name} (${model})`;
+				return name;
 
 			default:
 				return '';
@@ -24,10 +23,12 @@ const DocumentTitle = props => {
 
 	})(formAction);
 
+	const isNewInstance = formAction === formActions.CREATE;
+
 	return (
-		<Helmet title={text} />
+		<PageTitle text={text} isNewInstance={isNewInstance} />
 	);
 
 };
 
-export default DocumentTitle;
+export default withInstancePageTitle;

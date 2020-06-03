@@ -1,7 +1,7 @@
 import createAction from './base';
 import { setError } from './error';
 import * as actions from '../utils/model-actions';
-import getPluralisedModel from '../../lib/get-pluralised-model';
+import { pluralise } from '../../lib/strings';
 
 const URL_BASE = 'http://localhost:3000';
 
@@ -17,11 +17,11 @@ const requestTemplate = model =>
 const receiveTemplate = (instanceTemplate, model) =>
 	createAction(actions[`RECEIVE_${model.toUpperCase()}_TEMPLATE`], instanceTemplate);
 
-const receiveNewFormData = instance =>
-	createAction(actions['RECEIVE_NEW_FORM_DATA'], instance);
+const receiveNewFormData = (instance, model) =>
+	createAction(actions[`RECEIVE_${model.toUpperCase()}_NEW_FORM_DATA`], instance);
 
-const receiveEditFormData = instance =>
-	createAction(actions['RECEIVE_EDIT_FORM_DATA'], instance);
+const receiveEditFormData = (instance, model) =>
+	createAction(actions[`RECEIVE_${model.toUpperCase()}_EDIT_FORM_DATA`], instance);
 
 const requestCreate = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}_CREATE`]);
@@ -63,7 +63,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	dispatch(requestTemplate(model));
 
-	const url = `${URL_BASE}/${getPluralisedModel(model)}/new`;
+	const url = `${URL_BASE}/${pluralise(model)}/new`;
 
 	try {
 
@@ -75,7 +75,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 		dispatch(receiveTemplate(instance, model));
 
-		dispatch(receiveNewFormData({ ...instance, redirectToInstance: false }));
+		dispatch(receiveNewFormData({ instance, redirectToInstance: false }, model));
 
 	} catch ({ message }) {
 
@@ -87,9 +87,11 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 const createInstance = instance => async dispatch => {
 
-	dispatch(requestCreate(instance.model));
+	const model = instance.model;
 
-	const url = `${URL_BASE}/${getPluralisedModel(instance.model)}`;
+	dispatch(requestCreate(model));
+
+	const url = `${URL_BASE}/${pluralise(model)}`;
 
 	const initObject = {
 		headers: {
@@ -110,13 +112,13 @@ const createInstance = instance => async dispatch => {
 
 		if (instance.hasErrors) {
 
-			dispatch(receiveNewFormData({ ...instance, redirectToInstance: false }));
+			dispatch(receiveNewFormData({ instance, redirectToInstance: false }, model));
 
 		} else {
 
 			dispatch(receiveCreate(instance));
 
-			dispatch(receiveEditFormData({ ...instance, redirectToInstance: true }));
+			dispatch(receiveEditFormData({ instance, redirectToInstance: true }, model));
 
 		}
 
@@ -139,7 +141,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	dispatch(request(model));
 
-	const url = `${URL_BASE}/${getPluralisedModel(model)}/${uuid}/edit`;
+	const url = `${URL_BASE}/${pluralise(model)}/${uuid}/edit`;
 
 	try {
 
@@ -151,7 +153,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 		dispatch(receive(instance, model));
 
-		dispatch(receiveEditFormData({ ...instance, redirectToInstance: false }));
+		dispatch(receiveEditFormData({ instance, redirectToInstance: false }, model));
 
 	} catch ({ message }) {
 
@@ -163,9 +165,11 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 const updateInstance = instance => async dispatch => {
 
-	dispatch(requestUpdate(instance.model));
+	const model = instance.model;
 
-	const url = `${URL_BASE}/${getPluralisedModel(instance.model)}/${instance.uuid}`;
+	dispatch(requestUpdate(model));
+
+	const url = `${URL_BASE}/${pluralise(model)}/${instance.uuid}`;
 
 	const initObject = {
 		headers: {
@@ -186,7 +190,7 @@ const updateInstance = instance => async dispatch => {
 
 		if (!instance.hasErrors) dispatch(receiveUpdate(instance));
 
-		dispatch(receiveEditFormData({ ...instance, redirectToInstance: false }));
+		dispatch(receiveEditFormData({ instance, redirectToInstance: false }, model));
 
 	} catch ({ message }) {
 
