@@ -8,9 +8,12 @@ class Person extends React.Component {
 
 	render () {
 
+		const { person, personFormData } = this.props;
+
 		return (
 			<InstanceWrapper
-				instance={this.props.person}
+				instance={person}
+				formData={personFormData}
 			>
 			</InstanceWrapper>
 		);
@@ -19,8 +22,14 @@ class Person extends React.Component {
 
 };
 
-Person.propTypes = { person: ImmutablePropTypes.map.isRequired };
+Person.propTypes = {
+	person: ImmutablePropTypes.map.isRequired,
+	personFormData: ImmutablePropTypes.map.isRequired
+};
 
-const mapStateToProps = state => ({ person: state.get('person') });
+const mapStateToProps = state => ({
+	person: state.get('person'),
+	personFormData: state.get('personFormData')
+});
 
 export default connect(mapStateToProps)(Person);

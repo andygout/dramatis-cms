@@ -8,9 +8,12 @@ class Production extends React.Component {
 
 	render () {
 
+		const { production, productionFormData } = this.props;
+
 		return (
 			<InstanceWrapper
-				instance={this.props.production}
+				instance={production}
+				formData={productionFormData}
 			>
 			</InstanceWrapper>
 		);
@@ -19,8 +22,14 @@ class Production extends React.Component {
 
 };
 
-Production.propTypes = { production: ImmutablePropTypes.map.isRequired };
+Production.propTypes = {
+	production: ImmutablePropTypes.map.isRequired,
+	productionFormData: ImmutablePropTypes.map.isRequired
+};
 
-const mapStateToProps = state => ({ production: state.get('production') });
+const mapStateToProps = state => ({
+	production: state.get('production'),
+	productionFormData: state.get('productionFormData')
+});
 
 export default connect(mapStateToProps)(Production);

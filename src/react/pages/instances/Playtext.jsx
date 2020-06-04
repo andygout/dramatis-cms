@@ -8,9 +8,12 @@ class Playtext extends React.Component {
 
 	render () {
 
+		const { playtext, playtextFormData } = this.props;
+
 		return (
 			<InstanceWrapper
-				instance={this.props.playtext}
+				instance={playtext}
+				formData={playtextFormData}
 			>
 			</InstanceWrapper>
 		);
@@ -19,8 +22,14 @@ class Playtext extends React.Component {
 
 };
 
-Playtext.propTypes = { playtext: ImmutablePropTypes.map.isRequired };
+Playtext.propTypes = {
+	playtext: ImmutablePropTypes.map.isRequired,
+	playtextFormData: ImmutablePropTypes.map.isRequired
+};
 
-const mapStateToProps = state => ({ playtext: state.get('playtext') });
+const mapStateToProps = state => ({
+	playtext: state.get('playtext'),
+	playtextFormData: state.get('playtextFormData')
+});
 
 export default connect(mapStateToProps)(Playtext);

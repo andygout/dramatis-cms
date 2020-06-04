@@ -7,6 +7,7 @@ import Header from './Header';
 import InstanceDocumentTitle from './InstanceDocumentTitle';
 import Nav from './Nav';
 import PageTitle from './PageTitle';
+import withInstancePageTitle from './withInstancePageTitle';
 
 export {
 	ContentHeader,
@@ -17,5 +18,6 @@ export {
 	Header,
 	InstanceDocumentTitle,
 	Nav,
-	PageTitle
+	PageTitle,
+	withInstancePageTitle
 };
