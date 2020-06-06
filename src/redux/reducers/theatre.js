@@ -12,21 +12,13 @@ const theatre = (state = Map({}), action) => {
 
 	switch (action.type) {
 
-		case REQUEST_THEATRE:
-			return state;
-
 		case RECEIVE_THEATRE_TEMPLATE:
-			return fromJS(action.payload);
-
 		case RECEIVE_THEATRE_CREATE:
-			return fromJS(action.payload);
-
 		case RECEIVE_THEATRE:
-			return fromJS(action.payload);
-
 		case RECEIVE_THEATRE_UPDATE:
 			return fromJS(action.payload);
 
+		case REQUEST_THEATRE:
 		default:
 			return state;
 

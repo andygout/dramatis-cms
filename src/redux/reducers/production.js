@@ -12,21 +12,13 @@ const production = (state = Map({}), action) => {
 
 	switch (action.type) {
 
-		case REQUEST_PRODUCTION:
-			return state;
-
 		case RECEIVE_PRODUCTION_TEMPLATE:
-			return fromJS(action.payload);
-
 		case RECEIVE_PRODUCTION_CREATE:
-			return fromJS(action.payload);
-
 		case RECEIVE_PRODUCTION:
-			return fromJS(action.payload);
-
 		case RECEIVE_PRODUCTION_UPDATE:
 			return fromJS(action.payload);
 
+		case REQUEST_PRODUCTION:
 		default:
 			return state;
 
