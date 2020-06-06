@@ -12,21 +12,13 @@ const person = (state = Map({}), action) => {
 
 	switch (action.type) {
 
-		case REQUEST_PERSON:
-			return state;
-
 		case RECEIVE_PERSON_TEMPLATE:
-			return fromJS(action.payload);
-
 		case RECEIVE_PERSON_CREATE:
-			return fromJS(action.payload);
-
 		case RECEIVE_PERSON:
-			return fromJS(action.payload);
-
 		case RECEIVE_PERSON_UPDATE:
 			return fromJS(action.payload);
 
+		case REQUEST_PERSON:
 		default:
 			return state;
 
