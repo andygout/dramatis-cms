@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import PageTitle from './PageTitle';
 
-const ErrorMessage = props => {
+export default function (props) {
 
 	const { errorText } = props;
 
@@ -18,5 +18,3 @@ const ErrorMessage = props => {
 	);
 
 };
-
-export default ErrorMessage;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ArrayItem = props => {
+export default function (props) {
 
 	const { isRemovalButtonRequired, handleRemovalClick } = props;
 
@@ -21,5 +21,3 @@ const ArrayItem = props => {
 	);
 
 };
-
-export default ArrayItem;

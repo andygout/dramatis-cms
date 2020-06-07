@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navigation = () => {
+export default function (props) {
 
 	return (
 		<nav className="navigation">
@@ -36,5 +36,3 @@ const Navigation = () => {
 	);
 
 };
-
-export default Navigation;

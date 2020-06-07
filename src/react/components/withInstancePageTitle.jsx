@@ -2,33 +2,35 @@ import React from 'react';
 
 import { FORM_ACTIONS } from '../../utils/constants';
 
-const withInstancePageTitle = PageTitle => props => {
+export default function (PageTitle) {
 
-	const { name, model, formAction } = props;
+	return function (props) {
 
-	const text = (action => {
+		const { name, model, formAction } = props;
 
-		switch (action) {
+		const text = (action => {
 
-			case FORM_ACTIONS.create:
-				return `New ${model}`;
+			switch (action) {
 
-			case FORM_ACTIONS.update:
-				return name;
+				case FORM_ACTIONS.create:
+					return `New ${model}`;
 
-			default:
-				return '';
+				case FORM_ACTIONS.update:
+					return name;
 
-		}
+				default:
+					return '';
 
-	})(formAction);
+			}
 
-	const isNewInstance = formAction === FORM_ACTIONS.create
+		})(formAction);
 
-	return (
-		<PageTitle text={text} isNewInstance={isNewInstance} />
-	);
+		const isNewInstance = formAction === FORM_ACTIONS.create
+
+		return (
+			<PageTitle text={text} isNewInstance={isNewInstance} />
+		);
+
+	};
 
 };
-
-export default withInstancePageTitle;

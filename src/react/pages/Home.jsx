@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PageTitle } from '../components';
 
-class Home extends React.Component {
+export default class Home extends React.Component {
 
 	render () {
 
@@ -13,5 +13,3 @@ class Home extends React.Component {
 	};
 
 };
-
-export default Home;

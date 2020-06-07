@@ -9,7 +9,7 @@ import {
 	withInstancePageTitle
 } from '../components';
 
-class InstanceWrapper extends React.Component {
+export default class InstanceWrapper extends React.Component {
 
 	render () {
 
@@ -50,5 +50,3 @@ class InstanceWrapper extends React.Component {
 	};
 
 };
-
-export default InstanceWrapper;

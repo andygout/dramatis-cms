@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputErrors = props => {
+export default function (props) {
 
 	const { errors, statePath } = props;
 
@@ -15,5 +15,3 @@ const InputErrors = props => {
 	);
 
 };
-
-export default InputErrors;

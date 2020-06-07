@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedJson, PageTitle } from '../components';
 
-class ListWrapper extends React.Component {
+export default class ListWrapper extends React.Component {
 
 	render () {
 
@@ -23,5 +23,3 @@ class ListWrapper extends React.Component {
 	};
 
 };
-
-export default ListWrapper;

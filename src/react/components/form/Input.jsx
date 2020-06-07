@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-const Input = props => {
+export default function (props) {
 
 	const { value, hasErrors, handleChange } = props;
 
@@ -21,5 +21,3 @@ const Input = props => {
 	);
 
 };
-
-export default Input;
