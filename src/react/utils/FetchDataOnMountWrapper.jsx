@@ -1,7 +1,7 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 
 import { ErrorMessage, Footer, Header, Nav } from '../components';
 
