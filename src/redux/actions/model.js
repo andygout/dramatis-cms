@@ -35,6 +35,16 @@ const requestUpdate = model =>
 const receiveUpdate = instance =>
 	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}_UPDATE`], instance);
 
+const performFetch = async (url, settings) => {
+
+	const response = await fetch(url, settings);
+
+	if (response.status !== 200) throw new Error(response.statusText);
+
+	return response.json();
+
+}
+
 const fetchList = model => async dispatch => {
 
 	dispatch(request(model));
@@ -43,11 +53,7 @@ const fetchList = model => async dispatch => {
 
 	try {
 
-		const response = await fetch(url, { mode: 'cors' });
-
-		if (response.status !== 200) throw new Error(response.statusText);
-
-		const list = await response.json();
+		const list = await performFetch(url, { mode: 'cors' });
 
 		dispatch(receive(list, model));
 
@@ -67,11 +73,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	try {
 
-		const response = await fetch(url, { mode: 'cors' });
-
-		if (response.status !== 200) throw new Error(response.statusText);
-
-		const instance = await response.json();
+		const instance = await performFetch(url, { mode: 'cors' });
 
 		dispatch(receiveTemplate(instance, model));
 
@@ -93,7 +95,7 @@ const createInstance = instance => async dispatch => {
 
 	const url = `${URL_BASE}/${pluralise(model)}`;
 
-	const initObject = {
+	const fetchSettings = {
 		headers: {
 			'Content-Type': 'application/json'
 		},
@@ -104,11 +106,7 @@ const createInstance = instance => async dispatch => {
 
 	try {
 
-		const response = await fetch(url, initObject);
-
-		if (response.status !== 200) throw new Error(response.statusText);
-
-		const instance = await response.json();
+		const instance = await performFetch(url, fetchSettings);
 
 		if (instance.hasErrors) {
 
@@ -145,11 +143,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	try {
 
-		const response = await fetch(url, { mode: 'cors' });
-
-		if (response.status !== 200) throw new Error(response.statusText);
-
-		const instance = await response.json();
+		const instance = await performFetch(url, { mode: 'cors' });
 
 		dispatch(receive(instance, model));
 
@@ -171,7 +165,7 @@ const updateInstance = instance => async dispatch => {
 
 	const url = `${URL_BASE}/${pluralise(model)}/${instance.uuid}`;
 
-	const initObject = {
+	const fetchSettings = {
 		headers: {
 			'Content-Type': 'application/json'
 		},
@@ -182,11 +176,7 @@ const updateInstance = instance => async dispatch => {
 
 	try {
 
-		const response = await fetch(url, initObject);
-
-		if (response.status !== 200) throw new Error(response.statusText);
-
-		const instance = await response.json();
+		const instance = await performFetch(url, fetchSettings);
 
 		if (!instance.hasErrors) dispatch(receiveUpdate(instance));
 
