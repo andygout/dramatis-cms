@@ -5,7 +5,7 @@ import Footer from './Footer';
 import FormattedJson from './FormattedJson';
 import Header from './Header';
 import InstanceDocumentTitle from './InstanceDocumentTitle';
-import Nav from './Nav';
+import Navigation from './Navigation';
 import PageTitle from './PageTitle';
 import withInstancePageTitle from './withInstancePageTitle';
 
@@ -17,7 +17,7 @@ export {
 	FormattedJson,
 	Header,
 	InstanceDocumentTitle,
-	Nav,
+	Navigation,
 	PageTitle,
 	withInstancePageTitle
 };

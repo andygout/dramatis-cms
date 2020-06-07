@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import { ErrorMessage, Footer, Header, Nav } from '../components';
+import { ErrorMessage, Footer, Header, Navigation } from '../components';
 
 class FetchDataOnMountWrapper extends React.Component {
 
@@ -32,7 +32,7 @@ class FetchDataOnMountWrapper extends React.Component {
 
 				<Header/>
 
-				<Nav/>
+				<Navigation/>
 
 				<main className="main-content">
 
