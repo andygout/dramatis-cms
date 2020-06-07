@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import { formActions } from '../../utils/constants';
+import { FORM_ACTIONS } from '../../utils/constants';
 
 const DocumentTitle = props => {
 
@@ -11,10 +11,10 @@ const DocumentTitle = props => {
 
 		switch (action) {
 
-			case formActions.CREATE:
+			case FORM_ACTIONS.create:
 				return `New ${model}`;
 
-			case formActions.UPDATE:
+			case FORM_ACTIONS.update:
 				return `${name} (${model})`;
 
 			default:
