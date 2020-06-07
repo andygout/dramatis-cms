@@ -53,9 +53,9 @@ const fetchList = model => async dispatch => {
 
 	try {
 
-		const list = await performFetch(url, { mode: 'cors' });
+		const fetchedList = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receive(list, model));
+		dispatch(receive(fetchedList, model));
 
 	} catch ({ message }) {
 
