@@ -192,7 +192,7 @@ class Form extends React.Component {
 									key={`${statePath.join('-')}-${key}`}
 								>
 
-									<label className="fieldset__label">{camelCaseToSentenceCase(key)}:</label>
+									<label className="fieldset__label">{ camelCaseToSentenceCase(key) }:</label>
 
 									{
 										handleValue(
@@ -220,7 +220,7 @@ class Form extends React.Component {
 						.map(key =>
 							<fieldset className="fieldset" key={key}>
 
-								<h2 className="fieldset__header">{camelCaseToSentenceCase(key)}:</h2>
+								<h2 className="fieldset__header">{ camelCaseToSentenceCase(key) }:</h2>
 
 								{
 									handleValue(

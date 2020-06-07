@@ -42,7 +42,7 @@ export default class InstanceWrapper extends React.Component {
 					redirectToInstance={formData.get('redirectToInstance')}
 				/>
 
-				{children}
+				{ children }
 
 			</React.Fragment>
 		);

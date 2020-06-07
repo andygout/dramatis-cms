@@ -12,7 +12,7 @@ export default function (props) {
 
 	return (
 		<h1 className={pageTitleClassName}>
-			{text}
+			{ text }
 		</h1>
 	);
 

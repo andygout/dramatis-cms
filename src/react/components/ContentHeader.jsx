@@ -8,7 +8,7 @@ export default function (props) {
 		text
 			? (
 				<div className="content-header">
-					{text}
+					{ text }
 				</div>
 			)
 			: null

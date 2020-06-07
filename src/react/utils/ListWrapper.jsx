@@ -15,7 +15,7 @@ export default class ListWrapper extends React.Component {
 
 				<FormattedJson data={instances} />
 
-				{children}
+				{ children }
 
 			</React.Fragment>
 		);
