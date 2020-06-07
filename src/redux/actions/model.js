@@ -5,11 +5,17 @@ import { pluralise } from '../../lib/strings';
 
 const URL_BASE = 'http://localhost:3000';
 
-const request = model =>
+const requestList = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}`]);
 
-const receive = (fetchedData, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}`], fetchedData);
+const receiveList = (list, model) =>
+	createAction(actions[`RECEIVE_${model.toUpperCase()}`], list);
+
+const requestInstance = model =>
+	createAction(actions[`REQUEST_${model.toUpperCase()}`]);
+
+const receiveInstance = instance =>
+	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}`], instance);
 
 const requestTemplate = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}_TEMPLATE`]);
@@ -47,7 +53,7 @@ const performFetch = async (url, settings) => {
 
 const fetchList = model => async dispatch => {
 
-	dispatch(request(model));
+	dispatch(requestList(model));
 
 	const url = `${URL_BASE}/${model}`;
 
@@ -55,7 +61,7 @@ const fetchList = model => async dispatch => {
 
 		const fetchedList = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receive(fetchedList, model));
+		dispatch(receiveList(fetchedList, model));
 
 	} catch ({ message }) {
 
@@ -137,7 +143,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 	// `const apiCallRequired = isInstance ? getState().getIn([model, 'uuid']) !== uuid : !getState().get(model).size;`
 	// This is not applied here because it is necessary for a CMS to display the most current data from source.
 
-	dispatch(request(model));
+	dispatch(requestInstance(model));
 
 	const url = `${URL_BASE}/${pluralise(model)}/${uuid}/edit`;
 
@@ -145,7 +151,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receive(fetchedInstance, model));
+		dispatch(receiveInstance(fetchedInstance));
 
 		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
