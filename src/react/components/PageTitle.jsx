@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-const PageTitle = props => {
+export default function (props) {
 
 	const { text, isNewInstance } = props;
 
@@ -12,10 +12,8 @@ const PageTitle = props => {
 
 	return (
 		<h1 className={pageTitleClassName}>
-			{text}
+			{ text }
 		</h1>
 	);
 
 };
-
-export default PageTitle;

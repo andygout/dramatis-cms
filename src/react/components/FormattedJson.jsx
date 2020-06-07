@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormattedJson = props => {
+export default function (props) {
 
 	return (
 		<pre>
@@ -9,5 +9,3 @@ const FormattedJson = props => {
 	);
 
 };
-
-export default FormattedJson;

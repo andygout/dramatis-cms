@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { FORM_ACTIONS } from '../../utils/constants';
 
-const DocumentTitle = props => {
+export default function (props) {
 
 	const { name, model, formAction } = props;
 
@@ -29,5 +29,3 @@ const DocumentTitle = props => {
 	);
 
 };
-
-export default DocumentTitle;

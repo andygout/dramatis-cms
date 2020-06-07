@@ -7,7 +7,7 @@ $removal-button-border-width: 1px;
 
 .fieldset {
 	padding: 10px 10px 20px;
-	background-color: $form-bg-color;
+	background-color: $form-background-color;
 	border: 2px solid $border-color;
 	border-radius: 5px;
 }
@@ -46,7 +46,7 @@ $removal-button-border-width: 1px;
 	padding: 0px 10px;
 	height: $removal-button-height;
 	line-height: $removal-button-height;
-	background-color: $content-bg-color;
+	background-color: $content-background-color;
 	border: $removal-button-border-width solid $border-color;
 	border-radius: 5px;
 }
@@ -73,6 +73,6 @@ $removal-button-border-width: 1px;
 	margin-top: 40px;
 	height: 22px;
 	width: 170px;
-	background-color: $button-bg-color;
+	background-color: $button-background-color;
 	cursor: pointer;
 }

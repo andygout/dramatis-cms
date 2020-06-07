@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
-import camelCaseToSentenceCase from '../../../lib/camel-case-to-sentence-case';
 import createBlankMap from '../../../lib/create-blank-map';
-import { capitalise, pluralise } from '../../../lib/strings';
+import { camelCaseToSentenceCase, capitalise, pluralise } from '../../../lib/strings';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
 import { ArrayItem, Input, InputErrors } from '.';
 import { createInstance, updateInstance } from '../../../redux/actions/model';
@@ -26,7 +25,7 @@ class Form extends React.Component {
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 
-	}
+	};
 
 	componentDidUpdate (prevProps) {
 
@@ -36,7 +35,7 @@ class Form extends React.Component {
 
 		}
 
-	}
+	};
 
 	createObjectWithImmutableContent (immutableMap) {
 
@@ -46,13 +45,13 @@ class Form extends React.Component {
 
 		return object;
 
-	}
+	};
 
 	isRemovalButtonRequired (index, listSize) {
 
 		return !((index + 1) === listSize);
 
-	}
+	};
 
 	getNewStateForRootAttr (rootAttr, statePath, eventTargetValue) {
 
@@ -87,7 +86,7 @@ class Form extends React.Component {
 
 		return newStateForRootAttr;
 
-	}
+	};
 
 	handleChange (statePath, event) {
 
@@ -95,7 +94,7 @@ class Form extends React.Component {
 
 		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target.value) });
 
-	}
+	};
 
 	handleRemovalClick (statePath, event) {
 
@@ -105,7 +104,7 @@ class Form extends React.Component {
 
 		this.setState({ [rootAttr]: removeIn(this.state[rootAttr], statePath) });
 
-	}
+	};
 
 	handleSubmit (event) {
 
@@ -121,7 +120,7 @@ class Form extends React.Component {
 
 		}
 
-	}
+	};
 
 	render () {
 
@@ -131,7 +130,9 @@ class Form extends React.Component {
 
 			const instanceUuid = this.props.instance.get('uuid');
 
-			return <Redirect to={`/${pluralisedModel}/${instanceUuid}`} />;
+			return (
+				<Redirect to={`/${pluralisedModel}/${instanceUuid}`} />
+			);
 		}
 
 		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
@@ -189,11 +190,11 @@ class Form extends React.Component {
 							.filter(([key]) => !concealedKeys.includes(key))
 							.map(([key, value]) =>
 								<div
-									className={isArrayItem ? 'fieldset__module-component': ''}
+									className={classNames({ 'fieldset__module-component': isArrayItem })}
 									key={`${statePath.join('-')}-${key}`}
 								>
 
-									<label className="fieldset__label">{camelCaseToSentenceCase(key)}:</label>
+									<label className="fieldset__label">{ camelCaseToSentenceCase(key) }:</label>
 
 									{
 										handleValue(
@@ -210,7 +211,7 @@ class Form extends React.Component {
 				</div>
 			);
 
-		}
+		};
 
 		return (
 			<form className="form" onSubmit={this.handleSubmit}>
@@ -221,7 +222,7 @@ class Form extends React.Component {
 						.map(key =>
 							<fieldset className="fieldset" key={key}>
 
-								<h2 className="fieldset__header">{camelCaseToSentenceCase(key)}:</h2>
+								<h2 className="fieldset__header">{ camelCaseToSentenceCase(key) }:</h2>
 
 								{
 									handleValue(
@@ -240,9 +241,9 @@ class Form extends React.Component {
 			</form>
 		);
 
-	}
+	};
 
-}
+};
 
 const mapDispatchToProps = dispatch =>
 	bindActionCreators({ createInstance, updateInstance }, dispatch);

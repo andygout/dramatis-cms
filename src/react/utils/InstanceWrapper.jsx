@@ -9,7 +9,7 @@ import {
 	withInstancePageTitle
 } from '../components';
 
-class InstanceWrapper extends React.Component {
+export default class InstanceWrapper extends React.Component {
 
 	render () {
 
@@ -26,7 +26,7 @@ class InstanceWrapper extends React.Component {
 					formAction={formData.get('action')}
 				/>
 
-				<ContentHeader text={instance.get('model')}/>
+				<ContentHeader text={instance.get('model')} />
 
 				<InstancePageTitle
 					name={instance.get('name')}
@@ -34,7 +34,7 @@ class InstanceWrapper extends React.Component {
 					formAction={formData.get('action')}
 				/>
 
-				<FormattedJson data={instance}/>
+				<FormattedJson data={instance} />
 
 				<Form
 					instance={formData.get('instance')}
@@ -42,7 +42,7 @@ class InstanceWrapper extends React.Component {
 					redirectToInstance={formData.get('redirectToInstance')}
 				/>
 
-				{children}
+				{ children }
 
 			</React.Fragment>
 		);
@@ -50,5 +50,3 @@ class InstanceWrapper extends React.Component {
 	};
 
 };
-
-export default InstanceWrapper;

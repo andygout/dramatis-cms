@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ContentHeader = props => {
+export default function (props) {
 
 	const { text } = props;
 
@@ -8,12 +8,10 @@ const ContentHeader = props => {
 		text
 			? (
 				<div className="content-header">
-					{text}
+					{ text }
 				</div>
 			)
 			: null
 	);
 
 };
-
-export default ContentHeader;

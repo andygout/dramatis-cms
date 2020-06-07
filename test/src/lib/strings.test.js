@@ -1,8 +1,28 @@
 import { expect } from 'chai';
 
-import { capitalise, pluralise } from '../../../src/lib/strings';
+import { camelCaseToSentenceCase, capitalise, pluralise } from '../../../src/lib/strings';
 
 describe('Strings module', () => {
+
+	describe('Camel Case To Sentence Case function', () => {
+
+		it('converts single word camel-cased values to sentence case', () => {
+
+			const result = camelCaseToSentenceCase('name');
+
+			expect(result).to.eq('Name');
+
+		});
+
+		it('converts multi-word camel-cased values to sentence case', () => {
+
+			const result = camelCaseToSentenceCase('characterName');
+
+			expect(result).to.eq('Character name');
+
+		});
+
+	});
 
 	describe('Capitalise function', () => {
 
@@ -30,7 +50,7 @@ describe('Strings module', () => {
 
 	describe('Pluralise function', () => {
 
-		context('Model is regular plural noun', () => {
+		context('Model has regular plural noun', () => {
 
 			it('returns singular noun with appended \'s\'', () => {
 
@@ -40,7 +60,7 @@ describe('Strings module', () => {
 
 		});
 
-		context('Model is irregular plural noun', () => {
+		context('Model has irregular plural noun', () => {
 
 			it('returns specific plural noun', () => {
 

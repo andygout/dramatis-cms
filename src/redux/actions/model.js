@@ -5,23 +5,23 @@ import { pluralise } from '../../lib/strings';
 
 const URL_BASE = 'http://localhost:3000';
 
-const request = model =>
+const requestList = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}`]);
 
-const receive = (instance, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}`], instance);
+const receiveList = (list, model) =>
+	createAction(actions[`RECEIVE_${model.toUpperCase()}`], list);
 
-const requestTemplate = model =>
-	createAction(actions[`REQUEST_${model.toUpperCase()}_TEMPLATE`]);
+const requestInstance = model =>
+	createAction(actions[`REQUEST_${model.toUpperCase()}`]);
 
-const receiveTemplate = (instanceTemplate, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}_TEMPLATE`], instanceTemplate);
+const receiveInstance = instance =>
+	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}`], instance);
 
-const receiveNewFormData = (instance, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}_NEW_FORM_DATA`], instance);
+const receiveNewFormData = formData =>
+	createAction(actions[`RECEIVE_${formData.instance.model.toUpperCase()}_NEW_FORM_DATA`], formData);
 
-const receiveEditFormData = (instance, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}_EDIT_FORM_DATA`], instance);
+const receiveEditFormData = formData =>
+	createAction(actions[`RECEIVE_${formData.instance.model.toUpperCase()}_EDIT_FORM_DATA`], formData);
 
 const requestCreate = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}_CREATE`]);
@@ -47,15 +47,15 @@ const performFetch = async (url, settings) => {
 
 const fetchList = model => async dispatch => {
 
-	dispatch(request(model));
+	dispatch(requestList(model));
 
 	const url = `${URL_BASE}/${model}`;
 
 	try {
 
-		const list = await performFetch(url, { mode: 'cors' });
+		const fetchedList = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receive(list, model));
+		dispatch(receiveList(fetchedList, model));
 
 	} catch ({ message }) {
 
@@ -67,17 +67,17 @@ const fetchList = model => async dispatch => {
 
 const fetchInstanceTemplate = model => async dispatch => {
 
-	dispatch(requestTemplate(model));
+	dispatch(requestInstance(model));
 
 	const url = `${URL_BASE}/${pluralise(model)}/new`;
 
 	try {
 
-		const instance = await performFetch(url, { mode: 'cors' });
+		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receiveTemplate(instance, model));
+		dispatch(receiveInstance(fetchedInstance));
 
-		dispatch(receiveNewFormData({ instance, redirectToInstance: false }, model));
+		dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
 	} catch ({ message }) {
 
@@ -106,17 +106,17 @@ const createInstance = instance => async dispatch => {
 
 	try {
 
-		const instance = await performFetch(url, fetchSettings);
+		const fetchedInstance = await performFetch(url, fetchSettings);
 
-		if (instance.hasErrors) {
+		if (fetchedInstance.hasErrors) {
 
-			dispatch(receiveNewFormData({ instance, redirectToInstance: false }, model));
+			dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
 		} else {
 
-			dispatch(receiveCreate(instance));
+			dispatch(receiveCreate(fetchedInstance));
 
-			dispatch(receiveEditFormData({ instance, redirectToInstance: true }, model));
+			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: true }));
 
 		}
 
@@ -137,17 +137,17 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 	// `const apiCallRequired = isInstance ? getState().getIn([model, 'uuid']) !== uuid : !getState().get(model).size;`
 	// This is not applied here because it is necessary for a CMS to display the most current data from source.
 
-	dispatch(request(model));
+	dispatch(requestInstance(model));
 
 	const url = `${URL_BASE}/${pluralise(model)}/${uuid}/edit`;
 
 	try {
 
-		const instance = await performFetch(url, { mode: 'cors' });
+		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receive(instance, model));
+		dispatch(receiveInstance(fetchedInstance));
 
-		dispatch(receiveEditFormData({ instance, redirectToInstance: false }, model));
+		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
 	} catch ({ message }) {
 
@@ -176,11 +176,11 @@ const updateInstance = instance => async dispatch => {
 
 	try {
 
-		const instance = await performFetch(url, fetchSettings);
+		const fetchedInstance = await performFetch(url, fetchSettings);
 
-		if (!instance.hasErrors) dispatch(receiveUpdate(instance));
+		if (!fetchedInstance.hasErrors) dispatch(receiveUpdate(fetchedInstance));
 
-		dispatch(receiveEditFormData({ instance, redirectToInstance: false }, model));
+		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
 	} catch ({ message }) {
 
