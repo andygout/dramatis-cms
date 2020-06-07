@@ -8,8 +8,8 @@ const URL_BASE = 'http://localhost:3000';
 const request = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}`]);
 
-const receive = (instance, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}`], instance);
+const receive = (fetchedData, model) =>
+	createAction(actions[`RECEIVE_${model.toUpperCase()}`], fetchedData);
 
 const requestTemplate = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}_TEMPLATE`]);
