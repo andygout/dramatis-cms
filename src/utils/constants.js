@@ -3,11 +3,11 @@ const FORM_ACTIONS = {
 	update: 'UPDATE'
 }
 
-const IRREGULAR_PLURAL_NOUNS = {
+const IRREGULAR_PLURAL_NOUNS_MAP = {
 	person: 'people'
 };
 
 export {
 	FORM_ACTIONS,
-	IRREGULAR_PLURAL_NOUNS
+	IRREGULAR_PLURAL_NOUNS_MAP
 };
