@@ -17,12 +17,6 @@ const requestInstance = model =>
 const receiveInstance = instance =>
 	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}`], instance);
 
-const requestTemplate = model =>
-	createAction(actions[`REQUEST_${model.toUpperCase()}_TEMPLATE`]);
-
-const receiveTemplate = instanceTemplate =>
-	createAction(actions[`RECEIVE_${instanceTemplate.model.toUpperCase()}_TEMPLATE`], instanceTemplate);
-
 const receiveNewFormData = formData =>
 	createAction(actions[`RECEIVE_${formData.instance.model.toUpperCase()}_NEW_FORM_DATA`], formData);
 
@@ -73,7 +67,7 @@ const fetchList = model => async dispatch => {
 
 const fetchInstanceTemplate = model => async dispatch => {
 
-	dispatch(requestTemplate(model));
+	dispatch(requestInstance(model));
 
 	const url = `${URL_BASE}/${pluralise(model)}/new`;
 
@@ -81,7 +75,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receiveTemplate(fetchedInstance));
+		dispatch(receiveInstance(fetchedInstance));
 
 		dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
