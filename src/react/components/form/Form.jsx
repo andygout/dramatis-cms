@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
-import camelCaseToSentenceCase from '../../../lib/camel-case-to-sentence-case';
 import createBlankMap from '../../../lib/create-blank-map';
-import { capitalise, pluralise } from '../../../lib/strings';
+import { camelCaseToSentenceCase, capitalise, pluralise } from '../../../lib/strings';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
 import { ArrayItem, Input, InputErrors } from '.';
 import { createInstance, updateInstance } from '../../../redux/actions/model';
