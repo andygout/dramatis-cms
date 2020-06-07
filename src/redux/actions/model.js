@@ -14,14 +14,14 @@ const receive = (fetchedData, model) =>
 const requestTemplate = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}_TEMPLATE`]);
 
-const receiveTemplate = (instanceTemplate, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}_TEMPLATE`], instanceTemplate);
+const receiveTemplate = instanceTemplate =>
+	createAction(actions[`RECEIVE_${instanceTemplate.model.toUpperCase()}_TEMPLATE`], instanceTemplate);
 
-const receiveNewFormData = (formData, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}_NEW_FORM_DATA`], formData);
+const receiveNewFormData = formData =>
+	createAction(actions[`RECEIVE_${formData.instance.model.toUpperCase()}_NEW_FORM_DATA`], formData);
 
-const receiveEditFormData = (formData, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}_EDIT_FORM_DATA`], formData);
+const receiveEditFormData = formData =>
+	createAction(actions[`RECEIVE_${formData.instance.model.toUpperCase()}_EDIT_FORM_DATA`], formData);
 
 const requestCreate = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}_CREATE`]);
@@ -75,9 +75,9 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receiveTemplate(fetchedInstance, model));
+		dispatch(receiveTemplate(fetchedInstance));
 
-		dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }, model));
+		dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
 	} catch ({ message }) {
 
@@ -110,13 +110,13 @@ const createInstance = instance => async dispatch => {
 
 		if (fetchedInstance.hasErrors) {
 
-			dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }, model));
+			dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
 		} else {
 
 			dispatch(receiveCreate(fetchedInstance));
 
-			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: true }, model));
+			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: true }));
 
 		}
 
@@ -147,7 +147,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 		dispatch(receive(fetchedInstance, model));
 
-		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }, model));
+		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
 	} catch ({ message }) {
 
@@ -180,7 +180,7 @@ const updateInstance = instance => async dispatch => {
 
 		if (!fetchedInstance.hasErrors) dispatch(receiveUpdate(fetchedInstance));
 
-		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }, model));
+		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }));
 
 	} catch ({ message }) {
 
