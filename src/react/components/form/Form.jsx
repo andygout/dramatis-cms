@@ -130,7 +130,9 @@ class Form extends React.Component {
 
 			const instanceUuid = this.props.instance.get('uuid');
 
-			return <Redirect to={`/${pluralisedModel}/${instanceUuid}`} />;
+			return (
+				<Redirect to={`/${pluralisedModel}/${instanceUuid}`} />
+			);
 		}
 
 		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
