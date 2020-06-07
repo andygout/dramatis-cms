@@ -26,7 +26,7 @@ export default class InstanceWrapper extends React.Component {
 					formAction={formData.get('action')}
 				/>
 
-				<ContentHeader text={instance.get('model')}/>
+				<ContentHeader text={instance.get('model')} />
 
 				<InstancePageTitle
 					name={instance.get('name')}
@@ -34,7 +34,7 @@ export default class InstanceWrapper extends React.Component {
 					formAction={formData.get('action')}
 				/>
 
-				<FormattedJson data={instance}/>
+				<FormattedJson data={instance} />
 
 				<Form
 					instance={formData.get('instance')}

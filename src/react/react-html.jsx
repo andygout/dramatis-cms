@@ -8,7 +8,7 @@ import App from './App';
 export default (request, store) => renderToString(
 		<Provider store={store}>
 			<StaticRouter location={request.url} context={{}}>
-				<App/>
+				<App />
 			</StaticRouter>
 		</Provider>
 	);

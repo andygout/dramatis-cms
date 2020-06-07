@@ -26,7 +26,7 @@ export default class App extends React.Component {
 											documentTitle={route.documentTitle}
 											fetchData={route.fetchData}
 										>
-											<RouteComponent/>
+											<RouteComponent />
 										</FetchDataOnMountWrapper>
 									);
 								}
