@@ -17,11 +17,11 @@ const requestTemplate = model =>
 const receiveTemplate = (instanceTemplate, model) =>
 	createAction(actions[`RECEIVE_${model.toUpperCase()}_TEMPLATE`], instanceTemplate);
 
-const receiveNewFormData = (instance, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}_NEW_FORM_DATA`], instance);
+const receiveNewFormData = (formData, model) =>
+	createAction(actions[`RECEIVE_${model.toUpperCase()}_NEW_FORM_DATA`], formData);
 
-const receiveEditFormData = (instance, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}_EDIT_FORM_DATA`], instance);
+const receiveEditFormData = (formData, model) =>
+	createAction(actions[`RECEIVE_${model.toUpperCase()}_EDIT_FORM_DATA`], formData);
 
 const requestCreate = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}_CREATE`]);
