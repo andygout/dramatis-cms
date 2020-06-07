@@ -12,7 +12,7 @@ import { capitalise, pluralise } from '../../../lib/strings';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
 import { ArrayItem, Input, InputErrors } from '.';
 import { createInstance, updateInstance } from '../../../redux/actions/model';
-import { formActions } from '../../../utils/constants';
+import { FORM_ACTIONS } from '../../../utils/constants';
 
 class Form extends React.Component {
 
@@ -113,10 +113,10 @@ class Form extends React.Component {
 
 		switch (this.props.action) {
 
-			case formActions.CREATE:
+			case FORM_ACTIONS.create:
 				return this.props.createInstance(this.state);
 
-			case formActions.UPDATE:
+			case FORM_ACTIONS.update:
 				return this.props.updateInstance(this.state);
 
 		}

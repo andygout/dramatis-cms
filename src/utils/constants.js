@@ -1,13 +1,13 @@
-const formActions = {
-	CREATE: 'CREATE',
-	UPDATE: 'UPDATE'
+const FORM_ACTIONS = {
+	create: 'CREATE',
+	update: 'UPDATE'
 }
 
-const irregularPluralNouns = {
-	'person': 'people'
+const IRREGULAR_PLURAL_NOUNS = {
+	person: 'people'
 };
 
 export {
-	formActions,
-	irregularPluralNouns
+	FORM_ACTIONS,
+	IRREGULAR_PLURAL_NOUNS
 };

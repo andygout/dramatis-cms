@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formActions } from '../../utils/constants';
+import { FORM_ACTIONS } from '../../utils/constants';
 
 const withInstancePageTitle = PageTitle => props => {
 
@@ -10,10 +10,10 @@ const withInstancePageTitle = PageTitle => props => {
 
 		switch (action) {
 
-			case formActions.CREATE:
+			case FORM_ACTIONS.create:
 				return `New ${model}`;
 
-			case formActions.UPDATE:
+			case FORM_ACTIONS.update:
 				return name;
 
 			default:
@@ -23,7 +23,7 @@ const withInstancePageTitle = PageTitle => props => {
 
 	})(formAction);
 
-	const isNewInstance = formAction === formActions.CREATE;
+	const isNewInstance = formAction === FORM_ACTIONS.create
 
 	return (
 		<PageTitle text={text} isNewInstance={isNewInstance} />
