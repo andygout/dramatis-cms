@@ -73,11 +73,11 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	try {
 
-		const instance = await performFetch(url, { mode: 'cors' });
+		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receiveTemplate(instance, model));
+		dispatch(receiveTemplate(fetchedInstance, model));
 
-		dispatch(receiveNewFormData({ instance, redirectToInstance: false }, model));
+		dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }, model));
 
 	} catch ({ message }) {
 
@@ -106,17 +106,17 @@ const createInstance = instance => async dispatch => {
 
 	try {
 
-		const instance = await performFetch(url, fetchSettings);
+		const fetchedInstance = await performFetch(url, fetchSettings);
 
-		if (instance.hasErrors) {
+		if (fetchedInstance.hasErrors) {
 
-			dispatch(receiveNewFormData({ instance, redirectToInstance: false }, model));
+			dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }, model));
 
 		} else {
 
-			dispatch(receiveCreate(instance));
+			dispatch(receiveCreate(fetchedInstance));
 
-			dispatch(receiveEditFormData({ instance, redirectToInstance: true }, model));
+			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: true }, model));
 
 		}
 
@@ -143,11 +143,11 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	try {
 
-		const instance = await performFetch(url, { mode: 'cors' });
+		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receive(instance, model));
+		dispatch(receive(fetchedInstance, model));
 
-		dispatch(receiveEditFormData({ instance, redirectToInstance: false }, model));
+		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }, model));
 
 	} catch ({ message }) {
 
@@ -176,11 +176,11 @@ const updateInstance = instance => async dispatch => {
 
 	try {
 
-		const instance = await performFetch(url, fetchSettings);
+		const fetchedInstance = await performFetch(url, fetchSettings);
 
-		if (!instance.hasErrors) dispatch(receiveUpdate(instance));
+		if (!fetchedInstance.hasErrors) dispatch(receiveUpdate(fetchedInstance));
 
-		dispatch(receiveEditFormData({ instance, redirectToInstance: false }, model));
+		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }, model));
 
 	} catch ({ message }) {
 
