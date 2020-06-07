@@ -25,7 +25,7 @@ class Form extends React.Component {
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 
-	}
+	};
 
 	componentDidUpdate (prevProps) {
 
@@ -35,7 +35,7 @@ class Form extends React.Component {
 
 		}
 
-	}
+	};
 
 	createObjectWithImmutableContent (immutableMap) {
 
@@ -45,13 +45,13 @@ class Form extends React.Component {
 
 		return object;
 
-	}
+	};
 
 	isRemovalButtonRequired (index, listSize) {
 
 		return !((index + 1) === listSize);
 
-	}
+	};
 
 	getNewStateForRootAttr (rootAttr, statePath, eventTargetValue) {
 
@@ -86,7 +86,7 @@ class Form extends React.Component {
 
 		return newStateForRootAttr;
 
-	}
+	};
 
 	handleChange (statePath, event) {
 
@@ -94,7 +94,7 @@ class Form extends React.Component {
 
 		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target.value) });
 
-	}
+	};
 
 	handleRemovalClick (statePath, event) {
 
@@ -104,7 +104,7 @@ class Form extends React.Component {
 
 		this.setState({ [rootAttr]: removeIn(this.state[rootAttr], statePath) });
 
-	}
+	};
 
 	handleSubmit (event) {
 
@@ -120,7 +120,7 @@ class Form extends React.Component {
 
 		}
 
-	}
+	};
 
 	render () {
 
@@ -209,7 +209,7 @@ class Form extends React.Component {
 				</div>
 			);
 
-		}
+		};
 
 		return (
 			<form className="form" onSubmit={this.handleSubmit}>
@@ -239,9 +239,9 @@ class Form extends React.Component {
 			</form>
 		);
 
-	}
+	};
 
-}
+};
 
 const mapDispatchToProps = dispatch =>
 	bindActionCreators({ createInstance, updateInstance }, dispatch);
