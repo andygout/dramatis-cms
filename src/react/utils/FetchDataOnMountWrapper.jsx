@@ -22,7 +22,7 @@ class FetchDataOnMountWrapper extends React.Component {
 		const { error } = props;
 
 		return (
-			<div className="page-container">
+			<React.Fragment>
 
 				<Helmet
 					defaultTitle='TheatreBase'
@@ -46,7 +46,7 @@ class FetchDataOnMountWrapper extends React.Component {
 
 				<Footer />
 
-			</div>
+			</React.Fragment>
 		);
 
 	};
