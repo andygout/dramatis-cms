@@ -2,7 +2,7 @@ import React from 'react';
 
 import { PageTitle } from '../components';
 
-export default function () {
+export default () => {
 
 	return (
 		<PageTitle text='Home' />

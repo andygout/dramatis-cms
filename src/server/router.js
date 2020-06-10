@@ -18,7 +18,7 @@ const store = createStore(
 	applyMiddleware(...[thunkMiddleware])
 );
 
-router.get('*', async function (request, response, next) {
+router.get('*', async (request, response, next) => {
 
 	try {
 

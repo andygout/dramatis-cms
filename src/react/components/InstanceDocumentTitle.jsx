@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { FORM_ACTIONS } from '../../utils/constants';
 
-export default function (props) {
+export default props => {
 
 	const { name, model, formAction } = props;
 

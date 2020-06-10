@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ErrorMessage } from '../components';
 
-export default function () {
+export default () => {
 
 	return (
 		<ErrorMessage errorText='Not Found' />
