@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-export default function (props) {
+export default props => {
 
 	const { value, hasErrors, handleChange } = props;
 
