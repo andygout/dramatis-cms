@@ -5,11 +5,11 @@ import { pluralise } from '../../lib/strings';
 
 const URL_BASE = 'http://localhost:3000';
 
-const requestList = model =>
-	createAction(actions[`REQUEST_${model.toUpperCase()}`]);
+const requestList = pluralisedModel =>
+	createAction(actions[`REQUEST_${pluralisedModel.toUpperCase()}`]);
 
-const receiveList = (list, model) =>
-	createAction(actions[`RECEIVE_${model.toUpperCase()}`], list);
+const receiveList = (list, pluralisedModel) =>
+	createAction(actions[`RECEIVE_${pluralisedModel.toUpperCase()}`], list);
 
 const requestInstance = model =>
 	createAction(actions[`REQUEST_${model.toUpperCase()}`]);
@@ -45,17 +45,17 @@ const performFetch = async (url, settings) => {
 
 }
 
-const fetchList = model => async dispatch => {
+const fetchList = pluralisedModel => async dispatch => {
 
-	dispatch(requestList(model));
+	dispatch(requestList(pluralisedModel));
 
-	const url = `${URL_BASE}/${model}`;
+	const url = `${URL_BASE}/${pluralisedModel}`;
 
 	try {
 
 		const fetchedList = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receiveList(fetchedList, model));
+		dispatch(receiveList(fetchedList, pluralisedModel));
 
 	} catch ({ message }) {
 
