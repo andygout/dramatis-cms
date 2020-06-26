@@ -1,3 +1,5 @@
+import nodeFetch from 'node-fetch';
+
 import createAction from './base';
 import { setError } from './error';
 import * as actions from '../utils/model-actions';
@@ -36,6 +38,8 @@ const receiveUpdate = instance =>
 	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}_UPDATE`], instance);
 
 const performFetch = async (url, settings) => {
+
+	const fetch = global.fetch || nodeFetch;
 
 	const response = await fetch(url, settings);
 
