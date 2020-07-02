@@ -10,7 +10,7 @@ describe('Strings module', () => {
 
 			const result = camelCaseToSentenceCase('name');
 
-			expect(result).to.eq('Name');
+			expect(result).to.equal('Name');
 
 		});
 
@@ -18,7 +18,7 @@ describe('Strings module', () => {
 
 			const result = camelCaseToSentenceCase('characterName');
 
-			expect(result).to.eq('Character name');
+			expect(result).to.equal('Character name');
 
 		});
 
@@ -30,7 +30,7 @@ describe('Strings module', () => {
 
 			it('returns string with initial letter as capital', () => {
 
-				expect(capitalise('string')).to.eq('String');
+				expect(capitalise('string')).to.equal('String');
 
 			});
 
@@ -40,7 +40,7 @@ describe('Strings module', () => {
 
 			it('returns string with initial letter as capital', () => {
 
-				expect(capitalise('STRING')).to.eq('String');
+				expect(capitalise('STRING')).to.equal('String');
 
 			});
 
@@ -54,7 +54,7 @@ describe('Strings module', () => {
 
 			it('returns singular noun with appended \'s\'', () => {
 
-				expect(pluralise('production')).to.eq('productions');
+				expect(pluralise('production')).to.equal('productions');
 
 			});
 
@@ -64,7 +64,7 @@ describe('Strings module', () => {
 
 			it('returns specific plural noun', () => {
 
-				expect(pluralise('person')).to.eq('people');
+				expect(pluralise('person')).to.equal('people');
 
 			});
 
