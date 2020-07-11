@@ -10,7 +10,7 @@ import createBlankMap from '../../../lib/create-blank-map';
 import { camelCaseToSentenceCase, capitalise, pluralise } from '../../../lib/strings';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
 import { ArrayItem, Input, InputErrors } from '.';
-import { createInstance, updateInstance } from '../../../redux/actions/model';
+import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 import { FORM_ACTIONS } from '../../../utils/constants';
 
 class Form extends React.Component {
@@ -24,6 +24,7 @@ class Form extends React.Component {
 			: {};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 
 	};
 
@@ -122,6 +123,12 @@ class Form extends React.Component {
 
 	};
 
+	handleDelete () {
+
+		this.props.deleteInstance(this.state);
+
+	};
+
 	render () {
 
 		if (this.props.redirectToInstance) {
@@ -135,9 +142,18 @@ class Form extends React.Component {
 			);
 		}
 
+		if (this.props.redirectToList) {
+
+			const pluralisedModel = pluralise(this.props.instance.get('model'));
+
+			return (
+				<Redirect to={`/${pluralisedModel}`} />
+			);
+		}
+
 		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
 
-		const buttonText = this.props.action
+		const submitButtonText = this.props.action
 			? capitalise(this.props.action)
 			: 'Submit';
 
@@ -236,7 +252,8 @@ class Form extends React.Component {
 						)
 				}
 
-				<input className="button" type="submit" value={buttonText} />
+				<input className="button" type="submit" value={submitButtonText} />
+				<input className="button" onClick={this.handleDelete} value={'Delete'} readOnly={true} />
 
 			</form>
 		);
@@ -246,6 +263,6 @@ class Form extends React.Component {
 };
 
 const mapDispatchToProps = dispatch =>
-	bindActionCreators({ createInstance, updateInstance }, dispatch);
+	bindActionCreators({ createInstance, updateInstance, deleteInstance }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Form);

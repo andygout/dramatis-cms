@@ -4,7 +4,8 @@ import {
 	REQUEST_PERSON,
 	RECEIVE_PERSON,
 	RECEIVE_PERSON_CREATE,
-	RECEIVE_PERSON_UPDATE
+	RECEIVE_PERSON_UPDATE,
+	RECEIVE_PERSON_DELETE
 } from '../utils/model-actions';
 
 const person = (state = Map({}), action) => {
@@ -14,6 +15,7 @@ const person = (state = Map({}), action) => {
 		case RECEIVE_PERSON:
 		case RECEIVE_PERSON_CREATE:
 		case RECEIVE_PERSON_UPDATE:
+		case RECEIVE_PERSON_DELETE:
 			return fromJS(action.payload);
 
 		case REQUEST_PERSON:
