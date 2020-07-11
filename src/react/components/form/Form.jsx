@@ -131,25 +131,7 @@ class Form extends React.Component {
 
 	render () {
 
-		if (this.props.redirectToInstance) {
-
-			const pluralisedModel = pluralise(this.props.instance.get('model'));
-
-			const instanceUuid = this.props.instance.get('uuid');
-
-			return (
-				<Redirect to={`/${pluralisedModel}/${instanceUuid}`} />
-			);
-		}
-
-		if (this.props.redirectToList) {
-
-			const pluralisedModel = pluralise(this.props.instance.get('model'));
-
-			return (
-				<Redirect to={`/${pluralisedModel}`} />
-			);
-		}
+		if (this.props.redirectPath) return <Redirect to={this.props.redirectPath} />;
 
 		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
 

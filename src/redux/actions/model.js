@@ -87,7 +87,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 		dispatch(receiveInstance(fetchedInstance));
 
-		dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }));
+		dispatch(receiveNewFormData({ instance: fetchedInstance }));
 
 	} catch ({ message }) {
 
@@ -120,13 +120,15 @@ const createInstance = instance => async dispatch => {
 
 		if (fetchedInstance.hasErrors) {
 
-			dispatch(receiveNewFormData({ instance: fetchedInstance, redirectToInstance: false }));
+			dispatch(receiveNewFormData({ instance: fetchedInstance }));
 
 		} else {
 
 			dispatch(receiveCreate(fetchedInstance));
 
-			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: true }));
+			const redirectPath = `/${pluralise(fetchedInstance.model)}/${fetchedInstance.uuid}`;
+
+			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
 		}
 
@@ -157,7 +159,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 		dispatch(receiveInstance(fetchedInstance));
 
-		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }));
+		dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
 	} catch ({ message }) {
 
@@ -190,7 +192,7 @@ const updateInstance = instance => async dispatch => {
 
 		if (!fetchedInstance.hasErrors) dispatch(receiveUpdate(fetchedInstance));
 
-		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToInstance: false }));
+		dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
 	} catch ({ message }) {
 
@@ -219,7 +221,9 @@ const deleteInstance = instance => async dispatch => {
 
 		dispatch(receiveDelete(fetchedInstance));
 
-		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToList: true }));
+		const redirectPath = `/${pluralise(fetchedInstance.model)}`;
+
+		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
 	} catch ({ message }) {
 
