@@ -40,6 +40,7 @@ export default class InstanceWrapper extends React.Component {
 					instance={formData.get('instance')}
 					action={formData.get('action')}
 					redirectToInstance={formData.get('redirectToInstance')}
+					redirectToList={formData.get('redirectToList')}
 				/>
 
 				{ children }

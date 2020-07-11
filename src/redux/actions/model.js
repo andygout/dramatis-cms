@@ -37,6 +37,12 @@ const requestUpdate = model =>
 const receiveUpdate = instance =>
 	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}_UPDATE`], instance);
 
+const requestDelete = model =>
+	createAction(actions[`REQUEST_${model.toUpperCase()}_DELETE`]);
+
+const receiveDelete = instance =>
+	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}_DELETE`], instance);
+
 const performFetch = async (url, settings) => {
 
 	const fetch = global.fetch || nodeFetch;
@@ -194,10 +200,40 @@ const updateInstance = instance => async dispatch => {
 
 }
 
+const deleteInstance = instance => async dispatch => {
+
+	const model = instance.model;
+
+	dispatch(requestDelete(model));
+
+	const url = `${URL_BASE}/${pluralise(model)}/${instance.uuid}`;
+
+	const fetchSettings = {
+		mode: 'cors',
+		method: 'DELETE'
+	};
+
+	try {
+
+		const fetchedInstance = await performFetch(url, fetchSettings);
+
+		dispatch(receiveDelete(fetchedInstance));
+
+		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectToList: true }));
+
+	} catch ({ message }) {
+
+		dispatch(setError({ exists: true, message }));
+
+	}
+
+}
+
 export {
 	fetchList,
 	fetchInstanceTemplate,
 	fetchInstance,
 	createInstance,
-	updateInstance
+	updateInstance,
+	deleteInstance
 }
