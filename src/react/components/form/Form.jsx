@@ -139,6 +139,8 @@ class Form extends React.Component {
 			? capitalise(this.props.action)
 			: 'Submit';
 
+		const isDeleteButtonRequired = this.props.action === FORM_ACTIONS.update;
+
 		const handleValue = (value, statePath, errors) =>
 			Map.isMap(value)
 				? renderAsForm(value, statePath)
@@ -235,8 +237,12 @@ class Form extends React.Component {
 				}
 
 				<input className="button" type="submit" value={submitButtonText} />
-				<input className="button" onClick={this.handleDelete} value={'Delete'} readOnly={true} />
 
+				{
+					isDeleteButtonRequired && (
+						<input className="button" onClick={this.handleDelete} value={'Delete'} readOnly={true} />
+					)
+				}
 			</form>
 		);
 
