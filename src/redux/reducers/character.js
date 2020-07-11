@@ -3,8 +3,11 @@ import { Map, fromJS } from 'immutable';
 import {
 	REQUEST_CHARACTER,
 	RECEIVE_CHARACTER,
+	REQUEST_CHARACTER_CREATE,
 	RECEIVE_CHARACTER_CREATE,
+	REQUEST_CHARACTER_UPDATE,
 	RECEIVE_CHARACTER_UPDATE,
+	REQUEST_CHARACTER_DELETE,
 	RECEIVE_CHARACTER_DELETE
 } from '../utils/model-actions';
 
@@ -19,6 +22,9 @@ const character = (state = Map({}), action) => {
 			return fromJS(action.payload);
 
 		case REQUEST_CHARACTER:
+		case REQUEST_CHARACTER_CREATE:
+		case REQUEST_CHARACTER_UPDATE:
+		case REQUEST_CHARACTER_DELETE:
 		default:
 			return state;
 
