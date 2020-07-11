@@ -99,7 +99,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 const createInstance = instance => async dispatch => {
 
-	const model = instance.model;
+	const { model } = instance;
 
 	dispatch(requestCreate(model));
 
@@ -171,11 +171,11 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 const updateInstance = instance => async dispatch => {
 
-	const model = instance.model;
+	const { model, uuid } = instance;
 
 	dispatch(requestUpdate(model));
 
-	const url = `${URL_BASE}/${pluralise(model)}/${instance.uuid}`;
+	const url = `${URL_BASE}/${pluralise(model)}/${uuid}`;
 
 	const fetchSettings = {
 		headers: {
@@ -204,11 +204,11 @@ const updateInstance = instance => async dispatch => {
 
 const deleteInstance = instance => async dispatch => {
 
-	const model = instance.model;
+	const { model, uuid } = instance;
 
 	dispatch(requestDelete(model));
 
-	const url = `${URL_BASE}/${pluralise(model)}/${instance.uuid}`;
+	const url = `${URL_BASE}/${pluralise(model)}/${uuid}`;
 
 	const fetchSettings = {
 		mode: 'cors',
