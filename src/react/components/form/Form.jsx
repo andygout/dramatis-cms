@@ -125,6 +125,8 @@ class Form extends React.Component {
 
 	handleDelete () {
 
+		event.preventDefault();
+
 		this.props.deleteInstance(this.state);
 
 	};
@@ -236,11 +238,11 @@ class Form extends React.Component {
 						)
 				}
 
-				<input className="button" type="submit" value={submitButtonText} />
+				<button className="button">{ submitButtonText }</button>
 
 				{
 					isDeleteButtonRequired && (
-						<input className="button" onClick={this.handleDelete} value={'Delete'} readOnly={true} />
+						<button className="button" onClick={this.handleDelete}>Delete</button>
 					)
 				}
 			</form>
