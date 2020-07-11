@@ -3,8 +3,11 @@ import { Map, fromJS } from 'immutable';
 import {
 	REQUEST_PLAYTEXT,
 	RECEIVE_PLAYTEXT,
+	REQUEST_PLAYTEXT_CREATE,
 	RECEIVE_PLAYTEXT_CREATE,
+	REQUEST_PLAYTEXT_UPDATE,
 	RECEIVE_PLAYTEXT_UPDATE,
+	REQUEST_PLAYTEXT_DELETE,
 	RECEIVE_PLAYTEXT_DELETE
 } from '../utils/model-actions';
 
@@ -19,6 +22,9 @@ const playtext = (state = Map({}), action) => {
 			return fromJS(action.payload);
 
 		case REQUEST_PLAYTEXT:
+		case REQUEST_PLAYTEXT_CREATE:
+		case REQUEST_PLAYTEXT_UPDATE:
+		case REQUEST_PLAYTEXT_DELETE:
 		default:
 			return state;
 
