@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
-import { ErrorMessage, Footer, Header, Navigation } from '../components';
+import { ErrorMessage, Footer, Header, Navigation, Notification } from '../components';
 
 class FetchDataOnMountWrapper extends React.Component {
 
@@ -17,7 +17,7 @@ class FetchDataOnMountWrapper extends React.Component {
 
 	render () {
 
-		const { documentTitle, error, children } = this.props;
+		const { documentTitle, notification, error, children } = this.props;
 
 		return (
 			<React.Fragment>
@@ -33,6 +33,15 @@ class FetchDataOnMountWrapper extends React.Component {
 				<Navigation />
 
 				<main className="main-content">
+
+					{
+						notification.get('isActive') && (
+							<Notification
+								text={notification.get('text')}
+								status={notification.get('status')}
+							/>
+						)
+					}
 
 					{
 						error.get('exists')
@@ -51,8 +60,14 @@ class FetchDataOnMountWrapper extends React.Component {
 
 };
 
-FetchDataOnMountWrapper.propTypes = { error: ImmutablePropTypes.map.isRequired };
+FetchDataOnMountWrapper.propTypes = {
+	error: ImmutablePropTypes.map.isRequired,
+	notification: ImmutablePropTypes.map.isRequired
+};
 
-const mapStateToProps = state => ({ error: state.get('error') });
+const mapStateToProps = state => ({
+	error: state.get('error'),
+	notification: state.get('notification')
+});
 
 export default connect(mapStateToProps)(FetchDataOnMountWrapper);

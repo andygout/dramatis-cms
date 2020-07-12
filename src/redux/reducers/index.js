@@ -2,6 +2,7 @@ import characterFormData from './character-form-data';
 import character from './character';
 import characters from './characters';
 import error from './error';
+import notification from './notification';
 import people from './people';
 import personFormData from './person-form-data';
 import person from './person';
@@ -20,6 +21,7 @@ export default {
 	character,
 	characters,
 	error,
+	notification,
 	people,
 	personFormData,
 	person,

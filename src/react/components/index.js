@@ -6,6 +6,7 @@ import FormattedJson from './FormattedJson';
 import Header from './Header';
 import InstanceDocumentTitle from './InstanceDocumentTitle';
 import Navigation from './Navigation';
+import Notification from './Notification';
 import PageTitle from './PageTitle';
 import withInstancePageTitle from './withInstancePageTitle';
 
@@ -18,6 +19,7 @@ export {
 	Header,
 	InstanceDocumentTitle,
 	Navigation,
+	Notification,
 	PageTitle,
 	withInstancePageTitle
 };

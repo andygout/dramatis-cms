@@ -15,6 +15,7 @@ import {
 
 import { resetError } from '../redux/actions/error';
 import { fetchList, fetchInstanceTemplate, fetchInstance } from '../redux/actions/model';
+import { deactivateNotification } from '../redux/actions/notification';
 
 export default [
 	{
@@ -23,7 +24,8 @@ export default [
 		documentTitle: () => 'Home',
 		component: Home,
 		fetchData: [
-			dispatch => dispatch(resetError())
+			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification())
 		]
 	},
 	{
@@ -33,6 +35,7 @@ export default [
 		component: Characters,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('characters'))
 		]
 	},
@@ -43,6 +46,7 @@ export default [
 		component: Character,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('character'))
 		]
 	},
@@ -52,6 +56,7 @@ export default [
 		component: Character,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('character', uuid))
 		]
 	},
@@ -62,6 +67,7 @@ export default [
 		component: People,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('people'))
 		]
 	},
@@ -72,6 +78,7 @@ export default [
 		component: Person,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('person'))
 		]
 	},
@@ -81,6 +88,7 @@ export default [
 		component: Person,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('person', uuid))
 		]
 	},
@@ -91,6 +99,7 @@ export default [
 		component: Playtexts,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('playtexts'))
 		]
 	},
@@ -101,6 +110,7 @@ export default [
 		component: Playtext,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('playtext'))
 		]
 	},
@@ -110,6 +120,7 @@ export default [
 		component: Playtext,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('playtext', uuid))
 		]
 	},
@@ -120,6 +131,7 @@ export default [
 		component: Productions,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('productions'))
 		]
 	},
@@ -130,6 +142,7 @@ export default [
 		component: Production,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('production'))
 		]
 	},
@@ -139,6 +152,7 @@ export default [
 		component: Production,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('production', uuid))
 		]
 	},
@@ -149,6 +163,7 @@ export default [
 		component: Theatres,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('theatres'))
 		]
 	},
@@ -159,6 +174,7 @@ export default [
 		component: Theatre,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('theatre'))
 		]
 	},
@@ -168,12 +184,16 @@ export default [
 		component: Theatre,
 		fetchData: [
 			dispatch => dispatch(resetError()),
+			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('theatre', uuid))
 		]
 	},
 	{
 		path: '*',
 		documentTitle: () => 'Not Found',
-		component: NotFound
+		component: NotFound,
+		fetchData: [
+			dispatch => dispatch(deactivateNotification())
+		]
 	}
 ];

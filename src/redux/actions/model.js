@@ -2,8 +2,10 @@ import nodeFetch from 'node-fetch';
 
 import createAction from './base';
 import { setError } from './error';
+import { activateNotification } from './notification';
 import * as actions from '../utils/model-actions';
 import { pluralise } from '../../lib/strings';
+import { NOTIFICATION_STATUSES } from '../../utils/constants';
 
 const URL_BASE = 'http://localhost:3000';
 
@@ -122,6 +124,14 @@ const createInstance = instance => async dispatch => {
 
 			dispatch(receiveNewFormData({ instance: fetchedInstance }));
 
+			const notification = {
+				text: `This ${fetchedInstance.model} contains errors`,
+				status: NOTIFICATION_STATUSES.failure,
+				isActive: true
+			};
+
+			dispatch(activateNotification(notification));
+
 		} else {
 
 			dispatch(receiveCreate(fetchedInstance));
@@ -129,6 +139,14 @@ const createInstance = instance => async dispatch => {
 			const redirectPath = `/${pluralise(fetchedInstance.model)}/${fetchedInstance.uuid}`;
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
+
+			const notification = {
+				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been created`,
+				status: NOTIFICATION_STATUSES.success,
+				isActive: true
+			};
+
+			dispatch(activateNotification(notification));
 
 		}
 
@@ -190,7 +208,29 @@ const updateInstance = instance => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, fetchSettings);
 
-		if (!fetchedInstance.hasErrors) dispatch(receiveUpdate(fetchedInstance));
+		if (fetchedInstance.hasErrors) {
+
+			const notification = {
+				text: `This ${fetchedInstance.model} contains errors`,
+				status: NOTIFICATION_STATUSES.failure,
+				isActive: true
+			};
+
+			dispatch(activateNotification(notification));
+
+		} else {
+
+			dispatch(receiveUpdate(fetchedInstance));
+
+			const notification = {
+				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been updated`,
+				status: NOTIFICATION_STATUSES.success,
+				isActive: true
+			};
+
+			dispatch(activateNotification(notification));
+
+		}
 
 		dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
@@ -224,6 +264,14 @@ const deleteInstance = instance => async dispatch => {
 		const redirectPath = `/${pluralise(fetchedInstance.model)}`;
 
 		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
+
+		const notification = {
+			text: `${fetchedInstance.name} (${fetchedInstance.model}) has been deleted`,
+			status: NOTIFICATION_STATUSES.success,
+			isActive: true
+		};
+
+		dispatch(activateNotification(notification));
 
 	} catch ({ message }) {
 
