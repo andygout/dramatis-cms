@@ -4,6 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { ErrorMessage, Footer, Header, Navigation, Notification } from '../components';
+import { removeRedirectPath } from '../../redux/actions/model';
 
 class FetchDataOnMountWrapper extends React.Component {
 
@@ -12,6 +13,9 @@ class FetchDataOnMountWrapper extends React.Component {
 		const { fetchData, dispatch, match, location } = this.props;
 
 		if (fetchData) fetchData.map(fetchDataFunction => fetchDataFunction(dispatch, match, location));
+
+		if (location.state && location.state.redirectPathOriginStateProp)
+			dispatch(removeRedirectPath(location.state.redirectPathOriginStateProp));
 
 	};
 

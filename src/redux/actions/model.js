@@ -281,11 +281,20 @@ const deleteInstance = instance => async dispatch => {
 
 }
 
+const removeRedirectPath = redirectPathOriginStateProp => async (dispatch, getState) => {
+
+	const { instance } = getState().get(redirectPathOriginStateProp).toJS();
+
+	dispatch(receiveEditFormData({ instance }));
+
+}
+
 export {
 	fetchList,
 	fetchInstanceTemplate,
 	fetchInstance,
 	createInstance,
 	updateInstance,
-	deleteInstance
+	deleteInstance,
+	removeRedirectPath
 }

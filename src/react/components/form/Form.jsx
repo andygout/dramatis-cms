@@ -133,7 +133,20 @@ class Form extends React.Component {
 
 	render () {
 
-		if (this.props.redirectPath) return <Redirect to={this.props.redirectPath} />;
+		if (this.props.redirectPath) {
+
+			const redirectToProps = {
+				pathname: this.props.redirectPath,
+				state: {
+					redirectPathOriginStateProp: `${this.state.model}FormData`
+				}
+			};
+
+			return (
+				<Redirect to={redirectToProps} />
+			);
+
+		}
 
 		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
 
