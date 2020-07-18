@@ -259,19 +259,33 @@ const deleteInstance = instance => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, fetchSettings);
 
-		dispatch(receiveDelete(fetchedInstance));
+		if (fetchedInstance.hasErrors) {
 
-		const redirectPath = `/${pluralise(fetchedInstance.model)}`;
+			const notification = {
+				text: `This ${fetchedInstance.model} cannot be deleted because it has dependent associations`,
+				status: NOTIFICATION_STATUSES.failure,
+				isActive: true
+			};
 
-		dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
+			dispatch(activateNotification(notification));
 
-		const notification = {
-			text: `${fetchedInstance.name} (${fetchedInstance.model}) has been deleted`,
-			status: NOTIFICATION_STATUSES.success,
-			isActive: true
-		};
+		} else {
 
-		dispatch(activateNotification(notification));
+			dispatch(receiveDelete(fetchedInstance));
+
+			const redirectPath = `/${pluralise(fetchedInstance.model)}`;
+
+			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
+
+			const notification = {
+				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been deleted`,
+				status: NOTIFICATION_STATUSES.success,
+				isActive: true
+			};
+
+			dispatch(activateNotification(notification));
+
+		}
 
 	} catch ({ message }) {
 
