@@ -120,17 +120,17 @@ const createInstance = instance => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, fetchSettings);
 
+		let notification;
+
 		if (fetchedInstance.hasErrors) {
 
 			dispatch(receiveNewFormData({ instance: fetchedInstance }));
 
-			const notification = {
+			notification = {
 				text: `This ${fetchedInstance.model} contains errors`,
 				status: NOTIFICATION_STATUSES.failure,
 				isActive: true
 			};
-
-			dispatch(activateNotification(notification));
 
 		} else {
 
@@ -140,15 +140,15 @@ const createInstance = instance => async dispatch => {
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
-			const notification = {
+			notification = {
 				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been created`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
 
-			dispatch(activateNotification(notification));
-
 		}
+
+		dispatch(activateNotification(notification));
 
 	} catch ({ message }) {
 
@@ -208,29 +208,29 @@ const updateInstance = instance => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, fetchSettings);
 
+		let notification;
+
 		if (fetchedInstance.hasErrors) {
 
-			const notification = {
+			notification = {
 				text: `This ${fetchedInstance.model} contains errors`,
 				status: NOTIFICATION_STATUSES.failure,
 				isActive: true
 			};
 
-			dispatch(activateNotification(notification));
-
 		} else {
 
 			dispatch(receiveUpdate(fetchedInstance));
 
-			const notification = {
+			notification = {
 				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been updated`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
 
-			dispatch(activateNotification(notification));
-
 		}
+
+		dispatch(activateNotification(notification));
 
 		dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
@@ -259,15 +259,15 @@ const deleteInstance = instance => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, fetchSettings);
 
+		let notification;
+
 		if (fetchedInstance.hasErrors) {
 
-			const notification = {
+			notification = {
 				text: `This ${fetchedInstance.model} cannot be deleted because it has dependent associations`,
 				status: NOTIFICATION_STATUSES.failure,
 				isActive: true
 			};
-
-			dispatch(activateNotification(notification));
 
 		} else {
 
@@ -277,15 +277,15 @@ const deleteInstance = instance => async dispatch => {
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
-			const notification = {
+			notification = {
 				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been deleted`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
 
-			dispatch(activateNotification(notification));
-
 		}
+
+		dispatch(activateNotification(notification));
 
 	} catch ({ message }) {
 
