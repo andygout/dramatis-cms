@@ -32,7 +32,7 @@ class Form extends React.Component {
 
 		if (!is(prevProps.instance, this.props.instance)) {
 
-			this.setState(this.createObjectWithImmutableContent(this.props.instance));
+			this.setState({ uuid: undefined, ...this.createObjectWithImmutableContent(this.props.instance) });
 
 		}
 
