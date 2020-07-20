@@ -3,7 +3,7 @@ import { Map, fromJS } from 'immutable';
 import {
 	ACTIVATE_NOTIFICATION,
 	DEACTIVATE_NOTIFICATION
-} from '../utils/notification-action-names.js';
+} from '../utils/notification-action-names';
 
 const notification = (state = Map({}), action) => {
 

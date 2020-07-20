@@ -2,7 +2,7 @@ import createAction from './base';
 import {
 	SET_ERROR_STATUS,
 	RESET_ERROR_STATUS
-} from '../utils/error-action-names.js';
+} from '../utils/error-action-names';
 
 const setErrorStatus = error => createAction(SET_ERROR_STATUS, error);
 
