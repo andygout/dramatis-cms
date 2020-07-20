@@ -13,7 +13,7 @@ import {
 	NotFound
 } from './pages';
 
-import { resetError } from '../redux/actions/error';
+import { resetErrorStatus } from '../redux/actions/error';
 import { fetchList, fetchInstanceTemplate, fetchInstance } from '../redux/actions/model';
 import { deactivateNotification } from '../redux/actions/notification';
 
@@ -24,7 +24,7 @@ export default [
 		documentTitle: () => 'Home',
 		component: Home,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification())
 		]
 	},
@@ -34,7 +34,7 @@ export default [
 		documentTitle: () => 'Characters',
 		component: Characters,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('characters'))
 		]
@@ -45,7 +45,7 @@ export default [
 		documentTitle: () => 'New character',
 		component: Character,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('character'))
 		]
@@ -55,7 +55,7 @@ export default [
 		documentTitle: () => 'Character',
 		component: Character,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('character', uuid))
 		]
@@ -66,7 +66,7 @@ export default [
 		documentTitle: () => 'People',
 		component: People,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('people'))
 		]
@@ -77,7 +77,7 @@ export default [
 		documentTitle: () => 'New person',
 		component: Person,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('person'))
 		]
@@ -87,7 +87,7 @@ export default [
 		documentTitle: () => 'Person',
 		component: Person,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('person', uuid))
 		]
@@ -98,7 +98,7 @@ export default [
 		documentTitle: () => 'Playtexts',
 		component: Playtexts,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('playtexts'))
 		]
@@ -109,7 +109,7 @@ export default [
 		documentTitle: () => 'New playtext',
 		component: Playtext,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('playtext'))
 		]
@@ -119,7 +119,7 @@ export default [
 		documentTitle: () => 'Playtexts',
 		component: Playtext,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('playtext', uuid))
 		]
@@ -130,7 +130,7 @@ export default [
 		documentTitle: () => 'Productions',
 		component: Productions,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('productions'))
 		]
@@ -141,7 +141,7 @@ export default [
 		documentTitle: () => 'New production',
 		component: Production,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('production'))
 		]
@@ -151,7 +151,7 @@ export default [
 		documentTitle: () => 'Production',
 		component: Production,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('production', uuid))
 		]
@@ -162,7 +162,7 @@ export default [
 		documentTitle: () => 'Theatres',
 		component: Theatres,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList('theatres'))
 		]
@@ -173,7 +173,7 @@ export default [
 		documentTitle: () => 'New theatre',
 		component: Theatre,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate('theatre'))
 		]
@@ -183,7 +183,7 @@ export default [
 		documentTitle: () => 'Theatre',
 		component: Theatre,
 		fetchData: [
-			dispatch => dispatch(resetError()),
+			dispatch => dispatch(resetErrorStatus()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('theatre', uuid))
 		]
