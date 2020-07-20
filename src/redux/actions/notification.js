@@ -2,7 +2,7 @@ import createAction from './base';
 import {
 	ACTIVATE_NOTIFICATION,
 	DEACTIVATE_NOTIFICATION
-} from '../utils/notification-action-names.js';
+} from '../utils/notification-action-names';
 
 const activateNotification = notification => createAction(ACTIVATE_NOTIFICATION, notification);
 

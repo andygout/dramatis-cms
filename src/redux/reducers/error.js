@@ -3,7 +3,7 @@ import { Map, fromJS } from 'immutable';
 import {
 	SET_ERROR_STATUS,
 	RESET_ERROR_STATUS
-} from '../utils/error-action-names.js';
+} from '../utils/error-action-names';
 
 const error = (state = Map({ exists: false }), action) => {
 
