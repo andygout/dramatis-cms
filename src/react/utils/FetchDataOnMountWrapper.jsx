@@ -14,7 +14,7 @@ class FetchDataOnMountWrapper extends React.Component {
 
 		if (fetchData) fetchData.map(fetchDataFunction => fetchDataFunction(dispatch, match, location));
 
-		if (location.state && location.state.redirectPathOriginStateProp)
+		if (location.state?.redirectPathOriginStateProp)
 			dispatch(removeRedirectPath(location.state.redirectPathOriginStateProp));
 
 	};
