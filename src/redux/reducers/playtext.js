@@ -9,7 +9,7 @@ import {
 	RECEIVE_PLAYTEXT_UPDATE,
 	REQUEST_PLAYTEXT_DELETE,
 	RECEIVE_PLAYTEXT_DELETE
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 
 const playtext = (state = Map({}), action) => {
 

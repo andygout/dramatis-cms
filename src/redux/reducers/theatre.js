@@ -9,7 +9,7 @@ import {
 	RECEIVE_THEATRE_UPDATE,
 	REQUEST_THEATRE_DELETE,
 	RECEIVE_THEATRE_DELETE
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 
 const theatre = (state = Map({}), action) => {
 

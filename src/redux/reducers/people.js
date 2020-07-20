@@ -3,7 +3,7 @@ import { List, fromJS } from 'immutable';
 import {
 	REQUEST_PEOPLE,
 	RECEIVE_PEOPLE
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 
 const people = (state = List([]), action) => {
 
