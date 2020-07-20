@@ -9,7 +9,7 @@ import {
 	RECEIVE_CHARACTER_UPDATE,
 	REQUEST_CHARACTER_DELETE,
 	RECEIVE_CHARACTER_DELETE
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 
 const character = (state = Map({}), action) => {
 

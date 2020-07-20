@@ -3,7 +3,7 @@ import nodeFetch from 'node-fetch';
 import createAction from './base';
 import { setErrorStatus } from './error';
 import { activateNotification } from './notification';
-import * as actions from '../utils/model-actions';
+import * as actions from '../utils/model-action-names';
 import { pluralise } from '../../lib/strings';
 import { NOTIFICATION_STATUSES } from '../../utils/constants';
 

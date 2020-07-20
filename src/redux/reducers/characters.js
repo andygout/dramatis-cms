@@ -3,7 +3,7 @@ import { List, fromJS } from 'immutable';
 import {
 	REQUEST_CHARACTERS,
 	RECEIVE_CHARACTERS
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 
 const characters = (state = List([]), action) => {
 

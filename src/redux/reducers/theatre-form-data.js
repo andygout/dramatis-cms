@@ -3,7 +3,7 @@ import { Map, fromJS } from 'immutable';
 import {
 	RECEIVE_THEATRE_NEW_FORM_DATA,
 	RECEIVE_THEATRE_EDIT_FORM_DATA
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 import { FORM_ACTIONS } from '../../utils/constants';
 
 const theatreFormData = (state = Map({}), action) => {

@@ -9,7 +9,7 @@ import {
 	RECEIVE_PERSON_UPDATE,
 	REQUEST_PERSON_DELETE,
 	RECEIVE_PERSON_DELETE
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 
 const person = (state = Map({}), action) => {
 

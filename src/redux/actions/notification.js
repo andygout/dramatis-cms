@@ -1,7 +1,8 @@
 import createAction from './base';
-
-const ACTIVATE_NOTIFICATION = 'ACTIVATE_NOTIFICATION';
-const DEACTIVATE_NOTIFICATION = 'DEACTIVATE_NOTIFICATION';
+import {
+	ACTIVATE_NOTIFICATION,
+	DEACTIVATE_NOTIFICATION
+} from '../utils/notification-action-names.js';
 
 const activateNotification = notification => createAction(ACTIVATE_NOTIFICATION, notification);
 
@@ -16,8 +17,6 @@ const deactivateNotification = () => (dispatch, getState) => {
 }
 
 export {
-	ACTIVATE_NOTIFICATION,
-	DEACTIVATE_NOTIFICATION,
 	activateNotification,
 	deactivateNotification
 };

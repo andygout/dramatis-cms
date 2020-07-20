@@ -3,7 +3,7 @@ import { List, fromJS } from 'immutable';
 import {
 	REQUEST_PLAYTEXTS,
 	RECEIVE_PLAYTEXTS
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 
 const playtexts = (state = List([]), action) => {
 

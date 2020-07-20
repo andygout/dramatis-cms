@@ -9,7 +9,7 @@ import {
 	RECEIVE_PRODUCTION_UPDATE,
 	REQUEST_PRODUCTION_DELETE,
 	RECEIVE_PRODUCTION_DELETE
-} from '../utils/model-actions';
+} from '../utils/model-action-names';
 
 const production = (state = Map({}), action) => {
 
