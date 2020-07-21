@@ -265,7 +265,4 @@ class Form extends React.Component {
 
 };
 
-const mapDispatchToProps = dispatch =>
-	bindActionCreators({ createInstance, updateInstance, deleteInstance }, dispatch);
-
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(null, { createInstance, updateInstance, deleteInstance })(Form);
