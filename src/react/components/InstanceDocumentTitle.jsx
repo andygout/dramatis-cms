@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import { FORM_ACTIONS } from '../../utils/constants';
 
-export default props => {
+const InstanceDocumentTitle = props => {
 
 	const { name, model, formAction } = props;
 
@@ -29,3 +30,11 @@ export default props => {
 	);
 
 };
+
+InstanceDocumentTitle.propTypes = {
+	name: PropTypes.string,
+	model: PropTypes.string,
+	formAction: PropTypes.string
+};
+
+export default InstanceDocumentTitle;

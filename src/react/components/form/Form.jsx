@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import { List, Map, is, getIn, removeIn, setIn, updateIn } from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
 
 import createBlankMap from '../../../lib/create-blank-map';
-import { camelCaseToSentenceCase, capitalise, pluralise } from '../../../lib/strings';
+import { camelCaseToSentenceCase, capitalise } from '../../../lib/strings';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
 import { ArrayItem, Input, InputErrors } from '.';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
@@ -26,7 +26,7 @@ class Form extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 
-	};
+	}
 
 	componentDidUpdate (prevProps) {
 
@@ -36,7 +36,7 @@ class Form extends React.Component {
 
 		}
 
-	};
+	}
 
 	createObjectWithImmutableContent (immutableMap) {
 
@@ -46,13 +46,13 @@ class Form extends React.Component {
 
 		return object;
 
-	};
+	}
 
 	isRemovalButtonRequired (index, listSize) {
 
 		return !((index + 1) === listSize);
 
-	};
+	}
 
 	getNewStateForRootAttr (rootAttr, statePath, eventTargetValue) {
 
@@ -87,7 +87,7 @@ class Form extends React.Component {
 
 		return newStateForRootAttr;
 
-	};
+	}
 
 	handleChange (statePath, event) {
 
@@ -95,7 +95,7 @@ class Form extends React.Component {
 
 		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target.value) });
 
-	};
+	}
 
 	handleRemovalClick (statePath, event) {
 
@@ -105,7 +105,7 @@ class Form extends React.Component {
 
 		this.setState({ [rootAttr]: removeIn(this.state[rootAttr], statePath) });
 
-	};
+	}
 
 	handleSubmit (event) {
 
@@ -121,7 +121,7 @@ class Form extends React.Component {
 
 		}
 
-	};
+	}
 
 	handleDelete () {
 
@@ -129,7 +129,7 @@ class Form extends React.Component {
 
 		this.props.deleteInstance(this.state);
 
-	};
+	}
 
 	render () {
 
@@ -261,8 +261,17 @@ class Form extends React.Component {
 			</form>
 		);
 
-	};
+	}
 
+}
+
+Form.propTypes = {
+	instance: ImmutablePropTypes.map,
+	action: PropTypes.string,
+	redirectPath: PropTypes.string,
+	createInstance: PropTypes.func.isRequired,
+	updateInstance: PropTypes.func.isRequired,
+	deleteInstance: PropTypes.func.isRequired
 };
 
 export default connect(null, { createInstance, updateInstance, deleteInstance })(Form);

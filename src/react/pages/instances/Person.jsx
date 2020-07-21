@@ -18,9 +18,9 @@ class Person extends React.Component {
 			</InstanceWrapper>
 		);
 
-	};
+	}
 
-};
+}
 
 Person.propTypes = {
 	person: ImmutablePropTypes.map.isRequired,

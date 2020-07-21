@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React from 'react';
 
-export default props => {
+const Input = props => {
 
 	const { value, hasErrors, handleChange } = props;
 
@@ -21,3 +22,11 @@ export default props => {
 	);
 
 };
+
+Input.propTypes = {
+	value: PropTypes.string.isRequired,
+	hasErrors: PropTypes.bool.isRequired,
+	handleChange: PropTypes.func.isRequired
+};
+
+export default Input;

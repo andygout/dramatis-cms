@@ -18,9 +18,9 @@ class Playtext extends React.Component {
 			</InstanceWrapper>
 		);
 
-	};
+	}
 
-};
+}
 
 Playtext.propTypes = {
 	playtext: ImmutablePropTypes.map.isRequired,

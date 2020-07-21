@@ -16,12 +16,16 @@ class Theatres extends React.Component {
 			</ListWrapper>
 		);
 
-	};
+	}
 
+}
+
+Theatres.propTypes = {
+	theatres: ImmutablePropTypes.list.isRequired
 };
 
-Theatres.propTypes = { theatres: ImmutablePropTypes.list.isRequired };
-
-const mapStateToProps = state => ({ theatres: state.get('theatres') });
+const mapStateToProps = state => ({
+	theatres: state.get('theatres')
+});
 
 export default connect(mapStateToProps)(Theatres);

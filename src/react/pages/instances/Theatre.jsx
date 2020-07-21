@@ -18,9 +18,9 @@ class Theatre extends React.Component {
 			</InstanceWrapper>
 		);
 
-	};
+	}
 
-};
+}
 
 Theatre.propTypes = {
 	theatre: ImmutablePropTypes.map.isRequired,

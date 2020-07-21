@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -17,7 +18,7 @@ class FetchDataOnMountWrapper extends React.Component {
 		if (location.state?.redirectPathOriginStateProp)
 			dispatch(removeRedirectPath(location.state.redirectPathOriginStateProp));
 
-	};
+	}
 
 	render () {
 
@@ -60,13 +61,19 @@ class FetchDataOnMountWrapper extends React.Component {
 			</React.Fragment>
 		);
 
-	};
+	}
 
-};
+}
 
 FetchDataOnMountWrapper.propTypes = {
+	documentTitle: PropTypes.func.isRequired,
+	notification: ImmutablePropTypes.map.isRequired,
 	error: ImmutablePropTypes.map.isRequired,
-	notification: ImmutablePropTypes.map.isRequired
+	children: PropTypes.node.isRequired,
+	fetchData: PropTypes.array.isRequired,
+	dispatch: PropTypes.func.isRequired,
+	match: PropTypes.object.isRequired,
+	location: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

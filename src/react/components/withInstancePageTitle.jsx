@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { FORM_ACTIONS } from '../../utils/constants';
 
-export default PageTitle => props => {
+const withInstancePageTitle = PageTitle => props => {
 
 	const { name, model, formAction } = props;
 
@@ -23,10 +24,18 @@ export default PageTitle => props => {
 
 	})(formAction);
 
-	const isNewInstance = formAction === FORM_ACTIONS.create
+	const isNewInstance = formAction === FORM_ACTIONS.create;
 
 	return (
 		<PageTitle text={text} isNewInstance={isNewInstance} />
 	);
 
 };
+
+withInstancePageTitle.propTypes = {
+	name: PropTypes.string.isRequired,
+	model: PropTypes.string.isRequired,
+	formAction: PropTypes.string.isRequired
+};
+
+export default withInstancePageTitle;
