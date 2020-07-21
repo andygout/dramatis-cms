@@ -243,7 +243,7 @@ class Form extends React.Component {
 									handleValue(
 										this.state[key],
 										[key],
-										this.state.errors && this.state.errors.get(key)
+										this.state.errors?.get(key)
 									)
 								}
 
