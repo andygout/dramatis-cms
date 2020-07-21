@@ -14,7 +14,7 @@ const deactivateNotification = () => (dispatch, getState) => {
 
 	}
 
-}
+};
 
 export {
 	activateNotification,
