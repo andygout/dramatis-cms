@@ -55,7 +55,7 @@ const performFetch = async (url, settings) => {
 
 	return response.json();
 
-}
+};
 
 const fetchList = pluralisedModel => async dispatch => {
 
@@ -75,7 +75,7 @@ const fetchList = pluralisedModel => async dispatch => {
 
 	}
 
-}
+};
 
 const fetchInstanceTemplate = model => async dispatch => {
 
@@ -97,7 +97,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	}
 
-}
+};
 
 const createInstance = instance => async dispatch => {
 
@@ -156,7 +156,7 @@ const createInstance = instance => async dispatch => {
 
 	}
 
-}
+};
 
 const fetchInstance = (model, uuid = null) => async dispatch => {
 
@@ -185,7 +185,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	}
 
-}
+};
 
 const updateInstance = instance => async dispatch => {
 
@@ -240,7 +240,7 @@ const updateInstance = instance => async dispatch => {
 
 	}
 
-}
+};
 
 const deleteInstance = instance => async dispatch => {
 
@@ -298,7 +298,7 @@ const deleteInstance = instance => async dispatch => {
 
 	}
 
-}
+};
 
 const removeRedirectPath = redirectPathOriginStateProp => async (dispatch, getState) => {
 
@@ -306,7 +306,7 @@ const removeRedirectPath = redirectPathOriginStateProp => async (dispatch, getSt
 
 	dispatch(receiveEditFormData({ instance }));
 
-}
+};
 
 export {
 	fetchList,
@@ -316,4 +316,4 @@ export {
 	updateInstance,
 	deleteInstance,
 	removeRedirectPath
-}
+};
