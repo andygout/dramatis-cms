@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-export default props => {
+const FormattedJson = props => {
 
 	return (
 		<pre>
@@ -9,3 +11,12 @@ export default props => {
 	);
 
 };
+
+FormattedJson.propTypes = {
+	data: PropTypes.oneOfType([
+		ImmutablePropTypes.list.isRequired,
+		ImmutablePropTypes.map.isRequired
+	])
+};
+
+export default FormattedJson;

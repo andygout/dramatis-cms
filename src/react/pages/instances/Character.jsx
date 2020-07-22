@@ -18,9 +18,9 @@ class Character extends React.Component {
 			</InstanceWrapper>
 		);
 
-	};
+	}
 
-};
+}
 
 Character.propTypes = {
 	character: ImmutablePropTypes.map.isRequired,

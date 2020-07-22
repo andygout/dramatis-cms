@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default props => {
+const Navigation = () => {
 
 	return (
 		<nav className="navigation">
@@ -36,3 +36,5 @@ export default props => {
 	);
 
 };
+
+export default Navigation;

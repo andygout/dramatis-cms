@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-export default props => {
+const ContentHeader = props => {
 
 	const { text } = props;
 
@@ -15,3 +16,9 @@ export default props => {
 	);
 
 };
+
+ContentHeader.propTypes = {
+	text: PropTypes.string
+};
+
+export default ContentHeader;

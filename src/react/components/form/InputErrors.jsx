@@ -1,6 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-export default props => {
+const InputErrors = props => {
 
 	const { errors, statePath } = props;
 
@@ -15,3 +17,10 @@ export default props => {
 	);
 
 };
+
+InputErrors.propTypes = {
+	errors: ImmutablePropTypes.list,
+	statePath: PropTypes.array
+};
+
+export default InputErrors;

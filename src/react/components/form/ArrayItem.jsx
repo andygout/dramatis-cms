@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-export default props => {
+const ArrayItem = props => {
 
 	const { isRemovalButtonRequired, handleRemovalClick } = props;
 
@@ -21,3 +22,10 @@ export default props => {
 	);
 
 };
+
+ArrayItem.propTypes = {
+	isRemovalButtonRequired: PropTypes.bool.isRequired,
+	handleRemovalClick: PropTypes.func.isRequired
+};
+
+export default ArrayItem;

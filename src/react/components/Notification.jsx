@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React from 'react';
 
 import { NOTIFICATION_STATUSES } from '../../utils/constants';
 
-export default props => {
+const Notification = props => {
 
 	const { text, status } = props;
 
@@ -20,3 +21,10 @@ export default props => {
 	);
 
 };
+
+Notification.propTypes = {
+	text: PropTypes.string.isRequired,
+	status: PropTypes.string
+};
+
+export default Notification;

@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React from 'react';
 
-export default props => {
+const PageTitle = props => {
 
 	const { text, isNewInstance } = props;
 
@@ -17,3 +18,10 @@ export default props => {
 	);
 
 };
+
+PageTitle.propTypes = {
+	text: PropTypes.string.isRequired,
+	isNewInstance: PropTypes.bool
+};
+
+export default PageTitle;

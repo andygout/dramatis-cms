@@ -18,9 +18,9 @@ class Production extends React.Component {
 			</InstanceWrapper>
 		);
 
-	};
+	}
 
-};
+}
 
 Production.propTypes = {
 	production: ImmutablePropTypes.map.isRequired,

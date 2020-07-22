@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default props => {
+const Footer = () => {
 
 	return (
 		<footer className="footer">
@@ -17,3 +17,5 @@ export default props => {
 	);
 
 };
+
+export default Footer;
