@@ -19,9 +19,7 @@ class Form extends React.Component {
 
 		super(props);
 
-		this.state = props.instance
-			? this.createObjectWithImmutableContent(props.instance)
-			: {};
+		this.state = this.createObjectWithImmutableContent(props.instance);
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
@@ -150,9 +148,7 @@ class Form extends React.Component {
 
 		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
 
-		const submitButtonText = this.props.action
-			? capitalise(this.props.action)
-			: 'Submit';
+		const submitButtonText = capitalise(this.props.action);
 
 		const isDeleteButtonRequired = this.props.action === FORM_ACTIONS.update;
 
@@ -170,10 +166,14 @@ class Form extends React.Component {
 								hasErrors={!!errors}
 								handleChange={this.handleChange.bind(this, statePath)}
 							/>
-							<InputErrors
-								errors={errors}
-								statePath={statePath}
-							/>
+							{
+								!!errors && (
+									<InputErrors
+										errors={errors}
+										statePath={statePath}
+									/>
+								)
+							}
 						</React.Fragment>
 					);
 
@@ -266,8 +266,8 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-	instance: ImmutablePropTypes.map,
-	action: PropTypes.string,
+	instance: ImmutablePropTypes.map.isRequired,
+	action: PropTypes.string.isRequired,
 	redirectPath: PropTypes.string,
 	createInstance: PropTypes.func.isRequired,
 	updateInstance: PropTypes.func.isRequired,

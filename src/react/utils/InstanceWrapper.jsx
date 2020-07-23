@@ -1,3 +1,4 @@
+import { Map } from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
@@ -22,12 +23,12 @@ class InstanceWrapper extends React.Component {
 			<React.Fragment>
 
 				<InstanceDocumentTitle
-					name={instance.get('name')}
-					model={instance.get('model')}
-					formAction={formData.get('action')}
+					name={instance.get('name', '')}
+					model={instance.get('model', '')}
+					formAction={formData.get('action', '')}
 				/>
 
-				<ContentHeader text={instance.get('model')} />
+				<ContentHeader text={instance.get('model', '')} />
 
 				<InstancePageTitle
 					name={instance.get('name')}
@@ -38,8 +39,8 @@ class InstanceWrapper extends React.Component {
 				<FormattedJson data={instance} />
 
 				<Form
-					instance={formData.get('instance')}
-					action={formData.get('action')}
+					instance={formData.get('instance', Map({}))}
+					action={formData.get('action', 'Submit')}
 					redirectPath={formData.get('redirectPath')}
 				/>
 
