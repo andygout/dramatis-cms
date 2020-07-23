@@ -8,7 +8,7 @@ class ListWrapper extends React.Component {
 
 	render () {
 
-		const { pageTitleText, instances, children } = this.props;
+		const { pageTitleText, instances } = this.props;
 
 		return (
 			<React.Fragment>
@@ -16,8 +16,6 @@ class ListWrapper extends React.Component {
 				<PageTitle text={pageTitleText} />
 
 				<FormattedJson data={instances} />
-
-				{ children }
 
 			</React.Fragment>
 		);
@@ -28,8 +26,7 @@ class ListWrapper extends React.Component {
 
 ListWrapper.propTypes = {
 	pageTitleText: PropTypes.string.isRequired,
-	instances: ImmutablePropTypes.list.isRequired,
-	children: PropTypes.node
+	instances: ImmutablePropTypes.list.isRequired
 };
 
 export default ListWrapper;

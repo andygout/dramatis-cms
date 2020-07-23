@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
@@ -15,7 +14,7 @@ class InstanceWrapper extends React.Component {
 
 	render () {
 
-		const { instance, formData, children } = this.props;
+		const { instance, formData } = this.props;
 
 		const InstancePageTitle = withInstancePageTitle(PageTitle);
 
@@ -44,8 +43,6 @@ class InstanceWrapper extends React.Component {
 					redirectPath={formData.get('redirectPath')}
 				/>
 
-				{ children }
-
 			</React.Fragment>
 		);
 
@@ -55,8 +52,7 @@ class InstanceWrapper extends React.Component {
 
 InstanceWrapper.propTypes = {
 	instance: ImmutablePropTypes.map.isRequired,
-	formData: ImmutablePropTypes.map.isRequired,
-	children: PropTypes.node
+	formData: ImmutablePropTypes.map.isRequired
 };
 
 export default InstanceWrapper;
