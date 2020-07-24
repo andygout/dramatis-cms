@@ -9,7 +9,7 @@ const IRREGULAR_PLURAL_NOUNS_MAP = {
 
 const NOTIFICATION_STATUSES = {
 	success: 'SUCCESS',
-	feature: 'FAILURE'
+	failure: 'FAILURE'
 };
 
 export {
