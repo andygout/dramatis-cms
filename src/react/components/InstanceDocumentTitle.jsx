@@ -32,9 +32,9 @@ const InstanceDocumentTitle = props => {
 };
 
 InstanceDocumentTitle.propTypes = {
-	name: PropTypes.string,
-	model: PropTypes.string,
-	formAction: PropTypes.string
+	name: PropTypes.string.isRequired,
+	model: PropTypes.string.isRequired,
+	formAction: PropTypes.string.isRequired
 };
 
 export default InstanceDocumentTitle;
