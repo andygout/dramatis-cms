@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const ContentHeader = props => {
+const InstanceLabel = props => {
 
 	const { text } = props;
 
 	return (
-		<div className="content-header">
+		<div className="instance-label">
 			{ text }
 		</div>
 	);
 
 };
 
-ContentHeader.propTypes = {
+InstanceLabel.propTypes = {
 	text: PropTypes.string.isRequired
 };
 
-export default ContentHeader;
+export default InstanceLabel;

@@ -3,10 +3,10 @@ import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import {
-	ContentHeader,
 	Form,
 	FormattedJson,
 	InstanceDocumentTitle,
+	InstanceLabel,
 	PageTitle,
 	withInstancePageTitle
 } from '../components';
@@ -28,7 +28,7 @@ class InstanceWrapper extends React.Component {
 					formAction={formData.get('action', '')}
 				/>
 
-				<ContentHeader text={instance.get('model', '')} />
+				<InstanceLabel text={instance.get('model', '')} />
 
 				<InstancePageTitle
 					name={instance.get('name')}
