@@ -5,7 +5,7 @@ import {
 	DEACTIVATE_NOTIFICATION
 } from '../utils/notification-action-names';
 
-const notification = (state = Map({}), action) => {
+const notification = (state = Map(), action) => {
 
 	switch (action.type) {
 

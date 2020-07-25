@@ -11,7 +11,7 @@ import {
 	RECEIVE_CHARACTER_DELETE
 } from '../utils/model-action-names';
 
-const character = (state = Map({}), action) => {
+const character = (state = Map(), action) => {
 
 	switch (action.type) {
 

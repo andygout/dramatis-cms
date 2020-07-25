@@ -39,7 +39,7 @@ class InstanceWrapper extends React.Component {
 				<FormattedJson data={instance} />
 
 				<Form
-					instance={formData.get('instance', Map({}))}
+					instance={formData.get('instance', Map())}
 					action={formData.get('action', 'Submit')}
 					redirectPath={formData.get('redirectPath')}
 				/>

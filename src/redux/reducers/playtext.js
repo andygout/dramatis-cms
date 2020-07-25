@@ -11,7 +11,7 @@ import {
 	RECEIVE_PLAYTEXT_DELETE
 } from '../utils/model-action-names';
 
-const playtext = (state = Map({}), action) => {
+const playtext = (state = Map(), action) => {
 
 	switch (action.type) {
 
