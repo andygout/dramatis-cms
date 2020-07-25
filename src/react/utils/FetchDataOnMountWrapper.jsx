@@ -49,7 +49,7 @@ class FetchDataOnMountWrapper extends React.Component {
 					}
 
 					{
-						error.get('exists')
+						error.get('isExistent')
 							? <ErrorMessage errorText={error.get('message')} />
 							: children
 					}
