@@ -11,7 +11,7 @@ import {
 	RECEIVE_THEATRE_DELETE
 } from '../utils/model-action-names';
 
-const theatre = (state = Map({}), action) => {
+const theatre = (state = Map(), action) => {
 
 	switch (action.type) {
 

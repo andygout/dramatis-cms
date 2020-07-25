@@ -6,7 +6,7 @@ import {
 } from '../utils/model-action-names';
 import { FORM_ACTIONS } from '../../utils/constants';
 
-const productionFormData = (state = Map({}), action) => {
+const productionFormData = (state = Map(), action) => {
 
 	switch (action.type) {
 

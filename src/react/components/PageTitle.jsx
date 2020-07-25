@@ -6,13 +6,13 @@ const PageTitle = props => {
 
 	const { text, isNewInstance } = props;
 
-	const pageTitleClassName = classNames({
+	const className = classNames({
 		'title-text': true,
 		'title-text--muted': isNewInstance
 	});
 
 	return (
-		<h1 className={pageTitleClassName}>
+		<h1 className={className}>
 			{ text }
 		</h1>
 	);

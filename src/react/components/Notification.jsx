@@ -8,14 +8,14 @@ const Notification = props => {
 
 	const { text, status } = props;
 
-	const notificationClassName = classNames({
+	const className = classNames({
 		'notification': true,
 		'notification--success': status === NOTIFICATION_STATUSES.success,
 		'notification--failure': status === NOTIFICATION_STATUSES.failure
 	});
 
 	return (
-		<div className={notificationClassName}>
+		<div className={className}>
 			{ text }
 		</div>
 	);

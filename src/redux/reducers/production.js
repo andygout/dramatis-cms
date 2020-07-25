@@ -11,7 +11,7 @@ import {
 	RECEIVE_PRODUCTION_DELETE
 } from '../utils/model-action-names';
 
-const production = (state = Map({}), action) => {
+const production = (state = Map(), action) => {
 
 	switch (action.type) {
 

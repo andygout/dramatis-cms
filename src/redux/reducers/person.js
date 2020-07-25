@@ -11,7 +11,7 @@ import {
 	RECEIVE_PERSON_DELETE
 } from '../utils/model-action-names';
 
-const person = (state = Map({}), action) => {
+const person = (state = Map(), action) => {
 
 	switch (action.type) {
 
