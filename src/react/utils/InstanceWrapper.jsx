@@ -22,11 +22,15 @@ class InstanceWrapper extends React.Component {
 		return (
 			<React.Fragment>
 
-				<InstanceDocumentTitle
-					name={instance.get('name', '')}
-					model={instance.get('model', '')}
-					formAction={formData.get('action', '')}
-				/>
+				{
+					instance.get('name') && instance.get('model') && formData.get('action') && (
+						<InstanceDocumentTitle
+							name={instance.get('name')}
+							model={instance.get('model')}
+							formAction={formData.get('action')}
+						/>
+					)
+				}
 
 				<InstanceLabel text={instance.get('model', '')} />
 

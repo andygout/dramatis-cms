@@ -18,9 +18,6 @@ const InstanceDocumentTitle = props => {
 			case FORM_ACTIONS.update:
 				return `${name} (${model})`;
 
-			default:
-				return '';
-
 		}
 
 	})(formAction);
