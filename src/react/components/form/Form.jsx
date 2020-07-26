@@ -121,7 +121,7 @@ class Form extends React.Component {
 
 	}
 
-	handleDelete () {
+	handleDelete (event) {
 
 		event.preventDefault();
 
