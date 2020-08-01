@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Map, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 
 import createBlankMap from '../../../src/lib/create-blank-map';
 

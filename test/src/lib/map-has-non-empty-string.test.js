@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Map, fromJS } from 'immutable';
+import { fromJS } from 'immutable';
 
 import mapHasNonEmptyString from '../../../src/lib/map-has-non-empty-string';
 
