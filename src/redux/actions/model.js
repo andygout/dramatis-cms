@@ -263,12 +263,12 @@ const deleteInstance = instance => async dispatch => {
 
 		if (fetchedInstance.hasErrors) {
 
-			const { dependentAssociations } = fetchedInstance.errors;
+			const { associations } = fetchedInstance.errors;
 
 			notification = {
 				text: `This ${fetchedInstance.model} cannot be deleted because
-					it has dependent associations with instances
-					of the following models: ${dependentAssociations.join(', ')}`
+					it has associations with instances
+					of the following models: ${associations.join(', ')}`
 				,
 				status: NOTIFICATION_STATUSES.failure,
 				isActive: true
