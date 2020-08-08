@@ -6,7 +6,11 @@ const createBlankMap = map => {
 		map.keySeq().forEach(key =>
 			mutableMap.update(key, value => {
 
-				if (Map.isMap(value)) {
+				if (key === 'errors') {
+
+					return Map();
+
+				} else if (Map.isMap(value)) {
 
 					return createBlankMap(value);
 
