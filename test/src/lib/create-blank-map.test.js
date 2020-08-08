@@ -5,6 +5,56 @@ import createBlankMap from '../../../src/lib/create-blank-map';
 
 describe('Create Blank Map module', () => {
 
+	it('converts populated maps to empty maps for top level \'errors\' values', () => {
+
+		const map = fromJS(
+			{
+				errors: {
+					name: [
+						'Name is too long'
+					]
+				}
+			}
+		);
+
+		const result = createBlankMap(map);
+
+		const expectation =
+			{
+				errors: {}
+			};
+
+		expect(result.toJS()).to.deep.eq(expectation);
+
+	});
+
+	it('converts populated maps to empty maps for nested level \'errors\' values', () => {
+
+		const map = fromJS(
+			{
+				foo: {
+					errors: {
+						name: [
+							'Name is too long'
+						]
+					}
+				}
+			}
+		);
+
+		const result = createBlankMap(map);
+
+		const expectation =
+			{
+				foo: {
+					errors: {}
+				}
+			};
+
+		expect(result.toJS()).to.deep.eq(expectation);
+
+	});
+
 	it('converts strings to empty strings for top level attributes', () => {
 
 		const map = fromJS(
