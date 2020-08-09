@@ -55,6 +55,48 @@ describe('Create Blank Map module', () => {
 
 	});
 
+	it('retains value for top level \'model\' values', () => {
+
+		const map = fromJS(
+			{
+				model: 'person'
+			}
+		);
+
+		const result = createBlankMap(map);
+
+		const expectation =
+			{
+				model: 'person'
+			};
+
+		expect(result.toJS()).to.deep.eq(expectation);
+
+	});
+
+	it('retains value for nested level \'model\' values', () => {
+
+		const map = fromJS(
+			{
+				foo: {
+					model: 'person'
+				}
+			}
+		);
+
+		const result = createBlankMap(map);
+
+		const expectation =
+			{
+				foo: {
+					model: 'person'
+				}
+			};
+
+		expect(result.toJS()).to.deep.eq(expectation);
+
+	});
+
 	it('converts strings to empty strings for top level attributes', () => {
 
 		const map = fromJS(

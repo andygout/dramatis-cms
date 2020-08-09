@@ -11,6 +11,9 @@ const createBlankMap = map => {
 					case key === 'errors':
 						return Map();
 
+					case key === 'model':
+						return value;
+
 					case Map.isMap(value):
 						return createBlankMap(value);
 
