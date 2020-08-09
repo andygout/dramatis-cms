@@ -11,7 +11,7 @@ import { camelCaseToSentenceCase, capitalise } from '../../../lib/strings';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
 import { ArrayItem, Input, InputErrors } from '.';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
-import { FORM_ACTIONS } from '../../../utils/constants';
+import { FORM_ACTIONS, FORM_CONCEALED_KEYS } from '../../../utils/constants';
 
 class Form extends React.Component {
 
@@ -146,8 +146,6 @@ class Form extends React.Component {
 
 		}
 
-		const concealedKeys = ['model', 'uuid', 'errors', 'hasErrors'];
-
 		const submitButtonText = capitalise(this.props.action);
 
 		const isDeleteButtonRequired = this.props.action === FORM_ACTIONS.update;
@@ -202,7 +200,7 @@ class Form extends React.Component {
 
 					{
 						map.entrySeq()
-							.filter(([key]) => !concealedKeys.includes(key))
+							.filter(([key]) => !FORM_CONCEALED_KEYS.includes(key))
 							.map(([key, value]) =>
 								<div
 									className={classNames({ 'fieldset__module-component': isArrayItem })}
@@ -233,7 +231,7 @@ class Form extends React.Component {
 
 				{
 					Object.keys(this.state)
-						.filter(key => !concealedKeys.includes(key))
+						.filter(key => !FORM_CONCEALED_KEYS.includes(key))
 						.map(key =>
 							<fieldset className="fieldset" key={key}>
 

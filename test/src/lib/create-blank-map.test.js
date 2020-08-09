@@ -5,217 +5,271 @@ import createBlankMap from '../../../src/lib/create-blank-map';
 
 describe('Create Blank Map module', () => {
 
-	it('converts populated maps to empty maps for top level \'errors\' values', () => {
+	describe('\'errors\' attribute values', () => {
 
-		const map = fromJS(
-			{
-				errors: {
-					name: [
-						'Name is too long'
-					]
-				}
-			}
-		);
+		it('converts populated maps to empty maps for top level \'errors\' values', () => {
 
-		const result = createBlankMap(map);
-
-		const expectation =
-			{
-				errors: {}
-			};
-
-		expect(result.toJS()).to.deep.eq(expectation);
-
-	});
-
-	it('converts populated maps to empty maps for nested level \'errors\' values', () => {
-
-		const map = fromJS(
-			{
-				foo: {
+			const map = fromJS(
+				{
 					errors: {
 						name: [
 							'Name is too long'
 						]
 					}
 				}
-			}
-		);
+			);
 
-		const result = createBlankMap(map);
+			const result = createBlankMap(map);
 
-		const expectation =
-			{
-				foo: {
+			const expectation =
+				{
 					errors: {}
-				}
-			};
+				};
 
-		expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.eq(expectation);
+
+		});
+
+		it('converts populated maps to empty maps for nested level \'errors\' values', () => {
+
+			const map = fromJS(
+				{
+					foo: {
+						errors: {
+							name: [
+								'Name is too long'
+							]
+						}
+					}
+				}
+			);
+
+			const result = createBlankMap(map);
+
+			const expectation =
+				{
+					foo: {
+						errors: {}
+					}
+				};
+
+			expect(result.toJS()).to.deep.eq(expectation);
+
+		});
 
 	});
 
-	it('converts strings to empty strings for top level attributes', () => {
+	describe('\'model\' attribute values', () => {
 
-		const map = fromJS(
-			{
-				foo: 'string',
-			}
-		);
+		it('retains value for top level \'model\' values', () => {
 
-		const result = createBlankMap(map);
+			const map = fromJS(
+				{
+					model: 'person'
+				}
+			);
 
-		const expectation =
-			{
-				foo: ''
-			};
+			const result = createBlankMap(map);
 
-		expect(result.toJS()).to.deep.eq(expectation);
+			const expectation =
+				{
+					model: 'person'
+				};
+
+			expect(result.toJS()).to.deep.eq(expectation);
+
+		});
+
+		it('retains value for nested level \'model\' values', () => {
+
+			const map = fromJS(
+				{
+					foo: {
+						model: 'person'
+					}
+				}
+			);
+
+			const result = createBlankMap(map);
+
+			const expectation =
+				{
+					foo: {
+						model: 'person'
+					}
+				};
+
+			expect(result.toJS()).to.deep.eq(expectation);
+
+		});
 
 	});
 
-	it('converts strings to empty strings for nested level attributes', () => {
+	describe('all other attribute values', () => {
 
-		const map = fromJS(
-			{
-				foo: {
-					bar: 'string'
+		it('converts strings to empty strings for top level attributes', () => {
+
+			const map = fromJS(
+				{
+					foo: 'string',
 				}
-			}
-		);
+			);
 
-		const result = createBlankMap(map);
+			const result = createBlankMap(map);
 
-		const expectation =
-			{
-				foo: {
-					bar: ''
-				}
-			};
+			const expectation =
+				{
+					foo: ''
+				};
 
-		expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.eq(expectation);
 
-	});
+		});
 
-	it('converts strings to empty strings for top level array object attributes', () => {
+		it('converts strings to empty strings for nested level attributes', () => {
 
-		const map = fromJS(
-			{
-				foo: [
-					{
+			const map = fromJS(
+				{
+					foo: {
 						bar: 'string'
 					}
-				]
-			}
-		);
+				}
+			);
 
-		const result = createBlankMap(map);
+			const result = createBlankMap(map);
 
-		const expectation =
-			{
-				foo: [
-					{
+			const expectation =
+				{
+					foo: {
 						bar: ''
 					}
-				]
-			};
+				};
 
-		expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.eq(expectation);
 
-	});
+		});
 
-	it('converts strings to empty strings for nested level array object attributes', () => {
+		it('converts strings to empty strings for top level array object attributes', () => {
 
-		const map = fromJS(
-			{
-				foo: {
-					bar: [
+			const map = fromJS(
+				{
+					foo: [
 						{
-							baz: 'string'
+							bar: 'string'
 						}
 					]
 				}
-			}
-		);
+			);
 
-		const result = createBlankMap(map);
+			const result = createBlankMap(map);
 
-		const expectation =
-			{
-				foo: {
-					bar: [
+			const expectation =
+				{
+					foo: [
 						{
-							baz: ''
+							bar: ''
 						}
 					]
+				};
+
+			expect(result.toJS()).to.deep.eq(expectation);
+
+		});
+
+		it('converts strings to empty strings for nested level array object attributes', () => {
+
+			const map = fromJS(
+				{
+					foo: {
+						bar: [
+							{
+								baz: 'string'
+							}
+						]
+					}
 				}
-			};
+			);
 
-		expect(result.toJS()).to.deep.eq(expectation);
+			const result = createBlankMap(map);
 
-	});
-
-	it('converts top level arrays to single item arrays with empty string values', () => {
-
-		const map = fromJS(
-			{
-				foo: [
-					{
-						bar: 'string'
-					},
-					{
-						bar: 'string'
+			const expectation =
+				{
+					foo: {
+						bar: [
+							{
+								baz: ''
+							}
+						]
 					}
-				]
-			}
-		);
+				};
 
-		const result = createBlankMap(map);
+			expect(result.toJS()).to.deep.eq(expectation);
 
-		const expectation =
-			{
-				foo: [
-					{
-						bar: ''
-					}
-				]
-			};
+		});
 
-		expect(result.toJS()).to.deep.eq(expectation);
+		it('converts top level arrays to single item arrays with empty string values', () => {
 
-	});
-
-	it('converts nested level arrays to single item arrays with empty string values', () => {
-
-		const map = fromJS(
-			{
-				foo: {
-					bar: [
+			const map = fromJS(
+				{
+					foo: [
 						{
-							baz: 'string'
+							bar: 'string'
 						},
 						{
-							baz: 'string'
+							bar: 'string'
 						}
 					]
 				}
-			}
-		);
+			);
 
-		const result = createBlankMap(map);
+			const result = createBlankMap(map);
 
-		const expectation =
-			{
-				foo: {
-					bar: [
+			const expectation =
+				{
+					foo: [
 						{
-							baz: ''
+							bar: ''
 						}
 					]
-				}
-			};
+				};
 
-		expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.eq(expectation);
+
+		});
+
+		it('converts nested level arrays to single item arrays with empty string values', () => {
+
+			const map = fromJS(
+				{
+					foo: {
+						bar: [
+							{
+								baz: 'string'
+							},
+							{
+								baz: 'string'
+							}
+						]
+					}
+				}
+			);
+
+			const result = createBlankMap(map);
+
+			const expectation =
+				{
+					foo: {
+						bar: [
+							{
+								baz: ''
+							}
+						]
+					}
+				};
+
+			expect(result.toJS()).to.deep.eq(expectation);
+
+		});
 
 	});
 
