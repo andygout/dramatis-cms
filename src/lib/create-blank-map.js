@@ -6,21 +6,19 @@ const createBlankMap = map => {
 		map.keySeq().forEach(key =>
 			mutableMap.update(key, value => {
 
-				if (key === 'errors') {
+				switch (true) {
 
-					return Map();
+					case key === 'errors':
+						return Map();
 
-				} else if (Map.isMap(value)) {
+					case Map.isMap(value):
+						return createBlankMap(value);
 
-					return createBlankMap(value);
+					case List.isList(value):
+						return List([createBlankMap(value.get(0))]);
 
-				} else if (List.isList(value)) {
-
-					return List([createBlankMap(value.get(0))]);
-
-				} else {
-
-					return '';
+					default:
+						return '';
 
 				}
 
