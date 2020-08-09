@@ -6,7 +6,9 @@ const isMapWithNonEmptyString = value => Map.isMap(value) && searchForNonEmptySt
 
 const searchForNonEmptyString = map => {
 
-	for (let value of map.valueSeq()) {
+	const mapToSearch = map.delete('model');
+
+	for (let value of mapToSearch.valueSeq()) {
 
 		if (isNonEmptyString(value)) return true;
 
