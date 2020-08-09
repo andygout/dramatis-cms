@@ -1,6 +1,6 @@
 import { List, Map } from 'immutable';
 
-const isNonEmptyString = value => typeof value === 'string' && value.length;
+const isNonEmptyString = value => typeof value === 'string' && !!value.length;
 
 const isMapWithNonEmptyString = value => Map.isMap(value) && searchForNonEmptyString(value);
 
