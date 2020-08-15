@@ -2,7 +2,7 @@ import nodeFetch from 'node-fetch';
 
 import createAction from './base';
 import { receiveError } from './error';
-import { activateNotification } from './notification';
+import { activateNotification, deactivateNotification } from './notification';
 import * as actions from '../utils/model-action-names';
 import { pluralise } from '../../lib/strings';
 import { NOTIFICATION_STATUSES } from '../../utils/constants';
@@ -73,6 +73,8 @@ const fetchList = pluralisedModel => async dispatch => {
 
 		dispatch(receiveError({ isExistent: true, message }));
 
+		dispatch(deactivateNotification());
+
 	}
 
 };
@@ -94,6 +96,8 @@ const fetchInstanceTemplate = model => async dispatch => {
 	} catch ({ message }) {
 
 		dispatch(receiveError({ isExistent: true, message }));
+
+		dispatch(deactivateNotification());
 
 	}
 
@@ -154,6 +158,8 @@ const createInstance = instance => async dispatch => {
 
 		dispatch(receiveError({ isExistent: true, message }));
 
+		dispatch(deactivateNotification());
+
 	}
 
 };
@@ -182,6 +188,8 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 	} catch ({ message }) {
 
 		dispatch(receiveError({ isExistent: true, message }));
+
+		dispatch(deactivateNotification());
 
 	}
 
@@ -237,6 +245,8 @@ const updateInstance = instance => async dispatch => {
 	} catch ({ message }) {
 
 		dispatch(receiveError({ isExistent: true, message }));
+
+		dispatch(deactivateNotification());
 
 	}
 
@@ -295,6 +305,8 @@ const deleteInstance = instance => async dispatch => {
 	} catch ({ message }) {
 
 		dispatch(receiveError({ isExistent: true, message }));
+
+		dispatch(deactivateNotification());
 
 	}
 
