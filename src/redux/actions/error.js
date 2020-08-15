@@ -4,7 +4,7 @@ import {
 	CANCEL_ERROR
 } from '../utils/error-action-names';
 
-const receiveError = error => createAction(RECEIVE_ERROR, error);
+const receiveError = message => createAction(RECEIVE_ERROR, { isExistent: true, message });
 
 const cancelError = () => (dispatch, getState) => {
 
