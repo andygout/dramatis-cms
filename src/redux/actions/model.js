@@ -71,7 +71,7 @@ const fetchList = pluralisedModel => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError({ isExistent: true, message }));
+		dispatch(receiveError(message));
 
 		dispatch(deactivateNotification());
 
@@ -95,7 +95,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError({ isExistent: true, message }));
+		dispatch(receiveError(message));
 
 		dispatch(deactivateNotification());
 
@@ -156,7 +156,7 @@ const createInstance = instance => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError({ isExistent: true, message }));
+		dispatch(receiveError(message));
 
 		dispatch(deactivateNotification());
 
@@ -187,7 +187,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError({ isExistent: true, message }));
+		dispatch(receiveError(message));
 
 		dispatch(deactivateNotification());
 
@@ -244,7 +244,7 @@ const updateInstance = instance => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError({ isExistent: true, message }));
+		dispatch(receiveError(message));
 
 		dispatch(deactivateNotification());
 
@@ -304,7 +304,7 @@ const deleteInstance = instance => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError({ isExistent: true, message }));
+		dispatch(receiveError(message));
 
 		dispatch(deactivateNotification());
 
