@@ -9,22 +9,19 @@ describe('Create Blank Map module', () => {
 
 		it('converts populated maps to empty maps for top level \'errors\' values', () => {
 
-			const map = fromJS(
-				{
-					errors: {
-						name: [
-							'Name is too long'
-						]
-					}
+			const map = fromJS({
+				errors: {
+					name: [
+						'Name is too long'
+					]
 				}
-			);
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					errors: {}
-				};
+			const expectation = {
+				errors: {}
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -32,26 +29,23 @@ describe('Create Blank Map module', () => {
 
 		it('converts populated maps to empty maps for nested level \'errors\' values', () => {
 
-			const map = fromJS(
-				{
-					foo: {
-						errors: {
-							name: [
-								'Name is too long'
-							]
-						}
+			const map = fromJS({
+				foo: {
+					errors: {
+						name: [
+							'Name is too long'
+						]
 					}
 				}
-			);
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					foo: {
-						errors: {}
-					}
-				};
+			const expectation = {
+				foo: {
+					errors: {}
+				}
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -63,18 +57,15 @@ describe('Create Blank Map module', () => {
 
 		it('retains value for top level \'model\' values', () => {
 
-			const map = fromJS(
-				{
-					model: 'person'
-				}
-			);
+			const map = fromJS({
+				model: 'person'
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					model: 'person'
-				};
+			const expectation = {
+				model: 'person'
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -82,22 +73,19 @@ describe('Create Blank Map module', () => {
 
 		it('retains value for nested level \'model\' values', () => {
 
-			const map = fromJS(
-				{
-					foo: {
-						model: 'person'
-					}
+			const map = fromJS({
+				foo: {
+					model: 'person'
 				}
-			);
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					foo: {
-						model: 'person'
-					}
-				};
+			const expectation = {
+				foo: {
+					model: 'person'
+				}
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -109,18 +97,15 @@ describe('Create Blank Map module', () => {
 
 		it('converts strings to empty strings for top level attributes', () => {
 
-			const map = fromJS(
-				{
-					foo: 'string',
-				}
-			);
+			const map = fromJS({
+				foo: 'string',
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					foo: ''
-				};
+			const expectation = {
+				foo: ''
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -128,22 +113,19 @@ describe('Create Blank Map module', () => {
 
 		it('converts strings to empty strings for nested level attributes', () => {
 
-			const map = fromJS(
-				{
-					foo: {
-						bar: 'string'
-					}
+			const map = fromJS({
+				foo: {
+					bar: 'string'
 				}
-			);
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					foo: {
-						bar: ''
-					}
-				};
+			const expectation = {
+				foo: {
+					bar: ''
+				}
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -151,26 +133,23 @@ describe('Create Blank Map module', () => {
 
 		it('converts strings to empty strings for top level array object attributes', () => {
 
-			const map = fromJS(
-				{
-					foo: [
-						{
-							bar: 'string'
-						}
-					]
-				}
-			);
+			const map = fromJS({
+				foo: [
+					{
+						bar: 'string'
+					}
+				]
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					foo: [
-						{
-							bar: ''
-						}
-					]
-				};
+			const expectation = {
+				foo: [
+					{
+						bar: ''
+					}
+				]
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -178,30 +157,27 @@ describe('Create Blank Map module', () => {
 
 		it('converts strings to empty strings for nested level array object attributes', () => {
 
-			const map = fromJS(
-				{
-					foo: {
-						bar: [
-							{
-								baz: 'string'
-							}
-						]
-					}
+			const map = fromJS({
+				foo: {
+					bar: [
+						{
+							baz: 'string'
+						}
+					]
 				}
-			);
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					foo: {
-						bar: [
-							{
-								baz: ''
-							}
-						]
-					}
-				};
+			const expectation = {
+				foo: {
+					bar: [
+						{
+							baz: ''
+						}
+					]
+				}
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -209,29 +185,26 @@ describe('Create Blank Map module', () => {
 
 		it('converts top level arrays to single item arrays with empty string values', () => {
 
-			const map = fromJS(
-				{
-					foo: [
-						{
-							bar: 'string'
-						},
-						{
-							bar: 'string'
-						}
-					]
-				}
-			);
+			const map = fromJS({
+				foo: [
+					{
+						bar: 'string'
+					},
+					{
+						bar: 'string'
+					}
+				]
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					foo: [
-						{
-							bar: ''
-						}
-					]
-				};
+			const expectation = {
+				foo: [
+					{
+						bar: ''
+					}
+				]
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 
@@ -239,33 +212,30 @@ describe('Create Blank Map module', () => {
 
 		it('converts nested level arrays to single item arrays with empty string values', () => {
 
-			const map = fromJS(
-				{
-					foo: {
-						bar: [
-							{
-								baz: 'string'
-							},
-							{
-								baz: 'string'
-							}
-						]
-					}
+			const map = fromJS({
+				foo: {
+					bar: [
+						{
+							baz: 'string'
+						},
+						{
+							baz: 'string'
+						}
+					]
 				}
-			);
+			});
 
 			const result = createBlankMap(map);
 
-			const expectation =
-				{
-					foo: {
-						bar: [
-							{
-								baz: ''
-							}
-						]
-					}
-				};
+			const expectation = {
+				foo: {
+					bar: [
+						{
+							baz: ''
+						}
+					]
+				}
+			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
 

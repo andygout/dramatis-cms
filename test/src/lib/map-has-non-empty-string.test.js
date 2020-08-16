@@ -11,24 +11,22 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns true when top level attribute is non-empty string', () => {
 
-				const map = fromJS(
-					{
-						foo: 'string',
-						bar: {
-							baz: '',
-							qux: [
-								{
-									quux: ''
-								}
-							]
-						},
-						quuz: [
+				const map = fromJS({
+					foo: 'string',
+					bar: {
+						baz: '',
+						qux: [
 							{
-								corge: ''
+								quux: ''
 							}
 						]
-					}
-				);
+					},
+					quuz: [
+						{
+							corge: ''
+						}
+					]
+				});
 
 				const result = mapHasNonEmptyString(map);
 
@@ -38,24 +36,22 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns true when nested level attribute is non-empty string', () => {
 
-				const map = fromJS(
-					{
-						foo: '',
-						bar: {
-							baz: 'string',
-							qux: [
-								{
-									quux: ''
-								}
-							]
-						},
-						quuz: [
+				const map = fromJS({
+					foo: '',
+					bar: {
+						baz: 'string',
+						qux: [
 							{
-								corge: ''
+								quux: ''
 							}
 						]
-					}
-				);
+					},
+					quuz: [
+						{
+							corge: ''
+						}
+					]
+				});
 
 				const result = mapHasNonEmptyString(map);
 
@@ -65,24 +61,22 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns true when top level array object attribute is non-empty string', () => {
 
-				const map = fromJS(
-					{
-						foo: '',
-						bar: {
-							baz: '',
-							qux: [
-								{
-									quux: ''
-								}
-							]
-						},
-						quuz: [
+				const map = fromJS({
+					foo: '',
+					bar: {
+						baz: '',
+						qux: [
 							{
-								corge: 'string'
+								quux: ''
 							}
 						]
-					}
-				);
+					},
+					quuz: [
+						{
+							corge: 'string'
+						}
+					]
+				});
 
 				const result = mapHasNonEmptyString(map);
 
@@ -92,24 +86,22 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns true when nested level array object attribute is non-empty string', () => {
 
-				const map = fromJS(
-					{
-						foo: '',
-						bar: {
-							baz: '',
-							qux: [
-								{
-									quux: 'string'
-								}
-							]
-						},
-						quuz: [
+				const map = fromJS({
+					foo: '',
+					bar: {
+						baz: '',
+						qux: [
 							{
-								corge: ''
+								quux: 'string'
 							}
 						]
-					}
-				);
+					},
+					quuz: [
+						{
+							corge: ''
+						}
+					]
+				});
 
 				const result = mapHasNonEmptyString(map);
 
@@ -123,24 +115,22 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns false when top level attribute is non-empty string', () => {
 
-				const map = fromJS(
-					{
-						model: 'string',
-						bar: {
-							baz: '',
-							qux: [
-								{
-									quux: ''
-								}
-							]
-						},
-						quuz: [
+				const map = fromJS({
+					model: 'string',
+					bar: {
+						baz: '',
+						qux: [
 							{
-								corge: ''
+								quux: ''
 							}
 						]
-					}
-				);
+					},
+					quuz: [
+						{
+							corge: ''
+						}
+					]
+				});
 
 				const result = mapHasNonEmptyString(map);
 
@@ -150,24 +140,22 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns false when nested level attribute is non-empty string', () => {
 
-				const map = fromJS(
-					{
-						foo: '',
-						bar: {
-							model: 'string',
-							qux: [
-								{
-									quux: ''
-								}
-							]
-						},
-						quuz: [
+				const map = fromJS({
+					foo: '',
+					bar: {
+						model: 'string',
+						qux: [
 							{
-								corge: ''
+								quux: ''
 							}
 						]
-					}
-				);
+					},
+					quuz: [
+						{
+							corge: ''
+						}
+					]
+				});
 
 				const result = mapHasNonEmptyString(map);
 
@@ -177,24 +165,22 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns false when top level array object attribute is non-empty string', () => {
 
-				const map = fromJS(
-					{
-						foo: '',
-						bar: {
-							baz: '',
-							qux: [
-								{
-									quux: ''
-								}
-							]
-						},
-						quuz: [
+				const map = fromJS({
+					foo: '',
+					bar: {
+						baz: '',
+						qux: [
 							{
-								model: 'string'
+								quux: ''
 							}
 						]
-					}
-				);
+					},
+					quuz: [
+						{
+							model: 'string'
+						}
+					]
+				});
 
 				const result = mapHasNonEmptyString(map);
 
@@ -204,24 +190,22 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns false when nested level array object attribute is non-empty string', () => {
 
-				const map = fromJS(
-					{
-						foo: '',
-						bar: {
-							baz: '',
-							qux: [
-								{
-									model: 'string'
-								}
-							]
-						},
-						quuz: [
+				const map = fromJS({
+					foo: '',
+					bar: {
+						baz: '',
+						qux: [
 							{
-								corge: ''
+								model: 'string'
 							}
 						]
-					}
-				);
+					},
+					quuz: [
+						{
+							corge: ''
+						}
+					]
+				});
 
 				const result = mapHasNonEmptyString(map);
 
@@ -237,24 +221,22 @@ describe('Map Has Non-Empty String module', () => {
 
 		it('returns false when non-empty string does not exist at any level', () => {
 
-			const map = fromJS(
-				{
-					foo: '',
-					bar: {
-						baz: '',
-						qux: [
-							{
-								quux: ''
-							}
-						]
-					},
-					quuz: [
+			const map = fromJS({
+				foo: '',
+				bar: {
+					baz: '',
+					qux: [
 						{
-							corge: ''
+							quux: ''
 						}
 					]
-				}
-			);
+				},
+				quuz: [
+					{
+						corge: ''
+					}
+				]
+			});
 
 			const result = mapHasNonEmptyString(map);
 
