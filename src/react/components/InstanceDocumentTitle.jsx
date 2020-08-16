@@ -16,7 +16,7 @@ const InstanceDocumentTitle = props => {
 				return `New ${model}`;
 
 			case FORM_ACTIONS.update:
-				return `${name} (${model})`;
+				return `Edit: ${name} (${model})`;
 
 		}
 
