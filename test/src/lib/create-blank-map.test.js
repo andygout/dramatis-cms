@@ -26,7 +26,7 @@ describe('Create Blank Map module', () => {
 					errors: {}
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -53,7 +53,7 @@ describe('Create Blank Map module', () => {
 					}
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -76,7 +76,7 @@ describe('Create Blank Map module', () => {
 					model: 'person'
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -99,7 +99,7 @@ describe('Create Blank Map module', () => {
 					}
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -122,7 +122,7 @@ describe('Create Blank Map module', () => {
 					foo: ''
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -145,7 +145,7 @@ describe('Create Blank Map module', () => {
 					}
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -172,7 +172,7 @@ describe('Create Blank Map module', () => {
 					]
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -203,7 +203,7 @@ describe('Create Blank Map module', () => {
 					}
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -233,7 +233,7 @@ describe('Create Blank Map module', () => {
 					]
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
@@ -267,7 +267,7 @@ describe('Create Blank Map module', () => {
 					}
 				};
 
-			expect(result.toJS()).to.deep.eq(expectation);
+			expect(result.toJS()).to.deep.equal(expectation);
 
 		});
 
