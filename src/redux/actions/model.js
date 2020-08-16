@@ -4,6 +4,7 @@ import createAction from './base';
 import { receiveError } from './error';
 import { activateNotification, deactivateNotification } from './notification';
 import * as actions from '../utils/model-action-names';
+import pruneInstance from '../../lib/prune-instance';
 import { pluralise } from '../../lib/strings';
 import { NOTIFICATION_STATUSES } from '../../utils/constants';
 
@@ -89,7 +90,9 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receiveInstance(fetchedInstance));
+		const prunedInstance = pruneInstance(fetchedInstance);
+
+		dispatch(receiveInstance(prunedInstance));
 
 		dispatch(receiveNewFormData({ instance: fetchedInstance }));
 
@@ -138,7 +141,9 @@ const createInstance = instance => async dispatch => {
 
 		} else {
 
-			dispatch(receiveCreate(fetchedInstance));
+			const prunedInstance = pruneInstance(fetchedInstance);
+
+			dispatch(receiveCreate(prunedInstance));
 
 			const redirectPath = `/${pluralise(fetchedInstance.model)}/${fetchedInstance.uuid}`;
 
@@ -181,7 +186,9 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, { mode: 'cors' });
 
-		dispatch(receiveInstance(fetchedInstance));
+		const prunedInstance = pruneInstance(fetchedInstance);
+
+		dispatch(receiveInstance(prunedInstance));
 
 		dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
@@ -228,7 +235,9 @@ const updateInstance = instance => async dispatch => {
 
 		} else {
 
-			dispatch(receiveUpdate(fetchedInstance));
+			const prunedInstance = pruneInstance(fetchedInstance);
+
+			dispatch(receiveUpdate(prunedInstance));
 
 			notification = {
 				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been updated`,
@@ -286,7 +295,9 @@ const deleteInstance = instance => async dispatch => {
 
 		} else {
 
-			dispatch(receiveDelete(fetchedInstance));
+			const prunedInstance = pruneInstance(fetchedInstance);
+
+			dispatch(receiveDelete(prunedInstance));
 
 			const redirectPath = `/${pluralise(fetchedInstance.model)}`;
 
