@@ -5,6 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { ErrorMessage, Footer, Header, Navigation, Notification } from '../components';
+import ScrollToTop from './ScrollToTop';
 import { removeRedirectPath } from '../../redux/actions/model';
 
 class FetchDataOnMountWrapper extends React.Component {
@@ -38,6 +39,12 @@ class FetchDataOnMountWrapper extends React.Component {
 				<Navigation />
 
 				<main className="main-content">
+
+					{
+						notification.get('isActive') && (
+							<ScrollToTop />
+						)
+					}
 
 					{
 						notification.get('isActive') && (
