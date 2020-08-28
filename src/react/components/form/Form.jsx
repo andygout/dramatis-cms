@@ -203,7 +203,12 @@ class Form extends React.Component {
 							.filter(([key]) => !FORM_CONCEALED_KEYS.includes(key))
 							.map(([key, value]) =>
 								<div
-									className={classNames({ 'fieldset__module-component': isArrayItem })}
+									className={
+										classNames({
+											'fieldset__component': !isArrayItem,
+											'fieldset__module-component': isArrayItem
+										})
+									}
 									key={`${statePath.join('-')}-${key}`}
 								>
 

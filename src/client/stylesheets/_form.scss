@@ -21,6 +21,10 @@ $removal-button-border-width: 1px;
 	font-size: 16px;
 }
 
+.fieldset__component:not(:last-child) {
+	margin-bottom: 20px;
+}
+
 .fieldset__module {
 	padding: 5px;
 	margin-bottom: 5px;
