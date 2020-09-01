@@ -26,6 +26,7 @@ class InstanceWrapper extends React.Component {
 					instance.get('name') && instance.get('model') && formData.get('action') && (
 						<InstanceDocumentTitle
 							name={instance.get('name')}
+							differentiator={instance.get('differentiator')}
 							model={instance.get('model')}
 							formAction={formData.get('action')}
 						/>
@@ -36,6 +37,7 @@ class InstanceWrapper extends React.Component {
 
 				<InstancePageTitle
 					name={instance.get('name')}
+					differentiator={instance.get('differentiator')}
 					model={instance.get('model')}
 					formAction={formData.get('action')}
 				/>

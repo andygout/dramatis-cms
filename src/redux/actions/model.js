@@ -108,11 +108,9 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 const createInstance = instance => async dispatch => {
 
-	const { model } = instance;
+	dispatch(requestCreate(instance.model));
 
-	dispatch(requestCreate(model));
-
-	const url = `${URL_BASE}/${pluralise(model)}`;
+	const url = `${URL_BASE}/${pluralise(instance.model)}`;
 
 	const fetchSettings = {
 		headers: {
@@ -127,14 +125,16 @@ const createInstance = instance => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, fetchSettings);
 
+		const { model, uuid, name, differentiator, hasErrors } = fetchedInstance;
+
 		let notification;
 
-		if (fetchedInstance.hasErrors) {
+		if (hasErrors) {
 
 			dispatch(receiveNewFormData({ instance: fetchedInstance }));
 
 			notification = {
-				text: `This ${fetchedInstance.model} contains errors`,
+				text: `This ${model} contains errors`,
 				status: NOTIFICATION_STATUSES.failure,
 				isActive: true
 			};
@@ -145,12 +145,12 @@ const createInstance = instance => async dispatch => {
 
 			dispatch(receiveCreate(prunedInstance));
 
-			const redirectPath = `/${pluralise(fetchedInstance.model)}/${fetchedInstance.uuid}`;
+			const redirectPath = `/${pluralise(model)}/${uuid}`;
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
 			notification = {
-				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been created`,
+				text: `${name} (${model})${differentiator ? ` (${differentiator})` : ''} has been created`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
@@ -204,11 +204,9 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 const updateInstance = instance => async dispatch => {
 
-	const { model, uuid } = instance;
+	dispatch(requestUpdate(instance.model));
 
-	dispatch(requestUpdate(model));
-
-	const url = `${URL_BASE}/${pluralise(model)}/${uuid}`;
+	const url = `${URL_BASE}/${pluralise(instance.model)}/${instance.uuid}`;
 
 	const fetchSettings = {
 		headers: {
@@ -223,12 +221,14 @@ const updateInstance = instance => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, fetchSettings);
 
+		const { model, name, differentiator, hasErrors } = fetchedInstance;
+
 		let notification;
 
-		if (fetchedInstance.hasErrors) {
+		if (hasErrors) {
 
 			notification = {
-				text: `This ${fetchedInstance.model} contains errors`,
+				text: `This ${model} contains errors`,
 				status: NOTIFICATION_STATUSES.failure,
 				isActive: true
 			};
@@ -240,7 +240,7 @@ const updateInstance = instance => async dispatch => {
 			dispatch(receiveUpdate(prunedInstance));
 
 			notification = {
-				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been updated`,
+				text: `${name} (${model})${differentiator ? ` (${differentiator})` : ''} has been updated`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
@@ -263,11 +263,9 @@ const updateInstance = instance => async dispatch => {
 
 const deleteInstance = instance => async dispatch => {
 
-	const { model, uuid } = instance;
+	dispatch(requestDelete(instance.model));
 
-	dispatch(requestDelete(model));
-
-	const url = `${URL_BASE}/${pluralise(model)}/${uuid}`;
+	const url = `${URL_BASE}/${pluralise(instance.model)}/${instance.uuid}`;
 
 	const fetchSettings = {
 		mode: 'cors',
@@ -278,14 +276,16 @@ const deleteInstance = instance => async dispatch => {
 
 		const fetchedInstance = await performFetch(url, fetchSettings);
 
+		const { model, name, differentiator, hasErrors } = fetchedInstance;
+
 		let notification;
 
-		if (fetchedInstance.hasErrors) {
+		if (hasErrors) {
 
 			const { associations } = fetchedInstance.errors;
 
 			notification = {
-				text: `This ${fetchedInstance.model} cannot be deleted because
+				text: `This ${model} cannot be deleted because
 					it has associations with instances
 					of the following models: ${associations.join(', ')}`
 				,
@@ -299,12 +299,12 @@ const deleteInstance = instance => async dispatch => {
 
 			dispatch(receiveDelete(prunedInstance));
 
-			const redirectPath = `/${pluralise(fetchedInstance.model)}`;
+			const redirectPath = `/${pluralise(model)}`;
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
 			notification = {
-				text: `${fetchedInstance.name} (${fetchedInstance.model}) has been deleted`,
+				text: `${name} (${model})${differentiator ? ` (${differentiator})` : ''} has been deleted`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
