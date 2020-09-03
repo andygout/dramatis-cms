@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
 import { FORM_ACTIONS } from '../../utils/constants';
 
 const withInstancePageTitle = PageTitle => props => {
@@ -18,7 +19,7 @@ const withInstancePageTitle = PageTitle => props => {
 
 				let text = name;
 
-				if (differentiator) text += ` (${differentiator})`;
+				text += getDifferentiatorSuffix(differentiator);
 
 				return text;
 
