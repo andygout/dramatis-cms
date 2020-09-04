@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
 import { FORM_ACTIONS } from '../../utils/constants';
 
 const InstanceDocumentTitle = props => {
@@ -19,7 +20,7 @@ const InstanceDocumentTitle = props => {
 
 				let text = `Edit: ${name} (${model})`;
 
-				if (differentiator) text += ` (${differentiator})`;
+				text += getDifferentiatorSuffix(differentiator);
 
 				return text;
 

@@ -4,6 +4,7 @@ import createAction from './base';
 import { receiveError } from './error';
 import { activateNotification, deactivateNotification } from './notification';
 import * as actions from '../utils/model-action-names';
+import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
 import pruneInstance from '../../lib/prune-instance';
 import { pluralise } from '../../lib/strings';
 import { NOTIFICATION_STATUSES } from '../../utils/constants';
@@ -150,7 +151,7 @@ const createInstance = instance => async dispatch => {
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
 			notification = {
-				text: `${name} (${model})${differentiator ? ` (${differentiator})` : ''} has been created`,
+				text: `${name} (${model})${getDifferentiatorSuffix(differentiator)} has been created`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
@@ -240,7 +241,7 @@ const updateInstance = instance => async dispatch => {
 			dispatch(receiveUpdate(prunedInstance));
 
 			notification = {
-				text: `${name} (${model})${differentiator ? ` (${differentiator})` : ''} has been updated`,
+				text: `${name} (${model})${getDifferentiatorSuffix(differentiator)} has been updated`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
@@ -304,7 +305,7 @@ const deleteInstance = instance => async dispatch => {
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
 			notification = {
-				text: `${name} (${model})${differentiator ? ` (${differentiator})` : ''} has been deleted`,
+				text: `${name} (${model})${getDifferentiatorSuffix(differentiator)} has been deleted`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
