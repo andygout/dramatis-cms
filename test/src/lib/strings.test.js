@@ -4,7 +4,7 @@ import { camelCaseToSentenceCase, capitalise, pluralise } from '../../../src/lib
 
 describe('Strings module', () => {
 
-	describe('Camel Case To Sentence Case function', () => {
+	describe('camelCaseToSentenceCase function', () => {
 
 		it('converts single word camel-cased values to sentence case', () => {
 
@@ -24,9 +24,9 @@ describe('Strings module', () => {
 
 	});
 
-	describe('Capitalise function', () => {
+	describe('capitalise function', () => {
 
-		context('Input string is lowercase', () => {
+		context('input string is lowercase', () => {
 
 			it('returns string with initial letter as capital', () => {
 
@@ -36,7 +36,7 @@ describe('Strings module', () => {
 
 		});
 
-		context('Input string is uppercase', () => {
+		context('input string is uppercase', () => {
 
 			it('returns string with initial letter as capital', () => {
 
@@ -48,9 +48,9 @@ describe('Strings module', () => {
 
 	});
 
-	describe('Pluralise function', () => {
+	describe('pluralise function', () => {
 
-		context('Model has regular plural noun', () => {
+		context('model has regular plural noun', () => {
 
 			it('returns singular noun with appended \'s\'', () => {
 
@@ -60,7 +60,7 @@ describe('Strings module', () => {
 
 		});
 
-		context('Model has irregular plural noun', () => {
+		context('model has irregular plural noun', () => {
 
 			it('returns specific plural noun', () => {
 
