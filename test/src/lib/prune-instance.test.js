@@ -1,28 +1,8 @@
 import { expect } from 'chai';
-import { createSandbox } from 'sinon';
 
-import * as isObjectWithKeysModule from '../../../src/lib/is-object-with-keys';
 import pruneInstance from '../../../src/lib/prune-instance';
 
 describe('prune Instance module', () => {
-
-	let stubs;
-
-	const sandbox = createSandbox();
-
-	beforeEach(() => {
-
-		stubs = {
-			isObjectWithKeys: sandbox.stub(isObjectWithKeysModule, 'isObjectWithKeys').returns(false)
-		};
-
-	});
-
-	afterEach(() => {
-
-		sandbox.restore();
-
-	});
 
 	it('removes top-level concealed attributes (e.g. \'errors\', and \'uuid\')', () => {
 
@@ -38,7 +18,6 @@ describe('prune Instance module', () => {
 			name: 'King Lear'
 		};
 
-		expect(stubs.isObjectWithKeys.calledOnce).to.be.true;
 		expect(result).to.deep.equal(expectation);
 
 	});
@@ -57,22 +36,11 @@ describe('prune Instance module', () => {
 			model: 'production'
 		};
 
-		expect(stubs.isObjectWithKeys.calledOnce).to.be.true;
 		expect(result).to.deep.equal(expectation);
 
 	});
 
 	it('removes nested-level concealed attributes (e.g. \'errors\', and \'model\')', () => {
-
-		stubs.isObjectWithKeys
-			.onFirstCall().returns(false)
-			.onSecondCall().returns(false)
-			.onThirdCall().returns(true)
-			.onCall(3).returns(false)
-			.onCall(4).returns(false)
-			.onCall(5).returns(true)
-			.onCall(6).returns(false)
-			.onCall(7).returns(false);
 
 		const instance = {
 			name: 'King Lear',
@@ -110,7 +78,6 @@ describe('prune Instance module', () => {
 			]
 		};
 
-		expect(stubs.isObjectWithKeys.callCount).to.equal(8);
 		expect(result).to.deep.equal(expectation);
 
 	});
@@ -120,16 +87,6 @@ describe('prune Instance module', () => {
 		context('array items with non-empty strings exist', () => {
 
 			it('filters out array items that have empty string name values', () => {
-
-				stubs.isObjectWithKeys
-					.onFirstCall().returns(false)
-					.onSecondCall().returns(false)
-					.onThirdCall().returns(true)
-					.onCall(3).returns(false)
-					.onCall(4).returns(false)
-					.onCall(5).returns(true)
-					.onCall(6).returns(false)
-					.onCall(7).returns(false);
 
 				const instance = {
 					name: 'King Lear',
@@ -176,7 +133,6 @@ describe('prune Instance module', () => {
 					]
 				};
 
-				expect(stubs.isObjectWithKeys.callCount).to.equal(8);
 				expect(result).to.deep.equal(expectation);
 
 			});
@@ -186,16 +142,6 @@ describe('prune Instance module', () => {
 		context('array items with non-empty strings do not exist', () => {
 
 			it('leaves single array item that has empty string name value', () => {
-
-				stubs.isObjectWithKeys
-					.onFirstCall().returns(false)
-					.onSecondCall().returns(false)
-					.onThirdCall().returns(true)
-					.onCall(3).returns(false)
-					.onCall(4).returns(false)
-					.onCall(5).returns(true)
-					.onCall(6).returns(false)
-					.onCall(7).returns(false);
 
 				const instance = {
 					name: 'King Lear',
@@ -229,7 +175,6 @@ describe('prune Instance module', () => {
 					]
 				};
 
-				expect(stubs.isObjectWithKeys.callCount).to.equal(8);
 				expect(result).to.deep.equal(expectation);
 
 			});
@@ -239,20 +184,6 @@ describe('prune Instance module', () => {
 	});
 
 	it('prunes a sample instance as per specification', () => {
-
-		stubs.isObjectWithKeys
-			.onFirstCall().returns(false)
-			.onSecondCall().returns(true)
-			.onThirdCall().returns(false)
-			.onCall(3).returns(true)
-			.onCall(4).returns(false)
-			.onCall(5).returns(false)
-			.onCall(6).returns(true)
-			.onCall(7).returns(false)
-			.onCall(8).returns(false)
-			.onCall(9).returns(true)
-			.onCall(10).returns(false)
-			.onCall(11).returns(false);
 
 		const instance = {
 			name: 'King Lear',
@@ -329,7 +260,6 @@ describe('prune Instance module', () => {
 			]
 		};
 
-		expect(stubs.isObjectWithKeys.callCount).to.equal(12);
 		expect(result).to.deep.equal(expectation);
 
 	});
