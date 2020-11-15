@@ -98,7 +98,7 @@ describe('Create Blank Map module', () => {
 		it('converts strings to empty strings for top level attributes', () => {
 
 			const map = fromJS({
-				foo: 'string',
+				foo: 'string'
 			});
 
 			const result = createBlankMap(map);
