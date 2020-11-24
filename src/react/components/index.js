@@ -1,4 +1,3 @@
-import { Form } from './form';
 import ErrorMessage from './ErrorMessage';
 import Footer from './Footer';
 import FormattedJson from './FormattedJson';
@@ -13,7 +12,6 @@ import withInstancePageTitle from './withInstancePageTitle';
 export {
 	ErrorMessage,
 	Footer,
-	Form,
 	FormattedJson,
 	Header,
 	InstanceDocumentTitle,

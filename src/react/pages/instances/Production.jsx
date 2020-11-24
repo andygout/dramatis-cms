@@ -1,7 +1,9 @@
+import { Map } from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
+import { ProductionForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
 class Production extends React.Component {
@@ -13,8 +15,15 @@ class Production extends React.Component {
 		return (
 			<InstanceWrapper
 				instance={production}
-				formData={productionFormData}
+				formAction={productionFormData.get('action')}
 			>
+
+				<ProductionForm
+					instance={productionFormData.get('instance', Map())}
+					action={productionFormData.get('action', 'Submit')}
+					redirectPath={productionFormData.get('redirectPath')}
+				/>
+
 			</InstanceWrapper>
 		);
 

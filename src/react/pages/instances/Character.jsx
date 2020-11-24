@@ -1,7 +1,9 @@
+import { Map } from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
+import { CharacterForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
 class Character extends React.Component {
@@ -13,8 +15,15 @@ class Character extends React.Component {
 		return (
 			<InstanceWrapper
 				instance={character}
-				formData={characterFormData}
+				formAction={characterFormData.get('action')}
 			>
+
+				<CharacterForm
+					instance={characterFormData.get('instance', Map())}
+					action={characterFormData.get('action', 'Submit')}
+					redirectPath={characterFormData.get('redirectPath')}
+				/>
+
 			</InstanceWrapper>
 		);
 

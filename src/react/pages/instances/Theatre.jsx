@@ -1,7 +1,9 @@
+import { Map } from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
+import { TheatreForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
 class Theatre extends React.Component {
@@ -13,8 +15,15 @@ class Theatre extends React.Component {
 		return (
 			<InstanceWrapper
 				instance={theatre}
-				formData={theatreFormData}
+				formAction={theatreFormData.get('action')}
 			>
+
+				<TheatreForm
+					instance={theatreFormData.get('instance', Map())}
+					action={theatreFormData.get('action', 'Submit')}
+					redirectPath={theatreFormData.get('redirectPath')}
+				/>
+
 			</InstanceWrapper>
 		);
 

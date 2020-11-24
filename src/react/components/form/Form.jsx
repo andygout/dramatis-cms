@@ -1,17 +1,12 @@
-import classNames from 'classnames';
-import { List, Map, is, getIn, removeIn, setIn, updateIn } from 'immutable';
+import { List, is, getIn, removeIn, setIn, updateIn } from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import createBlankMap from '../../../lib/create-blank-map';
-import { camelCaseToSentenceCase, capitalise } from '../../../lib/strings';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
-import { ArrayItem, Input, InputErrors } from '.';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
-import { FORM_ACTIONS, FORM_CONCEALED_KEYS } from '../../../utils/constants';
+import { FORM_ACTIONS } from '../../../utils/constants';
 
 class Form extends React.Component {
 
@@ -21,6 +16,8 @@ class Form extends React.Component {
 
 		this.state = this.createObjectWithImmutableContent(props.instance);
 
+		this.handleChange = this.handleChange.bind(this);
+		this.handleRemovalClick = this.handleRemovalClick.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 
@@ -129,139 +126,17 @@ class Form extends React.Component {
 
 	}
 
-	render () {
+	performRedirect () {
 
-		if (this.props.redirectPath) {
-
-			const redirectToProps = {
-				pathname: this.props.redirectPath,
-				state: {
-					redirectPathOriginStateProp: `${this.state.model}FormData`
-				}
-			};
-
-			return (
-				<Redirect to={redirectToProps} />
-			);
-
-		}
-
-		const submitButtonText = capitalise(this.props.action);
-
-		const isDeleteButtonRequired = this.props.action === FORM_ACTIONS.update;
-
-		const handleValue = (value, statePath, errors) =>
-			Map.isMap(value)
-				? renderAsForm(value, statePath)
-				: List.isList(value)
-					? value.map((item, index) =>
-						renderAsForm(item, [...statePath, index], this.isRemovalButtonRequired(index, value.size))
-					)
-					: (
-						<React.Fragment>
-							<Input
-								value={value}
-								hasErrors={!!errors}
-								handleChange={this.handleChange.bind(this, statePath)}
-							/>
-							{
-								!!errors && (
-									<InputErrors
-										errors={errors}
-										statePath={statePath}
-									/>
-								)
-							}
-						</React.Fragment>
-					);
-
-		const renderAsForm = (map, statePath = [], isRemovalButtonRequired = false) => {
-
-			const isArrayItem = statePath.some(item => !isNaN(item));
-
-			const isNestedArrayItem = statePath.filter(item => !isNaN(item)).length > 1;
-
-			const fieldsetModuleClassName = classNames({
-				'fieldset__module': isArrayItem,
-				'fieldset__module--nested': isNestedArrayItem
-			});
-
-			return (
-				<div className={fieldsetModuleClassName} key={statePath.join('-')}>
-
-					{
-						isArrayItem && (
-							<ArrayItem
-								isRemovalButtonRequired={isRemovalButtonRequired}
-								handleRemovalClick={this.handleRemovalClick.bind(this, statePath)}
-							/>
-						)
-					}
-
-					{
-						map.entrySeq()
-							.filter(([key]) => !FORM_CONCEALED_KEYS.includes(key))
-							.map(([key, value]) =>
-								<div
-									className={
-										classNames({
-											'fieldset__component': !isArrayItem,
-											'fieldset__module-component': isArrayItem
-										})
-									}
-									key={`${statePath.join('-')}-${key}`}
-								>
-
-									<label className="fieldset__label">{ camelCaseToSentenceCase(key) }:</label>
-
-									{
-										handleValue(
-											value,
-											[...statePath, key],
-											map.getIn(['errors', key])
-										)
-									}
-
-								</div>
-							)
-					}
-
-				</div>
-			);
-
+		const redirectToProps = {
+			pathname: this.props.redirectPath,
+			state: {
+				redirectPathOriginStateProp: `${this.state.model}FormData`
+			}
 		};
 
 		return (
-			<form className="form" onSubmit={this.handleSubmit}>
-
-				{
-					Object.keys(this.state)
-						.filter(key => !FORM_CONCEALED_KEYS.includes(key))
-						.map(key =>
-							<fieldset className="fieldset" key={key}>
-
-								<h2 className="fieldset__header">{ camelCaseToSentenceCase(key) }:</h2>
-
-								{
-									handleValue(
-										this.state[key],
-										[key],
-										this.state.errors?.get(key)
-									)
-								}
-
-							</fieldset>
-						)
-				}
-
-				<button className="button">{ submitButtonText }</button>
-
-				{
-					isDeleteButtonRequired && (
-						<button className="button" onClick={this.handleDelete}>Delete</button>
-					)
-				}
-			</form>
+			<Redirect to={redirectToProps} />
 		);
 
 	}
@@ -271,10 +146,10 @@ class Form extends React.Component {
 Form.propTypes = {
 	instance: ImmutablePropTypes.map.isRequired,
 	action: PropTypes.string.isRequired,
-	redirectPath: PropTypes.string,
+	redirectPath: PropTypes.string.isRequired,
 	createInstance: PropTypes.func.isRequired,
 	updateInstance: PropTypes.func.isRequired,
 	deleteInstance: PropTypes.func.isRequired
 };
 
-export default connect(null, { createInstance, updateInstance, deleteInstance })(Form);
+export default Form;
