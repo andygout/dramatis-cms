@@ -1,9 +1,8 @@
-import { Map } from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import {
-	Form,
 	FormattedJson,
 	InstanceDocumentTitle,
 	InstanceLabel,
@@ -15,7 +14,7 @@ class InstanceWrapper extends React.Component {
 
 	render () {
 
-		const { instance, formData } = this.props;
+		const { instance, formAction, children } = this.props;
 
 		const InstancePageTitle = withInstancePageTitle(PageTitle);
 
@@ -23,12 +22,12 @@ class InstanceWrapper extends React.Component {
 			<React.Fragment>
 
 				{
-					instance.get('name') && instance.get('model') && formData.get('action') && (
+					instance.get('name') && instance.get('model') && formAction && (
 						<InstanceDocumentTitle
 							name={instance.get('name')}
 							differentiator={instance.get('differentiator')}
 							model={instance.get('model')}
-							formAction={formData.get('action')}
+							formAction={formAction}
 						/>
 					)
 				}
@@ -39,16 +38,12 @@ class InstanceWrapper extends React.Component {
 					name={instance.get('name')}
 					differentiator={instance.get('differentiator')}
 					model={instance.get('model')}
-					formAction={formData.get('action')}
+					formAction={formAction}
 				/>
 
 				<FormattedJson data={instance} />
 
-				<Form
-					instance={formData.get('instance', Map())}
-					action={formData.get('action', 'Submit')}
-					redirectPath={formData.get('redirectPath')}
-				/>
+				{ children }
 
 			</React.Fragment>
 		);
@@ -59,7 +54,8 @@ class InstanceWrapper extends React.Component {
 
 InstanceWrapper.propTypes = {
 	instance: ImmutablePropTypes.map.isRequired,
-	formData: ImmutablePropTypes.map.isRequired
+	formAction: PropTypes.string,
+	children: PropTypes.node.isRequired
 };
 
 export default InstanceWrapper;

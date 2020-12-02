@@ -1,28 +1,8 @@
 import { expect } from 'chai';
 
-import { camelCaseToSentenceCase, capitalise, pluralise } from '../../../src/lib/strings';
+import { capitalise, pluralise } from '../../../src/lib/strings';
 
 describe('Strings module', () => {
-
-	describe('camelCaseToSentenceCase function', () => {
-
-		it('converts single word camel-cased values to sentence case', () => {
-
-			const result = camelCaseToSentenceCase('name');
-
-			expect(result).to.equal('Name');
-
-		});
-
-		it('converts multi-word camel-cased values to sentence case', () => {
-
-			const result = camelCaseToSentenceCase('characterName');
-
-			expect(result).to.equal('Character name');
-
-		});
-
-	});
 
 	describe('capitalise function', () => {
 

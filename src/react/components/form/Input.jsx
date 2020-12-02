@@ -13,7 +13,7 @@ const Input = props => {
 
 	return (
 		<input
-			value={value}
+			value={value || ''}
 			className={className}
 			maxLength="1000"
 			type="text"
@@ -24,7 +24,7 @@ const Input = props => {
 };
 
 Input.propTypes = {
-	value: PropTypes.string.isRequired,
+	value: PropTypes.string,
 	hasErrors: PropTypes.bool.isRequired,
 	handleChange: PropTypes.func.isRequired
 };

@@ -1,7 +1,9 @@
+import { Map } from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
+import { PlaytextForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
 class Playtext extends React.Component {
@@ -13,8 +15,15 @@ class Playtext extends React.Component {
 		return (
 			<InstanceWrapper
 				instance={playtext}
-				formData={playtextFormData}
+				formAction={playtextFormData.get('action')}
 			>
+
+				<PlaytextForm
+					instance={playtextFormData.get('instance', Map())}
+					action={playtextFormData.get('action', 'Submit')}
+					redirectPath={playtextFormData.get('redirectPath')}
+				/>
+
 			</InstanceWrapper>
 		);
 
