@@ -82,6 +82,16 @@ class PlaytextForm extends Form {
 
 								</FieldsetComponent>
 
+								<FieldsetComponent label={'Original version writers (if subsequent version)'} isArrayItem={true}>
+
+									<input
+										type="checkbox"
+										checked={writerGroup.get('isOriginalVersionWriter') || false}
+										onChange={event => this.handleChange(['writerGroups', index, 'isOriginalVersionWriter'], event)}
+									/>
+
+								</FieldsetComponent>
+
 								{ this.renderWriters(writerGroup.get('writers'), ['writerGroups', index, 'writers']) }
 
 							</div>
