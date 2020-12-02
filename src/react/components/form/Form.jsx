@@ -49,9 +49,15 @@ class Form extends React.Component {
 
 	}
 
-	getNewStateForRootAttr (rootAttr, statePath, eventTargetValue) {
+	getNewStateForRootAttr (rootAttr, statePath, eventTarget) {
 
-		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, eventTargetValue);
+		const isUpatedCheckbox = eventTarget.type === 'checkbox';
+
+		const updateValue = isUpatedCheckbox ? eventTarget.checked : eventTarget.value;
+
+		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, updateValue);
+
+		if (isUpatedCheckbox) return newStateForRootAttr;
 
 		const indexOfLastNumberInStatePath =
 			statePath
@@ -88,7 +94,7 @@ class Form extends React.Component {
 
 		const rootAttr = statePath.shift();
 
-		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target.value) });
+		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target) });
 
 	}
 
