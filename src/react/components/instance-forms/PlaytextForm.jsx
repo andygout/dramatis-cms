@@ -244,6 +244,30 @@ class PlaytextForm extends Form {
 
 				</Fieldset>
 
+				<Fieldset header={'Original version playtext'}>
+
+					<FieldsetComponent label={'Name'}>
+
+						<InputAndErrors
+							value={this.state.originalVersionPlaytext?.get('name')}
+							errors={this.state.originalVersionPlaytext?.getIn(['errors', 'name'])}
+							handleChange={event => this.handleChange(['originalVersionPlaytext', 'name'], event)}
+						/>
+
+					</FieldsetComponent>
+
+					<FieldsetComponent label={'Differentiator'}>
+
+						<InputAndErrors
+							value={this.state.originalVersionPlaytext?.get('differentiator')}
+							errors={this.state.originalVersionPlaytext?.getIn(['errors', 'differentiator'])}
+							handleChange={event => this.handleChange(['originalVersionPlaytext', 'differentiator'], event)}
+						/>
+
+					</FieldsetComponent>
+
+				</Fieldset>
+
 				{ !!this.state.writerGroups && this.renderWriterGroups(this.state.writerGroups) }
 
 				{ !!this.state.characterGroups && this.renderCharacterGroups(this.state.characterGroups) }
