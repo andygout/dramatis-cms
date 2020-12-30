@@ -45,6 +45,26 @@ class PlaytextForm extends Form {
 
 								</FieldsetComponent>
 
+								<FieldsetComponent label={'Model'} isArrayItem={true}>
+
+									<input
+										type={'radio'}
+										value={'person'}
+										checked={writer.get('model') === 'person'}
+										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+									/>
+									<label>&nbsp;Person</label>
+
+									<input
+										type={'radio'}
+										value={'playtext'}
+										checked={writer.get('model') === 'playtext'}
+										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+									/>
+									<label>&nbsp;Playtext (source material)</label>
+
+								</FieldsetComponent>
+
 							</div>
 						);
 
