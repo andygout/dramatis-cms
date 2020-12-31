@@ -82,42 +82,38 @@ class PlaytextForm extends Form {
 			<Fieldset header={'Writer groups'}>
 
 				{
-					writerGroups.map((writerGroup, index) => {
+					writerGroups.map((writerGroup, index) =>
+						<div className={'fieldset__module'} key={index}>
 
-						return (
-							<div className={'fieldset__module'} key={index}>
+							<ArrayItemRemovalButton
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, writerGroups.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['writerGroups', index], event)}
+							/>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, writerGroups.size)}
-									handleRemovalClick={event => this.handleRemovalClick(['writerGroups', index], event)}
+							<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+								<InputAndErrors
+									value={writerGroup.get('name')}
+									errors={writerGroup.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['writerGroups', index, 'name'], event)}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={writerGroup.get('name')}
-										errors={writerGroup.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(['writerGroups', index, 'name'], event)}
-									/>
+							<FieldsetComponent label={'Original version writers (if subsequent version)'} isArrayItem={true}>
 
-								</FieldsetComponent>
+								<input
+									type="checkbox"
+									checked={writerGroup.get('isOriginalVersionWriter') || false}
+									onChange={event => this.handleChange(['writerGroups', index, 'isOriginalVersionWriter'], event)}
+								/>
 
-								<FieldsetComponent label={'Original version writers (if subsequent version)'} isArrayItem={true}>
+							</FieldsetComponent>
 
-									<input
-										type="checkbox"
-										checked={writerGroup.get('isOriginalVersionWriter') || false}
-										onChange={event => this.handleChange(['writerGroups', index, 'isOriginalVersionWriter'], event)}
-									/>
+							{ this.renderWriters(writerGroup.get('writers'), ['writerGroups', index, 'writers']) }
 
-								</FieldsetComponent>
-
-								{ this.renderWriters(writerGroup.get('writers'), ['writerGroups', index, 'writers']) }
-
-							</div>
-						);
-
-					})
+						</div>
+					)
 				}
 
 			</Fieldset>
@@ -200,32 +196,28 @@ class PlaytextForm extends Form {
 			<Fieldset header={'Character groups'}>
 
 				{
-					characterGroups.map((characterGroup, index) => {
+					characterGroups.map((characterGroup, index) =>
+						<div className={'fieldset__module'} key={index}>
 
-						return (
-							<div className={'fieldset__module'} key={index}>
+							<ArrayItemRemovalButton
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, characterGroups.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['characterGroups', index], event)}
+							/>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, characterGroups.size)}
-									handleRemovalClick={event => this.handleRemovalClick(['characterGroups', index], event)}
+							<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+								<InputAndErrors
+									value={characterGroup.get('name')}
+									errors={characterGroup.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['characterGroups', index, 'name'], event)}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={characterGroup.get('name')}
-										errors={characterGroup.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(['characterGroups', index, 'name'], event)}
-									/>
+							{ this.renderCharacters(characterGroup.get('characters'), ['characterGroups', index, 'characters']) }
 
-								</FieldsetComponent>
-
-								{ this.renderCharacters(characterGroup.get('characters'), ['characterGroups', index, 'characters']) }
-
-							</div>
-						);
-
-					})
+						</div>
+					)
 				}
 
 			</Fieldset>

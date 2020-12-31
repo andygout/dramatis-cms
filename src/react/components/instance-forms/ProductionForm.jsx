@@ -82,42 +82,38 @@ class ProductionForm extends Form {
 			<Fieldset header={'Cast'}>
 
 				{
-					cast.map((castMember, index) => {
+					cast.map((castMember, index) =>
+						<div className={'fieldset__module'} key={index}>
 
-						return (
-							<div className={'fieldset__module'} key={index}>
+							<ArrayItemRemovalButton
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, cast.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['cast', index], event)}
+							/>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, cast.size)}
-									handleRemovalClick={event => this.handleRemovalClick(['cast', index], event)}
+							<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+								<InputAndErrors
+									value={castMember.get('name')}
+									errors={castMember.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['cast', index, 'name'], event)}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={castMember.get('name')}
-										errors={castMember.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(['cast', index, 'name'], event)}
-									/>
+							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
-								</FieldsetComponent>
+								<InputAndErrors
+									value={castMember.get('differentiator')}
+									errors={castMember.getIn(['errors', 'differentiator'])}
+									handleChange={event => this.handleChange(['cast', index, 'differentiator'], event)}
+								/>
 
-								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={castMember.get('differentiator')}
-										errors={castMember.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(['cast', index, 'differentiator'], event)}
-									/>
+							{ this.renderCastMemberRoles(castMember.get('roles'), ['cast', index, 'roles']) }
 
-								</FieldsetComponent>
-
-								{ this.renderCastMemberRoles(castMember.get('roles'), ['cast', index, 'roles']) }
-
-							</div>
-						);
-
-					})
+						</div>
+					)
 				}
 
 			</Fieldset>
