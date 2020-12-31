@@ -13,40 +13,36 @@ class TheatreForm extends Form {
 			<Fieldset header={'Sub-theatres'}>
 
 				{
-					subTheatres?.map((subTheatre, index) => {
+					subTheatres?.map((subTheatre, index) =>
+						<div className={'fieldset__module'} key={index}>
 
-						return (
-							<div className={'fieldset__module'} key={index}>
+							<ArrayItemRemovalButton
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, subTheatres.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['subTheatres', index], event)}
+							/>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, subTheatres.size)}
-									handleRemovalClick={event => this.handleRemovalClick(['subTheatres', index], event)}
+							<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+								<InputAndErrors
+									value={subTheatre.get('name')}
+									errors={subTheatre.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['subTheatres', index, 'name'], event)}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={subTheatre.get('name')}
-										errors={subTheatre.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(['subTheatres', index, 'name'], event)}
-									/>
+							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
-								</FieldsetComponent>
+								<InputAndErrors
+									value={subTheatre.get('differentiator')}
+									errors={subTheatre.getIn(['errors', 'differentiator'])}
+									handleChange={event => this.handleChange(['subTheatres', index, 'differentiator'], event)}
+								/>
 
-								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={subTheatre.get('differentiator')}
-										errors={subTheatre.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(['subTheatres', index, 'differentiator'], event)}
-									/>
-
-								</FieldsetComponent>
-
-							</div>
-						);
-
-					})
+						</div>
+					)
 				}
 
 			</Fieldset>
