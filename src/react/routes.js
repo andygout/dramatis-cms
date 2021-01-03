@@ -1,10 +1,10 @@
 import {
 	Character,
 	Characters,
+	Material,
+	Materials,
 	Person,
 	People,
-	Playtext,
-	Playtexts,
 	Production,
 	Productions,
 	Theatre,
@@ -61,6 +61,38 @@ export default [
 		]
 	},
 	{
+		path: '/materials',
+		exact: true,
+		documentTitle: () => 'Materials',
+		component: Materials,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchList('materials'))
+		]
+	},
+	{
+		path: '/materials/new',
+		exact: true,
+		documentTitle: () => 'New material',
+		component: Material,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchInstanceTemplate('material'))
+		]
+	},
+	{
+		path: '/materials/:uuid',
+		documentTitle: () => 'Material',
+		component: Material,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('material', uuid))
+		]
+	},
+	{
 		path: '/people',
 		exact: true,
 		documentTitle: () => 'People',
@@ -90,38 +122,6 @@ export default [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('person', uuid))
-		]
-	},
-	{
-		path: '/playtexts',
-		exact: true,
-		documentTitle: () => 'Playtexts',
-		component: Playtexts,
-		fetchData: [
-			dispatch => dispatch(cancelError()),
-			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('playtexts'))
-		]
-	},
-	{
-		path: '/playtexts/new',
-		exact: true,
-		documentTitle: () => 'New playtext',
-		component: Playtext,
-		fetchData: [
-			dispatch => dispatch(cancelError()),
-			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('playtext'))
-		]
-	},
-	{
-		path: '/playtexts/:uuid',
-		documentTitle: () => 'Playtexts',
-		component: Playtext,
-		fetchData: [
-			dispatch => dispatch(cancelError()),
-			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('playtext', uuid))
 		]
 	},
 	{

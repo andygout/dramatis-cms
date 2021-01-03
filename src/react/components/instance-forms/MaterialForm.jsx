@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 
-class PlaytextForm extends Form {
+class MaterialForm extends Form {
 
 	renderWriters (writers, writersStatePath) {
 
@@ -57,11 +57,11 @@ class PlaytextForm extends Form {
 
 									<input
 										type={'radio'}
-										value={'playtext'}
-										checked={writer.get('model') === 'playtext'}
+										value={'material'}
+										checked={writer.get('model') === 'material'}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
-									<label>&nbsp;Playtext (source material)</label>
+									<label>&nbsp;Material</label>
 
 								</FieldsetComponent>
 
@@ -256,14 +256,24 @@ class PlaytextForm extends Form {
 
 				</Fieldset>
 
-				<Fieldset header={'Original version playtext'}>
+				<Fieldset header={'Format'}>
+
+					<InputAndErrors
+						value={this.state.format}
+						errors={this.state.errors?.get('format')}
+						handleChange={event => this.handleChange(['format'], event)}
+					/>
+
+				</Fieldset>
+
+				<Fieldset header={'Original version material'}>
 
 					<FieldsetComponent label={'Name'}>
 
 						<InputAndErrors
-							value={this.state.originalVersionPlaytext?.get('name')}
-							errors={this.state.originalVersionPlaytext?.getIn(['errors', 'name'])}
-							handleChange={event => this.handleChange(['originalVersionPlaytext', 'name'], event)}
+							value={this.state.originalVersionMaterial?.get('name')}
+							errors={this.state.originalVersionMaterial?.getIn(['errors', 'name'])}
+							handleChange={event => this.handleChange(['originalVersionMaterial', 'name'], event)}
 						/>
 
 					</FieldsetComponent>
@@ -271,9 +281,9 @@ class PlaytextForm extends Form {
 					<FieldsetComponent label={'Differentiator'}>
 
 						<InputAndErrors
-							value={this.state.originalVersionPlaytext?.get('differentiator')}
-							errors={this.state.originalVersionPlaytext?.getIn(['errors', 'differentiator'])}
-							handleChange={event => this.handleChange(['originalVersionPlaytext', 'differentiator'], event)}
+							value={this.state.originalVersionMaterial?.get('differentiator')}
+							errors={this.state.originalVersionMaterial?.getIn(['errors', 'differentiator'])}
+							handleChange={event => this.handleChange(['originalVersionMaterial', 'differentiator'], event)}
 						/>
 
 					</FieldsetComponent>
@@ -291,14 +301,14 @@ class PlaytextForm extends Form {
 
 }
 
-PlaytextForm.propTypes = {
-	playtext: ImmutablePropTypes.map.isRequired,
-	playtextFormData: ImmutablePropTypes.map.isRequired
+MaterialForm.propTypes = {
+	material: ImmutablePropTypes.map.isRequired,
+	materialFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({
-	playtext: state.get('playtext'),
-	playtextFormData: state.get('playtextFormData')
+	material: state.get('material'),
+	materialFormData: state.get('materialFormData')
 });
 
-export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(PlaytextForm);
+export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(MaterialForm);

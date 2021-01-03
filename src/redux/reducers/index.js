@@ -2,13 +2,13 @@ import characterFormData from './character-form-data';
 import character from './character';
 import characters from './characters';
 import error from './error';
+import materialFormData from './material-form-data';
+import material from './material';
+import materials from './materials';
 import notification from './notification';
 import people from './people';
 import personFormData from './person-form-data';
 import person from './person';
-import playtextFormData from './playtext-form-data';
-import playtext from './playtext';
-import playtexts from './playtexts';
 import productionFormData from './production-form-data';
 import production from './production';
 import productions from './productions';
@@ -21,13 +21,13 @@ export default {
 	character,
 	characters,
 	error,
+	materialFormData,
+	material,
+	materials,
 	notification,
 	people,
 	personFormData,
 	person,
-	playtextFormData,
-	playtext,
-	playtexts,
 	productionFormData,
 	production,
 	productions,

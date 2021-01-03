@@ -195,10 +195,11 @@ describe('prune Instance module', () => {
 				errors: {},
 				model: 'theatre'
 			},
-			playtext: {
+			material: {
+				model: 'material',
 				name: '',
-				errors: {},
-				model: 'playtext'
+				format: '',
+				errors: {}
 			},
 			cast: [
 				{
@@ -244,8 +245,9 @@ describe('prune Instance module', () => {
 			theatre: {
 				name: 'Courtyard Theatre'
 			},
-			playtext: {
-				name: ''
+			material: {
+				name: '',
+				format: ''
 			},
 			cast: [
 				{

@@ -1,19 +1,19 @@
 import { Map, fromJS } from 'immutable';
 
 import {
-	RECEIVE_PLAYTEXT_NEW_FORM_DATA,
-	RECEIVE_PLAYTEXT_EDIT_FORM_DATA
+	RECEIVE_MATERIAL_NEW_FORM_DATA,
+	RECEIVE_MATERIAL_EDIT_FORM_DATA
 } from '../utils/model-action-names';
 import { FORM_ACTIONS } from '../../utils/constants';
 
-const playtextFormData = (state = Map(), action) => {
+const materialFormData = (state = Map(), action) => {
 
 	switch (action.type) {
 
-		case RECEIVE_PLAYTEXT_NEW_FORM_DATA:
+		case RECEIVE_MATERIAL_NEW_FORM_DATA:
 			return fromJS({ ...action.payload, action: FORM_ACTIONS.create });
 
-		case RECEIVE_PLAYTEXT_EDIT_FORM_DATA:
+		case RECEIVE_MATERIAL_EDIT_FORM_DATA:
 			return fromJS({ ...action.payload, action: FORM_ACTIONS.update });
 
 		default:
@@ -23,4 +23,4 @@ const playtextFormData = (state = Map(), action) => {
 
 };
 
-export default playtextFormData;
+export default materialFormData;

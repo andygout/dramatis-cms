@@ -142,14 +142,14 @@ class ProductionForm extends Form {
 
 				</Fieldset>
 
-				<Fieldset header={'Playtext'}>
+				<Fieldset header={'Material'}>
 
 					<FieldsetComponent label={'Name'}>
 
 						<InputAndErrors
-							value={this.state.playtext?.get('name')}
-							errors={this.state.playtext?.getIn(['errors', 'name'])}
-							handleChange={event => this.handleChange(['playtext', 'name'], event)}
+							value={this.state.material?.get('name')}
+							errors={this.state.material?.getIn(['errors', 'name'])}
+							handleChange={event => this.handleChange(['material', 'name'], event)}
 						/>
 
 					</FieldsetComponent>
@@ -157,9 +157,9 @@ class ProductionForm extends Form {
 					<FieldsetComponent label={'Differentiator'}>
 
 						<InputAndErrors
-							value={this.state.playtext?.get('differentiator')}
-							errors={this.state.playtext?.getIn(['errors', 'differentiator'])}
-							handleChange={event => this.handleChange(['playtext', 'differentiator'], event)}
+							value={this.state.material?.get('differentiator')}
+							errors={this.state.material?.getIn(['errors', 'differentiator'])}
+							handleChange={event => this.handleChange(['material', 'differentiator'], event)}
 						/>
 
 					</FieldsetComponent>
