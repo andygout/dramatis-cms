@@ -1,13 +1,13 @@
 import CharacterForm from './CharacterForm';
+import MaterialForm from './MaterialForm';
 import PersonForm from './PersonForm';
-import PlaytextForm from './PlaytextForm';
 import ProductionForm from './ProductionForm';
 import TheatreForm from './TheatreForm';
 
 export {
 	CharacterForm,
+	MaterialForm,
 	PersonForm,
-	PlaytextForm,
 	ProductionForm,
 	TheatreForm
 };

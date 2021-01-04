@@ -1,6 +1,6 @@
 # theatrebase-cms [![CircleCI](https://circleci.com/gh/andygout/theatrebase-cms.svg?style=svg)](https://circleci.com/gh/andygout/theatrebase-cms)
 
-Content Management System (CMS) for managing database of theatrical productions, playtexts, and associated data.
+Content Management System (CMS) for managing database of theatrical productions, materials, and associated data.
 
 ## Setup
 - Clone this repo.
