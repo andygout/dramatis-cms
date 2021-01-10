@@ -7,29 +7,29 @@ import { createInstance, updateInstance, deleteInstance } from '../../../redux/a
 
 class MaterialForm extends Form {
 
-	renderWriters (writers, writersStatePath) {
+	renderWritingEntities (writingEntities, writingEntitiesStatePath) {
 
 		return (
-			<FieldsetComponent label={'Writers'} isArrayItem={true}>
+			<FieldsetComponent label={'Writing entities (people, materials)'} isArrayItem={true}>
 
 				{
-					writers.map((writer, index) => {
+					writingEntities.map((writingEntity, index) => {
 
-						const statePath = writersStatePath.concat([index]);
+						const statePath = writingEntitiesStatePath.concat([index]);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
 								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, writers.size)}
+									isRemovalButtonRequired={this.isRemovalButtonRequired(index, writingEntities.size)}
 									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
 								/>
 
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={writer.get('name')}
-										errors={writer.getIn(['errors', 'name'])}
+										value={writingEntity.get('name')}
+										errors={writingEntity.getIn(['errors', 'name'])}
 										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
 									/>
 
@@ -38,8 +38,8 @@ class MaterialForm extends Form {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={writer.get('differentiator')}
-										errors={writer.getIn(['errors', 'differentiator'])}
+										value={writingEntity.get('differentiator')}
+										errors={writingEntity.getIn(['errors', 'differentiator'])}
 										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
 									/>
 
@@ -50,7 +50,7 @@ class MaterialForm extends Form {
 									<input
 										type={'radio'}
 										value={'person'}
-										checked={writer.get('model') === 'person'}
+										checked={writingEntity.get('model') === 'person'}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Person</label>
@@ -58,7 +58,7 @@ class MaterialForm extends Form {
 									<input
 										type={'radio'}
 										value={'material'}
-										checked={writer.get('model') === 'material'}
+										checked={writingEntity.get('model') === 'material'}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Material</label>
@@ -76,41 +76,41 @@ class MaterialForm extends Form {
 
 	}
 
-	renderWriterGroups (writerGroups) {
+	renderWritingCredits (writingCredits) {
 
 		return (
-			<Fieldset header={'Writer groups'}>
+			<Fieldset header={'Writing credits'}>
 
 				{
-					writerGroups.map((writerGroup, index) =>
+					writingCredits.map((writingCredit, index) =>
 						<div className={'fieldset__module'} key={index}>
 
 							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, writerGroups.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['writerGroups', index], event)}
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, writingCredits.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['writingCredits', index], event)}
 							/>
 
 							<FieldsetComponent label={'Name'} isArrayItem={true}>
 
 								<InputAndErrors
-									value={writerGroup.get('name')}
-									errors={writerGroup.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['writerGroups', index, 'name'], event)}
+									value={writingCredit.get('name')}
+									errors={writingCredit.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['writingCredits', index, 'name'], event)}
 								/>
 
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Original version writers (if subsequent version)'} isArrayItem={true}>
+							<FieldsetComponent label={'Original version credit (if subsequent version)'} isArrayItem={true}>
 
 								<input
 									type="checkbox"
-									checked={writerGroup.get('isOriginalVersionWriter') || false}
-									onChange={event => this.handleChange(['writerGroups', index, 'isOriginalVersionWriter'], event)}
+									checked={writingCredit.get('isOriginalVersionCredit') || false}
+									onChange={event => this.handleChange(['writingCredits', index, 'isOriginalVersionCredit'], event)}
 								/>
 
 							</FieldsetComponent>
 
-							{ this.renderWriters(writerGroup.get('writers'), ['writerGroups', index, 'writers']) }
+							{ this.renderWritingEntities(writingCredit.get('writingEntities'), ['writingCredits', index, 'writingEntities']) }
 
 						</div>
 					)
@@ -290,7 +290,7 @@ class MaterialForm extends Form {
 
 				</Fieldset>
 
-				{ !!this.state.writerGroups && this.renderWriterGroups(this.state.writerGroups) }
+				{ !!this.state.writingCredits && this.renderWritingCredits(this.state.writingCredits) }
 
 				{ !!this.state.characterGroups && this.renderCharacterGroups(this.state.characterGroups) }
 
