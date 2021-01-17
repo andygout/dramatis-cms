@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
+import { CREDIT_TYPES } from '../../../utils/constants';
 
 class MaterialForm extends Form {
 
@@ -100,13 +101,31 @@ class MaterialForm extends Form {
 
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Original version credit (if subsequent version)'} isArrayItem={true}>
+							<FieldsetComponent label={'Credit type'} isArrayItem={true}>
 
 								<input
-									type="checkbox"
-									checked={writingCredit.get('isOriginalVersionCredit') || false}
-									onChange={event => this.handleChange(['writingCredits', index, 'isOriginalVersionCredit'], event)}
+									type={'radio'}
+									value={''}
+									checked={!writingCredit.get('creditType')}
+									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
 								/>
+								<label>&nbsp;Direct</label>
+
+								<input
+									type={'radio'}
+									value={CREDIT_TYPES.ORIGINAL_VERSION}
+									checked={writingCredit.get('creditType') === CREDIT_TYPES.ORIGINAL_VERSION}
+									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
+								/>
+								<label>&nbsp;Original version</label>
+
+								<input
+									type={'radio'}
+									value={CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
+									checked={writingCredit.get('creditType') === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
+									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
+								/>
+								<label>&nbsp;Non-specific source material</label>
 
 							</FieldsetComponent>
 
