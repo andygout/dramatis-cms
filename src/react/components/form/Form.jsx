@@ -51,13 +51,9 @@ class Form extends React.Component {
 
 	getNewStateForRootAttr (rootAttr, statePath, eventTarget) {
 
-		const isUpatedCheckbox = eventTarget.type === 'checkbox';
+		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, eventTarget.value);
 
-		const updateValue = isUpatedCheckbox ? eventTarget.checked : eventTarget.value;
-
-		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, updateValue);
-
-		if (isUpatedCheckbox) return newStateForRootAttr;
+		if (eventTarget.type !== 'text') return newStateForRootAttr;
 
 		const indexOfLastNumberInStatePath =
 			statePath
