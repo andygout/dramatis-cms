@@ -113,14 +113,6 @@ class MaterialForm extends Form {
 
 								<input
 									type={'radio'}
-									value={CREDIT_TYPES.ORIGINAL_VERSION}
-									checked={writingCredit.get('creditType') === CREDIT_TYPES.ORIGINAL_VERSION}
-									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
-								/>
-								<label>&nbsp;Original version</label>
-
-								<input
-									type={'radio'}
 									value={CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
 									checked={writingCredit.get('creditType') === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
 									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
