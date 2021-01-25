@@ -12,6 +12,8 @@ const Navigation = () => {
 
 				<li><Link to={'/characters'}>Characters</Link></li>
 
+				<li><Link to={'/companies'}>Companies</Link></li>
+
 				<li><Link to={'/materials'}>Materials</Link></li>
 
 				<li><Link to={'/people'}>People</Link></li>
@@ -21,6 +23,8 @@ const Navigation = () => {
 				<li><Link to={'/theatres'}>Theatres</Link></li>
 
 				<li><Link to={'/characters/new'}>New character</Link></li>
+
+				<li><Link to={'/companies/new'}>New company</Link></li>
 
 				<li><Link to={'/materials/new'}>New material</Link></li>
 

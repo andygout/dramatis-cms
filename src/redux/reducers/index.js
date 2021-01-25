@@ -1,6 +1,9 @@
 import characterFormData from './character-form-data';
 import character from './character';
 import characters from './characters';
+import companies from './companies';
+import companyFormData from './company-form-data';
+import company from './company';
 import error from './error';
 import materialFormData from './material-form-data';
 import material from './material';
@@ -20,6 +23,9 @@ export default {
 	characterFormData,
 	character,
 	characters,
+	companies,
+	companyFormData,
+	company,
 	error,
 	materialFormData,
 	material,
