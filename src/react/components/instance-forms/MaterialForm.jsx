@@ -11,7 +11,7 @@ class MaterialForm extends Form {
 	renderWritingEntities (writingEntities, writingEntitiesStatePath) {
 
 		return (
-			<FieldsetComponent label={'Writing entities (people, materials)'} isArrayItem={true}>
+			<FieldsetComponent label={'Writing entities (people, companies, materials)'} isArrayItem={true}>
 
 				{
 					writingEntities.map((writingEntity, index) => {
@@ -55,6 +55,14 @@ class MaterialForm extends Form {
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Person</label>
+
+									<input
+										type={'radio'}
+										value={'company'}
+										checked={writingEntity.get('model') === 'company'}
+										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+									/>
+									<label>&nbsp;Company</label>
 
 									<input
 										type={'radio'}
