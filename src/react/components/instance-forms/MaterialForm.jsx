@@ -127,6 +127,14 @@ class MaterialForm extends Form {
 								/>
 								<label>&nbsp;Non-specific source material</label>
 
+								<input
+									type={'radio'}
+									value={CREDIT_TYPES.RIGHTS_GRANTOR}
+									checked={writingCredit.get('creditType') === CREDIT_TYPES.RIGHTS_GRANTOR}
+									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
+								/>
+								<label>&nbsp;Rights grantor</label>
+
 							</FieldsetComponent>
 
 							{ this.renderWritingEntities(writingCredit.get('writingEntities'), ['writingCredits', index, 'writingEntities']) }
