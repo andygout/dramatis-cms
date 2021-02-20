@@ -1,4 +1,4 @@
-# theatrebase-cms [![CircleCI](https://circleci.com/gh/andygout/theatrebase-cms.svg?style=svg)](https://circleci.com/gh/andygout/theatrebase-cms)
+# theatrebase-cms [![CircleCI](https://circleci.com/gh/andygout/theatrebase-cms/tree/main.svg?style=svg)](https://circleci.com/gh/andygout/theatrebase-cms/tree/main)
 
 Content Management System (CMS) for managing database of theatrical productions, materials, and associated data.
 
