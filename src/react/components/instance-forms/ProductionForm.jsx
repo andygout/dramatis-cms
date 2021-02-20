@@ -121,6 +121,110 @@ class ProductionForm extends Form {
 
 	}
 
+	renderCreativeEntities (creativeEntities, creativeEntitiesStatePath) {
+
+		return (
+			<FieldsetComponent label={'Creative entities (people, companies)'} isArrayItem={true}>
+
+				{
+					creativeEntities.map((creativeEntity, index) => {
+
+						const statePath = creativeEntitiesStatePath.concat([index]);
+
+						return (
+							<div className={'fieldset__module fieldset__module--nested'} key={index}>
+
+								<ArrayItemRemovalButton
+									isRemovalButtonRequired={this.isRemovalButtonRequired(index, creativeEntities.size)}
+									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
+								/>
+
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={creativeEntity.get('name')}
+										errors={creativeEntity.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={creativeEntity.get('differentiator')}
+										errors={creativeEntity.getIn(['errors', 'differentiator'])}
+										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Model'} isArrayItem={true}>
+
+									<input
+										type={'radio'}
+										value={'person'}
+										checked={creativeEntity.get('model') === 'person'}
+										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+									/>
+									<label>&nbsp;Person</label>
+
+									<input
+										type={'radio'}
+										value={'company'}
+										checked={creativeEntity.get('model') === 'company'}
+										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+									/>
+									<label>&nbsp;Company</label>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
+				}
+
+			</FieldsetComponent>
+		);
+
+	}
+
+	renderCreativeCredits (creativeCredits) {
+
+		return (
+			<Fieldset header={'Creative team credits'}>
+
+				{
+					creativeCredits.map((creativeCredit, index) =>
+						<div className={'fieldset__module'} key={index}>
+
+							<ArrayItemRemovalButton
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, creativeCredits.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['creativeCredits', index], event)}
+							/>
+
+							<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+								<InputAndErrors
+									value={creativeCredit.get('name')}
+									errors={creativeCredit.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['creativeCredits', index, 'name'], event)}
+								/>
+
+							</FieldsetComponent>
+
+							{ this.renderCreativeEntities(creativeCredit.get('creativeEntities'), ['creativeCredits', index, 'creativeEntities']) }
+
+						</div>
+					)
+				}
+
+			</Fieldset>
+		);
+
+	}
+
 	render () {
 
 		if (this.props.redirectPath) return this.performRedirect();
@@ -191,6 +295,8 @@ class ProductionForm extends Form {
 				</Fieldset>
 
 				{ !!this.state.cast && this.renderCast(this.state.cast) }
+
+				{ !!this.state.creativeCredits && this.renderCreativeCredits(this.state.creativeCredits) }
 
 			</FormWrapper>
 		);
