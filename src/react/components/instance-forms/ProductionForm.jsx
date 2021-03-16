@@ -1,3 +1,4 @@
+import { List, Map, remove, set } from 'immutable';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
@@ -6,6 +7,37 @@ import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper,
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 
 class ProductionForm extends Form {
+
+	handleChangeToPerson (statePath, entity, event) {
+
+		let revisedEntity = entity;
+		revisedEntity = set(revisedEntity, 'model', event.target.value);
+		revisedEntity = remove(revisedEntity, 'creditedMembers');
+
+		const revision = { value: revisedEntity, type: 'map' };
+
+		const rootAttr = statePath.shift();
+
+		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, revision) });
+
+	}
+
+	handleChangeToCompany (statePath, entity, event) {
+
+		const creditedMember = Map({ model: 'person', name: '', differentiator: '', errors: Map({}) });
+		const creditedMembers = List([creditedMember]);
+
+		let revisedEntity = entity;
+		revisedEntity = set(revisedEntity, 'model', event.target.value);
+		revisedEntity = set(revisedEntity, 'creditedMembers', creditedMembers);
+
+		const revision = { value: revisedEntity, type: 'map' };
+
+		const rootAttr = statePath.shift();
+
+		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, revision) });
+
+	}
 
 	renderCastMemberRoles (roles, rolesStatePath) {
 
@@ -121,6 +153,55 @@ class ProductionForm extends Form {
 
 	}
 
+	renderCreditedMembers (creditedMembers, creditedMembersStatePath) {
+
+		return (
+			<FieldsetComponent label={'Credited members (people)'} isArrayItem={true}>
+
+				{
+					creditedMembers.map((creditedMember, index) => {
+
+						const statePath = creditedMembersStatePath.concat([index]);
+
+						return (
+							<div className={'fieldset__module fieldset__module--nested'} key={index}>
+
+								<ArrayItemRemovalButton
+									isRemovalButtonRequired={this.isRemovalButtonRequired(index, creditedMembers.size)}
+									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
+								/>
+
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={creditedMember.get('name')}
+										errors={creditedMember.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={creditedMember.get('differentiator')}
+										errors={creditedMember.getIn(['errors', 'differentiator'])}
+										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+									/>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
+				}
+
+			</FieldsetComponent>
+		);
+
+	}
+
 	renderCreativeEntities (creativeEntities, creativeEntitiesStatePath) {
 
 		return (
@@ -165,7 +246,7 @@ class ProductionForm extends Form {
 										type={'radio'}
 										value={'person'}
 										checked={creativeEntity.get('model') === 'person'}
-										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+										onChange={event => this.handleChangeToPerson(statePath, creativeEntity, event)}
 									/>
 									<label>&nbsp;Person</label>
 
@@ -173,11 +254,19 @@ class ProductionForm extends Form {
 										type={'radio'}
 										value={'company'}
 										checked={creativeEntity.get('model') === 'company'}
-										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+										onChange={event => this.handleChangeToCompany(statePath, creativeEntity, event)}
 									/>
 									<label>&nbsp;Company</label>
 
 								</FieldsetComponent>
+
+								{
+									creativeEntity.get('model') === 'company' &&
+									this.renderCreditedMembers(
+										creativeEntity.get('creditedMembers', []),
+										statePath.concat(['creditedMembers'])
+									)
+								}
 
 							</div>
 						);
