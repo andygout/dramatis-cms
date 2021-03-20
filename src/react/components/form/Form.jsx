@@ -49,11 +49,11 @@ class Form extends React.Component {
 
 	}
 
-	getNewStateForRootAttr (rootAttr, statePath, eventTarget) {
+	getNewStateForRootAttr (rootAttr, statePath, revision) {
 
-		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, eventTarget.value);
+		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, revision.value);
 
-		if (eventTarget.type !== 'text') return newStateForRootAttr;
+		if (revision.type !== 'text') return newStateForRootAttr;
 
 		const indexOfLastNumberInStatePath =
 			statePath
