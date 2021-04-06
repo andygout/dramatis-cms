@@ -314,6 +314,118 @@ class ProductionForm extends Form {
 
 	}
 
+	renderCrewEntities (crewEntities, crewEntitiesStatePath) {
+
+		return (
+			<FieldsetComponent label={'Crew entities (people, companies)'} isArrayItem={true}>
+
+				{
+					crewEntities.map((crewEntity, index) => {
+
+						const statePath = crewEntitiesStatePath.concat([index]);
+
+						return (
+							<div className={'fieldset__module fieldset__module--nested'} key={index}>
+
+								<ArrayItemRemovalButton
+									isRemovalButtonRequired={this.isRemovalButtonRequired(index, crewEntities.size)}
+									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
+								/>
+
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={crewEntity.get('name')}
+										errors={crewEntity.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={crewEntity.get('differentiator')}
+										errors={crewEntity.getIn(['errors', 'differentiator'])}
+										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Model'} isArrayItem={true}>
+
+									<input
+										type={'radio'}
+										value={'person'}
+										checked={crewEntity.get('model') === 'person'}
+										onChange={event => this.handleChangeToPerson(statePath, crewEntity, event)}
+									/>
+									<label>&nbsp;Person</label>
+
+									<input
+										type={'radio'}
+										value={'company'}
+										checked={crewEntity.get('model') === 'company'}
+										onChange={event => this.handleChangeToCompany(statePath, crewEntity, event)}
+									/>
+									<label>&nbsp;Company</label>
+
+								</FieldsetComponent>
+
+								{
+									crewEntity.get('model') === 'company' &&
+									this.renderCreditedMembers(
+										crewEntity.get('creditedMembers', []),
+										statePath.concat(['creditedMembers'])
+									)
+								}
+
+							</div>
+						);
+
+					})
+				}
+
+			</FieldsetComponent>
+		);
+
+	}
+
+	renderCrewCredits (crewCredits) {
+
+		return (
+			<Fieldset header={'Crew credits'}>
+
+				{
+					crewCredits.map((crewCredit, index) =>
+						<div className={'fieldset__module'} key={index}>
+
+							<ArrayItemRemovalButton
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, crewCredits.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['crewCredits', index], event)}
+							/>
+
+							<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+								<InputAndErrors
+									value={crewCredit.get('name')}
+									errors={crewCredit.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['crewCredits', index, 'name'], event)}
+								/>
+
+							</FieldsetComponent>
+
+							{ this.renderCrewEntities(crewCredit.get('crewEntities'), ['crewCredits', index, 'crewEntities']) }
+
+						</div>
+					)
+				}
+
+			</Fieldset>
+		);
+
+	}
+
 	render () {
 
 		if (this.props.redirectPath) return this.performRedirect();
@@ -386,6 +498,8 @@ class ProductionForm extends Form {
 				{ !!this.state.cast && this.renderCast(this.state.cast) }
 
 				{ !!this.state.creativeCredits && this.renderCreativeCredits(this.state.creativeCredits) }
+
+				{ !!this.state.crewCredits && this.renderCrewCredits(this.state.crewCredits) }
 
 			</FormWrapper>
 		);
