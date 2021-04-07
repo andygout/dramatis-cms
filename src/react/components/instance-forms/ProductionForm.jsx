@@ -202,29 +202,29 @@ class ProductionForm extends Form {
 
 	}
 
-	renderCreativeEntities (creativeEntities, creativeEntitiesStatePath) {
+	renderEntities (entities, entitiesStatePath, teamName) {
 
 		return (
-			<FieldsetComponent label={'Creative entities (people, companies)'} isArrayItem={true}>
+			<FieldsetComponent label={`${teamName} entities (people, companies)`} isArrayItem={true}>
 
 				{
-					creativeEntities.map((creativeEntity, index) => {
+					entities.map((entity, index) => {
 
-						const statePath = creativeEntitiesStatePath.concat([index]);
+						const statePath = entitiesStatePath.concat([index]);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
 								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, creativeEntities.size)}
+									isRemovalButtonRequired={this.isRemovalButtonRequired(index, entities.size)}
 									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
 								/>
 
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={creativeEntity.get('name')}
-										errors={creativeEntity.getIn(['errors', 'name'])}
+										value={entity.get('name')}
+										errors={entity.getIn(['errors', 'name'])}
 										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
 									/>
 
@@ -233,8 +233,8 @@ class ProductionForm extends Form {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={creativeEntity.get('differentiator')}
-										errors={creativeEntity.getIn(['errors', 'differentiator'])}
+										value={entity.get('differentiator')}
+										errors={entity.getIn(['errors', 'differentiator'])}
 										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
 									/>
 
@@ -245,25 +245,25 @@ class ProductionForm extends Form {
 									<input
 										type={'radio'}
 										value={'person'}
-										checked={creativeEntity.get('model') === 'person'}
-										onChange={event => this.handleChangeToPerson(statePath, creativeEntity, event)}
+										checked={entity.get('model') === 'person'}
+										onChange={event => this.handleChangeToPerson(statePath, entity, event)}
 									/>
 									<label>&nbsp;Person</label>
 
 									<input
 										type={'radio'}
 										value={'company'}
-										checked={creativeEntity.get('model') === 'company'}
-										onChange={event => this.handleChangeToCompany(statePath, creativeEntity, event)}
+										checked={entity.get('model') === 'company'}
+										onChange={event => this.handleChangeToCompany(statePath, entity, event)}
 									/>
 									<label>&nbsp;Company</label>
 
 								</FieldsetComponent>
 
 								{
-									creativeEntity.get('model') === 'company' &&
+									entity.get('model') === 'company' &&
 									this.renderCreditedMembers(
-										creativeEntity.get('creditedMembers', []),
+										entity.get('creditedMembers', []),
 										statePath.concat(['creditedMembers'])
 									)
 								}
@@ -303,90 +303,13 @@ class ProductionForm extends Form {
 
 							</FieldsetComponent>
 
-							{ this.renderCreativeEntities(creativeCredit.get('creativeEntities'), ['creativeCredits', index, 'creativeEntities']) }
+							{ this.renderEntities(creativeCredit.get('entities'), ['creativeCredits', index, 'entities'], 'Creative') }
 
 						</div>
 					)
 				}
 
 			</Fieldset>
-		);
-
-	}
-
-	renderCrewEntities (crewEntities, crewEntitiesStatePath) {
-
-		return (
-			<FieldsetComponent label={'Crew entities (people, companies)'} isArrayItem={true}>
-
-				{
-					crewEntities.map((crewEntity, index) => {
-
-						const statePath = crewEntitiesStatePath.concat([index]);
-
-						return (
-							<div className={'fieldset__module fieldset__module--nested'} key={index}>
-
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, crewEntities.size)}
-									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
-								/>
-
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={crewEntity.get('name')}
-										errors={crewEntity.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={crewEntity.get('differentiator')}
-										errors={crewEntity.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Model'} isArrayItem={true}>
-
-									<input
-										type={'radio'}
-										value={'person'}
-										checked={crewEntity.get('model') === 'person'}
-										onChange={event => this.handleChangeToPerson(statePath, crewEntity, event)}
-									/>
-									<label>&nbsp;Person</label>
-
-									<input
-										type={'radio'}
-										value={'company'}
-										checked={crewEntity.get('model') === 'company'}
-										onChange={event => this.handleChangeToCompany(statePath, crewEntity, event)}
-									/>
-									<label>&nbsp;Company</label>
-
-								</FieldsetComponent>
-
-								{
-									crewEntity.get('model') === 'company' &&
-									this.renderCreditedMembers(
-										crewEntity.get('creditedMembers', []),
-										statePath.concat(['creditedMembers'])
-									)
-								}
-
-							</div>
-						);
-
-					})
-				}
-
-			</FieldsetComponent>
 		);
 
 	}
@@ -415,7 +338,7 @@ class ProductionForm extends Form {
 
 							</FieldsetComponent>
 
-							{ this.renderCrewEntities(crewCredit.get('crewEntities'), ['crewCredits', index, 'crewEntities']) }
+							{ this.renderEntities(crewCredit.get('entities'), ['crewCredits', index, 'entities'], 'Crew') }
 
 						</div>
 					)
