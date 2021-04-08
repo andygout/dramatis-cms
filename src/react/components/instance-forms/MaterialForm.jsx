@@ -8,29 +8,29 @@ import { CREDIT_TYPES } from '../../../utils/constants';
 
 class MaterialForm extends Form {
 
-	renderWritingEntities (writingEntities, writingEntitiesStatePath) {
+	renderWritingEntities (entities, entitiesStatePath) {
 
 		return (
 			<FieldsetComponent label={'Writing entities (people, companies, materials)'} isArrayItem={true}>
 
 				{
-					writingEntities.map((writingEntity, index) => {
+					entities.map((entity, index) => {
 
-						const statePath = writingEntitiesStatePath.concat([index]);
+						const statePath = entitiesStatePath.concat([index]);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
 								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, writingEntities.size)}
+									isRemovalButtonRequired={this.isRemovalButtonRequired(index, entities.size)}
 									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
 								/>
 
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={writingEntity.get('name')}
-										errors={writingEntity.getIn(['errors', 'name'])}
+										value={entity.get('name')}
+										errors={entity.getIn(['errors', 'name'])}
 										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
 									/>
 
@@ -39,8 +39,8 @@ class MaterialForm extends Form {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={writingEntity.get('differentiator')}
-										errors={writingEntity.getIn(['errors', 'differentiator'])}
+										value={entity.get('differentiator')}
+										errors={entity.getIn(['errors', 'differentiator'])}
 										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
 									/>
 
@@ -51,7 +51,7 @@ class MaterialForm extends Form {
 									<input
 										type={'radio'}
 										value={'person'}
-										checked={writingEntity.get('model') === 'person'}
+										checked={entity.get('model') === 'person'}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Person</label>
@@ -59,7 +59,7 @@ class MaterialForm extends Form {
 									<input
 										type={'radio'}
 										value={'company'}
-										checked={writingEntity.get('model') === 'company'}
+										checked={entity.get('model') === 'company'}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Company</label>
@@ -67,7 +67,7 @@ class MaterialForm extends Form {
 									<input
 										type={'radio'}
 										value={'material'}
-										checked={writingEntity.get('model') === 'material'}
+										checked={entity.get('model') === 'material'}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Material</label>
@@ -137,7 +137,7 @@ class MaterialForm extends Form {
 
 							</FieldsetComponent>
 
-							{ this.renderWritingEntities(writingCredit.get('writingEntities'), ['writingCredits', index, 'writingEntities']) }
+							{ this.renderWritingEntities(writingCredit.get('entities'), ['writingCredits', index, 'entities']) }
 
 						</div>
 					)
