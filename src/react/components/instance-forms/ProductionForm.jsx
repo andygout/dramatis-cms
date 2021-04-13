@@ -279,6 +279,41 @@ class ProductionForm extends Form {
 
 	}
 
+	renderProducerCredits (producerCredits) {
+
+		return (
+			<Fieldset header={'Producer team credits'}>
+
+				{
+					producerCredits.map((producerCredit, index) =>
+						<div className={'fieldset__module'} key={index}>
+
+							<ArrayItemRemovalButton
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, producerCredits.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['producerCredits', index], event)}
+							/>
+
+							<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+								<InputAndErrors
+									value={producerCredit.get('name')}
+									errors={producerCredit.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['producerCredits', index, 'name'], event)}
+								/>
+
+							</FieldsetComponent>
+
+							{ this.renderEntities(producerCredit.get('entities'), ['producerCredits', index, 'entities'], 'Producer') }
+
+						</div>
+					)
+				}
+
+			</Fieldset>
+		);
+
+	}
+
 	renderCreativeCredits (creativeCredits) {
 
 		return (
@@ -417,6 +452,8 @@ class ProductionForm extends Form {
 					</FieldsetComponent>
 
 				</Fieldset>
+
+				{ !!this.state.producerCredits && this.renderProducerCredits(this.state.producerCredits) }
 
 				{ !!this.state.cast && this.renderCast(this.state.cast) }
 
