@@ -4,7 +4,7 @@ import React from 'react';
 
 const Input = props => {
 
-	const { value, hasErrors, handleChange } = props;
+	const { type, value, hasErrors, handleChange } = props;
 
 	const className = classNames({
 		'field__input': true,
@@ -13,10 +13,10 @@ const Input = props => {
 
 	return (
 		<input
+			type={type || 'text'}
 			value={value || ''}
 			className={className}
 			maxLength="1000"
-			type="text"
 			onChange={handleChange}
 		/>
 	);
@@ -24,6 +24,7 @@ const Input = props => {
 };
 
 Input.propTypes = {
+	type: PropTypes.string,
 	value: PropTypes.string,
 	hasErrors: PropTypes.bool.isRequired,
 	handleChange: PropTypes.func.isRequired
