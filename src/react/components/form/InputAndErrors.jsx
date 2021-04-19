@@ -6,12 +6,13 @@ import { Input, InputErrors } from '.';
 
 const InputAndErrors = props => {
 
-	const { value, errors, handleChange } = props;
+	const { type, value, errors, handleChange } = props;
 
 	return (
 		<React.Fragment>
 
 			<Input
+				type={type}
 				value={value}
 				hasErrors={!!errors}
 				handleChange={handleChange}
@@ -29,6 +30,7 @@ const InputAndErrors = props => {
 };
 
 InputAndErrors.propTypes = {
+	type: PropTypes.string,
 	value: PropTypes.string,
 	errors: ImmutablePropTypes.list,
 	handleChange: PropTypes.func.isRequired

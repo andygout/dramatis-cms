@@ -405,6 +405,43 @@ class ProductionForm extends Form {
 
 				</Fieldset>
 
+				<Fieldset header={'Dates'}>
+
+					<FieldsetComponent label={'Start date'}>
+
+						<InputAndErrors
+							type={'date'}
+							value={this.state.startDate}
+							errors={this.state.errors?.get('startDate')}
+							handleChange={event => this.handleChange(['startDate'], event)}
+						/>
+
+					</FieldsetComponent>
+
+					<FieldsetComponent label={'Press date'}>
+
+						<InputAndErrors
+							type={'date'}
+							value={this.state.pressDate}
+							errors={this.state.errors?.get('pressDate')}
+							handleChange={event => this.handleChange(['pressDate'], event)}
+						/>
+
+					</FieldsetComponent>
+
+					<FieldsetComponent label={'End date'}>
+
+						<InputAndErrors
+							type={'date'}
+							value={this.state.endDate}
+							errors={this.state.errors?.get('endDate')}
+							handleChange={event => this.handleChange(['endDate'], event)}
+						/>
+
+					</FieldsetComponent>
+
+				</Fieldset>
+
 				<Fieldset header={'Material'}>
 
 					<FieldsetComponent label={'Name'}>
