@@ -5,28 +5,28 @@ import { connect } from 'react-redux';
 import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 
-class TheatreForm extends Form {
+class VenueForm extends Form {
 
-	renderSubTheatres (subTheatres) {
+	renderSubVenues (subVenues) {
 
 		return (
-			<Fieldset header={'Sub-theatres'}>
+			<Fieldset header={'Sub-venues'}>
 
 				{
-					subTheatres?.map((subTheatre, index) =>
+					subVenues?.map((subVenue, index) =>
 						<div className={'fieldset__module'} key={index}>
 
 							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, subTheatres.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['subTheatres', index], event)}
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, subVenues.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['subVenues', index], event)}
 							/>
 
 							<FieldsetComponent label={'Name'} isArrayItem={true}>
 
 								<InputAndErrors
-									value={subTheatre.get('name')}
-									errors={subTheatre.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['subTheatres', index, 'name'], event)}
+									value={subVenue.get('name')}
+									errors={subVenue.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['subVenues', index, 'name'], event)}
 								/>
 
 							</FieldsetComponent>
@@ -34,9 +34,9 @@ class TheatreForm extends Form {
 							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 								<InputAndErrors
-									value={subTheatre.get('differentiator')}
-									errors={subTheatre.getIn(['errors', 'differentiator'])}
-									handleChange={event => this.handleChange(['subTheatres', index, 'differentiator'], event)}
+									value={subVenue.get('differentiator')}
+									errors={subVenue.getIn(['errors', 'differentiator'])}
+									handleChange={event => this.handleChange(['subVenues', index, 'differentiator'], event)}
 								/>
 
 							</FieldsetComponent>
@@ -81,7 +81,7 @@ class TheatreForm extends Form {
 
 				</Fieldset>
 
-				{ !!this.state.subTheatres && this.renderSubTheatres(this.state.subTheatres) }
+				{ !!this.state.subVenues && this.renderSubVenues(this.state.subVenues) }
 
 			</FormWrapper>
 		);
@@ -90,14 +90,14 @@ class TheatreForm extends Form {
 
 }
 
-TheatreForm.propTypes = {
-	theatre: ImmutablePropTypes.map.isRequired,
-	theatreFormData: ImmutablePropTypes.map.isRequired
+VenueForm.propTypes = {
+	venue: ImmutablePropTypes.map.isRequired,
+	venueFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({
-	theatre: state.get('theatre'),
-	theatreFormData: state.get('theatreFormData')
+	venue: state.get('venue'),
+	venueFormData: state.get('venueFormData')
 });
 
-export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(TheatreForm);
+export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(VenueForm);

@@ -190,10 +190,10 @@ describe('prune Instance module', () => {
 			errors: {},
 			model: 'production',
 			uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e',
-			theatre: {
+			venue: {
 				name: 'Courtyard Theatre',
 				errors: {},
-				model: 'theatre'
+				model: 'venue'
 			},
 			material: {
 				model: 'material',
@@ -242,7 +242,7 @@ describe('prune Instance module', () => {
 		const expectation = {
 			name: 'King Lear',
 			model: 'production',
-			theatre: {
+			venue: {
 				name: 'Courtyard Theatre'
 			},
 			material: {

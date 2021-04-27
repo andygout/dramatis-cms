@@ -20,7 +20,7 @@ const Navigation = () => {
 
 				<li><Link to={'/productions'}>Productions</Link></li>
 
-				<li><Link to={'/theatres'}>Theatres</Link></li>
+				<li><Link to={'/venues'}>Venues</Link></li>
 
 				<li><Link to={'/characters/new'}>New character</Link></li>
 
@@ -32,7 +32,7 @@ const Navigation = () => {
 
 				<li><Link to={'/productions/new'}>New production</Link></li>
 
-				<li><Link to={'/theatres/new'}>New theatre</Link></li>
+				<li><Link to={'/venues/new'}>New venue</Link></li>
 
 			</ul>
 

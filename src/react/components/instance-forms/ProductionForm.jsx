@@ -466,14 +466,14 @@ class ProductionForm extends Form {
 
 				</Fieldset>
 
-				<Fieldset header={'Theatre'}>
+				<Fieldset header={'Venue'}>
 
 					<FieldsetComponent label={'Name'}>
 
 						<InputAndErrors
-							value={this.state.theatre?.get('name')}
-							errors={this.state.theatre?.getIn(['errors', 'name'])}
-							handleChange={event => this.handleChange(['theatre', 'name'], event)}
+							value={this.state.venue?.get('name')}
+							errors={this.state.venue?.getIn(['errors', 'name'])}
+							handleChange={event => this.handleChange(['venue', 'name'], event)}
 						/>
 
 					</FieldsetComponent>
@@ -481,9 +481,9 @@ class ProductionForm extends Form {
 					<FieldsetComponent label={'Differentiator'}>
 
 						<InputAndErrors
-							value={this.state.theatre?.get('differentiator')}
-							errors={this.state.theatre?.getIn(['errors', 'differentiator'])}
-							handleChange={event => this.handleChange(['theatre', 'differentiator'], event)}
+							value={this.state.venue?.get('differentiator')}
+							errors={this.state.venue?.getIn(['errors', 'differentiator'])}
+							handleChange={event => this.handleChange(['venue', 'differentiator'], event)}
 						/>
 
 					</FieldsetComponent>
