@@ -15,9 +15,9 @@ import people from './people';
 import productionFormData from './production-form-data';
 import production from './production';
 import productions from './productions';
-import theatreFormData from './theatre-form-data';
-import theatre from './theatre';
-import theatres from './theatres';
+import venueFormData from './venue-form-data';
+import venue from './venue';
+import venues from './venues';
 
 export default {
 	characterFormData,
@@ -37,7 +37,7 @@ export default {
 	productionFormData,
 	production,
 	productions,
-	theatreFormData,
-	theatre,
-	theatres
+	venueFormData,
+	venue,
+	venues
 };

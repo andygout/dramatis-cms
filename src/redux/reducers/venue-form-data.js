@@ -1,19 +1,19 @@
 import { Map, fromJS } from 'immutable';
 
 import {
-	RECEIVE_THEATRE_NEW_FORM_DATA,
-	RECEIVE_THEATRE_EDIT_FORM_DATA
+	RECEIVE_VENUE_NEW_FORM_DATA,
+	RECEIVE_VENUE_EDIT_FORM_DATA
 } from '../utils/model-action-names';
 import { FORM_ACTIONS } from '../../utils/constants';
 
-const theatreFormData = (state = Map(), action) => {
+const venueFormData = (state = Map(), action) => {
 
 	switch (action.type) {
 
-		case RECEIVE_THEATRE_NEW_FORM_DATA:
+		case RECEIVE_VENUE_NEW_FORM_DATA:
 			return fromJS({ ...action.payload, action: FORM_ACTIONS.create });
 
-		case RECEIVE_THEATRE_EDIT_FORM_DATA:
+		case RECEIVE_VENUE_EDIT_FORM_DATA:
 			return fromJS({ ...action.payload, action: FORM_ACTIONS.update });
 
 		default:
@@ -23,4 +23,4 @@ const theatreFormData = (state = Map(), action) => {
 
 };
 
-export default theatreFormData;
+export default venueFormData;

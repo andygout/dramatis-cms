@@ -3,7 +3,7 @@ import CompanyForm from './CompanyForm';
 import MaterialForm from './MaterialForm';
 import PersonForm from './PersonForm';
 import ProductionForm from './ProductionForm';
-import TheatreForm from './TheatreForm';
+import VenueForm from './VenueForm';
 
 export {
 	CharacterForm,
@@ -11,5 +11,5 @@ export {
 	MaterialForm,
 	PersonForm,
 	ProductionForm,
-	TheatreForm
+	VenueForm
 };
