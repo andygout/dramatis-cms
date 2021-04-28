@@ -317,9 +317,9 @@ class MaterialForm extends Form {
 
 				</Fieldset>
 
-				{ !!this.state.writingCredits && this.renderWritingCredits(this.state.writingCredits) }
+				{ Boolean(this.state.writingCredits) && this.renderWritingCredits(this.state.writingCredits) }
 
-				{ !!this.state.characterGroups && this.renderCharacterGroups(this.state.characterGroups) }
+				{ Boolean(this.state.characterGroups) && this.renderCharacterGroups(this.state.characterGroups) }
 
 			</FormWrapper>
 		);

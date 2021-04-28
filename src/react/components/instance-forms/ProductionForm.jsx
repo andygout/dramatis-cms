@@ -490,13 +490,13 @@ class ProductionForm extends Form {
 
 				</Fieldset>
 
-				{ !!this.state.producerCredits && this.renderProducerCredits(this.state.producerCredits) }
+				{ Boolean(this.state.producerCredits) && this.renderProducerCredits(this.state.producerCredits) }
 
-				{ !!this.state.cast && this.renderCast(this.state.cast) }
+				{ Boolean(this.state.cast) && this.renderCast(this.state.cast) }
 
-				{ !!this.state.creativeCredits && this.renderCreativeCredits(this.state.creativeCredits) }
+				{ Boolean(this.state.creativeCredits) && this.renderCreativeCredits(this.state.creativeCredits) }
 
-				{ !!this.state.crewCredits && this.renderCrewCredits(this.state.crewCredits) }
+				{ Boolean(this.state.crewCredits) && this.renderCrewCredits(this.state.crewCredits) }
 
 			</FormWrapper>
 		);

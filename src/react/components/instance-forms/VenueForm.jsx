@@ -81,7 +81,7 @@ class VenueForm extends Form {
 
 				</Fieldset>
 
-				{ !!this.state.subVenues && this.renderSubVenues(this.state.subVenues) }
+				{ Boolean(this.state.subVenues) && this.renderSubVenues(this.state.subVenues) }
 
 			</FormWrapper>
 		);
