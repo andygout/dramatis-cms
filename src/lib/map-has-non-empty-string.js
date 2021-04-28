@@ -2,7 +2,7 @@ import { List, Map } from 'immutable';
 
 import { FORM_CONCEALED_KEYS } from '../utils/constants';
 
-const isNonEmptyString = value => typeof value === 'string' && !!value.length;
+const isNonEmptyString = value => typeof value === 'string' && Boolean(value);
 
 const isMapWithNonEmptyString = value => Map.isMap(value) && searchForNonEmptyString(value);
 

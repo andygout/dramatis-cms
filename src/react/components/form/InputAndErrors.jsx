@@ -14,12 +14,12 @@ const InputAndErrors = props => {
 			<Input
 				type={type}
 				value={value}
-				hasErrors={!!errors}
+				hasErrors={Boolean(errors)}
 				handleChange={handleChange}
 			/>
 
 			{
-				!!errors && (
+				Boolean(errors) && (
 					<InputErrors errors={errors} />
 				)
 			}
