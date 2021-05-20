@@ -8,12 +8,12 @@ const FORM_ACTIONS = {
 	update: 'UPDATE'
 };
 
-const FORM_CONCEALED_KEYS = [
+const FORM_CONCEALED_KEYS = new Set([
 	'model',
 	'uuid',
 	'errors',
 	'hasErrors'
-];
+]);
 
 const IRREGULAR_PLURAL_NOUNS_MAP = {
 	company: 'companies',
