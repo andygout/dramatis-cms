@@ -13,7 +13,7 @@ const pruneInstance = (instance, recursions = 0) => {
 
 		}
 
-		if (FORM_CONCEALED_KEYS.includes(key)) return accumulator;
+		if (FORM_CONCEALED_KEYS.has(key)) return accumulator;
 
 		if (isObjectWithKeys(instance[key])) {
 
