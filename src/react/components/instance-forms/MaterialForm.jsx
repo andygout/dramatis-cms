@@ -293,6 +293,17 @@ class MaterialForm extends Form {
 
 				</Fieldset>
 
+				<Fieldset header={'Year'}>
+
+					<InputAndErrors
+						type={'number'}
+						value={this.state.year}
+						errors={this.state.errors?.get('year')}
+						handleChange={event => this.handleChange(['year'], event)}
+					/>
+
+				</Fieldset>
+
 				<Fieldset header={'Original version material'}>
 
 					<FieldsetComponent label={'Name'}>
