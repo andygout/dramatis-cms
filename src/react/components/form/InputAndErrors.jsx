@@ -31,7 +31,10 @@ const InputAndErrors = props => {
 
 InputAndErrors.propTypes = {
 	type: PropTypes.string,
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	]),
 	errors: ImmutablePropTypes.list,
 	handleChange: PropTypes.func.isRequired
 };

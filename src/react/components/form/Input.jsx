@@ -25,7 +25,10 @@ const Input = props => {
 
 Input.propTypes = {
 	type: PropTypes.string,
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	]),
 	hasErrors: PropTypes.bool.isRequired,
 	handleChange: PropTypes.func.isRequired
 };
