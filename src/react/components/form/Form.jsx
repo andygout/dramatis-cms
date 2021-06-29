@@ -51,7 +51,9 @@ class Form extends React.Component {
 
 	getNewStateForRootAttr (rootAttr, statePath, revision) {
 
-		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, revision.value);
+		const revisionValue = revision.type === 'checkbox' ? revision.checked : revision.value;
+
+		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, revisionValue);
 
 		if (revision.type !== 'text') return newStateForRootAttr;
 
