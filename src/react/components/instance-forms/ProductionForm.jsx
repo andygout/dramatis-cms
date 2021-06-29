@@ -97,6 +97,16 @@ class ProductionForm extends Form {
 
 								</FieldsetComponent>
 
+								<FieldsetComponent label={'Alternate'} isArrayItem={true}>
+
+									<input
+										type="checkbox"
+										checked={role.get('isAlternate') || false}
+										onChange={event => this.handleChange(statePath.concat(['isAlternate']), event)}
+									/>
+
+								</FieldsetComponent>
+
 							</div>
 						);
 
