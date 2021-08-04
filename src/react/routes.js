@@ -1,4 +1,6 @@
 import {
+	Award,
+	Awards,
 	Character,
 	Characters,
 	Company,
@@ -28,6 +30,38 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification())
+		]
+	},
+	{
+		path: '/awards',
+		exact: true,
+		documentTitle: () => 'Awards',
+		component: Awards,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchList('awards'))
+		]
+	},
+	{
+		path: '/awards/new',
+		exact: true,
+		documentTitle: () => 'New award',
+		component: Award,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchInstanceTemplate('award'))
+		]
+	},
+	{
+		path: '/awards/:uuid',
+		documentTitle: () => 'Award',
+		component: Award,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('award', uuid))
 		]
 	},
 	{

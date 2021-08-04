@@ -10,6 +10,8 @@ const Navigation = () => {
 
 				<li><Link to={'/'}>Home</Link></li>
 
+				<li><Link to={'/awards'}>Awards</Link></li>
+
 				<li><Link to={'/characters'}>Characters</Link></li>
 
 				<li><Link to={'/companies'}>Companies</Link></li>
@@ -21,6 +23,8 @@ const Navigation = () => {
 				<li><Link to={'/productions'}>Productions</Link></li>
 
 				<li><Link to={'/venues'}>Venues</Link></li>
+
+				<li><Link to={'/awards/new'}>New award</Link></li>
 
 				<li><Link to={'/characters/new'}>New character</Link></li>
 

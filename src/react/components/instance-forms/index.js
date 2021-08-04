@@ -1,3 +1,4 @@
+import AwardForm from './AwardForm';
 import CharacterForm from './CharacterForm';
 import CompanyForm from './CompanyForm';
 import MaterialForm from './MaterialForm';
@@ -6,6 +7,7 @@ import ProductionForm from './ProductionForm';
 import VenueForm from './VenueForm';
 
 export {
+	AwardForm,
 	CharacterForm,
 	CompanyForm,
 	MaterialForm,
