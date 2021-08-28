@@ -5,8 +5,8 @@ import { receiveError } from './error';
 import { activateNotification, deactivateNotification } from './notification';
 import * as actions from '../utils/model-action-names';
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
+import { getRouteFromModel, getRouteFromPluralisedModel } from '../../lib/get-route';
 import pruneInstance from '../../lib/prune-instance';
-import { pluralise } from '../../lib/strings';
 import { NOTIFICATION_STATUSES } from '../../utils/constants';
 
 const URL_BASE = 'http://localhost:3000';
@@ -63,7 +63,7 @@ const fetchList = pluralisedModel => async dispatch => {
 
 	dispatch(requestList(pluralisedModel));
 
-	const url = `${URL_BASE}/${pluralisedModel}`;
+	const url = `${URL_BASE}/${getRouteFromPluralisedModel(pluralisedModel)}`;
 
 	try {
 
@@ -85,7 +85,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	dispatch(requestInstance(model));
 
-	const url = `${URL_BASE}/${pluralise(model)}/new`;
+	const url = `${URL_BASE}/${getRouteFromModel(model)}/new`;
 
 	try {
 
@@ -111,7 +111,7 @@ const createInstance = instance => async dispatch => {
 
 	dispatch(requestCreate(instance.model));
 
-	const url = `${URL_BASE}/${pluralise(instance.model)}`;
+	const url = `${URL_BASE}/${getRouteFromModel(instance.model)}`;
 
 	const fetchSettings = {
 		headers: {
@@ -146,7 +146,7 @@ const createInstance = instance => async dispatch => {
 
 			dispatch(receiveCreate(prunedInstance));
 
-			const redirectPath = `/${pluralise(model)}/${uuid}`;
+			const redirectPath = `/${getRouteFromModel(model)}/${uuid}`;
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
@@ -181,7 +181,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	dispatch(requestInstance(model));
 
-	const url = `${URL_BASE}/${pluralise(model)}/${uuid}/edit`;
+	const url = `${URL_BASE}/${getRouteFromModel(model)}/${uuid}/edit`;
 
 	try {
 
@@ -207,7 +207,7 @@ const updateInstance = instance => async dispatch => {
 
 	dispatch(requestUpdate(instance.model));
 
-	const url = `${URL_BASE}/${pluralise(instance.model)}/${instance.uuid}`;
+	const url = `${URL_BASE}/${getRouteFromModel(instance.model)}/${instance.uuid}`;
 
 	const fetchSettings = {
 		headers: {
@@ -266,7 +266,7 @@ const deleteInstance = instance => async dispatch => {
 
 	dispatch(requestDelete(instance.model));
 
-	const url = `${URL_BASE}/${pluralise(instance.model)}/${instance.uuid}`;
+	const url = `${URL_BASE}/${getRouteFromModel(instance.model)}/${instance.uuid}`;
 
 	const fetchSettings = {
 		mode: 'cors',
@@ -300,7 +300,7 @@ const deleteInstance = instance => async dispatch => {
 
 			dispatch(receiveDelete(prunedInstance));
 
-			const redirectPath = `/${pluralise(model)}`;
+			const redirectPath = `/${getRouteFromModel(model)}`;
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
