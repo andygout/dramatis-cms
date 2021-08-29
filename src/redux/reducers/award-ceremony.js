@@ -1,0 +1,35 @@
+import { Map, fromJS } from 'immutable';
+
+import {
+	REQUEST_AWARDCEREMONY,
+	RECEIVE_AWARDCEREMONY,
+	REQUEST_AWARDCEREMONY_CREATE,
+	RECEIVE_AWARDCEREMONY_CREATE,
+	REQUEST_AWARDCEREMONY_UPDATE,
+	RECEIVE_AWARDCEREMONY_UPDATE,
+	REQUEST_AWARDCEREMONY_DELETE,
+	RECEIVE_AWARDCEREMONY_DELETE
+} from '../utils/model-action-names';
+
+const awardCeremony = (state = Map(), action) => {
+
+	switch (action.type) {
+
+		case RECEIVE_AWARDCEREMONY:
+		case RECEIVE_AWARDCEREMONY_CREATE:
+		case RECEIVE_AWARDCEREMONY_UPDATE:
+		case RECEIVE_AWARDCEREMONY_DELETE:
+			return fromJS(action.payload);
+
+		case REQUEST_AWARDCEREMONY:
+		case REQUEST_AWARDCEREMONY_CREATE:
+		case REQUEST_AWARDCEREMONY_UPDATE:
+		case REQUEST_AWARDCEREMONY_DELETE:
+		default:
+			return state;
+
+	}
+
+};
+
+export default awardCeremony;

@@ -1,6 +1,9 @@
 import awardFormData from './award-form-data';
 import award from './award';
 import awards from './awards';
+import awardCeremonyFormData from './award-ceremony-form-data';
+import awardCeremony from './award-ceremony';
+import awardCeremonies from './award-ceremonies';
 import characterFormData from './character-form-data';
 import character from './character';
 import characters from './characters';
@@ -26,6 +29,9 @@ export default {
 	awardFormData,
 	award,
 	awards,
+	awardCeremonyFormData,
+	awardCeremony,
+	awardCeremonies,
 	characterFormData,
 	character,
 	characters,

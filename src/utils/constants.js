@@ -20,9 +20,17 @@ const IRREGULAR_PLURAL_NOUNS_MAP = {
 	person: 'people'
 };
 
+const MODEL_TO_ROUTE_MAP = {
+	awardCeremony: 'awards/ceremonies'
+};
+
 const NOTIFICATION_STATUSES = {
 	success: 'SUCCESS',
 	failure: 'FAILURE'
+};
+
+const PLURALISED_MODEL_TO_ROUTE_MAP = {
+	awardCeremonies: 'awards/ceremonies'
 };
 
 export {
@@ -30,5 +38,7 @@ export {
 	FORM_ACTIONS,
 	FORM_CONCEALED_KEYS,
 	IRREGULAR_PLURAL_NOUNS_MAP,
-	NOTIFICATION_STATUSES
+	MODEL_TO_ROUTE_MAP,
+	NOTIFICATION_STATUSES,
+	PLURALISED_MODEL_TO_ROUTE_MAP
 };

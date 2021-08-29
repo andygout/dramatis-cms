@@ -1,6 +1,8 @@
 import {
 	Award,
 	Awards,
+	AwardCeremony,
+	AwardCeremonies,
 	Character,
 	Characters,
 	Company,
@@ -30,6 +32,38 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification())
+		]
+	},
+	{
+		path: '/awards/ceremonies',
+		exact: true,
+		documentTitle: () => 'Award ceremonies',
+		component: AwardCeremonies,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchList('awardCeremonies'))
+		]
+	},
+	{
+		path: '/awards/ceremonies/new',
+		exact: true,
+		documentTitle: () => 'New award ceremony',
+		component: AwardCeremony,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchInstanceTemplate('awardCeremony'))
+		]
+	},
+	{
+		path: '/awards/ceremonies/:uuid',
+		documentTitle: () => 'Award ceremony',
+		component: AwardCeremony,
+		fetchData: [
+			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateNotification()),
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('awardCeremony', uuid))
 		]
 	},
 	{
