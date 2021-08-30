@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import createBlankMap from '../../../lib/create-blank-map';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
-import { FORM_ACTIONS } from '../../../utils/constants';
+import { FORM_ACTIONS, MODEL_TO_PROP_NAME_MAP } from '../../../utils/constants';
 
 class Form extends React.Component {
 
@@ -135,7 +135,7 @@ class Form extends React.Component {
 		const redirectToProps = {
 			pathname: this.props.redirectPath,
 			state: {
-				redirectPathOriginStateProp: `${this.state.model}FormData`
+				redirectPathOriginStateProp: `${MODEL_TO_PROP_NAME_MAP[this.state.model]}FormData`
 			}
 		};
 

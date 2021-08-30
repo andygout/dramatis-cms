@@ -5,47 +5,51 @@ import { receiveError } from './error';
 import { activateNotification, deactivateNotification } from './notification';
 import * as actions from '../utils/model-action-names';
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
-import { getRouteFromModel, getRouteFromPluralisedModel } from '../../lib/get-route';
 import pruneInstance from '../../lib/prune-instance';
-import { NOTIFICATION_STATUSES } from '../../utils/constants';
+import {
+	MODEL_TO_DISPLAY_NAME_MAP,
+	MODEL_TO_ROUTE_MAP,
+	NOTIFICATION_STATUSES,
+	PLURALISED_MODEL_TO_ROUTE_MAP
+} from '../../utils/constants';
 
 const URL_BASE = 'http://localhost:3000';
 
 const requestList = pluralisedModel =>
-	createAction(actions[`REQUEST_${pluralisedModel.toUpperCase()}`]);
+	createAction(actions[`REQUEST_${pluralisedModel}`]);
 
 const receiveList = (list, pluralisedModel) =>
-	createAction(actions[`RECEIVE_${pluralisedModel.toUpperCase()}`], list);
+	createAction(actions[`RECEIVE_${pluralisedModel}`], list);
 
 const requestInstance = model =>
-	createAction(actions[`REQUEST_${model.toUpperCase()}`]);
+	createAction(actions[`REQUEST_${model}`]);
 
 const receiveInstance = instance =>
-	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}`], instance);
+	createAction(actions[`RECEIVE_${instance.model}`], instance);
 
 const receiveNewFormData = formData =>
-	createAction(actions[`RECEIVE_${formData.instance.model.toUpperCase()}_NEW_FORM_DATA`], formData);
+	createAction(actions[`RECEIVE_${formData.instance.model}_NEW_FORM_DATA`], formData);
 
 const receiveEditFormData = formData =>
-	createAction(actions[`RECEIVE_${formData.instance.model.toUpperCase()}_EDIT_FORM_DATA`], formData);
+	createAction(actions[`RECEIVE_${formData.instance.model}_EDIT_FORM_DATA`], formData);
 
 const requestCreate = model =>
-	createAction(actions[`REQUEST_${model.toUpperCase()}_CREATE`]);
+	createAction(actions[`REQUEST_${model}_CREATE`]);
 
 const receiveCreate = instance =>
-	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}_CREATE`], instance);
+	createAction(actions[`RECEIVE_${instance.model}_CREATE`], instance);
 
 const requestUpdate = model =>
-	createAction(actions[`REQUEST_${model.toUpperCase()}_UPDATE`]);
+	createAction(actions[`REQUEST_${model}_UPDATE`]);
 
 const receiveUpdate = instance =>
-	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}_UPDATE`], instance);
+	createAction(actions[`RECEIVE_${instance.model}_UPDATE`], instance);
 
 const requestDelete = model =>
-	createAction(actions[`REQUEST_${model.toUpperCase()}_DELETE`]);
+	createAction(actions[`REQUEST_${model}_DELETE`]);
 
 const receiveDelete = instance =>
-	createAction(actions[`RECEIVE_${instance.model.toUpperCase()}_DELETE`], instance);
+	createAction(actions[`RECEIVE_${instance.model}_DELETE`], instance);
 
 const performFetch = async (url, settings) => {
 
@@ -63,7 +67,7 @@ const fetchList = pluralisedModel => async dispatch => {
 
 	dispatch(requestList(pluralisedModel));
 
-	const url = `${URL_BASE}/${getRouteFromPluralisedModel(pluralisedModel)}`;
+	const url = `${URL_BASE}/${PLURALISED_MODEL_TO_ROUTE_MAP[pluralisedModel]}`;
 
 	try {
 
@@ -85,7 +89,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	dispatch(requestInstance(model));
 
-	const url = `${URL_BASE}/${getRouteFromModel(model)}/new`;
+	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[model]}/new`;
 
 	try {
 
@@ -111,7 +115,7 @@ const createInstance = instance => async dispatch => {
 
 	dispatch(requestCreate(instance.model));
 
-	const url = `${URL_BASE}/${getRouteFromModel(instance.model)}`;
+	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}`;
 
 	const fetchSettings = {
 		headers: {
@@ -135,7 +139,7 @@ const createInstance = instance => async dispatch => {
 			dispatch(receiveNewFormData({ instance: fetchedInstance }));
 
 			notification = {
-				text: `This ${model} contains errors`,
+				text: `This ${MODEL_TO_DISPLAY_NAME_MAP[model]} contains errors`,
 				status: NOTIFICATION_STATUSES.failure,
 				isActive: true
 			};
@@ -146,12 +150,12 @@ const createInstance = instance => async dispatch => {
 
 			dispatch(receiveCreate(prunedInstance));
 
-			const redirectPath = `/${getRouteFromModel(model)}/${uuid}`;
+			const redirectPath = `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}`;
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
 			notification = {
-				text: `${name} (${model})${getDifferentiatorSuffix(differentiator)} has been created`,
+				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been created`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
@@ -181,7 +185,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	dispatch(requestInstance(model));
 
-	const url = `${URL_BASE}/${getRouteFromModel(model)}/${uuid}/edit`;
+	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[model]}/${uuid}/edit`;
 
 	try {
 
@@ -207,7 +211,7 @@ const updateInstance = instance => async dispatch => {
 
 	dispatch(requestUpdate(instance.model));
 
-	const url = `${URL_BASE}/${getRouteFromModel(instance.model)}/${instance.uuid}`;
+	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`;
 
 	const fetchSettings = {
 		headers: {
@@ -229,7 +233,7 @@ const updateInstance = instance => async dispatch => {
 		if (hasErrors) {
 
 			notification = {
-				text: `This ${model} contains errors`,
+				text: `This ${MODEL_TO_DISPLAY_NAME_MAP[model]} contains errors`,
 				status: NOTIFICATION_STATUSES.failure,
 				isActive: true
 			};
@@ -241,7 +245,7 @@ const updateInstance = instance => async dispatch => {
 			dispatch(receiveUpdate(prunedInstance));
 
 			notification = {
-				text: `${name} (${model})${getDifferentiatorSuffix(differentiator)} has been updated`,
+				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been updated`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};
@@ -266,7 +270,7 @@ const deleteInstance = instance => async dispatch => {
 
 	dispatch(requestDelete(instance.model));
 
-	const url = `${URL_BASE}/${getRouteFromModel(instance.model)}/${instance.uuid}`;
+	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`;
 
 	const fetchSettings = {
 		mode: 'cors',
@@ -286,7 +290,7 @@ const deleteInstance = instance => async dispatch => {
 			const { associations } = fetchedInstance.errors;
 
 			notification = {
-				text: `This ${model} cannot be deleted because
+				text: `This ${MODEL_TO_DISPLAY_NAME_MAP[model]} cannot be deleted because
 					it has associations with instances
 					of the following models: ${associations.join(', ')}`
 				,
@@ -300,12 +304,12 @@ const deleteInstance = instance => async dispatch => {
 
 			dispatch(receiveDelete(prunedInstance));
 
-			const redirectPath = `/${getRouteFromModel(model)}`;
+			const redirectPath = `/${MODEL_TO_ROUTE_MAP[model]}`;
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
 
 			notification = {
-				text: `${name} (${model})${getDifferentiatorSuffix(differentiator)} has been deleted`,
+				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been deleted`,
 				status: NOTIFICATION_STATUSES.success,
 				isActive: true
 			};

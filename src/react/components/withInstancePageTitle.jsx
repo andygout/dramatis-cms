@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
-import { FORM_ACTIONS } from '../../utils/constants';
+import { FORM_ACTIONS, MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants';
 
 const withInstancePageTitle = PageTitle => props => {
 
@@ -13,7 +13,7 @@ const withInstancePageTitle = PageTitle => props => {
 		switch (action) {
 
 			case FORM_ACTIONS.create:
-				return `New ${model}`;
+				return `New ${MODEL_TO_DISPLAY_NAME_MAP[model]}`;
 
 			case FORM_ACTIONS.update: {
 
