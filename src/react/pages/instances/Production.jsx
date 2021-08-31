@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { ProductionForm } from '../../components/instance-forms';
@@ -32,8 +32,8 @@ class Production extends React.Component {
 }
 
 Production.propTypes = {
-	production: ImmutablePropTypes.map.isRequired,
-	productionFormData: ImmutablePropTypes.map.isRequired
+	production: PropTypes.instanceOf(Map).isRequired,
+	productionFormData: PropTypes.instanceOf(Map).isRequired
 };
 
 const mapStateToProps = state => ({

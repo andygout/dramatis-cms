@@ -1,5 +1,6 @@
+import { Map } from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { Fieldset, Form, FormWrapper, InputAndErrors } from '../form';
@@ -46,8 +47,8 @@ class PersonForm extends Form {
 }
 
 PersonForm.propTypes = {
-	person: ImmutablePropTypes.map.isRequired,
-	personFormData: ImmutablePropTypes.map.isRequired
+	person: PropTypes.instanceOf(Map).isRequired,
+	personFormData: PropTypes.instanceOf(Map).isRequired
 };
 
 const mapStateToProps = state => ({

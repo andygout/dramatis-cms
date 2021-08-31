@@ -1,6 +1,6 @@
+import { List } from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { Input, InputErrors } from '.';
 
@@ -35,7 +35,7 @@ InputAndErrors.propTypes = {
 		PropTypes.string,
 		PropTypes.number
 	]),
-	errors: ImmutablePropTypes.list,
+	errors: PropTypes.instanceOf(List),
 	handleChange: PropTypes.func.isRequired
 };
 

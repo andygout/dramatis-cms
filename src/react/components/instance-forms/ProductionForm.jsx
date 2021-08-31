@@ -1,6 +1,6 @@
 import { List, Map, remove, set } from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
@@ -517,8 +517,8 @@ class ProductionForm extends Form {
 }
 
 ProductionForm.propTypes = {
-	production: ImmutablePropTypes.map.isRequired,
-	productionFormData: ImmutablePropTypes.map.isRequired
+	production: PropTypes.instanceOf(Map).isRequired,
+	productionFormData: PropTypes.instanceOf(Map).isRequired
 };
 
 const mapStateToProps = state => ({
