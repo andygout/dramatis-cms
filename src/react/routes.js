@@ -22,6 +22,7 @@ import {
 import { cancelError } from '../redux/actions/error';
 import { fetchList, fetchInstanceTemplate, fetchInstance } from '../redux/actions/model';
 import { deactivateNotification } from '../redux/actions/notification';
+import { MODELS, PLURALISED_MODELS } from '../utils/constants';
 
 export default [
 	{
@@ -42,7 +43,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('awardCeremonies'))
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.AWARD_CEREMONIES))
 		]
 	},
 	{
@@ -53,7 +54,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('awardCeremony'))
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.AWARD_CEREMONY))
 		]
 	},
 	{
@@ -63,7 +64,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('awardCeremony', uuid))
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD_CEREMONY, uuid))
 		]
 	},
 	{
@@ -74,7 +75,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('awards'))
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.AWARDS))
 		]
 	},
 	{
@@ -85,7 +86,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('award'))
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.AWARD))
 		]
 	},
 	{
@@ -95,7 +96,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('award', uuid))
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD, uuid))
 		]
 	},
 	{
@@ -106,7 +107,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('characters'))
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.CHARACTERS))
 		]
 	},
 	{
@@ -117,7 +118,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('character'))
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.CHARACTER))
 		]
 	},
 	{
@@ -127,7 +128,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('character', uuid))
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.CHARACTER, uuid))
 		]
 	},
 	{
@@ -138,7 +139,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('companies'))
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.COMPANIES))
 		]
 	},
 	{
@@ -149,7 +150,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('company'))
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.COMPANY))
 		]
 	},
 	{
@@ -159,7 +160,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('company', uuid))
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.COMPANY, uuid))
 		]
 	},
 	{
@@ -170,7 +171,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('materials'))
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.MATERIALS))
 		]
 	},
 	{
@@ -181,7 +182,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('material'))
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.MATERIAL))
 		]
 	},
 	{
@@ -191,7 +192,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('material', uuid))
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.MATERIAL, uuid))
 		]
 	},
 	{
@@ -202,7 +203,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('people'))
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.PEOPLE))
 		]
 	},
 	{
@@ -213,7 +214,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('person'))
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.PERSON))
 		]
 	},
 	{
@@ -223,7 +224,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('person', uuid))
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.PERSON, uuid))
 		]
 	},
 	{
@@ -234,7 +235,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('productions'))
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.PRODUCTIONS))
 		]
 	},
 	{
@@ -245,7 +246,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('production'))
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.PRODUCTION))
 		]
 	},
 	{
@@ -255,7 +256,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('production', uuid))
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.PRODUCTION, uuid))
 		]
 	},
 	{
@@ -266,7 +267,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList('venues'))
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.VENUES))
 		]
 	},
 	{
@@ -277,7 +278,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate('venue'))
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.VENUE))
 		]
 	},
 	{
@@ -287,7 +288,7 @@ export default [
 		fetchData: [
 			dispatch => dispatch(cancelError()),
 			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance('venue', uuid))
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.VENUE, uuid))
 		]
 	},
 	{
