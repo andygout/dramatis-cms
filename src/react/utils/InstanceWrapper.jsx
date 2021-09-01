@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
+import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
 import {
 	FormattedJson,
 	InstanceDocumentTitle,
@@ -9,6 +10,7 @@ import {
 	PageTitle,
 	withInstancePageTitle
 } from '../components';
+import { MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants';
 
 class InstanceWrapper extends React.Component {
 
@@ -18,15 +20,21 @@ class InstanceWrapper extends React.Component {
 
 		const InstancePageTitle = withInstancePageTitle(PageTitle);
 
+		const name = instance.get('name');
+
+		const modelDisplayName = MODEL_TO_DISPLAY_NAME_MAP[instance.get('model')];
+
+		const differentiatorSuffix = getDifferentiatorSuffix(instance.get('differentiator'));
+
 		return (
 			<React.Fragment>
 
 				{
-					instance.get('name') && instance.get('model') && formAction && (
+					name && modelDisplayName && formAction && (
 						<InstanceDocumentTitle
-							name={instance.get('name')}
-							differentiator={instance.get('differentiator')}
-							model={instance.get('model')}
+							name={name}
+							modelDisplayName={modelDisplayName}
+							differentiatorSuffix={differentiatorSuffix}
 							formAction={formAction}
 						/>
 					)
@@ -35,9 +43,9 @@ class InstanceWrapper extends React.Component {
 				<InstanceLabel model={instance.get('model', '')} />
 
 				<InstancePageTitle
-					name={instance.get('name')}
-					differentiator={instance.get('differentiator')}
-					model={instance.get('model')}
+					name={name}
+					modelDisplayName={modelDisplayName}
+					differentiatorSuffix={differentiatorSuffix}
 					formAction={formAction}
 				/>
 
