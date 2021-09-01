@@ -1,29 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
-import { FORM_ACTIONS, MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants';
+import { FORM_ACTIONS } from '../../utils/constants';
 
 const withInstancePageTitle = PageTitle => props => {
 
-	const { name, differentiator, model, formAction } = props;
+	const { name, modelDisplayName, differentiatorSuffix, formAction } = props;
 
 	const pageTitle = (action => {
 
 		switch (action) {
 
 			case FORM_ACTIONS.create:
-				return `New ${MODEL_TO_DISPLAY_NAME_MAP[model]}`;
+				return `New ${modelDisplayName}`;
 
-			case FORM_ACTIONS.update: {
-
-				let text = name;
-
-				text += getDifferentiatorSuffix(differentiator);
-
-				return text;
-
-			}
+			case FORM_ACTIONS.update:
+				return `${name}${differentiatorSuffix}`;
 
 			default:
 				return '';
@@ -42,8 +34,8 @@ const withInstancePageTitle = PageTitle => props => {
 
 withInstancePageTitle.propTypes = {
 	name: PropTypes.string.isRequired,
-	differentiator: PropTypes.string,
-	model: PropTypes.string.isRequired,
+	modelDisplayName: PropTypes.string.isRequired,
+	differentiatorSuffix: PropTypes.string,
 	formAction: PropTypes.string.isRequired
 };
 
