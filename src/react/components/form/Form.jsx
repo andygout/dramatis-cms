@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import createBlankMap from '../../../lib/create-blank-map';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
-import { FORM_ACTIONS, MODEL_TO_PROP_NAME_MAP } from '../../../utils/constants';
+import { ACTIONS, MODEL_TO_PROP_NAME_MAP } from '../../../utils/constants';
 
 class Form extends React.Component {
 
@@ -112,10 +112,10 @@ class Form extends React.Component {
 
 		switch (this.props.action) {
 
-			case FORM_ACTIONS.create:
+			case ACTIONS.CREATE:
 				return this.props.createInstance(this.state);
 
-			case FORM_ACTIONS.update:
+			case ACTIONS.UPDATE:
 				return this.props.updateInstance(this.state);
 
 		}
