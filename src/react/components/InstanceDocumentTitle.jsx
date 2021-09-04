@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import { FORM_ACTIONS } from '../../utils/constants';
+import { ACTIONS } from '../../utils/constants';
 
 const InstanceDocumentTitle = props => {
 
@@ -12,10 +12,10 @@ const InstanceDocumentTitle = props => {
 
 		switch (action) {
 
-			case FORM_ACTIONS.create:
+			case ACTIONS.CREATE:
 				return `New ${modelDisplayName}`;
 
-			case FORM_ACTIONS.update:
+			case ACTIONS.UPDATE:
 				return `Edit: ${name} (${modelDisplayName})${differentiatorSuffix}`;
 
 		}

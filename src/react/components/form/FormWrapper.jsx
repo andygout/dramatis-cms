@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { capitalise } from '../../../lib/strings';
-import { FORM_ACTIONS } from '../../../utils/constants';
+import { ACTIONS } from '../../../utils/constants';
 
 const FormWrapper = props => {
 
@@ -10,7 +10,7 @@ const FormWrapper = props => {
 
 	const submitButtonText = capitalise(action);
 
-	const isDeleteButtonRequired = (action === FORM_ACTIONS.update);
+	const isDeleteButtonRequired = (action === ACTIONS.UPDATE);
 
 	return (
 		<form className="form" onSubmit={handleSubmit}>

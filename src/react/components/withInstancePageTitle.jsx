@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { FORM_ACTIONS } from '../../utils/constants';
+import { ACTIONS } from '../../utils/constants';
 
 const withInstancePageTitle = PageTitle => props => {
 
@@ -11,10 +11,10 @@ const withInstancePageTitle = PageTitle => props => {
 
 		switch (action) {
 
-			case FORM_ACTIONS.create:
+			case ACTIONS.CREATE:
 				return `New ${modelDisplayName}`;
 
-			case FORM_ACTIONS.update:
+			case ACTIONS.UPDATE:
 				return `${name}${differentiatorSuffix}`;
 
 			default:
@@ -24,7 +24,7 @@ const withInstancePageTitle = PageTitle => props => {
 
 	})(formAction);
 
-	const isNewInstance = formAction === FORM_ACTIONS.create;
+	const isNewInstance = formAction === ACTIONS.CREATE;
 
 	return (
 		<PageTitle text={pageTitle} isNewInstance={isNewInstance} />
