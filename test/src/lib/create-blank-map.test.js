@@ -58,13 +58,13 @@ describe('Create Blank Map module', () => {
 		it('retains value for top level \'model\' values', () => {
 
 			const map = fromJS({
-				model: 'person'
+				model: 'PERSON'
 			});
 
 			const result = createBlankMap(map);
 
 			const expectation = {
-				model: 'person'
+				model: 'PERSON'
 			};
 
 			expect(result.toJS()).to.deep.equal(expectation);
@@ -75,7 +75,7 @@ describe('Create Blank Map module', () => {
 
 			const map = fromJS({
 				foo: {
-					model: 'person'
+					model: 'PERSON'
 				}
 			});
 
@@ -83,7 +83,7 @@ describe('Create Blank Map module', () => {
 
 			const expectation = {
 				foo: {
-					model: 'person'
+					model: 'PERSON'
 				}
 			};
 

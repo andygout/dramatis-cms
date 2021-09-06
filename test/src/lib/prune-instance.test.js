@@ -26,14 +26,14 @@ describe('prune Instance module', () => {
 
 		const instance = {
 			name: 'King Lear',
-			model: 'production'
+			model: 'PRODUCTION'
 		};
 
 		const result = pruneInstance(instance);
 
 		const expectation = {
 			name: 'King Lear',
-			model: 'production'
+			model: 'PRODUCTION'
 		};
 
 		expect(result).to.deep.equal(expectation);
@@ -48,12 +48,12 @@ describe('prune Instance module', () => {
 				{
 					name: 'Ian McKellen',
 					errors: {},
-					model: 'person',
+					model: 'PERSON',
 					roles: [
 						{
 							name: 'King Lear',
 							errors: {},
-							model: 'role',
+							model: 'ROLE',
 							characterName: ''
 						}
 					]
@@ -188,15 +188,15 @@ describe('prune Instance module', () => {
 		const instance = {
 			name: 'King Lear',
 			errors: {},
-			model: 'production',
+			model: 'PRODUCTION',
 			uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e',
 			venue: {
 				name: 'Courtyard Theatre',
 				errors: {},
-				model: 'venue'
+				model: 'VENUE'
 			},
 			material: {
-				model: 'material',
+				model: 'MATERIAL',
 				name: '',
 				format: '',
 				errors: {}
@@ -205,18 +205,18 @@ describe('prune Instance module', () => {
 				{
 					name: 'Ian McKellen',
 					errors: {},
-					model: 'person',
+					model: 'PERSON',
 					roles: [
 						{
 							name: 'King Lear',
 							errors: {},
-							model: 'role',
+							model: 'ROLE',
 							characterName: ''
 						},
 						{
 							name: '',
 							errors: {},
-							model: 'role',
+							model: 'ROLE',
 							characterName: ''
 						}
 					]
@@ -224,12 +224,12 @@ describe('prune Instance module', () => {
 				{
 					name: '',
 					errors: {},
-					model: 'person',
+					model: 'PERSON',
 					roles: [
 						{
 							name: '',
 							errors: {},
-							model: 'role',
+							model: 'ROLE',
 							characterName: ''
 						}
 					]
@@ -241,7 +241,7 @@ describe('prune Instance module', () => {
 
 		const expectation = {
 			name: 'King Lear',
-			model: 'production',
+			model: 'PRODUCTION',
 			venue: {
 				name: 'Courtyard Theatre'
 			},
