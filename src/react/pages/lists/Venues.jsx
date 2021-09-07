@@ -1,5 +1,6 @@
+import { List } from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { ListWrapper } from '../../utils';
@@ -21,7 +22,7 @@ class Venues extends React.Component {
 }
 
 Venues.propTypes = {
-	venues: ImmutablePropTypes.list.isRequired
+	venues: PropTypes.instanceOf(List).isRequired
 };
 
 const mapStateToProps = state => ({

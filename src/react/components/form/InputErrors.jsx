@@ -1,5 +1,6 @@
+import { List } from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const InputErrors = props => {
 
@@ -18,7 +19,7 @@ const InputErrors = props => {
 };
 
 InputErrors.propTypes = {
-	errors: ImmutablePropTypes.list.isRequired
+	errors: PropTypes.instanceOf(List).isRequired
 };
 
 export default InputErrors;

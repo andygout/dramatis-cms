@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { CompanyForm } from '../../components/instance-forms';
@@ -32,8 +32,8 @@ class Company extends React.Component {
 }
 
 Company.propTypes = {
-	company: ImmutablePropTypes.map.isRequired,
-	companyFormData: ImmutablePropTypes.map.isRequired
+	company: PropTypes.instanceOf(Map).isRequired,
+	companyFormData: PropTypes.instanceOf(Map).isRequired
 };
 
 const mapStateToProps = state => ({
