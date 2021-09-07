@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
-import { CREDIT_TYPES } from '../../../utils/constants';
+import { CREDIT_TYPES, MODELS } from '../../../utils/constants';
 
 class MaterialForm extends Form {
 
@@ -50,24 +50,24 @@ class MaterialForm extends Form {
 
 									<input
 										type={'radio'}
-										value={'person'}
-										checked={entity.get('model') === 'person'}
+										value={MODELS.PERSON}
+										checked={entity.get('model') === MODELS.PERSON}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Person</label>
 
 									<input
 										type={'radio'}
-										value={'company'}
-										checked={entity.get('model') === 'company'}
+										value={MODELS.COMPANY}
+										checked={entity.get('model') === MODELS.COMPANY}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Company</label>
 
 									<input
 										type={'radio'}
-										value={'material'}
-										checked={entity.get('model') === 'material'}
+										value={MODELS.MATERIAL}
+										checked={entity.get('model') === MODELS.MATERIAL}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
 									<label>&nbsp;Material</label>

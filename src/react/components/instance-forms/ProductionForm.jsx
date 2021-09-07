@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
+import { MODELS } from '../../../utils/constants';
 
 class ProductionForm extends Form {
 
@@ -24,7 +25,7 @@ class ProductionForm extends Form {
 
 	handleChangeToCompany (statePath, entity, event) {
 
-		const creditedMember = Map({ model: 'person', name: '', differentiator: '', errors: Map({}) });
+		const creditedMember = Map({ model: MODELS.PERSON, name: '', differentiator: '', errors: Map({}) });
 		const creditedMembers = List([creditedMember]);
 
 		let revisedEntity = entity;
@@ -254,16 +255,16 @@ class ProductionForm extends Form {
 
 									<input
 										type={'radio'}
-										value={'person'}
-										checked={entity.get('model') === 'person'}
+										value={MODELS.PERSON}
+										checked={entity.get('model') === MODELS.PERSON}
 										onChange={event => this.handleChangeToPerson(statePath, entity, event)}
 									/>
 									<label>&nbsp;Person</label>
 
 									<input
 										type={'radio'}
-										value={'company'}
-										checked={entity.get('model') === 'company'}
+										value={MODELS.COMPANY}
+										checked={entity.get('model') === MODELS.COMPANY}
 										onChange={event => this.handleChangeToCompany(statePath, entity, event)}
 									/>
 									<label>&nbsp;Company</label>
@@ -271,7 +272,7 @@ class ProductionForm extends Form {
 								</FieldsetComponent>
 
 								{
-									entity.get('model') === 'company' &&
+									entity.get('model') === MODELS.COMPANY &&
 									this.renderCreditedMembers(
 										entity.get('creditedMembers', []),
 										statePath.concat(['creditedMembers'])
