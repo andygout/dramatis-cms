@@ -3,10 +3,43 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
+import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 
 class AwardCeremonyForm extends Form {
+
+	renderCategories (categories) {
+
+		return (
+			<Fieldset header={'Categories'}>
+
+				{
+					categories?.map((category, index) =>
+						<div className={'fieldset__module'} key={index}>
+
+							<ArrayItemRemovalButton
+								isRemovalButtonRequired={this.isRemovalButtonRequired(index, categories.size)}
+								handleRemovalClick={event => this.handleRemovalClick(['categories', index], event)}
+							/>
+
+							<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+								<InputAndErrors
+									value={category.get('name')}
+									errors={category.getIn(['errors', 'name'])}
+									handleChange={event => this.handleChange(['categories', index, 'name'], event)}
+								/>
+
+							</FieldsetComponent>
+
+						</div>
+					)
+				}
+
+			</Fieldset>
+		);
+
+	}
 
 	render () {
 
@@ -52,6 +85,8 @@ class AwardCeremonyForm extends Form {
 					</FieldsetComponent>
 
 				</Fieldset>
+
+				{ Boolean(this.state.categories) && this.renderCategories(this.state.categories) }
 
 			</FormWrapper>
 		);
