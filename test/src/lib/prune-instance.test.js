@@ -183,6 +183,64 @@ describe('prune Instance module', () => {
 
 	});
 
+	it('retains array items that do not have name property', () => {
+
+		const instance = {
+			name: '2019',
+			categories: [
+				{
+					name: 'Best Actor',
+					nominations: [
+						{
+							entities: [
+								{
+									name: 'Ian McKellen'
+								}
+							]
+						},
+						{
+							entities: [
+								{
+									name: 'David Suchet'
+								}
+							]
+						}
+					]
+				}
+			]
+		};
+
+		const result = pruneInstance(instance);
+
+		const expectation = {
+			name: '2019',
+			categories: [
+				{
+					name: 'Best Actor',
+					nominations: [
+						{
+							entities: [
+								{
+									name: 'Ian McKellen'
+								}
+							]
+						},
+						{
+							entities: [
+								{
+									name: 'David Suchet'
+								}
+							]
+						}
+					]
+				}
+			]
+		};
+
+		expect(result).to.deep.equal(expectation);
+
+	});
+
 	it('prunes a sample instance as per specification', () => {
 
 		const instance = {

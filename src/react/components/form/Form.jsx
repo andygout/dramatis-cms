@@ -1,11 +1,11 @@
-import { List, is, getIn, Map, removeIn, setIn, updateIn } from 'immutable';
+import { List, is, getIn, Map, remove, removeIn, set, setIn, updateIn } from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import createBlankMap from '../../../lib/create-blank-map';
 import mapHasNonEmptyString from '../../../lib/map-has-non-empty-string';
-import { ACTIONS, MODEL_TO_PROP_NAME_MAP } from '../../../utils/constants';
+import { ACTIONS, MODELS, MODEL_TO_PROP_NAME_MAP } from '../../../utils/constants';
 
 class Form extends React.Component {
 
@@ -125,6 +125,37 @@ class Form extends React.Component {
 		const rootAttr = statePath.shift();
 
 		this.setState({ [rootAttr]: removeIn(this.state[rootAttr], statePath) });
+
+	}
+
+	handleChangeToPerson (statePath, entity, property, event) {
+
+		let revisedEntity = entity;
+		revisedEntity = set(revisedEntity, 'model', event.target.value);
+		revisedEntity = remove(revisedEntity, property);
+
+		const revision = { value: revisedEntity, type: 'map' };
+
+		const rootAttr = statePath.shift();
+
+		this.setState({ [rootAttr]: this.applyRevisionToRootAttrState(this.state[rootAttr], statePath, revision) });
+
+	}
+
+	handleChangeToCompany (statePath, entity, property, event) {
+
+		const member = Map({ model: MODELS.PERSON, name: '', differentiator: '', errors: Map({}) });
+		const members = List([member]);
+
+		let revisedEntity = entity;
+		revisedEntity = set(revisedEntity, 'model', event.target.value);
+		revisedEntity = set(revisedEntity, property, members);
+
+		const revision = { value: revisedEntity, type: 'map' };
+
+		const rootAttr = statePath.shift();
+
+		this.setState({ [rootAttr]: this.applyRevisionToRootAttrState(this.state[rootAttr], statePath, revision) });
 
 	}
 
