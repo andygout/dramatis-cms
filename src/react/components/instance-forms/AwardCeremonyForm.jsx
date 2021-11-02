@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 
 class AwardCeremonyForm extends Form {
@@ -14,26 +14,38 @@ class AwardCeremonyForm extends Form {
 			<Fieldset header={'Categories'}>
 
 				{
-					categories?.map((category, index) =>
-						<div className={'fieldset__module'} key={index}>
+					categories?.map((category, index) => {
 
-							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, categories.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['categories', index], event)}
-							/>
+						const statePath = ['categories', index];
 
-							<FieldsetComponent label={'Name'} isArrayItem={true}>
+						const isLastListItem = this.isLastListItem(index, categories.size);
 
-								<InputAndErrors
-									value={category.get('name')}
-									errors={category.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['categories', index, 'name'], event)}
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
-						</div>
-					)
+									<InputAndErrors
+										value={category.get('name')}
+										errors={category.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
 				}
 
 			</Fieldset>
