@@ -1,4 +1,4 @@
-import { List, Map, remove, set } from 'immutable';
+import { Map } from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -8,37 +8,6 @@ import { createInstance, updateInstance, deleteInstance } from '../../../redux/a
 import { MODELS } from '../../../utils/constants';
 
 class ProductionForm extends Form {
-
-	handleChangeToPerson (statePath, entity, event) {
-
-		let revisedEntity = entity;
-		revisedEntity = set(revisedEntity, 'model', event.target.value);
-		revisedEntity = remove(revisedEntity, 'creditedMembers');
-
-		const revision = { value: revisedEntity, type: 'map' };
-
-		const rootAttr = statePath.shift();
-
-		this.setState({ [rootAttr]: this.applyRevisionToRootAttrState(this.state[rootAttr], statePath, revision) });
-
-	}
-
-	handleChangeToCompany (statePath, entity, event) {
-
-		const creditedMember = Map({ model: MODELS.PERSON, name: '', differentiator: '', errors: Map({}) });
-		const creditedMembers = List([creditedMember]);
-
-		let revisedEntity = entity;
-		revisedEntity = set(revisedEntity, 'model', event.target.value);
-		revisedEntity = set(revisedEntity, 'creditedMembers', creditedMembers);
-
-		const revision = { value: revisedEntity, type: 'map' };
-
-		const rootAttr = statePath.shift();
-
-		this.setState({ [rootAttr]: this.applyRevisionToRootAttrState(this.state[rootAttr], statePath, revision) });
-
-	}
 
 	renderCastMemberRoles (roles, rolesStatePath) {
 
@@ -287,7 +256,7 @@ class ProductionForm extends Form {
 										type={'radio'}
 										value={MODELS.PERSON}
 										checked={entity.get('model') === MODELS.PERSON}
-										onChange={event => this.handleChangeToPerson(statePath, entity, event)}
+										onChange={event => this.handleChangeToPerson(statePath, entity, 'creditedMembers', event)}
 									/>
 									<label>&nbsp;Person</label>
 
@@ -295,7 +264,7 @@ class ProductionForm extends Form {
 										type={'radio'}
 										value={MODELS.COMPANY}
 										checked={entity.get('model') === MODELS.COMPANY}
-										onChange={event => this.handleChangeToCompany(statePath, entity, event)}
+										onChange={event => this.handleChangeToCompany(statePath, entity, 'creditedMembers', event)}
 									/>
 									<label>&nbsp;Company</label>
 
