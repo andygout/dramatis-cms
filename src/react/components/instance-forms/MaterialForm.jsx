@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 import { CREDIT_TYPES, MODELS } from '../../../utils/constants';
 
@@ -19,12 +19,18 @@ class MaterialForm extends Form {
 
 						const statePath = entitiesStatePath.concat([index]);
 
+						const isLastListItem = this.isLastListItem(index, entities.size);
+
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, entities.size)}
-									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
@@ -92,56 +98,68 @@ class MaterialForm extends Form {
 			<Fieldset header={'Writing credits'}>
 
 				{
-					writingCredits.map((writingCredit, index) =>
-						<div className={'fieldset__module'} key={index}>
+					writingCredits.map((writingCredit, index) => {
 
-							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, writingCredits.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['writingCredits', index], event)}
-							/>
+						const statePath = ['writingCredits', index];
 
-							<FieldsetComponent label={'Name'} isArrayItem={true}>
+						const isLastListItem = this.isLastListItem(index, writingCredits.size);
 
-								<InputAndErrors
-									value={writingCredit.get('name')}
-									errors={writingCredit.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['writingCredits', index, 'name'], event)}
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
-							<FieldsetComponent label={'Credit type'} isArrayItem={true}>
+									<InputAndErrors
+										value={writingCredit.get('name')}
+										errors={writingCredit.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
 
-								<input
-									type={'radio'}
-									value={''}
-									checked={!writingCredit.get('creditType')}
-									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
-								/>
-								<label>&nbsp;Direct</label>
+								</FieldsetComponent>
 
-								<input
-									type={'radio'}
-									value={CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
-									checked={writingCredit.get('creditType') === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
-									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
-								/>
-								<label>&nbsp;Non-specific source material</label>
+								<FieldsetComponent label={'Credit type'} isArrayItem={true}>
 
-								<input
-									type={'radio'}
-									value={CREDIT_TYPES.RIGHTS_GRANTOR}
-									checked={writingCredit.get('creditType') === CREDIT_TYPES.RIGHTS_GRANTOR}
-									onChange={event => this.handleChange(['writingCredits', index, 'creditType'], event)}
-								/>
-								<label>&nbsp;Rights grantor</label>
+									<input
+										type={'radio'}
+										value={''}
+										checked={!writingCredit.get('creditType')}
+										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
+									/>
+									<label>&nbsp;Direct</label>
 
-							</FieldsetComponent>
+									<input
+										type={'radio'}
+										value={CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
+										checked={writingCredit.get('creditType') === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
+										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
+									/>
+									<label>&nbsp;Non-specific source material</label>
 
-							{ this.renderWritingEntities(writingCredit.get('entities'), ['writingCredits', index, 'entities']) }
+									<input
+										type={'radio'}
+										value={CREDIT_TYPES.RIGHTS_GRANTOR}
+										checked={writingCredit.get('creditType') === CREDIT_TYPES.RIGHTS_GRANTOR}
+										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
+									/>
+									<label>&nbsp;Rights grantor</label>
 
-						</div>
-					)
+								</FieldsetComponent>
+
+								{ this.renderWritingEntities(writingCredit.get('entities'), statePath.concat(['entities'])) }
+
+							</div>
+						);
+
+					})
 				}
 
 			</Fieldset>
@@ -159,12 +177,18 @@ class MaterialForm extends Form {
 
 						const statePath = charactersStatePath.concat([index]);
 
+						const isLastListItem = this.isLastListItem(index, characters.size);
+
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, characters.size)}
-									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
@@ -224,28 +248,40 @@ class MaterialForm extends Form {
 			<Fieldset header={'Character groups'}>
 
 				{
-					characterGroups.map((characterGroup, index) =>
-						<div className={'fieldset__module'} key={index}>
+					characterGroups.map((characterGroup, index) => {
 
-							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, characterGroups.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['characterGroups', index], event)}
-							/>
+						const statePath = ['characterGroups', index];
 
-							<FieldsetComponent label={'Name'} isArrayItem={true}>
+						const isLastListItem = this.isLastListItem(index, characterGroups.size);
 
-								<InputAndErrors
-									value={characterGroup.get('name')}
-									errors={characterGroup.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['characterGroups', index, 'name'], event)}
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
-							{ this.renderCharacters(characterGroup.get('characters'), ['characterGroups', index, 'characters']) }
+									<InputAndErrors
+										value={characterGroup.get('name')}
+										errors={characterGroup.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
 
-						</div>
-					)
+								</FieldsetComponent>
+
+								{ this.renderCharacters(characterGroup.get('characters'), statePath.concat(['characters'])) }
+
+							</div>
+						);
+
+					})
 				}
 
 			</Fieldset>

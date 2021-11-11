@@ -1,4 +1,4 @@
-import ArrayItemRemovalButton from './ArrayItemRemovalButton';
+import ArrayItemActionButton from './ArrayItemActionButton';
 import Fieldset from './Fieldset';
 import FieldsetComponent from './FieldsetComponent';
 import Form from './Form';
@@ -8,7 +8,7 @@ import InputAndErrors from './InputAndErrors';
 import InputErrors from './InputErrors';
 
 export {
-	ArrayItemRemovalButton,
+	ArrayItemActionButton,
 	Fieldset,
 	FieldsetComponent,
 	Form,

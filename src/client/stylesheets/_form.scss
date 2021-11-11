@@ -1,5 +1,4 @@
 $removal-button-height: 18px;
-$removal-button-border-width: 1px;
 
 .form {
 	margin-top: 40px;
@@ -40,18 +39,17 @@ $removal-button-border-width: 1px;
 	margin-bottom: 20px;
 }
 
-.fieldset__removal-button-placeholder {
+.fieldset__action-button-container {
 	display: flex;
 	justify-content: flex-end;
-	min-height: $removal-button-height + ($removal-button-border-width * 2);
 }
 
-.fieldset__removal-button {
+.fieldset__action-button {
 	padding: 0px 10px;
 	height: $removal-button-height;
 	line-height: $removal-button-height;
 	background-color: $content-background-color;
-	border: $removal-button-border-width solid $border-color;
+	border: 1px solid $border-color;
 	border-radius: 5px;
 }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 import { MODELS } from '../../../utils/constants';
 
@@ -19,7 +19,7 @@ class ProductionForm extends Form {
 
 		const rootAttr = statePath.shift();
 
-		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, revision) });
+		this.setState({ [rootAttr]: this.applyRevisionToRootAttrState(this.state[rootAttr], statePath, revision) });
 
 	}
 
@@ -36,7 +36,7 @@ class ProductionForm extends Form {
 
 		const rootAttr = statePath.shift();
 
-		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, revision) });
+		this.setState({ [rootAttr]: this.applyRevisionToRootAttrState(this.state[rootAttr], statePath, revision) });
 
 	}
 
@@ -50,12 +50,18 @@ class ProductionForm extends Form {
 
 						const statePath = rolesStatePath.concat([index]);
 
+						const isLastListItem = this.isLastListItem(index, roles.size);
+
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, roles.size)}
-									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
@@ -125,38 +131,50 @@ class ProductionForm extends Form {
 			<Fieldset header={'Cast'}>
 
 				{
-					cast.map((castMember, index) =>
-						<div className={'fieldset__module'} key={index}>
+					cast.map((castMember, index) => {
 
-							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, cast.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['cast', index], event)}
-							/>
+						const statePath = ['cast', index];
 
-							<FieldsetComponent label={'Name'} isArrayItem={true}>
+						const isLastListItem = this.isLastListItem(index, cast.size);
 
-								<InputAndErrors
-									value={castMember.get('name')}
-									errors={castMember.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['cast', index, 'name'], event)}
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+									<InputAndErrors
+										value={castMember.get('name')}
+										errors={castMember.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
 
-								<InputAndErrors
-									value={castMember.get('differentiator')}
-									errors={castMember.getIn(['errors', 'differentiator'])}
-									handleChange={event => this.handleChange(['cast', index, 'differentiator'], event)}
-								/>
+								</FieldsetComponent>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
-							{ this.renderCastMemberRoles(castMember.get('roles'), ['cast', index, 'roles']) }
+									<InputAndErrors
+										value={castMember.get('differentiator')}
+										errors={castMember.getIn(['errors', 'differentiator'])}
+										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+									/>
 
-						</div>
-					)
+								</FieldsetComponent>
+
+								{ this.renderCastMemberRoles(castMember.get('roles'), statePath.concat(['roles'])) }
+
+							</div>
+						);
+
+					})
 				}
 
 			</Fieldset>
@@ -174,12 +192,18 @@ class ProductionForm extends Form {
 
 						const statePath = creditedMembersStatePath.concat([index]);
 
+						const isLastListItem = this.isLastListItem(index, creditedMembers.size);
+
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, creditedMembers.size)}
-									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
@@ -223,12 +247,18 @@ class ProductionForm extends Form {
 
 						const statePath = entitiesStatePath.concat([index]);
 
+						const isLastListItem = this.isLastListItem(index, entities.size);
+
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
-								<ArrayItemRemovalButton
-									isRemovalButtonRequired={this.isRemovalButtonRequired(index, entities.size)}
-									handleRemovalClick={event => this.handleRemovalClick(statePath, event)}
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
@@ -296,28 +326,40 @@ class ProductionForm extends Form {
 			<Fieldset header={'Producer team credits'}>
 
 				{
-					producerCredits.map((producerCredit, index) =>
-						<div className={'fieldset__module'} key={index}>
+					producerCredits.map((producerCredit, index) => {
 
-							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, producerCredits.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['producerCredits', index], event)}
-							/>
+						const statePath = ['producerCredits', index];
 
-							<FieldsetComponent label={'Name'} isArrayItem={true}>
+						const isLastListItem = this.isLastListItem(index, producerCredits.size);
 
-								<InputAndErrors
-									value={producerCredit.get('name')}
-									errors={producerCredit.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['producerCredits', index, 'name'], event)}
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
-							{ this.renderEntities(producerCredit.get('entities'), ['producerCredits', index, 'entities'], 'Producer') }
+									<InputAndErrors
+										value={producerCredit.get('name')}
+										errors={producerCredit.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
 
-						</div>
-					)
+								</FieldsetComponent>
+
+								{ this.renderEntities(producerCredit.get('entities'), statePath.concat(['entities']), 'Producer') }
+
+							</div>
+						);
+
+					})
 				}
 
 			</Fieldset>
@@ -331,28 +373,40 @@ class ProductionForm extends Form {
 			<Fieldset header={'Creative team credits'}>
 
 				{
-					creativeCredits.map((creativeCredit, index) =>
-						<div className={'fieldset__module'} key={index}>
+					creativeCredits.map((creativeCredit, index) => {
 
-							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, creativeCredits.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['creativeCredits', index], event)}
-							/>
+						const statePath = ['creativeCredits', index];
 
-							<FieldsetComponent label={'Name'} isArrayItem={true}>
+						const isLastListItem = this.isLastListItem(index, creativeCredits.size);
 
-								<InputAndErrors
-									value={creativeCredit.get('name')}
-									errors={creativeCredit.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['creativeCredits', index, 'name'], event)}
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
-							{ this.renderEntities(creativeCredit.get('entities'), ['creativeCredits', index, 'entities'], 'Creative') }
+									<InputAndErrors
+										value={creativeCredit.get('name')}
+										errors={creativeCredit.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
 
-						</div>
-					)
+								</FieldsetComponent>
+
+								{ this.renderEntities(creativeCredit.get('entities'), statePath.concat(['entities']), 'Creative') }
+
+							</div>
+						);
+
+					})
 				}
 
 			</Fieldset>
@@ -366,28 +420,40 @@ class ProductionForm extends Form {
 			<Fieldset header={'Crew credits'}>
 
 				{
-					crewCredits.map((crewCredit, index) =>
-						<div className={'fieldset__module'} key={index}>
+					crewCredits.map((crewCredit, index) => {
 
-							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, crewCredits.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['crewCredits', index], event)}
-							/>
+						const statePath = ['crewCredits', index];
 
-							<FieldsetComponent label={'Name'} isArrayItem={true}>
+						const isLastListItem = this.isLastListItem(index, crewCredits.size);
 
-								<InputAndErrors
-									value={crewCredit.get('name')}
-									errors={crewCredit.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['crewCredits', index, 'name'], event)}
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
-							{ this.renderEntities(crewCredit.get('entities'), ['crewCredits', index, 'entities'], 'Crew') }
+									<InputAndErrors
+										value={crewCredit.get('name')}
+										errors={crewCredit.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
 
-						</div>
-					)
+								</FieldsetComponent>
+
+								{ this.renderEntities(crewCredit.get('entities'), statePath.concat(['entities']), 'Crew') }
+
+							</div>
+						);
+
+					})
 				}
 
 			</Fieldset>

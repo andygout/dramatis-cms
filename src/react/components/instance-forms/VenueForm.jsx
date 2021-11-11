@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ArrayItemRemovalButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 
 class VenueForm extends Form {
@@ -14,36 +14,48 @@ class VenueForm extends Form {
 			<Fieldset header={'Sub-venues'}>
 
 				{
-					subVenues?.map((subVenue, index) =>
-						<div className={'fieldset__module'} key={index}>
+					subVenues?.map((subVenue, index) => {
 
-							<ArrayItemRemovalButton
-								isRemovalButtonRequired={this.isRemovalButtonRequired(index, subVenues.size)}
-								handleRemovalClick={event => this.handleRemovalClick(['subVenues', index], event)}
-							/>
+						const statePath = ['subVenues', index];
 
-							<FieldsetComponent label={'Name'} isArrayItem={true}>
+						const isLastListItem = this.isLastListItem(index, subVenues.size);
 
-								<InputAndErrors
-									value={subVenue.get('name')}
-									errors={subVenue.getIn(['errors', 'name'])}
-									handleChange={event => this.handleChange(['subVenues', index, 'name'], event)}
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
 								/>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+									<InputAndErrors
+										value={subVenue.get('name')}
+										errors={subVenue.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
 
-								<InputAndErrors
-									value={subVenue.get('differentiator')}
-									errors={subVenue.getIn(['errors', 'differentiator'])}
-									handleChange={event => this.handleChange(['subVenues', index, 'differentiator'], event)}
-								/>
+								</FieldsetComponent>
 
-							</FieldsetComponent>
+								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
-						</div>
-					)
+									<InputAndErrors
+										value={subVenue.get('differentiator')}
+										errors={subVenue.getIn(['errors', 'differentiator'])}
+										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+									/>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
 				}
 
 			</Fieldset>

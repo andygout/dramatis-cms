@@ -42,19 +42,23 @@ class Form extends React.Component {
 
 	}
 
-	isRemovalButtonRequired (index, listSize) {
+	isLastListItem (index, listSize) {
 
-		return !((index + 1) === listSize);
+		return ((index + 1) === listSize);
 
 	}
 
-	getNewStateForRootAttr (rootAttr, statePath, revision) {
+	applyRevisionToRootAttrState (rootAttrState, statePath, revision) {
 
 		const revisionValue = revision.type === 'checkbox' ? revision.checked : revision.value;
 
-		let newStateForRootAttr = setIn(this.state[rootAttr], statePath, revisionValue);
+		const revisedRootAttrState = setIn(rootAttrState, statePath, revisionValue);
 
-		if (revision.type !== 'text') return newStateForRootAttr;
+		return revisedRootAttrState;
+
+	}
+
+	appendBlankListItemToRootAttrState (rootAttrState, statePath, opts = {}) {
 
 		const indexOfLastNumberInStatePath =
 			statePath
@@ -63,27 +67,27 @@ class Form extends React.Component {
 
 		const statePathToInnermostList = statePath.slice(0, indexOfLastNumberInStatePath);
 
-		const innermostList = getIn(newStateForRootAttr, statePathToInnermostList);
+		const innermostList = getIn(rootAttrState, statePathToInnermostList);
 
 		// If changed input was in a List.
 		if (List.isList(innermostList)) {
 
 			const lastListItem = innermostList.get(-1);
 
-			const blankListItemAppendageRequired = mapHasNonEmptyString(lastListItem);
+			const blankListItemAppendageRequired = opts.isGuaranteedAppendage || mapHasNonEmptyString(lastListItem);
 
 			if (blankListItemAppendageRequired) {
 
 				const blankListItem = createBlankMap(lastListItem);
 
-				newStateForRootAttr =
-					updateIn(newStateForRootAttr, statePathToInnermostList, list => list.push(blankListItem));
+				rootAttrState =
+					updateIn(rootAttrState, statePathToInnermostList, list => list.push(blankListItem));
 
 			}
 
 		}
 
-		return newStateForRootAttr;
+		return rootAttrState;
 
 	}
 
@@ -91,7 +95,26 @@ class Form extends React.Component {
 
 		const rootAttr = statePath.shift();
 
-		this.setState({ [rootAttr]: this.getNewStateForRootAttr(rootAttr, statePath, event.target) });
+		const revisedRootAttrState =
+			this.applyRevisionToRootAttrState(this.state[rootAttr], statePath, event.target);
+
+		const revisedRootAttrStateWithAppendedBlankListItem =
+			this.appendBlankListItemToRootAttrState(revisedRootAttrState, statePath);
+
+		this.setState({ [rootAttr]: revisedRootAttrStateWithAppendedBlankListItem });
+
+	}
+
+	handleCreationClick (statePath, event) {
+
+		event.preventDefault();
+
+		const rootAttr = statePath.shift();
+
+		const rootAttrStateWithAppendedBlankListItem =
+			this.appendBlankListItemToRootAttrState(this.state[rootAttr], statePath, { isGuaranteedAppendage: true });
+
+		this.setState({ [rootAttr]: rootAttrStateWithAppendedBlankListItem });
 
 	}
 
