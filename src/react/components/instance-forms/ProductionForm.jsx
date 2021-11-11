@@ -151,17 +151,17 @@ class ProductionForm extends Form {
 
 	}
 
-	renderCreditedMembers (creditedMembers, creditedMembersStatePath) {
+	renderMembers (members, membersStatePath) {
 
 		return (
 			<FieldsetComponent label={'Credited members (people)'} isArrayItem={true}>
 
 				{
-					creditedMembers.map((creditedMember, index) => {
+					members.map((member, index) => {
 
-						const statePath = creditedMembersStatePath.concat([index]);
+						const statePath = membersStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, creditedMembers.size);
+						const isLastListItem = this.isLastListItem(index, members.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -178,8 +178,8 @@ class ProductionForm extends Form {
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={creditedMember.get('name')}
-										errors={creditedMember.getIn(['errors', 'name'])}
+										value={member.get('name')}
+										errors={member.getIn(['errors', 'name'])}
 										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
 									/>
 
@@ -188,8 +188,8 @@ class ProductionForm extends Form {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={creditedMember.get('differentiator')}
-										errors={creditedMember.getIn(['errors', 'differentiator'])}
+										value={member.get('differentiator')}
+										errors={member.getIn(['errors', 'differentiator'])}
 										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
 									/>
 
@@ -256,7 +256,7 @@ class ProductionForm extends Form {
 										type={'radio'}
 										value={MODELS.PERSON}
 										checked={entity.get('model') === MODELS.PERSON}
-										onChange={event => this.handleChangeToPerson(statePath, entity, 'creditedMembers', event)}
+										onChange={event => this.handleChangeToPerson(statePath, entity, 'members', event)}
 									/>
 									<label>&nbsp;Person</label>
 
@@ -264,7 +264,7 @@ class ProductionForm extends Form {
 										type={'radio'}
 										value={MODELS.COMPANY}
 										checked={entity.get('model') === MODELS.COMPANY}
-										onChange={event => this.handleChangeToCompany(statePath, entity, 'creditedMembers', event)}
+										onChange={event => this.handleChangeToCompany(statePath, entity, 'members', event)}
 									/>
 									<label>&nbsp;Company</label>
 
@@ -272,10 +272,7 @@ class ProductionForm extends Form {
 
 								{
 									entity.get('model') === MODELS.COMPANY &&
-									this.renderCreditedMembers(
-										entity.get('creditedMembers', []),
-										statePath.concat(['creditedMembers'])
-									)
+									this.renderMembers(entity.get('members', []), statePath.concat(['members']))
 								}
 
 							</div>
