@@ -9,17 +9,17 @@ import { MODELS } from '../../../utils/constants';
 
 class AwardCeremonyForm extends Form {
 
-	renderNominatedMembers (nominatedMembers, nominatedMembersStatePath) {
+	renderMembers (members, membersStatePath) {
 
 		return (
 			<FieldsetComponent label={'Nominated members (people)'} isArrayItem={true}>
 
 				{
-					nominatedMembers.map((nominatedMember, index) => {
+					members.map((member, index) => {
 
-						const statePath = nominatedMembersStatePath.concat([index]);
+						const statePath = membersStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, nominatedMembers.size);
+						const isLastListItem = this.isLastListItem(index, members.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -36,8 +36,8 @@ class AwardCeremonyForm extends Form {
 								<FieldsetComponent label={'Name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={nominatedMember.get('name')}
-										errors={nominatedMember.getIn(['errors', 'name'])}
+										value={member.get('name')}
+										errors={member.getIn(['errors', 'name'])}
 										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
 									/>
 
@@ -46,8 +46,8 @@ class AwardCeremonyForm extends Form {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={nominatedMember.get('differentiator')}
-										errors={nominatedMember.getIn(['errors', 'differentiator'])}
+										value={member.get('differentiator')}
+										errors={member.getIn(['errors', 'differentiator'])}
 										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
 									/>
 
@@ -114,7 +114,7 @@ class AwardCeremonyForm extends Form {
 										type={'radio'}
 										value={MODELS.PERSON}
 										checked={entity.get('model') === MODELS.PERSON}
-										onChange={event => this.handleChangeToPerson(statePath, entity, 'nominatedMembers', event)}
+										onChange={event => this.handleChangeToPerson(statePath, entity, 'members', event)}
 									/>
 									<label>&nbsp;Person</label>
 
@@ -122,7 +122,7 @@ class AwardCeremonyForm extends Form {
 										type={'radio'}
 										value={MODELS.COMPANY}
 										checked={entity.get('model') === MODELS.COMPANY}
-										onChange={event => this.handleChangeToCompany(statePath, entity, 'nominatedMembers', event)}
+										onChange={event => this.handleChangeToCompany(statePath, entity, 'members', event)}
 									/>
 									<label>&nbsp;Company</label>
 
@@ -130,10 +130,7 @@ class AwardCeremonyForm extends Form {
 
 								{
 									entity.get('model') === MODELS.COMPANY &&
-									this.renderNominatedMembers(
-										entity.get('nominatedMembers', []),
-										statePath.concat(['nominatedMembers'])
-									)
+									this.renderMembers(entity.get('members', []), statePath.concat(['members']))
 								}
 
 							</div>
