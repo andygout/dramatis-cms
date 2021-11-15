@@ -114,7 +114,7 @@ class AwardCeremonyForm extends Form {
 										type={'radio'}
 										value={MODELS.PERSON}
 										checked={entity.get('model') === MODELS.PERSON}
-										onChange={event => this.handleChangeToPerson(statePath, entity, 'members', event)}
+										onChange={event => this.handleChangeToPerson(statePath, entity, event)}
 									/>
 									<label>&nbsp;Person</label>
 
@@ -122,7 +122,7 @@ class AwardCeremonyForm extends Form {
 										type={'radio'}
 										value={MODELS.COMPANY}
 										checked={entity.get('model') === MODELS.COMPANY}
-										onChange={event => this.handleChangeToCompany(statePath, entity, 'members', event)}
+										onChange={event => this.handleChangeToCompany(statePath, entity, event)}
 									/>
 									<label>&nbsp;Company</label>
 

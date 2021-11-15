@@ -128,11 +128,11 @@ class Form extends React.Component {
 
 	}
 
-	handleChangeToPerson (statePath, entity, property, event) {
+	handleChangeToPerson (statePath, entity, event) {
 
 		let revisedEntity = entity;
 		revisedEntity = set(revisedEntity, 'model', event.target.value);
-		revisedEntity = remove(revisedEntity, property);
+		revisedEntity = remove(revisedEntity, 'members');
 
 		const revision = { value: revisedEntity, type: 'map' };
 
@@ -142,14 +142,14 @@ class Form extends React.Component {
 
 	}
 
-	handleChangeToCompany (statePath, entity, property, event) {
+	handleChangeToCompany (statePath, entity, event) {
 
 		const member = Map({ model: MODELS.PERSON, name: '', differentiator: '', errors: Map({}) });
 		const members = List([member]);
 
 		let revisedEntity = entity;
 		revisedEntity = set(revisedEntity, 'model', event.target.value);
-		revisedEntity = set(revisedEntity, property, members);
+		revisedEntity = set(revisedEntity, 'members', members);
 
 		const revision = { value: revisedEntity, type: 'map' };
 
