@@ -77,7 +77,7 @@ class ProductionForm extends Form {
 
 									<input
 										type="checkbox"
-										checked={role.get('isAlternate') || false}
+										checked={role.get('isAlternate')}
 										onChange={event => this.handleChange(statePath.concat(['isAlternate']), event)}
 									/>
 
