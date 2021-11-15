@@ -159,6 +159,16 @@ class AwardCeremonyForm extends Form {
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
 
+								<FieldsetComponent label={'Winner'} isArrayItem={true}>
+
+									<input
+										type="checkbox"
+										checked={nomination.get('isWinner')}
+										onChange={event => this.handleChange(statePath.concat(['isWinner']), event)}
+									/>
+
+								</FieldsetComponent>
+
 								<ArrayItemActionButton
 									isLastListItem={isLastListItem}
 									handleClick={event =>
