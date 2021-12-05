@@ -27,7 +27,6 @@ const CREDIT_TYPES = {
 
 const FORM_CONCEALED_KEYS = new Set([
 	'model',
-	'uuid',
 	'errors',
 	'hasErrors'
 ]);
