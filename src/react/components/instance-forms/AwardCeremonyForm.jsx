@@ -64,6 +64,61 @@ class AwardCeremonyForm extends Form {
 
 	}
 
+	renderMaterials (materials, materialsStatePath) {
+
+		return (
+			<FieldsetComponent label={'Nominated materials'} isArrayItem={true}>
+
+				{
+					materials.map((material, index) => {
+
+						const statePath = materialsStatePath.concat([index]);
+
+						const isLastListItem = this.isLastListItem(index, materials.size);
+
+						return (
+							<div className={'fieldset__module fieldset__module--nested'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
+								/>
+
+								<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={material.get('name')}
+										errors={material.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={material.get('differentiator')}
+										errors={material.getIn(['errors', 'differentiator'])}
+										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+									/>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
+				}
+
+			</FieldsetComponent>
+		);
+
+	}
+
 	renderProductions (productions, productionsStatePath) {
 
 		return (
@@ -226,6 +281,8 @@ class AwardCeremonyForm extends Form {
 								{ this.renderEntities(nomination.get('entities'), statePath.concat('entities')) }
 
 								{ this.renderProductions(nomination.get('productions'), statePath.concat('productions')) }
+
+								{ this.renderMaterials(nomination.get('materials'), statePath.concat('materials')) }
 
 							</div>
 						);
