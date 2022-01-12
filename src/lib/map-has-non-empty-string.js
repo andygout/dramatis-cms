@@ -1,6 +1,6 @@
 import { List, Map } from 'immutable';
 
-import { FORM_CONCEALED_KEYS } from '../utils/constants';
+import { FORM_UNEDITABLE_KEYS } from '../utils/constants';
 
 const isNonEmptyString = value => typeof value === 'string' && Boolean(value);
 
@@ -8,7 +8,7 @@ const isMapWithNonEmptyString = value => Map.isMap(value) && searchForNonEmptySt
 
 const searchForNonEmptyString = map => {
 
-	const mapToSearch = map.deleteAll(FORM_CONCEALED_KEYS);
+	const mapToSearch = map.deleteAll(FORM_UNEDITABLE_KEYS);
 
 	for (let value of mapToSearch.valueSeq()) {
 
