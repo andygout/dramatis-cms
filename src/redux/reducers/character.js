@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map, OrderedMap } from 'immutable';
 
 import {
 	REQUEST_CHARACTER,
@@ -19,7 +19,7 @@ const character = (state = Map(), action) => {
 		case RECEIVE_CHARACTER_CREATE:
 		case RECEIVE_CHARACTER_UPDATE:
 		case RECEIVE_CHARACTER_DELETE:
-			return fromJS(action.payload);
+			return OrderedMap(action.payload);
 
 		case REQUEST_CHARACTER:
 		case REQUEST_CHARACTER_CREATE:

@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map, OrderedMap } from 'immutable';
 
 import {
 	REQUEST_PRODUCTION,
@@ -19,7 +19,7 @@ const production = (state = Map(), action) => {
 		case RECEIVE_PRODUCTION_CREATE:
 		case RECEIVE_PRODUCTION_UPDATE:
 		case RECEIVE_PRODUCTION_DELETE:
-			return fromJS(action.payload);
+			return OrderedMap(action.payload);
 
 		case REQUEST_PRODUCTION:
 		case REQUEST_PRODUCTION_CREATE:

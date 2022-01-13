@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map, OrderedMap } from 'immutable';
 
 import {
 	REQUEST_VENUE,
@@ -19,7 +19,7 @@ const venue = (state = Map(), action) => {
 		case RECEIVE_VENUE_CREATE:
 		case RECEIVE_VENUE_UPDATE:
 		case RECEIVE_VENUE_DELETE:
-			return fromJS(action.payload);
+			return OrderedMap(action.payload);
 
 		case REQUEST_VENUE:
 		case REQUEST_VENUE_CREATE:

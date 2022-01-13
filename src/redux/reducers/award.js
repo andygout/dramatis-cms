@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map, OrderedMap } from 'immutable';
 
 import {
 	REQUEST_AWARD,
@@ -19,7 +19,7 @@ const award = (state = Map(), action) => {
 		case RECEIVE_AWARD_CREATE:
 		case RECEIVE_AWARD_UPDATE:
 		case RECEIVE_AWARD_DELETE:
-			return fromJS(action.payload);
+			return OrderedMap(action.payload);
 
 		case REQUEST_AWARD:
 		case REQUEST_AWARD_CREATE:

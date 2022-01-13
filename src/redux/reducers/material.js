@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map, OrderedMap } from 'immutable';
 
 import {
 	REQUEST_MATERIAL,
@@ -19,7 +19,7 @@ const material = (state = Map(), action) => {
 		case RECEIVE_MATERIAL_CREATE:
 		case RECEIVE_MATERIAL_UPDATE:
 		case RECEIVE_MATERIAL_DELETE:
-			return fromJS(action.payload);
+			return OrderedMap(action.payload);
 
 		case REQUEST_MATERIAL:
 		case REQUEST_MATERIAL_CREATE:
