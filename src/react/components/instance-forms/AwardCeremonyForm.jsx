@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 import { MODELS } from '../../../utils/constants';
@@ -12,7 +13,7 @@ class AwardCeremonyForm extends Form {
 	renderMembers (members, membersStatePath) {
 
 		return (
-			<FieldsetComponent label={'Nominated members (people)'} isArrayItem={true}>
+			<FieldsetComponent label={'Nominated company members (people)'} isArrayItem={true}>
 
 				{
 					members.map((member, index) => {
@@ -33,7 +34,7 @@ class AwardCeremonyForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Person name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={member.get('name')}
@@ -88,7 +89,7 @@ class AwardCeremonyForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Material name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={material.get('name')}
@@ -143,7 +144,7 @@ class AwardCeremonyForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'UUID'} isArrayItem={true}>
+								<FieldsetComponent label={'Production UUID'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={production.get('uuid')}
@@ -188,7 +189,7 @@ class AwardCeremonyForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={`${capitalise(entity.get('model'))} name`} isArrayItem={true}>
 
 									<InputAndErrors
 										value={entity.get('name')}
@@ -319,7 +320,7 @@ class AwardCeremonyForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Category name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={category.get('name')}

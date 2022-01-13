@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 import { CREDIT_TYPES, MODELS } from '../../../utils/constants';
@@ -33,7 +34,7 @@ class MaterialForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={`${capitalise(entity.get('model'))} name`} isArrayItem={true}>
 
 									<InputAndErrors
 										value={entity.get('name')}
@@ -116,7 +117,7 @@ class MaterialForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={writingCredit.get('name')}
@@ -191,7 +192,7 @@ class MaterialForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Character name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={character.get('name')}
@@ -266,7 +267,7 @@ class MaterialForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Group name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={characterGroup.get('name')}
