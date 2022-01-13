@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 import { MODELS } from '../../../utils/constants';
@@ -33,7 +34,7 @@ class ProductionForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Role name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={role.get('name')}
@@ -118,7 +119,7 @@ class ProductionForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Person name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={castMember.get('name')}
@@ -154,7 +155,7 @@ class ProductionForm extends Form {
 	renderMembers (members, membersStatePath) {
 
 		return (
-			<FieldsetComponent label={'Credited members (people)'} isArrayItem={true}>
+			<FieldsetComponent label={'Credited company members (people)'} isArrayItem={true}>
 
 				{
 					members.map((member, index) => {
@@ -175,7 +176,7 @@ class ProductionForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Person name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={member.get('name')}
@@ -230,7 +231,7 @@ class ProductionForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={`${capitalise(entity.get('model'))} name`} isArrayItem={true}>
 
 									<InputAndErrors
 										value={entity.get('name')}
@@ -310,7 +311,7 @@ class ProductionForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={producerCredit.get('name')}
@@ -357,7 +358,7 @@ class ProductionForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={creativeCredit.get('name')}
@@ -404,7 +405,7 @@ class ProductionForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={crewCredit.get('name')}

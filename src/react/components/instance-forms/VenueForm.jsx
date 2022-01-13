@@ -32,7 +32,7 @@ class VenueForm extends Form {
 									}
 								/>
 
-								<FieldsetComponent label={'Name'} isArrayItem={true}>
+								<FieldsetComponent label={'Venue name'} isArrayItem={true}>
 
 									<InputAndErrors
 										value={subVenue.get('name')}
