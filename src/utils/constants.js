@@ -26,9 +26,12 @@ const CREDIT_TYPES = {
 };
 
 const FORM_CONCEALED_KEYS = new Set([
-	'model',
+	'errors'
+]);
+
+const FORM_UNEDITABLE_KEYS = new Set([
 	'errors',
-	'hasErrors'
+	'model'
 ]);
 
 const MODELS = {
@@ -106,6 +109,7 @@ export {
 	ACTIONS,
 	CREDIT_TYPES,
 	FORM_CONCEALED_KEYS,
+	FORM_UNEDITABLE_KEYS,
 	MODELS,
 	MODEL_TO_DISPLAY_NAME_MAP,
 	MODEL_TO_PROP_NAME_MAP,

@@ -8,11 +8,10 @@ const ArrayItemActionButton = props => {
 	return (
 		<div className="fieldset__action-button-container">
 
-			<a
-				href="#"
+			<button
 				className="fieldset__action-button"
 				onClick={handleClick}
-			>{ isLastListItem ? '＋' : 'X' }</a>
+			>{ isLastListItem ? '＋' : 'X' }</button>
 
 		</div>
 	);

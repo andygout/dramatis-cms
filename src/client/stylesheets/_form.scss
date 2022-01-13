@@ -1,4 +1,4 @@
-$removal-button-height: 18px;
+$action-button-height: 18px;
 
 .form {
 	margin-top: 40px;
@@ -46,11 +46,18 @@ $removal-button-height: 18px;
 
 .fieldset__action-button {
 	padding: 0px 10px;
-	height: $removal-button-height;
-	line-height: $removal-button-height;
+	height: $action-button-height;
+	width: 36px;
+	line-height: $action-button-height;
+	color: $theme-color;
 	background-color: $content-background-color;
 	border: 1px solid $border-color;
 	border-radius: 5px;
+	cursor: pointer;
+
+	&:hover {
+		color: $default-text-color;
+	}
 }
 
 .fieldset__label {

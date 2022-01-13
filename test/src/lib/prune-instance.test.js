@@ -24,17 +24,17 @@ describe('prune Instance module', () => {
 	it('retains top-level \'model\' and \'uuid\' attributes', () => {
 
 		const instance = {
-			name: 'King Lear',
 			model: 'PRODUCTION',
-			uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e'
+			uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+			name: 'King Lear'
 		};
 
 		const result = pruneInstance(instance);
 
 		const expectation = {
-			name: 'King Lear',
 			model: 'PRODUCTION',
-			uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e'
+			uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+			name: 'King Lear'
 		};
 
 		expect(result).to.deep.equal(expectation);
@@ -47,15 +47,15 @@ describe('prune Instance module', () => {
 			name: 'King Lear',
 			cast: [
 				{
+					model: 'PERSON',
 					name: 'Ian McKellen',
 					errors: {},
-					model: 'PERSON',
 					roles: [
 						{
-							name: 'King Lear',
-							errors: {},
 							model: 'ROLE',
-							characterName: ''
+							name: 'King Lear',
+							characterName: '',
+							errors: {}
 						}
 					]
 				}
@@ -68,9 +68,11 @@ describe('prune Instance module', () => {
 			name: 'King Lear',
 			cast: [
 				{
+					model: 'PERSON',
 					name: 'Ian McKellen',
 					roles: [
 						{
+							model: 'ROLE',
 							name: 'King Lear',
 							characterName: ''
 						}
@@ -194,7 +196,7 @@ describe('prune Instance module', () => {
 					name: '2020',
 					productions: [
 						{
-							uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e'
+							uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 						},
 						{
 							uuid: ''
@@ -208,7 +210,7 @@ describe('prune Instance module', () => {
 					name: '2020',
 					productions: [
 						{
-							uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e'
+							uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 						}
 					]
 				};
@@ -312,51 +314,51 @@ describe('prune Instance module', () => {
 	it('prunes a sample production instance as per specification', () => {
 
 		const instance = {
+			model: 'PRODUCTION',
+			uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
 			name: 'King Lear',
 			errors: {},
-			model: 'PRODUCTION',
-			uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e',
-			venue: {
-				name: 'Courtyard Theatre',
-				errors: {},
-				model: 'VENUE'
-			},
 			material: {
 				model: 'MATERIAL',
 				name: '',
 				format: '',
 				errors: {}
 			},
+			venue: {
+				model: 'VENUE',
+				name: 'Courtyard Theatre',
+				errors: {}
+			},
 			cast: [
 				{
+					model: 'PERSON',
 					name: 'Ian McKellen',
 					errors: {},
-					model: 'PERSON',
 					roles: [
 						{
-							name: 'King Lear',
-							errors: {},
 							model: 'ROLE',
-							characterName: ''
+							name: 'King Lear',
+							characterName: '',
+							errors: {}
 						},
 						{
-							name: '',
-							errors: {},
 							model: 'ROLE',
-							characterName: ''
+							name: '',
+							characterName: '',
+							errors: {}
 						}
 					]
 				},
 				{
+					model: 'PERSON',
 					name: '',
 					errors: {},
-					model: 'PERSON',
 					roles: [
 						{
-							name: '',
-							errors: {},
 							model: 'ROLE',
-							characterName: ''
+							name: '',
+							characterName: '',
+							errors: {}
 						}
 					]
 				}
@@ -366,21 +368,25 @@ describe('prune Instance module', () => {
 		const result = pruneInstance(instance);
 
 		const expectation = {
-			name: 'King Lear',
 			model: 'PRODUCTION',
-			uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e',
-			venue: {
-				name: 'Courtyard Theatre'
-			},
+			uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+			name: 'King Lear',
 			material: {
+				model: 'MATERIAL',
 				name: '',
 				format: ''
 			},
+			venue: {
+				model: 'VENUE',
+				name: 'Courtyard Theatre'
+			},
 			cast: [
 				{
+					model: 'PERSON',
 					name: 'Ian McKellen',
 					roles: [
 						{
+							model: 'ROLE',
 							name: 'King Lear',
 							characterName: ''
 						}
@@ -402,8 +408,8 @@ describe('prune Instance module', () => {
 			award: {
 				model: 'AWARD',
 				name: '',
-				errors: {},
-				differentiator: ''
+				differentiator: '',
+				errors: {}
 			},
 			categories: [
 				{
@@ -413,26 +419,26 @@ describe('prune Instance module', () => {
 					nominations: [
 						{
 							model: 'NOMINATION',
-							errors: {},
 							isWinner: false,
+							errors: {},
 							entities: [
 								{
 									model: 'PERSON',
 									name: '',
-									errors: {},
-									differentiator: ''
+									differentiator: '',
+									errors: {}
 								}
 							],
 							productions: [
 								{
 									model: 'PRODUCTION_IDENTIFIER',
-									errors: {},
-									uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e'
+									uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+									errors: {}
 								},
 								{
 									model: 'PRODUCTION_IDENTIFIER',
-									errors: {},
-									uuid: ''
+									uuid: '',
+									errors: {}
 								}
 							]
 						}
@@ -447,24 +453,29 @@ describe('prune Instance module', () => {
 			model: 'AWARD_CEREMONY',
 			name: '',
 			award: {
+				model: 'AWARD',
 				name: '',
 				differentiator: ''
 			},
 			categories: [
 				{
+					model: 'AWARD_CEREMONY_CATEGORY',
 					name: '',
 					nominations: [
 						{
+							model: 'NOMINATION',
 							isWinner: false,
 							entities: [
 								{
+									model: 'PERSON',
 									name: '',
 									differentiator: ''
 								}
 							],
 							productions: [
 								{
-									uuid: 'b22157c0-4ecd-4bd9-b4fd-2656d3def80e'
+									model: 'PRODUCTION_IDENTIFIER',
+									uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 								}
 							]
 						}

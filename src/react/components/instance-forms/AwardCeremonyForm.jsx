@@ -216,7 +216,7 @@ class AwardCeremonyForm extends Form {
 										checked={entity.get('model') === MODELS.PERSON}
 										onChange={event => this.handleChangeToPerson(statePath, entity, event)}
 									/>
-									<label>&nbsp;Person</label>
+									<label>{' Person'}</label>
 
 									<input
 										type={'radio'}
@@ -224,7 +224,7 @@ class AwardCeremonyForm extends Form {
 										checked={entity.get('model') === MODELS.COMPANY}
 										onChange={event => this.handleChangeToCompany(statePath, entity, event)}
 									/>
-									<label>&nbsp;Company</label>
+									<label>{' Company'}</label>
 
 								</FieldsetComponent>
 

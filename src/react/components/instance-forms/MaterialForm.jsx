@@ -61,7 +61,7 @@ class MaterialForm extends Form {
 										checked={entity.get('model') === MODELS.PERSON}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
-									<label>&nbsp;Person</label>
+									<label>{' Person'}</label>
 
 									<input
 										type={'radio'}
@@ -69,7 +69,7 @@ class MaterialForm extends Form {
 										checked={entity.get('model') === MODELS.COMPANY}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
-									<label>&nbsp;Company</label>
+									<label>{' Company'}</label>
 
 									<input
 										type={'radio'}
@@ -77,7 +77,7 @@ class MaterialForm extends Form {
 										checked={entity.get('model') === MODELS.MATERIAL}
 										onChange={event => this.handleChange(statePath.concat(['model']), event)}
 									/>
-									<label>&nbsp;Material</label>
+									<label>{' Material'}</label>
 
 								</FieldsetComponent>
 
@@ -134,7 +134,7 @@ class MaterialForm extends Form {
 										checked={!writingCredit.get('creditType')}
 										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
 									/>
-									<label>&nbsp;Direct</label>
+									<label>{' Direct'}</label>
 
 									<input
 										type={'radio'}
@@ -142,7 +142,7 @@ class MaterialForm extends Form {
 										checked={writingCredit.get('creditType') === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
 										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
 									/>
-									<label>&nbsp;Non-specific source material</label>
+									<label>{' Non-specific source material'}</label>
 
 									<input
 										type={'radio'}
@@ -150,7 +150,7 @@ class MaterialForm extends Form {
 										checked={writingCredit.get('creditType') === CREDIT_TYPES.RIGHTS_GRANTOR}
 										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
 									/>
-									<label>&nbsp;Rights grantor</label>
+									<label>{' Rights grantor'}</label>
 
 								</FieldsetComponent>
 
