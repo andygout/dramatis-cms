@@ -270,6 +270,16 @@ class AwardCeremonyForm extends Form {
 
 								</FieldsetComponent>
 
+								<FieldsetComponent label={'Custom type'}>
+
+									<InputAndErrors
+										value={nomination.get('customType')}
+										errors={nomination.getIn(['errors', 'customType'])}
+										handleChange={event => this.handleChange(statePath.concat(['customType']), event)}
+									/>
+
+								</FieldsetComponent>
+
 								<ArrayItemActionButton
 									isLastListItem={isLastListItem}
 									handleClick={event =>
