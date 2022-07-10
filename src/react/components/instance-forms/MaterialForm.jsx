@@ -168,6 +168,61 @@ class MaterialForm extends Form {
 
 	}
 
+	renderSubMaterials (subMaterials) {
+
+		return (
+			<Fieldset header={'Sub-materials'}>
+
+				{
+					subMaterials?.map((subMaterial, index) => {
+
+						const statePath = ['subMaterials', index];
+
+						const isLastListItem = this.isLastListItem(index, subMaterials.size);
+
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? this.handleCreationClick(statePath, event)
+											: this.handleRemovalClick(statePath, event)
+									}
+								/>
+
+								<FieldsetComponent label={'Material name'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={subMaterial.get('name')}
+										errors={subMaterial.getIn(['errors', 'name'])}
+										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={subMaterial.get('differentiator')}
+										errors={subMaterial.getIn(['errors', 'differentiator'])}
+										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+									/>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
+				}
+
+			</Fieldset>
+		);
+
+	}
+
 	renderCharacters (characters, charactersStatePath) {
 
 		return (
@@ -367,6 +422,8 @@ class MaterialForm extends Form {
 				</Fieldset>
 
 				{ Boolean(this.state.writingCredits) && this.renderWritingCredits(this.state.writingCredits) }
+
+				{ Boolean(this.state.subMaterials) && this.renderSubMaterials(this.state.subMaterials) }
 
 				{ Boolean(this.state.characterGroups) && this.renderCharacterGroups(this.state.characterGroups) }
 
