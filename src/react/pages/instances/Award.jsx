@@ -1,6 +1,5 @@
-import { Map } from 'immutable';
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { AwardForm } from '../../components/instance-forms';
@@ -19,7 +18,7 @@ class Award extends React.Component {
 			>
 
 				<AwardForm
-					instance={awardFormData.get('instance', Map())}
+					instance={awardFormData.get('instance', new Map())}
 					action={awardFormData.get('action', 'Submit')}
 					redirectPath={awardFormData.get('redirectPath')}
 				/>
@@ -32,8 +31,8 @@ class Award extends React.Component {
 }
 
 Award.propTypes = {
-	award: PropTypes.instanceOf(Map).isRequired,
-	awardFormData: PropTypes.instanceOf(Map).isRequired
+	award: ImmutablePropTypes.map.isRequired,
+	awardFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({

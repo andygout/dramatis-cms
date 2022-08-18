@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { Iterable, fromJS } from 'immutable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -13,13 +13,17 @@ import reducers from '../redux/reducers';
 
 window.onload = () => {
 
-	const preloadedState = JSON.parse(document.getElementById('react-client-data').innerText);
+	const reactClientDataInnerText = JSON.parse(document.getElementById('react-client-data').innerText);
+
+	const preloadedState = fromJS(reactClientDataInnerText, (key, value) =>
+		Iterable.isIndexed(value) ? value.toList() : value.toOrderedMap()
+	);
 
 	const loggerMiddleware = createLogger({ stateTransformer: state => state.toJS() });
 
 	const store = createStore(
 		combineReducers(reducers),
-		fromJS(preloadedState),
+		preloadedState,
 		applyMiddleware(...[thunkMiddleware, loggerMiddleware])
 	);
 

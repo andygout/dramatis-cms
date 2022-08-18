@@ -1,6 +1,5 @@
-import { Map } from 'immutable';
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { VenueForm } from '../../components/instance-forms';
@@ -19,7 +18,7 @@ class Venue extends React.Component {
 			>
 
 				<VenueForm
-					instance={venueFormData.get('instance', Map())}
+					instance={venueFormData.get('instance', new Map())}
 					action={venueFormData.get('action', 'Submit')}
 					redirectPath={venueFormData.get('redirectPath')}
 				/>
@@ -32,8 +31,8 @@ class Venue extends React.Component {
 }
 
 Venue.propTypes = {
-	venue: PropTypes.instanceOf(Map).isRequired,
-	venueFormData: PropTypes.instanceOf(Map).isRequired
+	venue: ImmutablePropTypes.map.isRequired,
+	venueFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({

@@ -1,6 +1,6 @@
-import { List } from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { FormattedJson, PageTitle } from '../components';
 
@@ -26,7 +26,7 @@ class ListWrapper extends React.Component {
 
 ListWrapper.propTypes = {
 	pageTitleText: PropTypes.string.isRequired,
-	instances: PropTypes.instanceOf(List).isRequired
+	instances: ImmutablePropTypes.list.isRequired
 };
 
 export default ListWrapper;

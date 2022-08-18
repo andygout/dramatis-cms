@@ -1,6 +1,5 @@
-import { Map } from 'immutable';
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { Fieldset, Form, FormWrapper, InputAndErrors } from '../form';
@@ -47,8 +46,8 @@ class AwardForm extends Form {
 }
 
 AwardForm.propTypes = {
-	award: PropTypes.instanceOf(Map).isRequired,
-	awardFormData: PropTypes.instanceOf(Map).isRequired
+	award: ImmutablePropTypes.map.isRequired,
+	awardFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({

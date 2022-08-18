@@ -1,6 +1,5 @@
-import { Map } from 'immutable';
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { MaterialForm } from '../../components/instance-forms';
@@ -19,7 +18,7 @@ class Material extends React.Component {
 			>
 
 				<MaterialForm
-					instance={materialFormData.get('instance', Map())}
+					instance={materialFormData.get('instance', new Map())}
 					action={materialFormData.get('action', 'Submit')}
 					redirectPath={materialFormData.get('redirectPath')}
 				/>
@@ -32,8 +31,8 @@ class Material extends React.Component {
 }
 
 Material.propTypes = {
-	material: PropTypes.instanceOf(Map).isRequired,
-	materialFormData: PropTypes.instanceOf(Map).isRequired
+	material: ImmutablePropTypes.map.isRequired,
+	materialFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({

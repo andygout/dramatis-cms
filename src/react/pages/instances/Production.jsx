@@ -1,6 +1,5 @@
-import { Map } from 'immutable';
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { ProductionForm } from '../../components/instance-forms';
@@ -19,7 +18,7 @@ class Production extends React.Component {
 			>
 
 				<ProductionForm
-					instance={productionFormData.get('instance', Map())}
+					instance={productionFormData.get('instance', new Map())}
 					action={productionFormData.get('action', 'Submit')}
 					redirectPath={productionFormData.get('redirectPath')}
 				/>
@@ -32,8 +31,8 @@ class Production extends React.Component {
 }
 
 Production.propTypes = {
-	production: PropTypes.instanceOf(Map).isRequired,
-	productionFormData: PropTypes.instanceOf(Map).isRequired
+	production: ImmutablePropTypes.map.isRequired,
+	productionFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({
