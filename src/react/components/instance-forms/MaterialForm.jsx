@@ -1,6 +1,5 @@
-import { Map } from 'immutable';
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { capitalise } from '../../../lib/strings';
@@ -435,8 +434,8 @@ class MaterialForm extends Form {
 }
 
 MaterialForm.propTypes = {
-	material: PropTypes.instanceOf(Map).isRequired,
-	materialFormData: PropTypes.instanceOf(Map).isRequired
+	material: ImmutablePropTypes.map.isRequired,
+	materialFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({

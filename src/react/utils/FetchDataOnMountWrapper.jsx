@@ -1,6 +1,6 @@
-import { Map } from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 
@@ -74,8 +74,8 @@ class FetchDataOnMountWrapper extends React.Component {
 
 FetchDataOnMountWrapper.propTypes = {
 	documentTitle: PropTypes.func.isRequired,
-	notification: PropTypes.instanceOf(Map).isRequired,
-	error: PropTypes.instanceOf(Map).isRequired,
+	notification: ImmutablePropTypes.map.isRequired,
+	error: ImmutablePropTypes.map.isRequired,
 	children: PropTypes.node.isRequired,
 	fetchData: PropTypes.array.isRequired,
 	dispatch: PropTypes.func.isRequired,

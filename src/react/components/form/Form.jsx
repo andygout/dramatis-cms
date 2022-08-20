@@ -1,6 +1,7 @@
 import { List, is, getIn, Map, remove, removeIn, set, setIn, updateIn } from 'immutable';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Redirect } from 'react-router-dom';
 
 import createBlankMap from '../../../lib/create-blank-map';
@@ -36,7 +37,7 @@ class Form extends React.Component {
 
 		const object = {};
 
-		immutableMap.entrySeq().forEach(([key, value]) => object[key] = value);
+		immutableMap.size > 0 && immutableMap.entrySeq().forEach(([key, value]) => object[key] = value);
 
 		return object;
 
@@ -201,7 +202,7 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-	instance: PropTypes.instanceOf(Map).isRequired,
+	instance: ImmutablePropTypes.map.isRequired,
 	action: PropTypes.string.isRequired,
 	redirectPath: PropTypes.string.isRequired,
 	createInstance: PropTypes.func.isRequired,

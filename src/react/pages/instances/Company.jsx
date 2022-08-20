@@ -1,6 +1,5 @@
-import { Map } from 'immutable';
-import PropTypes from 'prop-types';
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { CompanyForm } from '../../components/instance-forms';
@@ -19,7 +18,7 @@ class Company extends React.Component {
 			>
 
 				<CompanyForm
-					instance={companyFormData.get('instance', Map())}
+					instance={companyFormData.get('instance', new Map())}
 					action={companyFormData.get('action', 'Submit')}
 					redirectPath={companyFormData.get('redirectPath')}
 				/>
@@ -32,8 +31,8 @@ class Company extends React.Component {
 }
 
 Company.propTypes = {
-	company: PropTypes.instanceOf(Map).isRequired,
-	companyFormData: PropTypes.instanceOf(Map).isRequired
+	company: ImmutablePropTypes.map.isRequired,
+	companyFormData: ImmutablePropTypes.map.isRequired
 };
 
 const mapStateToProps = state => ({
