@@ -1,3 +1,5 @@
+@use 'lib/color-variables';
+
 $action-button-height: 18px;
 
 .form {
@@ -6,8 +8,8 @@ $action-button-height: 18px;
 
 .fieldset {
 	padding: 10px 10px 20px;
-	background-color: $form-background-color;
-	border: 2px solid $border-color;
+	background-color: color-variables.$form-background-color;
+	border: 2px solid color-variables.$border-color;
 	border-radius: 5px;
 }
 
@@ -27,7 +29,7 @@ $action-button-height: 18px;
 .fieldset__module {
 	padding: 5px;
 	margin-bottom: 5px;
-	border: 1px dashed $border-color;
+	border: 1px dashed color-variables.$border-color;
 	border-radius: 5px;
 }
 
@@ -49,14 +51,14 @@ $action-button-height: 18px;
 	height: $action-button-height;
 	width: 36px;
 	line-height: $action-button-height;
-	color: $theme-color;
-	background-color: $content-background-color;
-	border: 1px solid $border-color;
+	color: color-variables.$theme-color;
+	background-color: color-variables.$content-background-color;
+	border: 1px solid color-variables.$border-color;
 	border-radius: 5px;
 	cursor: pointer;
 
 	&:hover {
-		color: $default-text-color;
+		color: color-variables.$default-text-color;
 	}
 }
 
@@ -69,19 +71,19 @@ $action-button-height: 18px;
 	width: 100%;
 
 	&--has-errors {
-		border-color: $error-color;
+		border-color: color-variables.$error-color;
 	}
 }
 
 .field__error-list-item {
 	list-style: disc inside none;
-	color: $error-color;
+	color: color-variables.$error-color;
 }
 
 .button {
 	margin-top: 40px;
 	height: 22px;
 	width: 170px;
-	background-color: $button-background-color;
+	background-color: color-variables.$button-background-color;
 	cursor: pointer;
 }
