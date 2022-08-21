@@ -5,30 +5,26 @@ import { connect } from 'react-redux';
 import { VenueForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
-class Venue extends React.Component {
+const Venue = props => {
 
-	render () {
+	const { venue, venueFormData } = props;
 
-		const { venue, venueFormData } = this.props;
+	return (
+		<InstanceWrapper
+			instance={venue}
+			formAction={venueFormData.get('action')}
+			redirectPath={venueFormData.get('redirectPath')}
+		>
 
-		return (
-			<InstanceWrapper
-				instance={venue}
-				formAction={venueFormData.get('action')}
-			>
+			<VenueForm
+				instance={venueFormData.get('instance', new Map())}
+				action={venueFormData.get('action', 'Submit')}
+			/>
 
-				<VenueForm
-					instance={venueFormData.get('instance', new Map())}
-					action={venueFormData.get('action', 'Submit')}
-					redirectPath={venueFormData.get('redirectPath')}
-				/>
+		</InstanceWrapper>
+	);
 
-			</InstanceWrapper>
-		);
-
-	}
-
-}
+};
 
 Venue.propTypes = {
 	venue: ImmutablePropTypes.map.isRequired,

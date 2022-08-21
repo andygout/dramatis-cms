@@ -4,21 +4,17 @@ import { connect } from 'react-redux';
 
 import { ListWrapper } from '../../utils';
 
-class Productions extends React.Component {
+const Productions = props => {
 
-	render () {
+	return (
+		<ListWrapper
+			instances={props.productions}
+			pageTitleText='Productions'
+		>
+		</ListWrapper>
+	);
 
-		return (
-			<ListWrapper
-				instances={this.props.productions}
-				pageTitleText='Productions'
-			>
-			</ListWrapper>
-		);
-
-	}
-
-}
+};
 
 Productions.propTypes = {
 	productions: ImmutablePropTypes.list.isRequired

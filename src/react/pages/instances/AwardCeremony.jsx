@@ -5,30 +5,26 @@ import { connect } from 'react-redux';
 import { AwardCeremonyForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
-class AwardCeremony extends React.Component {
+const AwardCeremony = props => {
 
-	render () {
+	const { awardCeremony, awardCeremonyFormData } = props;
 
-		const { awardCeremony, awardCeremonyFormData } = this.props;
+	return (
+		<InstanceWrapper
+			instance={awardCeremony}
+			formAction={awardCeremonyFormData.get('action')}
+			redirectPath={awardCeremonyFormData.get('redirectPath')}
+		>
 
-		return (
-			<InstanceWrapper
-				instance={awardCeremony}
-				formAction={awardCeremonyFormData.get('action')}
-			>
+			<AwardCeremonyForm
+				instance={awardCeremonyFormData.get('instance', new Map())}
+				action={awardCeremonyFormData.get('action', 'Submit')}
+			/>
 
-				<AwardCeremonyForm
-					instance={awardCeremonyFormData.get('instance', new Map())}
-					action={awardCeremonyFormData.get('action', 'Submit')}
-					redirectPath={awardCeremonyFormData.get('redirectPath')}
-				/>
+		</InstanceWrapper>
+	);
 
-			</InstanceWrapper>
-		);
-
-	}
-
-}
+};
 
 AwardCeremony.propTypes = {
 	awardCeremony: ImmutablePropTypes.map.isRequired,

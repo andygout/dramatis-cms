@@ -5,30 +5,26 @@ import { connect } from 'react-redux';
 import { CompanyForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
-class Company extends React.Component {
+const Company = props => {
 
-	render () {
+	const { company, companyFormData } = props;
 
-		const { company, companyFormData } = this.props;
+	return (
+		<InstanceWrapper
+			instance={company}
+			formAction={companyFormData.get('action')}
+			redirectPath={companyFormData.get('redirectPath')}
+		>
 
-		return (
-			<InstanceWrapper
-				instance={company}
-				formAction={companyFormData.get('action')}
-			>
+			<CompanyForm
+				instance={companyFormData.get('instance', new Map())}
+				action={companyFormData.get('action', 'Submit')}
+			/>
 
-				<CompanyForm
-					instance={companyFormData.get('instance', new Map())}
-					action={companyFormData.get('action', 'Submit')}
-					redirectPath={companyFormData.get('redirectPath')}
-				/>
+		</InstanceWrapper>
+	);
 
-			</InstanceWrapper>
-		);
-
-	}
-
-}
+};
 
 Company.propTypes = {
 	company: ImmutablePropTypes.map.isRequired,

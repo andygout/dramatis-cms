@@ -4,21 +4,17 @@ import { connect } from 'react-redux';
 
 import { ListWrapper } from '../../utils';
 
-class Materials extends React.Component {
+const Materials = props => {
 
-	render () {
+	return (
+		<ListWrapper
+			instances={props.materials}
+			pageTitleText='Materials'
+		>
+		</ListWrapper>
+	);
 
-		return (
-			<ListWrapper
-				instances={this.props.materials}
-				pageTitleText='Materials'
-			>
-			</ListWrapper>
-		);
-
-	}
-
-}
+};
 
 Materials.propTypes = {
 	materials: ImmutablePropTypes.list.isRequired

@@ -1,76 +1,79 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
+import { useRouteMatch, useLocation } from 'react-router-dom';
 
 import { ErrorMessage, Footer, Header, Navigation, Notification } from '../components';
 import ScrollToTop from './ScrollToTop';
 import { removeRedirectPath } from '../../redux/actions/model';
 
-class FetchDataOnMountWrapper extends React.Component {
+const isClientSide = typeof window !== 'undefined';
+const useIsomorphicEffect = isClientSide ? useLayoutEffect : useEffect;
 
-	componentDidMount () {
+const FetchDataOnMountWrapper = props => {
 
-		const { fetchData, dispatch, match, location } = this.props;
+	const { documentTitle, notification, error, children } = props;
+
+	const location = useLocation();
+	const match = useRouteMatch();
+
+	useIsomorphicEffect(() => {
+
+		const { fetchData, dispatch } = props;
 
 		if (fetchData) fetchData.map(fetchDataFunction => fetchDataFunction(dispatch, match));
 
 		if (location.state?.redirectPathOriginStateProp)
 			dispatch(removeRedirectPath(location.state.redirectPathOriginStateProp));
 
-	}
+	}, []);
 
-	render () {
+	return (
+		<React.Fragment>
 
-		const { documentTitle, notification, error, children } = this.props;
+			<Helmet
+				defaultTitle='TheatreBase'
+				titleTemplate='%s | TheatreBase'
+				title={documentTitle()}
+			/>
 
-		return (
-			<React.Fragment>
+			<Header />
 
-				<Helmet
-					defaultTitle='TheatreBase'
-					titleTemplate='%s | TheatreBase'
-					title={documentTitle()}
-				/>
+			<Navigation />
 
-				<Header />
+			<main className="main-content">
 
-				<Navigation />
+				{
+					notification.get('isActive') && (
+						<ScrollToTop />
+					)
+				}
 
-				<main className="main-content">
+				{
+					notification.get('isActive') && (
+						<Notification
+							text={notification.get('text')}
+							status={notification.get('status')}
+						/>
+					)
+				}
 
-					{
-						notification.get('isActive') && (
-							<ScrollToTop />
-						)
-					}
+				{
+					error.get('isExistent')
+						? <ErrorMessage errorText={error.get('message')} />
+						: children
+				}
 
-					{
-						notification.get('isActive') && (
-							<Notification
-								text={notification.get('text')}
-								status={notification.get('status')}
-							/>
-						)
-					}
+			</main>
 
-					{
-						error.get('isExistent')
-							? <ErrorMessage errorText={error.get('message')} />
-							: children
-					}
+			<Footer />
 
-				</main>
+		</React.Fragment>
+	);
 
-				<Footer />
-
-			</React.Fragment>
-		);
-
-	}
-
-}
+};
 
 FetchDataOnMountWrapper.propTypes = {
 	documentTitle: PropTypes.func.isRequired,
@@ -78,9 +81,7 @@ FetchDataOnMountWrapper.propTypes = {
 	error: ImmutablePropTypes.map.isRequired,
 	children: PropTypes.node.isRequired,
 	fetchData: PropTypes.array.isRequired,
-	dispatch: PropTypes.func.isRequired,
-	match: PropTypes.object.isRequired,
-	location: PropTypes.object.isRequired
+	dispatch: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

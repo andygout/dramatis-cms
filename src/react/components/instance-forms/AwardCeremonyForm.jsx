@@ -1,15 +1,46 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
 import { capitalise } from '../../../lib/strings';
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
+import {
+	handleChange,
+	checkIsLastListItem,
+	handleCreationClick,
+	handleRemovalClick,
+	handleChangeToPerson,
+	handleChangeToCompany
+} from '../../utils/FormUtils';
 import { MODELS } from '../../../utils/constants';
 
-class AwardCeremonyForm extends Form {
+const AwardCeremonyForm = props => {
 
-	renderMembers (members, membersStatePath) {
+	const { instance, action } = props;
+
+	const [name, setName] = useState(instance.get('name'));
+	const [differentiator, setDifferentiator] = useState(instance.get('differentiator'));
+	const [award, setAward] = useState(instance.get('award'));
+	const [categories, setCategories] = useState(instance.get('categories'));
+	const [errors, setErrors] = useState(instance.get('errors'));
+
+	useEffect(() => {
+		setName(instance.get('name'));
+		setDifferentiator(instance.get('differentiator'));
+		setAward(instance.get('award'));
+		setCategories(instance.get('categories'));
+		setErrors(instance.get('errors'));
+	}, [instance]);
+
+	const actionableInstance = {
+		model: instance.get('model'),
+		uuid: instance.get('uuid'),
+		name,
+		differentiator,
+		award,
+		categories
+	};
+
+	const renderMembers = (members, membersStatePath) => {
 
 		return (
 			<FieldsetComponent label={'Nominated company members (people)'} isArrayItem={true}>
@@ -19,7 +50,7 @@ class AwardCeremonyForm extends Form {
 
 						const statePath = membersStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, members.size);
+						const isLastListItem = checkIsLastListItem(index, members.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -28,8 +59,8 @@ class AwardCeremonyForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(categories, setCategories, statePath, event)
+											: handleRemovalClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -38,7 +69,14 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={member.get('name')}
 										errors={member.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -48,7 +86,14 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={member.get('differentiator')}
 										errors={member.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -62,9 +107,9 @@ class AwardCeremonyForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderMaterials (materials, materialsStatePath) {
+	const renderMaterials = (materials, materialsStatePath) => {
 
 		return (
 			<FieldsetComponent label={'Nominated materials'} isArrayItem={true}>
@@ -74,7 +119,7 @@ class AwardCeremonyForm extends Form {
 
 						const statePath = materialsStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, materials.size);
+						const isLastListItem = checkIsLastListItem(index, materials.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -83,8 +128,8 @@ class AwardCeremonyForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(categories, setCategories, statePath, event)
+											: handleRemovalClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -93,7 +138,14 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={material.get('name')}
 										errors={material.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -103,7 +155,14 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={material.get('differentiator')}
 										errors={material.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -117,9 +176,9 @@ class AwardCeremonyForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderProductions (productions, productionsStatePath) {
+	const renderProductions = (productions, productionsStatePath) => {
 
 		return (
 			<FieldsetComponent label={'Nominated productions'} isArrayItem={true}>
@@ -129,7 +188,7 @@ class AwardCeremonyForm extends Form {
 
 						const statePath = productionsStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, productions.size);
+						const isLastListItem = checkIsLastListItem(index, productions.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -138,8 +197,8 @@ class AwardCeremonyForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(categories, setCategories, statePath, event)
+											: handleRemovalClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -148,7 +207,14 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={production.get('uuid')}
 										errors={production.getIn(['errors', 'uuid'])}
-										handleChange={event => this.handleChange(statePath.concat(['uuid']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['uuid']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -162,9 +228,9 @@ class AwardCeremonyForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderEntities (entities, entitiesStatePath) {
+	const renderEntities = (entities, entitiesStatePath) => {
 
 		return (
 			<FieldsetComponent label={'Nominated entities (people, companies)'} isArrayItem={true}>
@@ -174,7 +240,7 @@ class AwardCeremonyForm extends Form {
 
 						const statePath = entitiesStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, entities.size);
+						const isLastListItem = checkIsLastListItem(index, entities.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -183,8 +249,8 @@ class AwardCeremonyForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(categories, setCategories, statePath, event)
+											: handleRemovalClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -193,7 +259,14 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={entity.get('name')}
 										errors={entity.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -203,7 +276,14 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={entity.get('differentiator')}
 										errors={entity.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -214,7 +294,15 @@ class AwardCeremonyForm extends Form {
 										type={'radio'}
 										value={MODELS.PERSON}
 										checked={entity.get('model') === MODELS.PERSON}
-										onChange={event => this.handleChangeToPerson(statePath, entity, event)}
+										onChange={event =>
+											handleChangeToPerson(
+												categories,
+												setCategories,
+												statePath,
+												entity,
+												event
+											)
+										}
 									/>
 									<label>{' Person'}</label>
 
@@ -222,7 +310,15 @@ class AwardCeremonyForm extends Form {
 										type={'radio'}
 										value={MODELS.COMPANY}
 										checked={entity.get('model') === MODELS.COMPANY}
-										onChange={event => this.handleChangeToCompany(statePath, entity, event)}
+										onChange={event =>
+											handleChangeToCompany(
+												categories,
+												setCategories,
+												statePath,
+												entity,
+												event
+											)
+										}
 									/>
 									<label>{' Company'}</label>
 
@@ -230,7 +326,7 @@ class AwardCeremonyForm extends Form {
 
 								{
 									entity.get('model') === MODELS.COMPANY &&
-									this.renderMembers(entity.get('members', []), statePath.concat(['members']))
+									renderMembers(entity.get('members', []), statePath.concat(['members']))
 								}
 
 							</div>
@@ -242,9 +338,9 @@ class AwardCeremonyForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderNominations (nominations, nominationsStatePath) {
+	const renderNominations = (nominations, nominationsStatePath) => {
 
 		return (
 			<FieldsetComponent label={'Nominations'} isArrayItem={true}>
@@ -254,7 +350,7 @@ class AwardCeremonyForm extends Form {
 
 						const statePath = nominationsStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, nominations.size);
+						const isLastListItem = checkIsLastListItem(index, nominations.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -264,7 +360,14 @@ class AwardCeremonyForm extends Form {
 									<input
 										type="checkbox"
 										checked={nomination.get('isWinner')}
-										onChange={event => this.handleChange(statePath.concat(['isWinner']), event)}
+										onChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['isWinner']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -274,7 +377,14 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={nomination.get('customType')}
 										errors={nomination.getIn(['errors', 'customType'])}
-										handleChange={event => this.handleChange(statePath.concat(['customType']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['customType']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -283,16 +393,16 @@ class AwardCeremonyForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(categories, setCategories, statePath, event)
+											: handleRemovalClick(categories, setCategories, statePath, event)
 									}
 								/>
 
-								{ this.renderEntities(nomination.get('entities'), statePath.concat('entities')) }
+								{ renderEntities(nomination.get('entities'), statePath.concat('entities')) }
 
-								{ this.renderProductions(nomination.get('productions'), statePath.concat('productions')) }
+								{ renderProductions(nomination.get('productions'), statePath.concat('productions')) }
 
-								{ this.renderMaterials(nomination.get('materials'), statePath.concat('materials')) }
+								{ renderMaterials(nomination.get('materials'), statePath.concat('materials')) }
 
 							</div>
 						);
@@ -303,9 +413,9 @@ class AwardCeremonyForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderCategories (categories) {
+	const renderCategories = () => {
 
 		return (
 			<Fieldset header={'Categories'}>
@@ -313,9 +423,9 @@ class AwardCeremonyForm extends Form {
 				{
 					categories?.map((category, index) => {
 
-						const statePath = ['categories', index];
+						const statePath = [index];
 
-						const isLastListItem = this.isLastListItem(index, categories.size);
+						const isLastListItem = checkIsLastListItem(index, categories.size);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -324,8 +434,8 @@ class AwardCeremonyForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(categories, setCategories, statePath, event)
+											: handleRemovalClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -334,12 +444,19 @@ class AwardCeremonyForm extends Form {
 									<InputAndErrors
 										value={category.get('name')}
 										errors={category.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												categories,
+												setCategories,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
 
-								{ this.renderNominations(category.get('nominations'), statePath.concat(['nominations'])) }
+								{ renderNominations(category.get('nominations'), statePath.concat(['nominations'])) }
 
 							</div>
 						);
@@ -350,70 +467,58 @@ class AwardCeremonyForm extends Form {
 			</Fieldset>
 		);
 
-	}
+	};
 
-	render () {
+	return (
+		<FormWrapper
+			action={action}
+			instance={actionableInstance}
+		>
 
-		if (this.props.redirectPath) return this.performRedirect();
+			<Fieldset header={'Name'}>
 
-		return (
-			<FormWrapper
-				action={this.props.action}
-				handleSubmit={this.handleSubmit}
-				handleDelete={this.handleDelete}
-			>
+				<InputAndErrors
+					value={name}
+					errors={errors?.get('name')}
+					handleChange={event => handleChange(name, setName, [], event)}
+				/>
 
-				<Fieldset header={'Name'}>
+			</Fieldset>
+
+			<Fieldset header={'Award'}>
+
+				<FieldsetComponent label={'Name'}>
 
 					<InputAndErrors
-						value={this.state.name}
-						errors={this.state.errors?.get('name')}
-						handleChange={event => this.handleChange(['name'], event)}
+						value={award?.get('name')}
+						errors={award?.getIn(['errors', 'name'])}
+						handleChange={event => handleChange(award, setAward, ['name'], event)}
 					/>
 
-				</Fieldset>
+				</FieldsetComponent>
 
-				<Fieldset header={'Award'}>
+				<FieldsetComponent label={'Differentiator'}>
 
-					<FieldsetComponent label={'Name'}>
+					<InputAndErrors
+						value={award?.get('differentiator')}
+						errors={award?.getIn(['errors', 'differentiator'])}
+						handleChange={event => handleChange(award, setAward, ['differentiator'], event)}
+					/>
 
-						<InputAndErrors
-							value={this.state.award?.get('name')}
-							errors={this.state.award?.getIn(['errors', 'name'])}
-							handleChange={event => this.handleChange(['award', 'name'], event)}
-						/>
+				</FieldsetComponent>
 
-					</FieldsetComponent>
+			</Fieldset>
 
-					<FieldsetComponent label={'Differentiator'}>
+			{ Boolean(categories) && renderCategories() }
 
-						<InputAndErrors
-							value={this.state.award?.get('differentiator')}
-							errors={this.state.award?.getIn(['errors', 'differentiator'])}
-							handleChange={event => this.handleChange(['award', 'differentiator'], event)}
-						/>
+		</FormWrapper>
+	);
 
-					</FieldsetComponent>
-
-				</Fieldset>
-
-				{ Boolean(this.state.categories) && this.renderCategories(this.state.categories) }
-
-			</FormWrapper>
-		);
-
-	}
-
-}
-
-AwardCeremonyForm.propTypes = {
-	awardCeremony: ImmutablePropTypes.map.isRequired,
-	awardCeremonyFormData: ImmutablePropTypes.map.isRequired
 };
 
-const mapStateToProps = state => ({
-	awardCeremony: state.get('awardCeremony'),
-	awardCeremonyFormData: state.get('awardCeremonyFormData')
-});
+AwardCeremonyForm.propTypes = {
+	action: PropTypes.string.isRequired,
+	instance: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(AwardCeremonyForm);
+export default AwardCeremonyForm;

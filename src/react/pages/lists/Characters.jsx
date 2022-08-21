@@ -4,21 +4,17 @@ import { connect } from 'react-redux';
 
 import { ListWrapper } from '../../utils';
 
-class Characters extends React.Component {
+const Characters = props => {
 
-	render () {
+	return (
+		<ListWrapper
+			instances={props.characters}
+			pageTitleText='Characters'
+		>
+		</ListWrapper>
+	);
 
-		return (
-			<ListWrapper
-				instances={this.props.characters}
-				pageTitleText='Characters'
-			>
-			</ListWrapper>
-		);
-
-	}
-
-}
+};
 
 Characters.propTypes = {
 	characters: ImmutablePropTypes.list.isRequired
