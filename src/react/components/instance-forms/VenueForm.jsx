@@ -1,13 +1,34 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
+import { handleChange, checkIsLastListItem, handleCreationClick, handleRemovalClick } from '../../utils/FormUtils';
 
-class VenueForm extends Form {
+const VenueForm = props => {
 
-	renderSubVenues (subVenues) {
+	const { instance, action } = props;
+
+	const [name, setName] = useState(instance.get('name'));
+	const [differentiator, setDifferentiator] = useState(instance.get('differentiator'));
+	const [subVenues, setSubVenues] = useState(instance.get('subVenues'));
+	const [errors, setErrors] = useState(instance.get('errors'));
+
+	useEffect(() => {
+		setName(instance.get('name'));
+		setDifferentiator(instance.get('differentiator'));
+		setSubVenues(instance.get('subVenues'));
+		setErrors(instance.get('errors'));
+	}, [instance]);
+
+	const actionableInstance = {
+		model: instance.get('model'),
+		uuid: instance.get('uuid'),
+		name,
+		differentiator,
+		subVenues
+	};
+
+	const renderSubVenues = () => {
 
 		return (
 			<Fieldset header={'Sub-venues'}>
@@ -15,9 +36,9 @@ class VenueForm extends Form {
 				{
 					subVenues?.map((subVenue, index) => {
 
-						const statePath = ['subVenues', index];
+						const statePath = [index];
 
-						const isLastListItem = this.isLastListItem(index, subVenues.size);
+						const isLastListItem = checkIsLastListItem(index, subVenues.size);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -26,8 +47,8 @@ class VenueForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(subVenues, setSubVenues, statePath, event)
+											: handleRemovalClick(subVenues, setSubVenues, statePath, event)
 									}
 								/>
 
@@ -36,7 +57,14 @@ class VenueForm extends Form {
 									<InputAndErrors
 										value={subVenue.get('name')}
 										errors={subVenue.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												subVenues,
+												setSubVenues,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -46,7 +74,14 @@ class VenueForm extends Form {
 									<InputAndErrors
 										value={subVenue.get('differentiator')}
 										errors={subVenue.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												subVenues,
+												setSubVenues,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -60,56 +95,44 @@ class VenueForm extends Form {
 			</Fieldset>
 		);
 
-	}
+	};
 
-	render () {
+	return (
+		<FormWrapper
+			action={action}
+			instance={actionableInstance}
+		>
 
-		if (this.props.redirectPath) return this.performRedirect();
+			<Fieldset header={'Name'}>
 
-		return (
-			<FormWrapper
-				action={this.props.action}
-				handleSubmit={this.handleSubmit}
-				handleDelete={this.handleDelete}
-			>
+				<InputAndErrors
+					value={name}
+					errors={errors?.get('name')}
+					handleChange={event => handleChange(name, setName, [], event)}
+				/>
 
-				<Fieldset header={'Name'}>
+			</Fieldset>
 
-					<InputAndErrors
-						value={this.state.name}
-						errors={this.state.errors?.get('name')}
-						handleChange={event => this.handleChange(['name'], event)}
-					/>
+			<Fieldset header={'Differentiator'}>
 
-				</Fieldset>
+				<InputAndErrors
+					value={differentiator}
+					errors={errors?.get('differentiator')}
+					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+				/>
 
-				<Fieldset header={'Differentiator'}>
+			</Fieldset>
 
-					<InputAndErrors
-						value={this.state.differentiator}
-						errors={this.state.errors?.get('differentiator')}
-						handleChange={event => this.handleChange(['differentiator'], event)}
-					/>
+			{ Boolean(subVenues) && renderSubVenues() }
 
-				</Fieldset>
+		</FormWrapper>
+	);
 
-				{ Boolean(this.state.subVenues) && this.renderSubVenues(this.state.subVenues) }
-
-			</FormWrapper>
-		);
-
-	}
-
-}
-
-VenueForm.propTypes = {
-	venue: ImmutablePropTypes.map.isRequired,
-	venueFormData: ImmutablePropTypes.map.isRequired
 };
 
-const mapStateToProps = state => ({
-	venue: state.get('venue'),
-	venueFormData: state.get('venueFormData')
-});
+VenueForm.propTypes = {
+	action: PropTypes.string.isRequired,
+	instance: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(VenueForm);
+export default VenueForm;

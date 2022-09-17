@@ -5,30 +5,26 @@ import { connect } from 'react-redux';
 import { PersonForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
-class Person extends React.Component {
+const Person = props => {
 
-	render () {
+	const { person, personFormData } = props;
 
-		const { person, personFormData } = this.props;
+	return (
+		<InstanceWrapper
+			instance={person}
+			formAction={personFormData.get('action')}
+			redirectPath={personFormData.get('redirectPath')}
+		>
 
-		return (
-			<InstanceWrapper
-				instance={person}
-				formAction={personFormData.get('action')}
-			>
+			<PersonForm
+				instance={personFormData.get('instance', new Map())}
+				action={personFormData.get('action', 'Submit')}
+			/>
 
-				<PersonForm
-					instance={personFormData.get('instance', new Map())}
-					action={personFormData.get('action', 'Submit')}
-					redirectPath={personFormData.get('redirectPath')}
-				/>
+		</InstanceWrapper>
+	);
 
-			</InstanceWrapper>
-		);
-
-	}
-
-}
+};
 
 Person.propTypes = {
 	person: ImmutablePropTypes.map.isRequired,

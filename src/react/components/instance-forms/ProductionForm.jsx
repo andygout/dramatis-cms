@@ -1,157 +1,64 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
 import { capitalise } from '../../../lib/strings';
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
+import {
+	handleChange,
+	checkIsLastListItem,
+	handleCreationClick,
+	handleRemovalClick,
+	handleChangeToPerson,
+	handleChangeToCompany
+} from '../../utils/FormUtils';
 import { MODELS } from '../../../utils/constants';
 
-class ProductionForm extends Form {
+const ProductionForm = props => {
 
-	renderCastMemberRoles (roles, rolesStatePath) {
+	const { instance, action } = props;
 
-		return (
-			<FieldsetComponent label={'Roles'} isArrayItem={true}>
+	const [name, setName] = useState(instance.get('name'));
+	const [startDate, setStartDate] = useState(instance.get('startDate'));
+	const [pressDate, setPressDate] = useState(instance.get('pressDate'));
+	const [endDate, setEndDate] = useState(instance.get('endDate'));
+	const [material, setMaterial] = useState(instance.get('material'));
+	const [venue, setVenue] = useState(instance.get('venue'));
+	const [producerCredits, setProducerCredits] = useState(instance.get('producerCredits'));
+	const [cast, setCast] = useState(instance.get('cast'));
+	const [creativeCredits, setCreativeCredits] = useState(instance.get('creativeCredits'));
+	const [crewCredits, setCrewCredits] = useState(instance.get('crewCredits'));
+	const [errors, setErrors] = useState(instance.get('errors'));
 
-				{
-					roles.map((role, index) => {
+	useEffect(() => {
+		setName(instance.get('name'));
+		setStartDate(instance.get('startDate'));
+		setPressDate(instance.get('pressDate'));
+		setEndDate(instance.get('endDate'));
+		setMaterial(instance.get('material'));
+		setVenue(instance.get('venue'));
+		setProducerCredits(instance.get('producerCredits'));
+		setCast(instance.get('cast'));
+		setCreativeCredits(instance.get('creativeCredits'));
+		setCrewCredits(instance.get('crewCredits'));
+		setErrors(instance.get('errors'));
+	}, [instance]);
 
-						const statePath = rolesStatePath.concat([index]);
+	const actionableInstance = {
+		model: instance.get('model'),
+		uuid: instance.get('uuid'),
+		name,
+		startDate,
+		pressDate,
+		endDate,
+		material,
+		venue,
+		producerCredits,
+		cast,
+		creativeCredits,
+		crewCredits
+	};
 
-						const isLastListItem = this.isLastListItem(index, roles.size);
-
-						return (
-							<div className={'fieldset__module fieldset__module--nested'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
-									}
-								/>
-
-								<FieldsetComponent label={'Role name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={role.get('name')}
-										errors={role.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Character name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={role.get('characterName')}
-										errors={role.getIn(['errors', 'characterName'])}
-										handleChange={event => this.handleChange(statePath.concat(['characterName']), event)}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Character differentiator'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={role.get('characterDifferentiator')}
-										errors={role.getIn(['errors', 'characterDifferentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['characterDifferentiator']), event)}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Qualifier'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={role.get('qualifier')}
-										errors={role.getIn(['errors', 'qualifier'])}
-										handleChange={event => this.handleChange(statePath.concat(['qualifier']), event)}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Alternate'} isArrayItem={true}>
-
-									<input
-										type="checkbox"
-										checked={role.get('isAlternate')}
-										onChange={event => this.handleChange(statePath.concat(['isAlternate']), event)}
-									/>
-
-								</FieldsetComponent>
-
-							</div>
-						);
-
-					})
-				}
-
-			</FieldsetComponent>
-		);
-
-	}
-
-	renderCast (cast) {
-
-		return (
-			<Fieldset header={'Cast'}>
-
-				{
-					cast.map((castMember, index) => {
-
-						const statePath = ['cast', index];
-
-						const isLastListItem = this.isLastListItem(index, cast.size);
-
-						return (
-							<div className={'fieldset__module'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
-									}
-								/>
-
-								<FieldsetComponent label={'Person name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={castMember.get('name')}
-										errors={castMember.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={castMember.get('differentiator')}
-										errors={castMember.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
-									/>
-
-								</FieldsetComponent>
-
-								{ this.renderCastMemberRoles(castMember.get('roles'), statePath.concat(['roles'])) }
-
-							</div>
-						);
-
-					})
-				}
-
-			</Fieldset>
-		);
-
-	}
-
-	renderMembers (members, membersStatePath) {
+	const renderMembers = (stateValue, setStateValue, members, membersStatePath) => {
 
 		return (
 			<FieldsetComponent label={'Credited company members (people)'} isArrayItem={true}>
@@ -161,7 +68,7 @@ class ProductionForm extends Form {
 
 						const statePath = membersStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, members.size);
+						const isLastListItem = checkIsLastListItem(index, members.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -170,8 +77,8 @@ class ProductionForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(stateValue, setStateValue, statePath, event)
+											: handleRemovalClick(stateValue, setStateValue, statePath, event)
 									}
 								/>
 
@@ -180,7 +87,14 @@ class ProductionForm extends Form {
 									<InputAndErrors
 										value={member.get('name')}
 										errors={member.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												stateValue,
+												setStateValue,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -190,7 +104,14 @@ class ProductionForm extends Form {
 									<InputAndErrors
 										value={member.get('differentiator')}
 										errors={member.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												stateValue,
+												setStateValue,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -204,9 +125,9 @@ class ProductionForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderEntities (entities, entitiesStatePath, teamName) {
+	const renderEntities = (stateValue, setStateValue, entities, entitiesStatePath, teamName) => {
 
 		return (
 			<FieldsetComponent label={`${teamName} entities (people, companies)`} isArrayItem={true}>
@@ -216,7 +137,7 @@ class ProductionForm extends Form {
 
 						const statePath = entitiesStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, entities.size);
+						const isLastListItem = checkIsLastListItem(index, entities.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -225,8 +146,8 @@ class ProductionForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(stateValue, setStateValue, statePath, event)
+											: handleRemovalClick(stateValue, setStateValue, statePath, event)
 									}
 								/>
 
@@ -235,7 +156,14 @@ class ProductionForm extends Form {
 									<InputAndErrors
 										value={entity.get('name')}
 										errors={entity.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												stateValue,
+												setStateValue,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -245,7 +173,14 @@ class ProductionForm extends Form {
 									<InputAndErrors
 										value={entity.get('differentiator')}
 										errors={entity.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												stateValue,
+												setStateValue,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -256,7 +191,15 @@ class ProductionForm extends Form {
 										type={'radio'}
 										value={MODELS.PERSON}
 										checked={entity.get('model') === MODELS.PERSON}
-										onChange={event => this.handleChangeToPerson(statePath, entity, event)}
+										onChange={event =>
+											handleChangeToPerson(
+												stateValue,
+												setStateValue,
+												statePath,
+												entity,
+												event
+											)
+										}
 									/>
 									<label>{' Person'}</label>
 
@@ -264,7 +207,15 @@ class ProductionForm extends Form {
 										type={'radio'}
 										value={MODELS.COMPANY}
 										checked={entity.get('model') === MODELS.COMPANY}
-										onChange={event => this.handleChangeToCompany(statePath, entity, event)}
+										onChange={event =>
+											handleChangeToCompany(
+												stateValue,
+												setStateValue,
+												statePath,
+												entity,
+												event
+											)
+										}
 									/>
 									<label>{' Company'}</label>
 
@@ -272,7 +223,12 @@ class ProductionForm extends Form {
 
 								{
 									entity.get('model') === MODELS.COMPANY &&
-									this.renderMembers(entity.get('members', []), statePath.concat(['members']))
+									renderMembers(
+										stateValue,
+										setStateValue,
+										entity.get('members', []),
+										statePath.concat(['members'])
+									)
 								}
 
 							</div>
@@ -284,9 +240,9 @@ class ProductionForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderProducerCredits (producerCredits) {
+	const renderProducerCredits = () => {
 
 		return (
 			<Fieldset header={'Producer team credits'}>
@@ -294,9 +250,9 @@ class ProductionForm extends Form {
 				{
 					producerCredits.map((producerCredit, index) => {
 
-						const statePath = ['producerCredits', index];
+						const statePath = [index];
 
-						const isLastListItem = this.isLastListItem(index, producerCredits.size);
+						const isLastListItem = checkIsLastListItem(index, producerCredits.size);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -305,8 +261,8 @@ class ProductionForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(producerCredits, setProducerCredits, statePath, event)
+											: handleRemovalClick(producerCredits, setProducerCredits, statePath, event)
 									}
 								/>
 
@@ -315,12 +271,27 @@ class ProductionForm extends Form {
 									<InputAndErrors
 										value={producerCredit.get('name')}
 										errors={producerCredit.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												producerCredits,
+												setProducerCredits,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
 
-								{ this.renderEntities(producerCredit.get('entities'), statePath.concat(['entities']), 'Producer') }
+								{
+									renderEntities(
+										producerCredits,
+										setProducerCredits,
+										producerCredit.get('entities'),
+										statePath.concat(['entities']),
+										'Producer'
+									)
+								}
 
 							</div>
 						);
@@ -331,19 +302,139 @@ class ProductionForm extends Form {
 			</Fieldset>
 		);
 
-	}
+	};
 
-	renderCreativeCredits (creativeCredits) {
+	const renderCastMemberRoles = (roles, rolesStatePath) => {
 
 		return (
-			<Fieldset header={'Creative team credits'}>
+			<FieldsetComponent label={'Roles'} isArrayItem={true}>
 
 				{
-					creativeCredits.map((creativeCredit, index) => {
+					roles.map((role, index) => {
 
-						const statePath = ['creativeCredits', index];
+						const statePath = rolesStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, creativeCredits.size);
+						const isLastListItem = checkIsLastListItem(index, roles.size);
+
+						return (
+							<div className={'fieldset__module fieldset__module--nested'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? handleCreationClick(cast, setCast, statePath, event)
+											: handleRemovalClick(cast, setCast, statePath, event)
+									}
+								/>
+
+								<FieldsetComponent label={'Role name'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={role.get('name')}
+										errors={role.getIn(['errors', 'name'])}
+										handleChange={event =>
+											handleChange(
+												cast,
+												setCast,
+												statePath.concat(['name']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Character name'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={role.get('characterName')}
+										errors={role.getIn(['errors', 'characterName'])}
+										handleChange={event =>
+											handleChange(
+												cast,
+												setCast,
+												statePath.concat(['characterName']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Character differentiator'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={role.get('characterDifferentiator')}
+										errors={role.getIn(['errors', 'characterDifferentiator'])}
+										handleChange={event =>
+											handleChange(
+												cast,
+												setCast,
+												statePath.concat(['characterDifferentiator']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Qualifier'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={role.get('qualifier')}
+										errors={role.getIn(['errors', 'qualifier'])}
+										handleChange={event =>
+											handleChange(
+												cast,
+												setCast,
+												statePath.concat(['qualifier']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Alternate'} isArrayItem={true}>
+
+									<input
+										type="checkbox"
+										checked={role.get('isAlternate')}
+										onChange={event =>
+											handleChange(
+												cast,
+												setCast,
+												statePath.concat(['isAlternate']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
+				}
+
+			</FieldsetComponent>
+		);
+
+	};
+
+	const renderCast = () => {
+
+		return (
+			<Fieldset header={'Cast'}>
+
+				{
+					cast.map((castMember, index) => {
+
+						const statePath = [index];
+
+						const isLastListItem = checkIsLastListItem(index, cast.size);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -352,8 +443,79 @@ class ProductionForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(cast, setCast, statePath, event)
+											: handleRemovalClick(cast, setCast, statePath, event)
+									}
+								/>
+
+								<FieldsetComponent label={'Person name'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={castMember.get('name')}
+										errors={castMember.getIn(['errors', 'name'])}
+										handleChange={event =>
+											handleChange(
+												cast,
+												setCast,
+												statePath.concat(['name']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={castMember.get('differentiator')}
+										errors={castMember.getIn(['errors', 'differentiator'])}
+										handleChange={event =>
+											handleChange(
+												cast,
+												setCast,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+								{ renderCastMemberRoles(castMember.get('roles'), statePath.concat(['roles'])) }
+
+							</div>
+						);
+
+					})
+				}
+
+			</Fieldset>
+		);
+
+	};
+
+	const renderCreativeCredits = () => {
+
+		return (
+			<Fieldset header={'Creative team credits'}>
+
+				{
+					creativeCredits.map((creativeCredit, index) => {
+
+						const statePath = [index];
+
+						const isLastListItem = checkIsLastListItem(index, creativeCredits.size);
+
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? handleCreationClick(creativeCredits, setCreativeCredits, statePath, event)
+											: handleRemovalClick(creativeCredits, setCreativeCredits, statePath, event)
 									}
 								/>
 
@@ -362,12 +524,27 @@ class ProductionForm extends Form {
 									<InputAndErrors
 										value={creativeCredit.get('name')}
 										errors={creativeCredit.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												creativeCredits,
+												setCreativeCredits,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
 
-								{ this.renderEntities(creativeCredit.get('entities'), statePath.concat(['entities']), 'Creative') }
+								{
+									renderEntities(
+										creativeCredits,
+										setCreativeCredits,
+										creativeCredit.get('entities'),
+										statePath.concat(['entities']),
+										'Creative'
+									)
+								}
 
 							</div>
 						);
@@ -378,9 +555,9 @@ class ProductionForm extends Form {
 			</Fieldset>
 		);
 
-	}
+	};
 
-	renderCrewCredits (crewCredits) {
+	const renderCrewCredits = () => {
 
 		return (
 			<Fieldset header={'Crew credits'}>
@@ -388,9 +565,9 @@ class ProductionForm extends Form {
 				{
 					crewCredits.map((crewCredit, index) => {
 
-						const statePath = ['crewCredits', index];
+						const statePath = [index];
 
-						const isLastListItem = this.isLastListItem(index, crewCredits.size);
+						const isLastListItem = checkIsLastListItem(index, crewCredits.size);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -399,8 +576,8 @@ class ProductionForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(crewCredits, setCrewCredits, statePath, event)
+											: handleRemovalClick(crewCredits, setCrewCredits, statePath, event)
 									}
 								/>
 
@@ -409,12 +586,27 @@ class ProductionForm extends Form {
 									<InputAndErrors
 										value={crewCredit.get('name')}
 										errors={crewCredit.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												crewCredits,
+												setCrewCredits,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
 
-								{ this.renderEntities(crewCredit.get('entities'), statePath.concat(['entities']), 'Crew') }
+								{
+									renderEntities(
+										crewCredits,
+										setCrewCredits,
+										crewCredit.get('entities'),
+										statePath.concat(['entities']),
+										'Crew'
+									)
+								}
 
 							</div>
 						);
@@ -425,137 +617,125 @@ class ProductionForm extends Form {
 			</Fieldset>
 		);
 
-	}
+	};
 
-	render () {
+	return (
+		<FormWrapper
+			action={action}
+			instance={actionableInstance}
+		>
 
-		if (this.props.redirectPath) return this.performRedirect();
+			<Fieldset header={'Name'}>
 
-		return (
-			<FormWrapper
-				action={this.props.action}
-				handleSubmit={this.handleSubmit}
-				handleDelete={this.handleDelete}
-			>
+				<InputAndErrors
+					value={name}
+					errors={errors?.get('name')}
+					handleChange={event => handleChange(name, setName, [], event)}
+				/>
 
-				<Fieldset header={'Name'}>
+			</Fieldset>
+
+			<Fieldset header={'Dates'}>
+
+				<FieldsetComponent label={'Start date'}>
 
 					<InputAndErrors
-						value={this.state.name}
-						errors={this.state.errors?.get('name')}
-						handleChange={event => this.handleChange(['name'], event)}
+						type={'date'}
+						value={startDate}
+						errors={errors?.get('startDate')}
+						handleChange={event => handleChange(startDate, setStartDate, [], event)}
 					/>
 
-				</Fieldset>
+				</FieldsetComponent>
 
-				<Fieldset header={'Dates'}>
+				<FieldsetComponent label={'Press date'}>
 
-					<FieldsetComponent label={'Start date'}>
+					<InputAndErrors
+						type={'date'}
+						value={pressDate}
+						errors={errors?.get('pressDate')}
+						handleChange={event => handleChange(pressDate, setPressDate, [], event)}
+					/>
 
-						<InputAndErrors
-							type={'date'}
-							value={this.state.startDate}
-							errors={this.state.errors?.get('startDate')}
-							handleChange={event => this.handleChange(['startDate'], event)}
-						/>
+				</FieldsetComponent>
 
-					</FieldsetComponent>
+				<FieldsetComponent label={'End date'}>
 
-					<FieldsetComponent label={'Press date'}>
+					<InputAndErrors
+						type={'date'}
+						value={endDate}
+						errors={errors?.get('endDate')}
+						handleChange={event => handleChange(endDate, setEndDate, [], event)}
+					/>
 
-						<InputAndErrors
-							type={'date'}
-							value={this.state.pressDate}
-							errors={this.state.errors?.get('pressDate')}
-							handleChange={event => this.handleChange(['pressDate'], event)}
-						/>
+				</FieldsetComponent>
 
-					</FieldsetComponent>
+			</Fieldset>
 
-					<FieldsetComponent label={'End date'}>
+			<Fieldset header={'Material'}>
 
-						<InputAndErrors
-							type={'date'}
-							value={this.state.endDate}
-							errors={this.state.errors?.get('endDate')}
-							handleChange={event => this.handleChange(['endDate'], event)}
-						/>
+				<FieldsetComponent label={'Name'}>
 
-					</FieldsetComponent>
+					<InputAndErrors
+						value={material?.get('name')}
+						errors={material?.getIn(['errors', 'name'])}
+						handleChange={event => handleChange(material, setMaterial, ['name'], event)}
+					/>
 
-				</Fieldset>
+				</FieldsetComponent>
 
-				<Fieldset header={'Material'}>
+				<FieldsetComponent label={'Differentiator'}>
 
-					<FieldsetComponent label={'Name'}>
+					<InputAndErrors
+						value={material?.get('differentiator')}
+						errors={material?.getIn(['errors', 'differentiator'])}
+						handleChange={event => handleChange(material, setMaterial, ['differentiator'], event)}
+					/>
 
-						<InputAndErrors
-							value={this.state.material?.get('name')}
-							errors={this.state.material?.getIn(['errors', 'name'])}
-							handleChange={event => this.handleChange(['material', 'name'], event)}
-						/>
+				</FieldsetComponent>
 
-					</FieldsetComponent>
+			</Fieldset>
 
-					<FieldsetComponent label={'Differentiator'}>
+			<Fieldset header={'Venue'}>
 
-						<InputAndErrors
-							value={this.state.material?.get('differentiator')}
-							errors={this.state.material?.getIn(['errors', 'differentiator'])}
-							handleChange={event => this.handleChange(['material', 'differentiator'], event)}
-						/>
+				<FieldsetComponent label={'Name'}>
 
-					</FieldsetComponent>
+					<InputAndErrors
+						value={venue?.get('name')}
+						errors={venue?.getIn(['errors', 'name'])}
+						handleChange={event => handleChange(venue, setVenue, ['name'], event)}
+					/>
 
-				</Fieldset>
+				</FieldsetComponent>
 
-				<Fieldset header={'Venue'}>
+				<FieldsetComponent label={'Differentiator'}>
 
-					<FieldsetComponent label={'Name'}>
+					<InputAndErrors
+						value={venue?.get('differentiator')}
+						errors={venue?.getIn(['errors', 'differentiator'])}
+						handleChange={event => handleChange(venue, setVenue, ['differentiator'], event)}
+					/>
 
-						<InputAndErrors
-							value={this.state.venue?.get('name')}
-							errors={this.state.venue?.getIn(['errors', 'name'])}
-							handleChange={event => this.handleChange(['venue', 'name'], event)}
-						/>
+				</FieldsetComponent>
 
-					</FieldsetComponent>
+			</Fieldset>
 
-					<FieldsetComponent label={'Differentiator'}>
+			{ Boolean(producerCredits) && renderProducerCredits() }
 
-						<InputAndErrors
-							value={this.state.venue?.get('differentiator')}
-							errors={this.state.venue?.getIn(['errors', 'differentiator'])}
-							handleChange={event => this.handleChange(['venue', 'differentiator'], event)}
-						/>
+			{ Boolean(cast) && renderCast() }
 
-					</FieldsetComponent>
+			{ Boolean(creativeCredits) && renderCreativeCredits() }
 
-				</Fieldset>
+			{ Boolean(crewCredits) && renderCrewCredits() }
 
-				{ Boolean(this.state.producerCredits) && this.renderProducerCredits(this.state.producerCredits) }
+		</FormWrapper>
+	);
 
-				{ Boolean(this.state.cast) && this.renderCast(this.state.cast) }
-
-				{ Boolean(this.state.creativeCredits) && this.renderCreativeCredits(this.state.creativeCredits) }
-
-				{ Boolean(this.state.crewCredits) && this.renderCrewCredits(this.state.crewCredits) }
-
-			</FormWrapper>
-		);
-
-	}
-
-}
-
-ProductionForm.propTypes = {
-	production: ImmutablePropTypes.map.isRequired,
-	productionFormData: ImmutablePropTypes.map.isRequired
 };
 
-const mapStateToProps = state => ({
-	production: state.get('production'),
-	productionFormData: state.get('productionFormData')
-});
+ProductionForm.propTypes = {
+	action: PropTypes.string.isRequired,
+	instance: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(ProductionForm);
+export default ProductionForm;

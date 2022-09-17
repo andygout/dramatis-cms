@@ -1,15 +1,51 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
 import { capitalise } from '../../../lib/strings';
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, Form, FormWrapper, InputAndErrors } from '../form';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
+import { handleChange, checkIsLastListItem, handleCreationClick, handleRemovalClick } from '../../utils/FormUtils';
 import { CREDIT_TYPES, MODELS } from '../../../utils/constants';
 
-class MaterialForm extends Form {
+const MaterialForm = props => {
 
-	renderWritingEntities (entities, entitiesStatePath) {
+	const { instance, action } = props;
+
+	const [name, setName] = useState(instance.get('name'));
+	const [differentiator, setDifferentiator] = useState(instance.get('differentiator'));
+	const [format, setFormat] = useState(instance.get('format'));
+	const [year, setYear] = useState(instance.get('year'));
+	const [originalVersionMaterial, setOriginalVersionMaterial] = useState(instance.get('originalVersionMaterial'));
+	const [writingCredits, setWritingCredits] = useState(instance.get('writingCredits'));
+	const [subMaterials, setSubMaterials] = useState(instance.get('subMaterials'));
+	const [characterGroups, setCharacterGroups] = useState(instance.get('characterGroups'));
+	const [errors, setErrors] = useState(instance.get('errors'));
+
+	useEffect(() => {
+		setName(instance.get('name'));
+		setDifferentiator(instance.get('differentiator'));
+		setFormat(instance.get('format'));
+		setYear(instance.get('year'));
+		setOriginalVersionMaterial(instance.get('originalVersionMaterial'));
+		setWritingCredits(instance.get('writingCredits'));
+		setSubMaterials(instance.get('subMaterials'));
+		setCharacterGroups(instance.get('characterGroups'));
+		setErrors(instance.get('errors'));
+	}, [instance]);
+
+	const actionableInstance = {
+		model: instance.get('model'),
+		uuid: instance.get('uuid'),
+		name,
+		differentiator,
+		format,
+		year,
+		originalVersionMaterial,
+		writingCredits,
+		subMaterials,
+		characterGroups
+	};
+
+	const renderWritingEntities = (entities, entitiesStatePath) => {
 
 		return (
 			<FieldsetComponent label={'Writing entities (people, companies, materials)'} isArrayItem={true}>
@@ -19,7 +55,7 @@ class MaterialForm extends Form {
 
 						const statePath = entitiesStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, entities.size);
+						const isLastListItem = checkIsLastListItem(index, entities.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -28,8 +64,8 @@ class MaterialForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(writingCredits, setWritingCredits, statePath, event)
+											: handleRemovalClick(writingCredits, setWritingCredits, statePath, event)
 									}
 								/>
 
@@ -38,7 +74,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={entity.get('name')}
 										errors={entity.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												writingCredits,
+												setWritingCredits,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -48,7 +91,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={entity.get('differentiator')}
 										errors={entity.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												writingCredits,
+												setWritingCredits,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -59,7 +109,14 @@ class MaterialForm extends Form {
 										type={'radio'}
 										value={MODELS.PERSON}
 										checked={entity.get('model') === MODELS.PERSON}
-										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+										onChange={event =>
+											handleChange(
+												writingCredits,
+												setWritingCredits,
+												statePath.concat(['model']),
+												event
+											)
+										}
 									/>
 									<label>{' Person'}</label>
 
@@ -67,7 +124,14 @@ class MaterialForm extends Form {
 										type={'radio'}
 										value={MODELS.COMPANY}
 										checked={entity.get('model') === MODELS.COMPANY}
-										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+										onChange={event =>
+											handleChange(
+												writingCredits,
+												setWritingCredits,
+												statePath.concat(['model']),
+												event
+											)
+										}
 									/>
 									<label>{' Company'}</label>
 
@@ -75,7 +139,13 @@ class MaterialForm extends Form {
 										type={'radio'}
 										value={MODELS.MATERIAL}
 										checked={entity.get('model') === MODELS.MATERIAL}
-										onChange={event => this.handleChange(statePath.concat(['model']), event)}
+										onChange={event =>
+											handleChange(writingCredits,
+												setWritingCredits,
+												statePath.concat(['model']),
+												event
+											)
+										}
 									/>
 									<label>{' Material'}</label>
 
@@ -90,9 +160,9 @@ class MaterialForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderWritingCredits (writingCredits) {
+	const renderWritingCredits = () => {
 
 		return (
 			<Fieldset header={'Writing credits'}>
@@ -100,9 +170,9 @@ class MaterialForm extends Form {
 				{
 					writingCredits.map((writingCredit, index) => {
 
-						const statePath = ['writingCredits', index];
+						const statePath = [index];
 
-						const isLastListItem = this.isLastListItem(index, writingCredits.size);
+						const isLastListItem = checkIsLastListItem(index, writingCredits.size);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -111,8 +181,8 @@ class MaterialForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(writingCredits, setWritingCredits, statePath, event)
+											: handleRemovalClick(writingCredits, setWritingCredits, statePath, event)
 									}
 								/>
 
@@ -121,7 +191,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={writingCredit.get('name')}
 										errors={writingCredit.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												writingCredits,
+												setWritingCredits,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -132,7 +209,14 @@ class MaterialForm extends Form {
 										type={'radio'}
 										value={''}
 										checked={!writingCredit.get('creditType')}
-										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
+										onChange={event =>
+											handleChange(
+												writingCredits,
+												setWritingCredits,
+												statePath.concat(['creditType']),
+												event
+											)
+										}
 									/>
 									<label>{' Direct'}</label>
 
@@ -140,7 +224,14 @@ class MaterialForm extends Form {
 										type={'radio'}
 										value={CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
 										checked={writingCredit.get('creditType') === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
-										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
+										onChange={event =>
+											handleChange(
+												writingCredits,
+												setWritingCredits,
+												statePath.concat(['creditType']),
+												event
+											)
+										}
 									/>
 									<label>{' Non-specific source material'}</label>
 
@@ -148,13 +239,19 @@ class MaterialForm extends Form {
 										type={'radio'}
 										value={CREDIT_TYPES.RIGHTS_GRANTOR}
 										checked={writingCredit.get('creditType') === CREDIT_TYPES.RIGHTS_GRANTOR}
-										onChange={event => this.handleChange(statePath.concat(['creditType']), event)}
+										onChange={event =>
+											handleChange(writingCredits,
+												setWritingCredits,
+												statePath.concat(['creditType']),
+												event
+											)
+										}
 									/>
 									<label>{' Rights grantor'}</label>
 
 								</FieldsetComponent>
 
-								{ this.renderWritingEntities(writingCredit.get('entities'), statePath.concat(['entities'])) }
+								{ renderWritingEntities(writingCredit.get('entities'), statePath.concat(['entities'])) }
 
 							</div>
 						);
@@ -165,9 +262,9 @@ class MaterialForm extends Form {
 			</Fieldset>
 		);
 
-	}
+	};
 
-	renderSubMaterials (subMaterials) {
+	const renderSubMaterials = () => {
 
 		return (
 			<Fieldset header={'Sub-materials'}>
@@ -175,9 +272,9 @@ class MaterialForm extends Form {
 				{
 					subMaterials?.map((subMaterial, index) => {
 
-						const statePath = ['subMaterials', index];
+						const statePath = [index];
 
-						const isLastListItem = this.isLastListItem(index, subMaterials.size);
+						const isLastListItem = checkIsLastListItem(index, subMaterials.size);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -186,8 +283,8 @@ class MaterialForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(subMaterials, setSubMaterials, statePath, event)
+											: handleRemovalClick(subMaterials, setSubMaterials, statePath, event)
 									}
 								/>
 
@@ -196,7 +293,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={subMaterial.get('name')}
 										errors={subMaterial.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												subMaterials,
+												setSubMaterials,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -206,7 +310,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={subMaterial.get('differentiator')}
 										errors={subMaterial.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												subMaterials,
+												setSubMaterials,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -220,9 +331,9 @@ class MaterialForm extends Form {
 			</Fieldset>
 		);
 
-	}
+	};
 
-	renderCharacters (characters, charactersStatePath) {
+	const renderCharacters = (characters, charactersStatePath) => {
 
 		return (
 			<FieldsetComponent label={'Characters'} isArrayItem={true}>
@@ -232,7 +343,7 @@ class MaterialForm extends Form {
 
 						const statePath = charactersStatePath.concat([index]);
 
-						const isLastListItem = this.isLastListItem(index, characters.size);
+						const isLastListItem = checkIsLastListItem(index, characters.size);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -241,8 +352,8 @@ class MaterialForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(characterGroups, setCharacterGroups, statePath, event)
+											: handleRemovalClick(characterGroups, setCharacterGroups, statePath, event)
 									}
 								/>
 
@@ -251,7 +362,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={character.get('name')}
 										errors={character.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												characterGroups,
+												setCharacterGroups,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -261,7 +379,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={character.get('underlyingName')}
 										errors={character.getIn(['errors', 'underlyingName'])}
-										handleChange={event => this.handleChange(statePath.concat(['underlyingName']), event)}
+										handleChange={event =>
+											handleChange(
+												characterGroups,
+												setCharacterGroups,
+												statePath.concat(['underlyingName']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -271,7 +396,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={character.get('differentiator')}
 										errors={character.getIn(['errors', 'differentiator'])}
-										handleChange={event => this.handleChange(statePath.concat(['differentiator']), event)}
+										handleChange={event =>
+											handleChange(
+												characterGroups,
+												setCharacterGroups,
+												statePath.concat(['differentiator']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -281,7 +413,14 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={character.get('qualifier')}
 										errors={character.getIn(['errors', 'qualifier'])}
-										handleChange={event => this.handleChange(statePath.concat(['qualifier']), event)}
+										handleChange={event =>
+											handleChange(
+												characterGroups,
+												setCharacterGroups,
+												statePath.concat(['qualifier']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
@@ -295,9 +434,9 @@ class MaterialForm extends Form {
 			</FieldsetComponent>
 		);
 
-	}
+	};
 
-	renderCharacterGroups (characterGroups) {
+	const renderCharacterGroups = () => {
 
 		return (
 			<Fieldset header={'Character groups'}>
@@ -305,9 +444,9 @@ class MaterialForm extends Form {
 				{
 					characterGroups.map((characterGroup, index) => {
 
-						const statePath = ['characterGroups', index];
+						const statePath = [index];
 
-						const isLastListItem = this.isLastListItem(index, characterGroups.size);
+						const isLastListItem = checkIsLastListItem(index, characterGroups.size);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -316,8 +455,8 @@ class MaterialForm extends Form {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? this.handleCreationClick(statePath, event)
-											: this.handleRemovalClick(statePath, event)
+											? handleCreationClick(characterGroups, setCharacterGroups, statePath, event)
+											: handleRemovalClick(characterGroups, setCharacterGroups, statePath, event)
 									}
 								/>
 
@@ -326,12 +465,19 @@ class MaterialForm extends Form {
 									<InputAndErrors
 										value={characterGroup.get('name')}
 										errors={characterGroup.getIn(['errors', 'name'])}
-										handleChange={event => this.handleChange(statePath.concat(['name']), event)}
+										handleChange={event =>
+											handleChange(
+												characterGroups,
+												setCharacterGroups,
+												statePath.concat(['name']),
+												event
+											)
+										}
 									/>
 
 								</FieldsetComponent>
 
-								{ this.renderCharacters(characterGroup.get('characters'), statePath.concat(['characters'])) }
+								{ renderCharacters(characterGroup.get('characters'), statePath.concat(['characters'])) }
 
 							</div>
 						);
@@ -342,105 +488,107 @@ class MaterialForm extends Form {
 			</Fieldset>
 		);
 
-	}
+	};
 
-	render () {
+	return (
+		<FormWrapper
+			action={action}
+			instance={actionableInstance}
+		>
 
-		if (this.props.redirectPath) return this.performRedirect();
+			<Fieldset header={'Name'}>
 
-		return (
-			<FormWrapper
-				action={this.props.action}
-				handleSubmit={this.handleSubmit}
-				handleDelete={this.handleDelete}
-			>
+				<InputAndErrors
+					value={name}
+					errors={errors?.get('name')}
+					handleChange={event => handleChange(name, setName, [], event)}
+				/>
 
-				<Fieldset header={'Name'}>
+			</Fieldset>
+
+			<Fieldset header={'Differentiator'}>
+
+				<InputAndErrors
+					value={differentiator}
+					errors={errors?.get('differentiator')}
+					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+				/>
+
+			</Fieldset>
+
+			<Fieldset header={'Format'}>
+
+				<InputAndErrors
+					value={format}
+					errors={errors?.get('format')}
+					handleChange={event => handleChange(format, setFormat, [], event)}
+				/>
+
+			</Fieldset>
+
+			<Fieldset header={'Year'}>
+
+				<InputAndErrors
+					type={'number'}
+					value={year}
+					errors={errors?.get('year')}
+					handleChange={event => handleChange(year, setYear, [], event)}
+				/>
+
+			</Fieldset>
+
+			<Fieldset header={'Original version material'}>
+
+				<FieldsetComponent label={'Name'}>
 
 					<InputAndErrors
-						value={this.state.name}
-						errors={this.state.errors?.get('name')}
-						handleChange={event => this.handleChange(['name'], event)}
+						value={originalVersionMaterial?.get('name')}
+						errors={originalVersionMaterial?.getIn(['errors', 'name'])}
+						handleChange={event =>
+							handleChange(
+								originalVersionMaterial,
+								setOriginalVersionMaterial,
+								['name'],
+								event
+							)
+						}
 					/>
 
-				</Fieldset>
+				</FieldsetComponent>
 
-				<Fieldset header={'Differentiator'}>
+				<FieldsetComponent label={'Differentiator'}>
 
 					<InputAndErrors
-						value={this.state.differentiator}
-						errors={this.state.errors?.get('differentiator')}
-						handleChange={event => this.handleChange(['differentiator'], event)}
+						value={originalVersionMaterial?.get('differentiator')}
+						errors={originalVersionMaterial?.getIn(['errors', 'differentiator'])}
+						handleChange={event =>
+							handleChange(
+								originalVersionMaterial,
+								setOriginalVersionMaterial,
+								['differentiator'],
+								event
+							)
+						}
 					/>
 
-				</Fieldset>
+				</FieldsetComponent>
 
-				<Fieldset header={'Format'}>
+			</Fieldset>
 
-					<InputAndErrors
-						value={this.state.format}
-						errors={this.state.errors?.get('format')}
-						handleChange={event => this.handleChange(['format'], event)}
-					/>
+			{ Boolean(writingCredits) && renderWritingCredits() }
 
-				</Fieldset>
+			{ Boolean(subMaterials) && renderSubMaterials() }
 
-				<Fieldset header={'Year'}>
+			{ Boolean(characterGroups) && renderCharacterGroups() }
 
-					<InputAndErrors
-						type={'number'}
-						value={this.state.year}
-						errors={this.state.errors?.get('year')}
-						handleChange={event => this.handleChange(['year'], event)}
-					/>
+		</FormWrapper>
+	);
 
-				</Fieldset>
-
-				<Fieldset header={'Original version material'}>
-
-					<FieldsetComponent label={'Name'}>
-
-						<InputAndErrors
-							value={this.state.originalVersionMaterial?.get('name')}
-							errors={this.state.originalVersionMaterial?.getIn(['errors', 'name'])}
-							handleChange={event => this.handleChange(['originalVersionMaterial', 'name'], event)}
-						/>
-
-					</FieldsetComponent>
-
-					<FieldsetComponent label={'Differentiator'}>
-
-						<InputAndErrors
-							value={this.state.originalVersionMaterial?.get('differentiator')}
-							errors={this.state.originalVersionMaterial?.getIn(['errors', 'differentiator'])}
-							handleChange={event => this.handleChange(['originalVersionMaterial', 'differentiator'], event)}
-						/>
-
-					</FieldsetComponent>
-
-				</Fieldset>
-
-				{ Boolean(this.state.writingCredits) && this.renderWritingCredits(this.state.writingCredits) }
-
-				{ Boolean(this.state.subMaterials) && this.renderSubMaterials(this.state.subMaterials) }
-
-				{ Boolean(this.state.characterGroups) && this.renderCharacterGroups(this.state.characterGroups) }
-
-			</FormWrapper>
-		);
-
-	}
-
-}
-
-MaterialForm.propTypes = {
-	material: ImmutablePropTypes.map.isRequired,
-	materialFormData: ImmutablePropTypes.map.isRequired
 };
 
-const mapStateToProps = state => ({
-	material: state.get('material'),
-	materialFormData: state.get('materialFormData')
-});
+MaterialForm.propTypes = {
+	action: PropTypes.string.isRequired,
+	instance: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(MaterialForm);
+export default MaterialForm;

@@ -5,30 +5,26 @@ import { connect } from 'react-redux';
 import { AwardForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
-class Award extends React.Component {
+const Award = props => {
 
-	render () {
+	const { award, awardFormData } = props;
 
-		const { award, awardFormData } = this.props;
+	return (
+		<InstanceWrapper
+			instance={award}
+			formAction={awardFormData.get('action')}
+			redirectPath={awardFormData.get('redirectPath')}
+		>
 
-		return (
-			<InstanceWrapper
-				instance={award}
-				formAction={awardFormData.get('action')}
-			>
+			<AwardForm
+				instance={awardFormData.get('instance', new Map())}
+				action={awardFormData.get('action', 'Submit')}
+			/>
 
-				<AwardForm
-					instance={awardFormData.get('instance', new Map())}
-					action={awardFormData.get('action', 'Submit')}
-					redirectPath={awardFormData.get('redirectPath')}
-				/>
+		</InstanceWrapper>
+	);
 
-			</InstanceWrapper>
-		);
-
-	}
-
-}
+};
 
 Award.propTypes = {
 	award: ImmutablePropTypes.map.isRequired,

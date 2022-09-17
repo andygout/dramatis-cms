@@ -4,40 +4,33 @@ import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import { FetchDataOnMountWrapper } from './utils';
 
-class App extends React.Component {
+const App = () => {
 
-	render () {
+	return (
+		<Switch>
+			{
+				routes.map((route, index) => {
+					const RouteComponent = route.component;
 
-		return (
-			<Switch>
-				{
-					routes.map((route, index) =>
+					return (
 						<Route
 							key={index}
 							path={route.path}
 							exact={route.exact}
-							render={
-								props => {
-									const RouteComponent = route.component;
-									return (
-										<FetchDataOnMountWrapper
-											{...props}
-											documentTitle={route.documentTitle}
-											fetchData={route.fetchData}
-										>
-											<RouteComponent />
-										</FetchDataOnMountWrapper>
-									);
-								}
-							}
-						/>
-					)
-				}
-			</Switch>
-		);
+						>
+							<FetchDataOnMountWrapper
+								documentTitle={route.documentTitle}
+								fetchData={route.fetchData}
+							>
+								<RouteComponent />
+							</FetchDataOnMountWrapper>
+						</Route>
+					);
+				})
+			}
+		</Switch>
+	);
 
-	}
-
-}
+};
 
 export default App;

@@ -1,58 +1,64 @@
-import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
-import { Fieldset, Form, FormWrapper, InputAndErrors } from '../form';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
+import { Fieldset, FormWrapper, InputAndErrors } from '../form';
+import { handleChange } from '../../utils/FormUtils';
 
-class PersonForm extends Form {
+const PersonForm = props => {
 
-	render () {
+	const { instance, action } = props;
 
-		if (this.props.redirectPath) return this.performRedirect();
+	const [name, setName] = useState(instance.get('name'));
+	const [differentiator, setDifferentiator] = useState(instance.get('differentiator'));
+	const [errors, setErrors] = useState(instance.get('errors'));
 
-		return (
-			<FormWrapper
-				action={this.props.action}
-				handleSubmit={this.handleSubmit}
-				handleDelete={this.handleDelete}
-			>
+	useEffect(() => {
+		setName(instance.get('name'));
+		setDifferentiator(instance.get('differentiator'));
+		setErrors(instance.get('errors'));
+	}, [instance]);
 
-				<Fieldset header={'Name'}>
+	const actionableInstance = {
+		model: instance.get('model'),
+		uuid: instance.get('uuid'),
+		name,
+		differentiator
+	};
 
-					<InputAndErrors
-						value={this.state.name}
-						errors={this.state.errors?.get('name')}
-						handleChange={event => this.handleChange(['name'], event)}
-					/>
+	return (
+		<FormWrapper
+			action={action}
+			instance={actionableInstance}
+		>
 
-				</Fieldset>
+			<Fieldset header={'Name'}>
 
-				<Fieldset header={'Differentiator'}>
+				<InputAndErrors
+					value={name}
+					errors={errors?.get('name')}
+					handleChange={event => handleChange(name, setName, [], event)}
+				/>
 
-					<InputAndErrors
-						value={this.state.differentiator}
-						errors={this.state.errors?.get('differentiator')}
-						handleChange={event => this.handleChange(['differentiator'], event)}
-					/>
+			</Fieldset>
 
-				</Fieldset>
+			<Fieldset header={'Differentiator'}>
 
-			</FormWrapper>
-		);
+				<InputAndErrors
+					value={differentiator}
+					errors={errors?.get('differentiator')}
+					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+				/>
 
-	}
+			</Fieldset>
 
-}
+		</FormWrapper>
+	);
 
-PersonForm.propTypes = {
-	person: ImmutablePropTypes.map.isRequired,
-	personFormData: ImmutablePropTypes.map.isRequired
 };
 
-const mapStateToProps = state => ({
-	person: state.get('person'),
-	personFormData: state.get('personFormData')
-});
+PersonForm.propTypes = {
+	action: PropTypes.string.isRequired,
+	instance: PropTypes.object.isRequired
+};
 
-export default connect(mapStateToProps, { createInstance, updateInstance, deleteInstance })(PersonForm);
+export default PersonForm;

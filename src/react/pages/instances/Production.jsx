@@ -5,30 +5,26 @@ import { connect } from 'react-redux';
 import { ProductionForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
-class Production extends React.Component {
+const Production = props => {
 
-	render () {
+	const { production, productionFormData } = props;
 
-		const { production, productionFormData } = this.props;
+	return (
+		<InstanceWrapper
+			instance={production}
+			formAction={productionFormData.get('action')}
+			redirectPath={productionFormData.get('redirectPath')}
+		>
 
-		return (
-			<InstanceWrapper
-				instance={production}
-				formAction={productionFormData.get('action')}
-			>
+			<ProductionForm
+				instance={productionFormData.get('instance', new Map())}
+				action={productionFormData.get('action', 'Submit')}
+			/>
 
-				<ProductionForm
-					instance={productionFormData.get('instance', new Map())}
-					action={productionFormData.get('action', 'Submit')}
-					redirectPath={productionFormData.get('redirectPath')}
-				/>
+		</InstanceWrapper>
+	);
 
-			</InstanceWrapper>
-		);
-
-	}
-
-}
+};
 
 Production.propTypes = {
 	production: ImmutablePropTypes.map.isRequired,

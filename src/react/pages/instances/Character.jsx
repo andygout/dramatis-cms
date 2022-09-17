@@ -5,30 +5,26 @@ import { connect } from 'react-redux';
 import { CharacterForm } from '../../components/instance-forms';
 import { InstanceWrapper } from '../../utils';
 
-class Character extends React.Component {
+const Character = props => {
 
-	render () {
+	const { character, characterFormData } = props;
 
-		const { character, characterFormData } = this.props;
+	return (
+		<InstanceWrapper
+			instance={character}
+			formAction={characterFormData.get('action')}
+			redirectPath={characterFormData.get('redirectPath')}
+		>
 
-		return (
-			<InstanceWrapper
-				instance={character}
-				formAction={characterFormData.get('action')}
-			>
+			<CharacterForm
+				instance={characterFormData.get('instance', new Map())}
+				action={characterFormData.get('action', 'Submit')}
+			/>
 
-				<CharacterForm
-					instance={characterFormData.get('instance', new Map())}
-					action={characterFormData.get('action', 'Submit')}
-					redirectPath={characterFormData.get('redirectPath')}
-				/>
+		</InstanceWrapper>
+	);
 
-			</InstanceWrapper>
-		);
-
-	}
-
-}
+};
 
 Character.propTypes = {
 	character: ImmutablePropTypes.map.isRequired,
