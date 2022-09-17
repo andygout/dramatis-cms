@@ -13,7 +13,6 @@ const Company = props => {
 		<InstanceWrapper
 			instance={company}
 			formAction={companyFormData.get('action')}
-			redirectPath={companyFormData.get('redirectPath')}
 		>
 
 			<CompanyForm

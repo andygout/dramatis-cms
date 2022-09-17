@@ -13,7 +13,6 @@ const Person = props => {
 		<InstanceWrapper
 			instance={person}
 			formAction={personFormData.get('action')}
-			redirectPath={personFormData.get('redirectPath')}
 		>
 
 			<PersonForm

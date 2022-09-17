@@ -2,7 +2,7 @@ import { List, Map, getIn, remove, removeIn, set, setIn, updateIn } from 'immuta
 
 import createBlankMap from '../../lib/create-blank-map';
 import mapHasNonEmptyString from '../../lib/map-has-non-empty-string';
-import { ACTIONS, MODELS, MODEL_TO_PROP_NAME_MAP } from '../../utils/constants';
+import { ACTIONS, MODELS } from '../../utils/constants';
 
 const applyRevisionToStateValue = (stateValue, statePath, revision) => {
 
@@ -132,17 +132,6 @@ const handleDelete = (event, instance, deleteInstance) => {
 
 };
 
-const getRedirectToProps = (redirectPath, model) => {
-
-	return {
-		pathname: redirectPath,
-		state: {
-			redirectPathOriginStateProp: `${MODEL_TO_PROP_NAME_MAP[model]}FormData`
-		}
-	};
-
-};
-
 export {
 	checkIsLastListItem,
 	handleChange,
@@ -151,6 +140,5 @@ export {
 	handleChangeToPerson,
 	handleChangeToCompany,
 	handleSubmit,
-	handleDelete,
-	getRedirectToProps
+	handleDelete
 };

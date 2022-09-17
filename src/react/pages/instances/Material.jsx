@@ -13,7 +13,6 @@ const Material = props => {
 		<InstanceWrapper
 			instance={material}
 			formAction={materialFormData.get('action')}
-			redirectPath={materialFormData.get('redirectPath')}
 		>
 
 			<MaterialForm
