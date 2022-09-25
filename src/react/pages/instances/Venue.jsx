@@ -13,7 +13,6 @@ const Venue = props => {
 		<InstanceWrapper
 			instance={venue}
 			formAction={venueFormData.get('action')}
-			redirectPath={venueFormData.get('redirectPath')}
 		>
 
 			<VenueForm

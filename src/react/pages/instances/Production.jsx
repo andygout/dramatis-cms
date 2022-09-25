@@ -13,7 +13,6 @@ const Production = props => {
 		<InstanceWrapper
 			instance={production}
 			formAction={productionFormData.get('action')}
-			redirectPath={productionFormData.get('redirectPath')}
 		>
 
 			<ProductionForm

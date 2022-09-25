@@ -2,6 +2,7 @@ import nodeFetch from 'node-fetch';
 
 import createAction from './base';
 import { receiveError } from './error';
+import { receiveRedirectPath } from './redirect-path';
 import { activateNotification, deactivateNotification } from './notification';
 import * as actions from '../utils/model-action-names';
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
@@ -150,9 +151,9 @@ const createInstance = instance => async dispatch => {
 
 			dispatch(receiveCreate(prunedInstance));
 
-			const redirectPath = `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}`;
+			dispatch(receiveRedirectPath(`/${MODEL_TO_ROUTE_MAP[model]}/${uuid}`));
 
-			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
+			dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
 			notification = {
 				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been created`,
@@ -304,9 +305,9 @@ const deleteInstance = instance => async dispatch => {
 
 			dispatch(receiveDelete(prunedInstance));
 
-			const redirectPath = `/${MODEL_TO_ROUTE_MAP[model]}`;
+			dispatch(receiveRedirectPath(`/${MODEL_TO_ROUTE_MAP[model]}`));
 
-			dispatch(receiveEditFormData({ instance: fetchedInstance, redirectPath }));
+			dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
 			notification = {
 				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been deleted`,
@@ -328,20 +329,11 @@ const deleteInstance = instance => async dispatch => {
 
 };
 
-const removeRedirectPath = redirectPathOriginStateProp => async (dispatch, getState) => {
-
-	const { instance } = getState().get(redirectPathOriginStateProp).toJS();
-
-	dispatch(receiveEditFormData({ instance }));
-
-};
-
 export {
 	fetchList,
 	fetchInstanceTemplate,
 	fetchInstance,
 	createInstance,
 	updateInstance,
-	deleteInstance,
-	removeRedirectPath
+	deleteInstance
 };

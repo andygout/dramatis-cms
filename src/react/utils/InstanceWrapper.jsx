@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { Redirect } from 'react-router-dom';
 
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
 import {
@@ -11,14 +10,11 @@ import {
 	PageTitle,
 	withInstancePageTitle
 } from '../components';
-import { getRedirectToProps } from './FormUtils';
 import { MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants';
 
 const InstanceWrapper = props => {
 
-	const { instance, formAction, redirectPath, children } = props;
-
-	if (redirectPath) return <Redirect to={getRedirectToProps(redirectPath, instance.get('model'))} />;
+	const { instance, formAction, children } = props;
 
 	const InstancePageTitle = withInstancePageTitle(PageTitle);
 
@@ -63,7 +59,6 @@ const InstanceWrapper = props => {
 InstanceWrapper.propTypes = {
 	instance: ImmutablePropTypes.map.isRequired,
 	formAction: PropTypes.string,
-	redirectPath: PropTypes.string,
 	children: PropTypes.node.isRequired
 };
 

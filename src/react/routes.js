@@ -27,7 +27,6 @@ import { MODELS, PLURALISED_MODELS } from '../utils/constants';
 export default [
 	{
 		path: '/',
-		exact: true,
 		documentTitle: () => 'Home',
 		component: Home,
 		fetchData: [
@@ -37,7 +36,6 @@ export default [
 	},
 	{
 		path: '/awards/ceremonies',
-		exact: true,
 		documentTitle: () => 'Award ceremonies',
 		component: AwardCeremonies,
 		fetchData: [
@@ -48,7 +46,6 @@ export default [
 	},
 	{
 		path: '/awards/ceremonies/new',
-		exact: true,
 		documentTitle: () => 'New award ceremony',
 		component: AwardCeremony,
 		fetchData: [
@@ -69,7 +66,6 @@ export default [
 	},
 	{
 		path: '/awards',
-		exact: true,
 		documentTitle: () => 'Awards',
 		component: Awards,
 		fetchData: [
@@ -80,7 +76,6 @@ export default [
 	},
 	{
 		path: '/awards/new',
-		exact: true,
 		documentTitle: () => 'New award',
 		component: Award,
 		fetchData: [
@@ -101,7 +96,6 @@ export default [
 	},
 	{
 		path: '/characters',
-		exact: true,
 		documentTitle: () => 'Characters',
 		component: Characters,
 		fetchData: [
@@ -112,7 +106,6 @@ export default [
 	},
 	{
 		path: '/characters/new',
-		exact: true,
 		documentTitle: () => 'New character',
 		component: Character,
 		fetchData: [
@@ -133,7 +126,6 @@ export default [
 	},
 	{
 		path: '/companies',
-		exact: true,
 		documentTitle: () => 'Companies',
 		component: Companies,
 		fetchData: [
@@ -144,7 +136,6 @@ export default [
 	},
 	{
 		path: '/companies/new',
-		exact: true,
 		documentTitle: () => 'New company',
 		component: Company,
 		fetchData: [
@@ -165,7 +156,6 @@ export default [
 	},
 	{
 		path: '/materials',
-		exact: true,
 		documentTitle: () => 'Materials',
 		component: Materials,
 		fetchData: [
@@ -176,7 +166,6 @@ export default [
 	},
 	{
 		path: '/materials/new',
-		exact: true,
 		documentTitle: () => 'New material',
 		component: Material,
 		fetchData: [
@@ -197,7 +186,6 @@ export default [
 	},
 	{
 		path: '/people',
-		exact: true,
 		documentTitle: () => 'People',
 		component: People,
 		fetchData: [
@@ -208,7 +196,6 @@ export default [
 	},
 	{
 		path: '/people/new',
-		exact: true,
 		documentTitle: () => 'New person',
 		component: Person,
 		fetchData: [
@@ -229,7 +216,6 @@ export default [
 	},
 	{
 		path: '/productions',
-		exact: true,
 		documentTitle: () => 'Productions',
 		component: Productions,
 		fetchData: [
@@ -240,7 +226,6 @@ export default [
 	},
 	{
 		path: '/productions/new',
-		exact: true,
 		documentTitle: () => 'New production',
 		component: Production,
 		fetchData: [
@@ -261,7 +246,6 @@ export default [
 	},
 	{
 		path: '/venues',
-		exact: true,
 		documentTitle: () => 'Venues',
 		component: Venues,
 		fetchData: [
@@ -272,7 +256,6 @@ export default [
 	},
 	{
 		path: '/venues/new',
-		exact: true,
 		documentTitle: () => 'New venue',
 		component: Venue,
 		fetchData: [

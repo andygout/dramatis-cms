@@ -13,7 +13,6 @@ const Award = props => {
 		<InstanceWrapper
 			instance={award}
 			formAction={awardFormData.get('action')}
-			redirectPath={awardFormData.get('redirectPath')}
 		>
 
 			<AwardForm
