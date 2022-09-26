@@ -21,7 +21,7 @@ import people from './people';
 import productionFormData from './production-form-data';
 import production from './production';
 import productions from './productions';
-import redirectPath from './redirect-path';
+import redirect from './redirect';
 import venueFormData from './venue-form-data';
 import venue from './venue';
 import venues from './venues';
@@ -50,7 +50,7 @@ export default {
 	productionFormData,
 	production,
 	productions,
-	redirectPath,
+	redirect,
 	venueFormData,
 	venue,
 	venues

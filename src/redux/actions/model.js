@@ -2,7 +2,7 @@ import nodeFetch from 'node-fetch';
 
 import createAction from './base';
 import { receiveError } from './error';
-import { receiveRedirectPath } from './redirect-path';
+import { receiveRedirect } from './redirect';
 import { activateNotification, deactivateNotification } from './notification';
 import * as actions from '../utils/model-action-names';
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
@@ -145,15 +145,13 @@ const createInstance = instance => async dispatch => {
 				isActive: true
 			};
 
+			dispatch(activateNotification(notification));
+
 		} else {
 
 			const prunedInstance = pruneInstance(fetchedInstance);
 
 			dispatch(receiveCreate(prunedInstance));
-
-			dispatch(receiveRedirectPath(`/${MODEL_TO_ROUTE_MAP[model]}/${uuid}`));
-
-			dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
 			notification = {
 				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been created`,
@@ -161,9 +159,11 @@ const createInstance = instance => async dispatch => {
 				isActive: true
 			};
 
-		}
+			dispatch(receiveRedirect({ path: `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}`, notification, isActive: true }));
 
-		dispatch(activateNotification(notification));
+			dispatch(receiveEditFormData({ instance: fetchedInstance }));
+
+		}
 
 	} catch ({ message }) {
 
@@ -299,15 +299,13 @@ const deleteInstance = instance => async dispatch => {
 				isActive: true
 			};
 
+			dispatch(activateNotification(notification));
+
 		} else {
 
 			const prunedInstance = pruneInstance(fetchedInstance);
 
 			dispatch(receiveDelete(prunedInstance));
-
-			dispatch(receiveRedirectPath(`/${MODEL_TO_ROUTE_MAP[model]}`));
-
-			dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
 			notification = {
 				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been deleted`,
@@ -315,9 +313,11 @@ const deleteInstance = instance => async dispatch => {
 				isActive: true
 			};
 
-		}
+			dispatch(receiveRedirect({ path: `/${MODEL_TO_ROUTE_MAP[model]}`, notification, isActive: true }));
 
-		dispatch(activateNotification(notification));
+			dispatch(receiveEditFormData({ instance: fetchedInstance }));
+
+		}
 
 	} catch ({ message }) {
 
