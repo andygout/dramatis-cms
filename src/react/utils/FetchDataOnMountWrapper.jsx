@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
@@ -7,34 +7,49 @@ import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 import { ErrorMessage, Footer, Header, Navigation, Notification } from '../components';
 import ScrollToTop from './ScrollToTop';
-import { cancelRedirectPath } from '../../redux/actions/redirect-path';
-
-const isClientSide = typeof window !== 'undefined';
-const useIsomorphicEffect = isClientSide ? useLayoutEffect : useEffect;
+import { activateNotification } from '../../redux/actions/notification';
+import { cancelRedirect } from '../../redux/actions/redirect';
 
 const FetchDataOnMountWrapper = props => {
 
-	const { path, documentTitle, error, notification, redirectPath, children } = props;
+	const { path, documentTitle, error, notification, redirect, children } = props;
 
 	const location = useLocation();
 	const match = useMatch(path);
 	const navigate = useNavigate();
 
-	useIsomorphicEffect(() => {
+	useEffect(() => {
 
 		const { fetchData, dispatch } = props;
 
 		if (fetchData) fetchData.map(fetchDataFunction => fetchDataFunction(dispatch, match));
 
-		if (location.state?.isRedirectPathPresent) dispatch(cancelRedirectPath());
+		if (location.state?.isRedirectActive) {
+
+			dispatch(cancelRedirect());
+
+			dispatch(activateNotification(location.state?.notification));
+
+		}
 
 	}, []);
 
 	useEffect(() => {
 
-		if (redirectPath) navigate(redirectPath, { state: { isRedirectPathPresent: true } });
+		if (redirect.get('isActive')) {
 
-	}, [redirectPath]);
+			const redirectOptions = {
+				state: {
+					isRedirectActive: true,
+					notification: redirect.get('notification')
+				}
+			};
+
+			navigate(redirect.get('path'), redirectOptions);
+
+		}
+
+	}, [redirect]);
 
 	return (
 		<React.Fragment>
@@ -88,14 +103,14 @@ FetchDataOnMountWrapper.propTypes = {
 	dispatch: PropTypes.func.isRequired,
 	error: ImmutablePropTypes.map.isRequired,
 	notification: ImmutablePropTypes.map.isRequired,
-	redirectPath: PropTypes.string,
+	redirect: ImmutablePropTypes.map.isRequired,
 	children: PropTypes.node.isRequired
 };
 
 const mapStateToProps = state => ({
 	error: state.get('error'),
 	notification: state.get('notification'),
-	redirectPath: state.get('redirectPath')
+	redirect: state.get('redirect')
 });
 
 export default connect(mapStateToProps)(FetchDataOnMountWrapper);
