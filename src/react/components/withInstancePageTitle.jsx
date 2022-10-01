@@ -3,40 +3,46 @@ import React from 'react';
 
 import { ACTIONS } from '../../utils/constants';
 
-const withInstancePageTitle = PageTitle => props => {
+const withInstancePageTitle = PageTitle => {
 
-	const { name, modelDisplayName, differentiatorSuffix, formAction } = props;
+	const _InstancePageTitle = props => {
 
-	const pageTitle = (action => {
+		const { name, modelDisplayName, differentiatorSuffix, formAction } = props;
 
-		switch (action) {
+		const pageTitle = (action => {
 
-			case ACTIONS.CREATE:
-				return `New ${modelDisplayName}`;
+			switch (action) {
 
-			case ACTIONS.UPDATE:
-				return `${name}${differentiatorSuffix}`;
+				case ACTIONS.CREATE:
+					return `New ${modelDisplayName}`;
 
-			default:
-				return '';
+				case ACTIONS.UPDATE:
+					return `${name}${differentiatorSuffix}`;
 
-		}
+				default:
+					return '';
 
-	})(formAction);
+			}
 
-	const isNewInstance = formAction === ACTIONS.CREATE;
+		})(formAction);
 
-	return (
-		<PageTitle text={pageTitle} isNewInstance={isNewInstance} />
-	);
+		const isNewInstance = formAction === ACTIONS.CREATE;
 
-};
+		return (
+			<PageTitle text={pageTitle} isNewInstance={isNewInstance} />
+		);
 
-withInstancePageTitle.propTypes = {
-	name: PropTypes.string.isRequired,
-	modelDisplayName: PropTypes.string.isRequired,
-	differentiatorSuffix: PropTypes.string,
-	formAction: PropTypes.string.isRequired
+	};
+
+	_InstancePageTitle.propTypes = {
+		name: PropTypes.string,
+		modelDisplayName: PropTypes.string,
+		differentiatorSuffix: PropTypes.string,
+		formAction: PropTypes.string
+	};
+
+	return _InstancePageTitle;
+
 };
 
 export default withInstancePageTitle;
