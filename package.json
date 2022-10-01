@@ -58,7 +58,7 @@
     "css-loader": "^0.28.0",
     "eslint": "^7.5.0",
     "eslint-plugin-no-only-tests": "^2.4.0",
-    "eslint-plugin-react": "7.20.5",
+    "eslint-plugin-react": "7.31.8",
     "favicons-webpack-plugin": "^5.0.2",
     "lintspaces-cli": "^0.6.0",
     "mini-css-extract-plugin": "^2.2.2",
