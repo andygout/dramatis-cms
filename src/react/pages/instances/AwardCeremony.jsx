@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { AwardCeremonyForm } from '../../components/instance-forms';
@@ -12,12 +12,12 @@ const AwardCeremony = props => {
 	return (
 		<InstanceWrapper
 			instance={awardCeremony}
-			formAction={awardCeremonyFormData.get('action')}
+			formAction={awardCeremonyFormData.action}
 		>
 
 			<AwardCeremonyForm
-				instance={awardCeremonyFormData.get('instance', new Map())}
-				action={awardCeremonyFormData.get('action', 'Submit')}
+				instance={awardCeremonyFormData.instance || {}}
+				action={awardCeremonyFormData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -26,13 +26,13 @@ const AwardCeremony = props => {
 };
 
 AwardCeremony.propTypes = {
-	awardCeremony: ImmutablePropTypes.map.isRequired,
-	awardCeremonyFormData: ImmutablePropTypes.map.isRequired
+	awardCeremony: PropTypes.object.isRequired,
+	awardCeremonyFormData: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	awardCeremony: state.get('awardCeremony'),
-	awardCeremonyFormData: state.get('awardCeremonyFormData')
+	awardCeremony: state.awardCeremony,
+	awardCeremonyFormData: state.awardCeremonyFormData
 });
 
 export default connect(mapStateToProps)(AwardCeremony);

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
 import {
@@ -18,11 +17,11 @@ const InstanceWrapper = props => {
 
 	const InstancePageTitle = withInstancePageTitle(PageTitle);
 
-	const name = instance.get('name');
+	const name = instance.name;
 
-	const modelDisplayName = MODEL_TO_DISPLAY_NAME_MAP[instance.get('model')];
+	const modelDisplayName = MODEL_TO_DISPLAY_NAME_MAP[instance.model];
 
-	const differentiatorSuffix = getDifferentiatorSuffix(instance.get('differentiator'));
+	const differentiatorSuffix = getDifferentiatorSuffix(instance.differentiator);
 
 	return (
 		<React.Fragment>
@@ -38,7 +37,7 @@ const InstanceWrapper = props => {
 				)
 			}
 
-			<InstanceLabel model={instance.get('model', '')} />
+			<InstanceLabel model={instance.model || ''} />
 
 			<InstancePageTitle
 				name={name}
@@ -57,7 +56,7 @@ const InstanceWrapper = props => {
 };
 
 InstanceWrapper.propTypes = {
-	instance: ImmutablePropTypes.map.isRequired,
+	instance: PropTypes.object.isRequired,
 	formAction: PropTypes.string,
 	children: PropTypes.node.isRequired
 };

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const FormattedJson = props => {
 
@@ -14,8 +13,8 @@ const FormattedJson = props => {
 
 FormattedJson.propTypes = {
 	data: PropTypes.oneOfType([
-		ImmutablePropTypes.list.isRequired,
-		ImmutablePropTypes.map.isRequired
+		PropTypes.array.isRequired,
+		PropTypes.object.isRequired
 	])
 };
 

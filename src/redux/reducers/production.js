@@ -1,5 +1,3 @@
-import { Map, OrderedMap } from 'immutable';
-
 import {
 	REQUEST_PRODUCTION,
 	RECEIVE_PRODUCTION,
@@ -11,7 +9,7 @@ import {
 	RECEIVE_PRODUCTION_DELETE
 } from '../utils/model-action-names';
 
-const production = (state = Map(), action) => {
+const production = (state = {}, action) => {
 
 	switch (action.type) {
 
@@ -19,7 +17,7 @@ const production = (state = Map(), action) => {
 		case RECEIVE_PRODUCTION_CREATE:
 		case RECEIVE_PRODUCTION_UPDATE:
 		case RECEIVE_PRODUCTION_DELETE:
-			return OrderedMap(action.payload);
+			return action.payload;
 
 		case REQUEST_PRODUCTION:
 		case REQUEST_PRODUCTION_CREATE:

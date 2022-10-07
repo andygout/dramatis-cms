@@ -1,5 +1,3 @@
-import { Map, OrderedMap } from 'immutable';
-
 import {
 	REQUEST_MATERIAL,
 	RECEIVE_MATERIAL,
@@ -11,7 +9,7 @@ import {
 	RECEIVE_MATERIAL_DELETE
 } from '../utils/model-action-names';
 
-const material = (state = Map(), action) => {
+const material = (state = {}, action) => {
 
 	switch (action.type) {
 
@@ -19,7 +17,7 @@ const material = (state = Map(), action) => {
 		case RECEIVE_MATERIAL_CREATE:
 		case RECEIVE_MATERIAL_UPDATE:
 		case RECEIVE_MATERIAL_DELETE:
-			return OrderedMap(action.payload);
+			return action.payload;
 
 		case REQUEST_MATERIAL:
 		case REQUEST_MATERIAL_CREATE:

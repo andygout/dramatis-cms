@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { CompanyForm } from '../../components/instance-forms';
@@ -12,12 +12,12 @@ const Company = props => {
 	return (
 		<InstanceWrapper
 			instance={company}
-			formAction={companyFormData.get('action')}
+			formAction={companyFormData.action}
 		>
 
 			<CompanyForm
-				instance={companyFormData.get('instance', new Map())}
-				action={companyFormData.get('action', 'Submit')}
+				instance={companyFormData.instance || {}}
+				action={companyFormData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -26,13 +26,13 @@ const Company = props => {
 };
 
 Company.propTypes = {
-	company: ImmutablePropTypes.map.isRequired,
-	companyFormData: ImmutablePropTypes.map.isRequired
+	company: PropTypes.object.isRequired,
+	companyFormData: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	company: state.get('company'),
-	companyFormData: state.get('companyFormData')
+	company: state.company,
+	companyFormData: state.companyFormData
 });
 
 export default connect(mapStateToProps)(Company);

@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { VenueForm } from '../../components/instance-forms';
@@ -12,12 +12,12 @@ const Venue = props => {
 	return (
 		<InstanceWrapper
 			instance={venue}
-			formAction={venueFormData.get('action')}
+			formAction={venueFormData.action}
 		>
 
 			<VenueForm
-				instance={venueFormData.get('instance', new Map())}
-				action={venueFormData.get('action', 'Submit')}
+				instance={venueFormData.instance || {}}
+				action={venueFormData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -26,13 +26,13 @@ const Venue = props => {
 };
 
 Venue.propTypes = {
-	venue: ImmutablePropTypes.map.isRequired,
-	venueFormData: ImmutablePropTypes.map.isRequired
+	venue: PropTypes.object.isRequired,
+	venueFormData: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	venue: state.get('venue'),
-	venueFormData: state.get('venueFormData')
+	venue: state.venue,
+	venueFormData: state.venueFormData
 });
 
 export default connect(mapStateToProps)(Venue);

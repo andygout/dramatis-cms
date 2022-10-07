@@ -1,17 +1,15 @@
-import { Map, fromJS } from 'immutable';
-
 import {
 	ACTIVATE_NOTIFICATION,
 	DEACTIVATE_NOTIFICATION
 } from '../utils/notification-action-names';
 
-const notification = (state = Map({ isActive: false }), action) => {
+const notification = (state = { isActive: false }, action) => {
 
 	switch (action.type) {
 
 		case ACTIVATE_NOTIFICATION:
 		case DEACTIVATE_NOTIFICATION:
-			return fromJS(action.payload);
+			return action.payload;
 
 		default:
 			return state;

@@ -1,5 +1,3 @@
-import { Map, OrderedMap } from 'immutable';
-
 import {
 	REQUEST_PERSON,
 	RECEIVE_PERSON,
@@ -11,7 +9,7 @@ import {
 	RECEIVE_PERSON_DELETE
 } from '../utils/model-action-names';
 
-const person = (state = Map(), action) => {
+const person = (state = {}, action) => {
 
 	switch (action.type) {
 
@@ -19,7 +17,7 @@ const person = (state = Map(), action) => {
 		case RECEIVE_PERSON_CREATE:
 		case RECEIVE_PERSON_UPDATE:
 		case RECEIVE_PERSON_DELETE:
-			return OrderedMap(action.payload);
+			return action.payload;
 
 		case REQUEST_PERSON:
 		case REQUEST_PERSON_CREATE:

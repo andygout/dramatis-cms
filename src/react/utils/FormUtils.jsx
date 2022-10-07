@@ -1,7 +1,6 @@
-import { List, Map, getIn, remove, removeIn, set, setIn, updateIn } from 'immutable';
-
-import createBlankMap from '../../lib/create-blank-map';
-import mapHasNonEmptyString from '../../lib/map-has-non-empty-string';
+import createBlankObject from '../../lib/create-blank-object';
+import objectHasNonEmptyString from '../../lib/object-has-non-empty-string';
+import { getIn, removeIn, setIn, pushIn } from '../../lib/object-interactions';
 import { ACTIONS, MODELS } from '../../utils/constants';
 
 const applyRevisionToStateValue = (stateValue, statePath, revision) => {
@@ -14,29 +13,29 @@ const applyRevisionToStateValue = (stateValue, statePath, revision) => {
 
 };
 
-const appendBlankListItemToStateValue = (stateValue, statePath, opts = {}) => {
+const appendBlankArrayItemToStateValue = (stateValue, statePath, opts = {}) => {
 
 	const indexOfLastNumberInStatePath =
 		statePath
 			.map(pathItem => typeof pathItem === 'number')
 			.lastIndexOf(true);
 
-	const statePathToInnermostList = statePath.slice(0, indexOfLastNumberInStatePath);
+	const statePathToInnermostArray = statePath.slice(0, indexOfLastNumberInStatePath);
 
-	const innermostList = getIn(stateValue, statePathToInnermostList);
+	const innermostArray = getIn(stateValue, statePathToInnermostArray);
 
-	// If changed input was in a List.
-	if (List.isList(innermostList)) {
+	// If changed input was in an array.
+	if (Array.isArray(innermostArray)) {
 
-		const lastListItem = innermostList.get(-1);
+		const lastArrayItem = innermostArray.at(-1);
 
-		const blankListItemAppendageRequired = opts.isGuaranteedAppendage || mapHasNonEmptyString(lastListItem);
+		const blankArrayItemAppendageRequired = opts.isGuaranteedAppendage || objectHasNonEmptyString(lastArrayItem);
 
-		if (blankListItemAppendageRequired) {
+		if (blankArrayItemAppendageRequired) {
 
-			const blankListItem = createBlankMap(lastListItem);
+			const blankArrayItem = createBlankObject(lastArrayItem);
 
-			stateValue = updateIn(stateValue, statePathToInnermostList, list => list.push(blankListItem));
+			stateValue = pushIn(stateValue, statePathToInnermostArray, blankArrayItem);
 
 		}
 
@@ -50,15 +49,15 @@ const handleChange = (stateValue, setStateValue, statePath, event) => {
 
 	const revisedStateValue = applyRevisionToStateValue(stateValue, statePath, event.target);
 
-	const revisedStateValueWithAppendedBlankListItem = appendBlankListItemToStateValue(revisedStateValue, statePath);
+	const revisedStateValueWithAppendedBlankArrayItem = appendBlankArrayItemToStateValue(revisedStateValue, statePath);
 
-	setStateValue(revisedStateValueWithAppendedBlankListItem);
+	setStateValue(revisedStateValueWithAppendedBlankArrayItem);
 
 };
 
-const checkIsLastListItem = (index, listSize) => {
+const checkIsLastArrayItem = (index, arrayLength) => {
 
-	return ((index + 1) === listSize);
+	return ((index + 1) === arrayLength);
 
 };
 
@@ -66,10 +65,10 @@ const handleCreationClick = (stateValue, setStateValue, statePath, event) => {
 
 	event.preventDefault();
 
-	const stateValueWithAppendedBlankListItem =
-		appendBlankListItemToStateValue(stateValue, statePath, { isGuaranteedAppendage: true });
+	const stateValueWithAppendedBlankArrayItem =
+		appendBlankArrayItemToStateValue(stateValue, statePath, { isGuaranteedAppendage: true });
 
-	setStateValue(stateValueWithAppendedBlankListItem);
+	setStateValue(stateValueWithAppendedBlankArrayItem);
 
 };
 
@@ -83,9 +82,9 @@ const handleRemovalClick = (stateValue, setStateValue, statePath, event) => {
 
 const handleChangeToPerson = (stateValue, setStateValue, statePath, entity, event) => {
 
-	let revisedEntity = entity;
-	revisedEntity = set(revisedEntity, 'model', event.target.value);
-	revisedEntity = remove(revisedEntity, 'members');
+	const revisedEntity = structuredClone(entity);
+	revisedEntity.model = event.target.value;
+	delete revisedEntity.members;
 
 	const revision = { value: revisedEntity, type: 'map' };
 
@@ -95,12 +94,12 @@ const handleChangeToPerson = (stateValue, setStateValue, statePath, entity, even
 
 const handleChangeToCompany = (stateValue, setStateValue, statePath, entity, event) => {
 
-	const member = Map({ model: MODELS.PERSON, name: '', differentiator: '', errors: Map({}) });
-	const members = List([member]);
+	const member = { model: MODELS.PERSON, name: '', differentiator: '', errors: {} };
+	const members = [member];
 
-	let revisedEntity = entity;
-	revisedEntity = set(revisedEntity, 'model', event.target.value);
-	revisedEntity = set(revisedEntity, 'members', members);
+	const revisedEntity = structuredClone(entity);
+	revisedEntity.model = event.target.value;
+	revisedEntity.members = members;
 
 	const revision = { value: revisedEntity, type: 'map' };
 
@@ -133,7 +132,7 @@ const handleDelete = (event, instance, deleteInstance) => {
 };
 
 export {
-	checkIsLastListItem,
+	checkIsLastArrayItem,
 	handleChange,
 	handleCreationClick,
 	handleRemovalClick,

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
+import { getIn } from '../../../lib/object-interactions';
 import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
 import {
 	handleChange,
-	checkIsLastListItem,
+	checkIsLastArrayItem,
 	handleCreationClick,
 	handleRemovalClick,
 	handleChangeToPerson,
@@ -17,23 +18,23 @@ const AwardCeremonyForm = props => {
 
 	const { instance, action } = props;
 
-	const [name, setName] = useState(instance.get('name'));
-	const [differentiator, setDifferentiator] = useState(instance.get('differentiator'));
-	const [award, setAward] = useState(instance.get('award'));
-	const [categories, setCategories] = useState(instance.get('categories'));
-	const [errors, setErrors] = useState(instance.get('errors'));
+	const [name, setName] = useState(instance.name);
+	const [differentiator, setDifferentiator] = useState(instance.differentiator);
+	const [award, setAward] = useState(instance.award);
+	const [categories, setCategories] = useState(instance.categories);
+	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
-		setName(instance.get('name'));
-		setDifferentiator(instance.get('differentiator'));
-		setAward(instance.get('award'));
-		setCategories(instance.get('categories'));
-		setErrors(instance.get('errors'));
+		setName(instance.name);
+		setDifferentiator(instance.differentiator);
+		setAward(instance.award);
+		setCategories(instance.categories);
+		setErrors(instance.errors);
 	}, [instance]);
 
 	const actionableInstance = {
-		model: instance.get('model'),
-		uuid: instance.get('uuid'),
+		model: instance.model,
+		uuid: instance.uuid,
 		name,
 		differentiator,
 		award,
@@ -50,7 +51,7 @@ const AwardCeremonyForm = props => {
 
 						const statePath = membersStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, members.size);
+						const isLastListItem = checkIsLastArrayItem(index, members.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -67,8 +68,8 @@ const AwardCeremonyForm = props => {
 								<FieldsetComponent label={'Person name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={member.get('name')}
-										errors={member.getIn(['errors', 'name'])}
+										value={member.name}
+										errors={getIn(member, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -84,8 +85,8 @@ const AwardCeremonyForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={member.get('differentiator')}
-										errors={member.getIn(['errors', 'differentiator'])}
+										value={member.differentiator}
+										errors={getIn(member, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -119,7 +120,7 @@ const AwardCeremonyForm = props => {
 
 						const statePath = materialsStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, materials.size);
+						const isLastListItem = checkIsLastArrayItem(index, materials.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -136,8 +137,8 @@ const AwardCeremonyForm = props => {
 								<FieldsetComponent label={'Material name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={material.get('name')}
-										errors={material.getIn(['errors', 'name'])}
+										value={material.name}
+										errors={getIn(material, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -153,8 +154,8 @@ const AwardCeremonyForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={material.get('differentiator')}
-										errors={material.getIn(['errors', 'differentiator'])}
+										value={material.differentiator}
+										errors={getIn(material, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -188,7 +189,7 @@ const AwardCeremonyForm = props => {
 
 						const statePath = productionsStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, productions.size);
+						const isLastListItem = checkIsLastArrayItem(index, productions.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -205,8 +206,8 @@ const AwardCeremonyForm = props => {
 								<FieldsetComponent label={'Production UUID'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={production.get('uuid')}
-										errors={production.getIn(['errors', 'uuid'])}
+										value={production.uuid}
+										errors={getIn(production, ['errors', 'uuid'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -240,7 +241,7 @@ const AwardCeremonyForm = props => {
 
 						const statePath = entitiesStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, entities.size);
+						const isLastListItem = checkIsLastArrayItem(index, entities.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -254,11 +255,11 @@ const AwardCeremonyForm = props => {
 									}
 								/>
 
-								<FieldsetComponent label={`${capitalise(entity.get('model'))} name`} isArrayItem={true}>
+								<FieldsetComponent label={`${capitalise(entity.model)} name`} isArrayItem={true}>
 
 									<InputAndErrors
-										value={entity.get('name')}
-										errors={entity.getIn(['errors', 'name'])}
+										value={entity.name}
+										errors={getIn(entity, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -274,8 +275,8 @@ const AwardCeremonyForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={entity.get('differentiator')}
-										errors={entity.getIn(['errors', 'differentiator'])}
+										value={entity.differentiator}
+										errors={getIn(entity, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -293,7 +294,7 @@ const AwardCeremonyForm = props => {
 									<input
 										type={'radio'}
 										value={MODELS.PERSON}
-										checked={entity.get('model') === MODELS.PERSON}
+										checked={entity.model === MODELS.PERSON}
 										onChange={event =>
 											handleChangeToPerson(
 												categories,
@@ -309,7 +310,7 @@ const AwardCeremonyForm = props => {
 									<input
 										type={'radio'}
 										value={MODELS.COMPANY}
-										checked={entity.get('model') === MODELS.COMPANY}
+										checked={entity.model === MODELS.COMPANY}
 										onChange={event =>
 											handleChangeToCompany(
 												categories,
@@ -325,8 +326,8 @@ const AwardCeremonyForm = props => {
 								</FieldsetComponent>
 
 								{
-									entity.get('model') === MODELS.COMPANY &&
-									renderMembers(entity.get('members', []), statePath.concat(['members']))
+									entity.model === MODELS.COMPANY &&
+									renderMembers(entity.members || [], statePath.concat(['members']))
 								}
 
 							</div>
@@ -350,7 +351,7 @@ const AwardCeremonyForm = props => {
 
 						const statePath = nominationsStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, nominations.size);
+						const isLastListItem = checkIsLastArrayItem(index, nominations.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -359,7 +360,7 @@ const AwardCeremonyForm = props => {
 
 									<input
 										type="checkbox"
-										checked={nomination.get('isWinner')}
+										checked={nomination.isWinner}
 										onChange={event =>
 											handleChange(
 												categories,
@@ -375,8 +376,8 @@ const AwardCeremonyForm = props => {
 								<FieldsetComponent label={'Custom type'}>
 
 									<InputAndErrors
-										value={nomination.get('customType')}
-										errors={nomination.getIn(['errors', 'customType'])}
+										value={nomination.customType}
+										errors={getIn(nomination, ['errors', 'customType'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -398,11 +399,11 @@ const AwardCeremonyForm = props => {
 									}
 								/>
 
-								{ renderEntities(nomination.get('entities'), statePath.concat('entities')) }
+								{ renderEntities(nomination.entities, statePath.concat('entities')) }
 
-								{ renderProductions(nomination.get('productions'), statePath.concat('productions')) }
+								{ renderProductions(nomination.productions, statePath.concat('productions')) }
 
-								{ renderMaterials(nomination.get('materials'), statePath.concat('materials')) }
+								{ renderMaterials(nomination.materials, statePath.concat('materials')) }
 
 							</div>
 						);
@@ -425,7 +426,7 @@ const AwardCeremonyForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, categories.size);
+						const isLastListItem = checkIsLastArrayItem(index, categories.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -442,8 +443,8 @@ const AwardCeremonyForm = props => {
 								<FieldsetComponent label={'Category name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={category.get('name')}
-										errors={category.getIn(['errors', 'name'])}
+										value={category.name}
+										errors={getIn(category, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -456,7 +457,7 @@ const AwardCeremonyForm = props => {
 
 								</FieldsetComponent>
 
-								{ renderNominations(category.get('nominations'), statePath.concat(['nominations'])) }
+								{ renderNominations(category.nominations, statePath.concat(['nominations'])) }
 
 							</div>
 						);
@@ -479,7 +480,7 @@ const AwardCeremonyForm = props => {
 
 				<InputAndErrors
 					value={name}
-					errors={errors?.get('name')}
+					errors={errors?.name}
 					handleChange={event => handleChange(name, setName, [], event)}
 				/>
 
@@ -490,8 +491,8 @@ const AwardCeremonyForm = props => {
 				<FieldsetComponent label={'Name'}>
 
 					<InputAndErrors
-						value={award?.get('name')}
-						errors={award?.getIn(['errors', 'name'])}
+						value={award?.name}
+						errors={award && getIn(award, ['errors', 'name'])}
 						handleChange={event => handleChange(award, setAward, ['name'], event)}
 					/>
 
@@ -500,8 +501,8 @@ const AwardCeremonyForm = props => {
 				<FieldsetComponent label={'Differentiator'}>
 
 					<InputAndErrors
-						value={award?.get('differentiator')}
-						errors={award?.getIn(['errors', 'differentiator'])}
+						value={award?.differentiator}
+						errors={award && getIn(award, ['errors', 'differentiator'])}
 						handleChange={event => handleChange(award, setAward, ['differentiator'], event)}
 					/>
 

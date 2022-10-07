@@ -1,28 +1,29 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
+import { getIn } from '../../../lib/object-interactions';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
-import { handleChange, checkIsLastListItem, handleCreationClick, handleRemovalClick } from '../../utils/FormUtils';
+import { handleChange, checkIsLastArrayItem, handleCreationClick, handleRemovalClick } from '../../utils/FormUtils';
 
 const VenueForm = props => {
 
 	const { instance, action } = props;
 
-	const [name, setName] = useState(instance.get('name'));
-	const [differentiator, setDifferentiator] = useState(instance.get('differentiator'));
-	const [subVenues, setSubVenues] = useState(instance.get('subVenues'));
-	const [errors, setErrors] = useState(instance.get('errors'));
+	const [name, setName] = useState(instance.name);
+	const [differentiator, setDifferentiator] = useState(instance.differentiator);
+	const [subVenues, setSubVenues] = useState(instance.subVenues);
+	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
-		setName(instance.get('name'));
-		setDifferentiator(instance.get('differentiator'));
-		setSubVenues(instance.get('subVenues'));
-		setErrors(instance.get('errors'));
+		setName(instance.name);
+		setDifferentiator(instance.differentiator);
+		setSubVenues(instance.subVenues);
+		setErrors(instance.errors);
 	}, [instance]);
 
 	const actionableInstance = {
-		model: instance.get('model'),
-		uuid: instance.get('uuid'),
+		model: instance.model,
+		uuid: instance.uuid,
 		name,
 		differentiator,
 		subVenues
@@ -38,7 +39,7 @@ const VenueForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, subVenues.size);
+						const isLastListItem = checkIsLastArrayItem(index, subVenues.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -55,8 +56,8 @@ const VenueForm = props => {
 								<FieldsetComponent label={'Venue name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={subVenue.get('name')}
-										errors={subVenue.getIn(['errors', 'name'])}
+										value={subVenue.name}
+										errors={getIn(subVenue, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												subVenues,
@@ -72,8 +73,8 @@ const VenueForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={subVenue.get('differentiator')}
-										errors={subVenue.getIn(['errors', 'differentiator'])}
+										value={subVenue.differentiator}
+										errors={getIn(subVenue, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												subVenues,
@@ -107,7 +108,7 @@ const VenueForm = props => {
 
 				<InputAndErrors
 					value={name}
-					errors={errors?.get('name')}
+					errors={errors?.name}
 					handleChange={event => handleChange(name, setName, [], event)}
 				/>
 
@@ -117,7 +118,7 @@ const VenueForm = props => {
 
 				<InputAndErrors
 					value={differentiator}
-					errors={errors?.get('differentiator')}
+					errors={errors?.differentiator}
 					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
 
