@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
+import { getIn } from '../../../lib/object-interactions';
 import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
 import {
 	handleChange,
-	checkIsLastListItem,
+	checkIsLastArrayItem,
 	handleCreationClick,
 	handleRemovalClick,
 	handleChangeToPerson,
@@ -17,35 +18,35 @@ const ProductionForm = props => {
 
 	const { instance, action } = props;
 
-	const [name, setName] = useState(instance.get('name'));
-	const [startDate, setStartDate] = useState(instance.get('startDate'));
-	const [pressDate, setPressDate] = useState(instance.get('pressDate'));
-	const [endDate, setEndDate] = useState(instance.get('endDate'));
-	const [material, setMaterial] = useState(instance.get('material'));
-	const [venue, setVenue] = useState(instance.get('venue'));
-	const [producerCredits, setProducerCredits] = useState(instance.get('producerCredits'));
-	const [cast, setCast] = useState(instance.get('cast'));
-	const [creativeCredits, setCreativeCredits] = useState(instance.get('creativeCredits'));
-	const [crewCredits, setCrewCredits] = useState(instance.get('crewCredits'));
-	const [errors, setErrors] = useState(instance.get('errors'));
+	const [name, setName] = useState(instance.name);
+	const [startDate, setStartDate] = useState(instance.startDate);
+	const [pressDate, setPressDate] = useState(instance.pressDate);
+	const [endDate, setEndDate] = useState(instance.endDate);
+	const [material, setMaterial] = useState(instance.material);
+	const [venue, setVenue] = useState(instance.venue);
+	const [producerCredits, setProducerCredits] = useState(instance.producerCredits);
+	const [cast, setCast] = useState(instance.cast);
+	const [creativeCredits, setCreativeCredits] = useState(instance.creativeCredits);
+	const [crewCredits, setCrewCredits] = useState(instance.crewCredits);
+	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
-		setName(instance.get('name'));
-		setStartDate(instance.get('startDate'));
-		setPressDate(instance.get('pressDate'));
-		setEndDate(instance.get('endDate'));
-		setMaterial(instance.get('material'));
-		setVenue(instance.get('venue'));
-		setProducerCredits(instance.get('producerCredits'));
-		setCast(instance.get('cast'));
-		setCreativeCredits(instance.get('creativeCredits'));
-		setCrewCredits(instance.get('crewCredits'));
-		setErrors(instance.get('errors'));
+		setName(instance.name);
+		setStartDate(instance.startDate);
+		setPressDate(instance.pressDate);
+		setEndDate(instance.endDate);
+		setMaterial(instance.material);
+		setVenue(instance.venue);
+		setProducerCredits(instance.producerCredits);
+		setCast(instance.cast);
+		setCreativeCredits(instance.creativeCredits);
+		setCrewCredits(instance.crewCredits);
+		setErrors(instance.errors);
 	}, [instance]);
 
 	const actionableInstance = {
-		model: instance.get('model'),
-		uuid: instance.get('uuid'),
+		model: instance.model,
+		uuid: instance.uuid,
 		name,
 		startDate,
 		pressDate,
@@ -68,7 +69,7 @@ const ProductionForm = props => {
 
 						const statePath = membersStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, members.size);
+						const isLastListItem = checkIsLastArrayItem(index, members.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -85,8 +86,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Person name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={member.get('name')}
-										errors={member.getIn(['errors', 'name'])}
+										value={member.name}
+										errors={getIn(member, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												stateValue,
@@ -102,8 +103,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={member.get('differentiator')}
-										errors={member.getIn(['errors', 'differentiator'])}
+										value={member.differentiator}
+										errors={getIn(member, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												stateValue,
@@ -137,7 +138,7 @@ const ProductionForm = props => {
 
 						const statePath = entitiesStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, entities.size);
+						const isLastListItem = checkIsLastArrayItem(index, entities.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -151,11 +152,11 @@ const ProductionForm = props => {
 									}
 								/>
 
-								<FieldsetComponent label={`${capitalise(entity.get('model'))} name`} isArrayItem={true}>
+								<FieldsetComponent label={`${capitalise(entity.model)} name`} isArrayItem={true}>
 
 									<InputAndErrors
-										value={entity.get('name')}
-										errors={entity.getIn(['errors', 'name'])}
+										value={entity.name}
+										errors={getIn(entity, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												stateValue,
@@ -171,8 +172,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={entity.get('differentiator')}
-										errors={entity.getIn(['errors', 'differentiator'])}
+										value={entity.differentiator}
+										errors={getIn(entity, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												stateValue,
@@ -190,7 +191,7 @@ const ProductionForm = props => {
 									<input
 										type={'radio'}
 										value={MODELS.PERSON}
-										checked={entity.get('model') === MODELS.PERSON}
+										checked={entity.model === MODELS.PERSON}
 										onChange={event =>
 											handleChangeToPerson(
 												stateValue,
@@ -206,7 +207,7 @@ const ProductionForm = props => {
 									<input
 										type={'radio'}
 										value={MODELS.COMPANY}
-										checked={entity.get('model') === MODELS.COMPANY}
+										checked={entity.model === MODELS.COMPANY}
 										onChange={event =>
 											handleChangeToCompany(
 												stateValue,
@@ -222,11 +223,11 @@ const ProductionForm = props => {
 								</FieldsetComponent>
 
 								{
-									entity.get('model') === MODELS.COMPANY &&
+									entity.model === MODELS.COMPANY &&
 									renderMembers(
 										stateValue,
 										setStateValue,
-										entity.get('members', []),
+										entity.members || [],
 										statePath.concat(['members'])
 									)
 								}
@@ -252,7 +253,7 @@ const ProductionForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, producerCredits.size);
+						const isLastListItem = checkIsLastArrayItem(index, producerCredits.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -269,8 +270,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={producerCredit.get('name')}
-										errors={producerCredit.getIn(['errors', 'name'])}
+										value={producerCredit.name}
+										errors={getIn(producerCredit, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												producerCredits,
@@ -287,7 +288,7 @@ const ProductionForm = props => {
 									renderEntities(
 										producerCredits,
 										setProducerCredits,
-										producerCredit.get('entities'),
+										producerCredit.entities,
 										statePath.concat(['entities']),
 										'Producer'
 									)
@@ -314,7 +315,7 @@ const ProductionForm = props => {
 
 						const statePath = rolesStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, roles.size);
+						const isLastListItem = checkIsLastArrayItem(index, roles.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -331,8 +332,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Role name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={role.get('name')}
-										errors={role.getIn(['errors', 'name'])}
+										value={role.name}
+										errors={getIn(role, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -348,8 +349,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Character name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={role.get('characterName')}
-										errors={role.getIn(['errors', 'characterName'])}
+										value={role.characterName}
+										errors={getIn(role, ['errors', 'characterName'])}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -365,8 +366,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Character differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={role.get('characterDifferentiator')}
-										errors={role.getIn(['errors', 'characterDifferentiator'])}
+										value={role.characterDifferentiator}
+										errors={getIn(role, ['errors', 'characterDifferentiator'])}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -382,8 +383,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Qualifier'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={role.get('qualifier')}
-										errors={role.getIn(['errors', 'qualifier'])}
+										value={role.qualifier}
+										errors={getIn(role, ['errors', 'qualifier'])}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -400,7 +401,7 @@ const ProductionForm = props => {
 
 									<input
 										type="checkbox"
-										checked={role.get('isAlternate')}
+										checked={role.isAlternate}
 										onChange={event =>
 											handleChange(
 												cast,
@@ -434,7 +435,7 @@ const ProductionForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, cast.size);
+						const isLastListItem = checkIsLastArrayItem(index, cast.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -451,8 +452,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Person name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={castMember.get('name')}
-										errors={castMember.getIn(['errors', 'name'])}
+										value={castMember.name}
+										errors={getIn(castMember, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -468,8 +469,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={castMember.get('differentiator')}
-										errors={castMember.getIn(['errors', 'differentiator'])}
+										value={castMember.differentiator}
+										errors={getIn(castMember, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -482,7 +483,7 @@ const ProductionForm = props => {
 
 								</FieldsetComponent>
 
-								{ renderCastMemberRoles(castMember.get('roles'), statePath.concat(['roles'])) }
+								{ renderCastMemberRoles(castMember.roles, statePath.concat(['roles'])) }
 
 							</div>
 						);
@@ -505,7 +506,7 @@ const ProductionForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, creativeCredits.size);
+						const isLastListItem = checkIsLastArrayItem(index, creativeCredits.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -522,8 +523,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={creativeCredit.get('name')}
-										errors={creativeCredit.getIn(['errors', 'name'])}
+										value={creativeCredit.name}
+										errors={getIn(creativeCredit, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												creativeCredits,
@@ -540,7 +541,7 @@ const ProductionForm = props => {
 									renderEntities(
 										creativeCredits,
 										setCreativeCredits,
-										creativeCredit.get('entities'),
+										creativeCredit.entities,
 										statePath.concat(['entities']),
 										'Creative'
 									)
@@ -567,7 +568,7 @@ const ProductionForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, crewCredits.size);
+						const isLastListItem = checkIsLastArrayItem(index, crewCredits.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -584,8 +585,8 @@ const ProductionForm = props => {
 								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={crewCredit.get('name')}
-										errors={crewCredit.getIn(['errors', 'name'])}
+										value={crewCredit.name}
+										errors={getIn(crewCredit, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												crewCredits,
@@ -602,7 +603,7 @@ const ProductionForm = props => {
 									renderEntities(
 										crewCredits,
 										setCrewCredits,
-										crewCredit.get('entities'),
+										crewCredit.entities,
 										statePath.concat(['entities']),
 										'Crew'
 									)
@@ -629,7 +630,7 @@ const ProductionForm = props => {
 
 				<InputAndErrors
 					value={name}
-					errors={errors?.get('name')}
+					errors={errors?.name}
 					handleChange={event => handleChange(name, setName, [], event)}
 				/>
 
@@ -642,7 +643,7 @@ const ProductionForm = props => {
 					<InputAndErrors
 						type={'date'}
 						value={startDate}
-						errors={errors?.get('startDate')}
+						errors={errors?.startDate}
 						handleChange={event => handleChange(startDate, setStartDate, [], event)}
 					/>
 
@@ -653,7 +654,7 @@ const ProductionForm = props => {
 					<InputAndErrors
 						type={'date'}
 						value={pressDate}
-						errors={errors?.get('pressDate')}
+						errors={errors?.pressDate}
 						handleChange={event => handleChange(pressDate, setPressDate, [], event)}
 					/>
 
@@ -664,7 +665,7 @@ const ProductionForm = props => {
 					<InputAndErrors
 						type={'date'}
 						value={endDate}
-						errors={errors?.get('endDate')}
+						errors={errors?.endDate}
 						handleChange={event => handleChange(endDate, setEndDate, [], event)}
 					/>
 
@@ -677,8 +678,8 @@ const ProductionForm = props => {
 				<FieldsetComponent label={'Name'}>
 
 					<InputAndErrors
-						value={material?.get('name')}
-						errors={material?.getIn(['errors', 'name'])}
+						value={material?.name}
+						errors={material && getIn(material, ['errors', 'name'])}
 						handleChange={event => handleChange(material, setMaterial, ['name'], event)}
 					/>
 
@@ -687,8 +688,8 @@ const ProductionForm = props => {
 				<FieldsetComponent label={'Differentiator'}>
 
 					<InputAndErrors
-						value={material?.get('differentiator')}
-						errors={material?.getIn(['errors', 'differentiator'])}
+						value={material?.differentiator}
+						errors={material && getIn(material, ['errors', 'differentiator'])}
 						handleChange={event => handleChange(material, setMaterial, ['differentiator'], event)}
 					/>
 
@@ -701,8 +702,8 @@ const ProductionForm = props => {
 				<FieldsetComponent label={'Name'}>
 
 					<InputAndErrors
-						value={venue?.get('name')}
-						errors={venue?.getIn(['errors', 'name'])}
+						value={venue?.name}
+						errors={venue && getIn(venue, ['errors', 'name'])}
 						handleChange={event => handleChange(venue, setVenue, ['name'], event)}
 					/>
 
@@ -711,8 +712,8 @@ const ProductionForm = props => {
 				<FieldsetComponent label={'Differentiator'}>
 
 					<InputAndErrors
-						value={venue?.get('differentiator')}
-						errors={venue?.getIn(['errors', 'differentiator'])}
+						value={venue?.differentiator}
+						errors={venue && getIn(venue, ['errors', 'differentiator'])}
 						handleChange={event => handleChange(venue, setVenue, ['differentiator'], event)}
 					/>
 

@@ -1,35 +1,34 @@
 import { expect } from 'chai';
-import { fromJS } from 'immutable';
 
-import createBlankMap from '../../../src/lib/create-blank-map';
+import createBlankObject from '../../../src/lib/create-blank-object';
 
-describe('Create Blank Map module', () => {
+describe('Create Blank Object module', () => {
 
 	describe('\'errors\' attribute values', () => {
 
-		it('converts populated maps to empty maps for top level \'errors\' values', () => {
+		it('converts populated objects to empty objects for top level \'errors\' values', () => {
 
-			const map = fromJS({
+			const object = {
 				errors: {
 					name: [
 						'Name is too long'
 					]
 				}
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				errors: {}
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
-		it('converts populated maps to empty maps for nested level \'errors\' values', () => {
+		it('converts populated objects to empty objects for nested level \'errors\' values', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: {
 					errors: {
 						name: [
@@ -37,9 +36,9 @@ describe('Create Blank Map module', () => {
 						]
 					}
 				}
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				foo: {
@@ -47,7 +46,7 @@ describe('Create Blank Map module', () => {
 				}
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
@@ -57,29 +56,29 @@ describe('Create Blank Map module', () => {
 
 		it('retains value for top level \'model\' values', () => {
 
-			const map = fromJS({
+			const object = {
 				model: 'PERSON'
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				model: 'PERSON'
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
 		it('retains value for nested level \'model\' values', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: {
 					model: 'PERSON'
 				}
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				foo: {
@@ -87,7 +86,7 @@ describe('Create Blank Map module', () => {
 				}
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
@@ -97,29 +96,29 @@ describe('Create Blank Map module', () => {
 
 		it('converts strings to empty strings for top level attributes', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: 'string'
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				foo: ''
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
 		it('converts strings to empty strings for nested level attributes', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: {
 					bar: 'string'
 				}
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				foo: {
@@ -127,21 +126,21 @@ describe('Create Blank Map module', () => {
 				}
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
 		it('converts strings to empty strings for top level array object attributes', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: [
 					{
 						bar: 'string'
 					}
 				]
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				foo: [
@@ -151,13 +150,13 @@ describe('Create Blank Map module', () => {
 				]
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
 		it('converts strings to empty strings for nested level array object attributes', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: {
 					bar: [
 						{
@@ -165,9 +164,9 @@ describe('Create Blank Map module', () => {
 						}
 					]
 				}
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				foo: {
@@ -179,13 +178,13 @@ describe('Create Blank Map module', () => {
 				}
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
 		it('converts top level arrays to single item arrays with empty string values', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: [
 					{
 						bar: 'string'
@@ -194,9 +193,9 @@ describe('Create Blank Map module', () => {
 						bar: 'string'
 					}
 				]
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				foo: [
@@ -206,13 +205,13 @@ describe('Create Blank Map module', () => {
 				]
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 
 		it('converts nested level arrays to single item arrays with empty string values', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: {
 					bar: [
 						{
@@ -223,9 +222,9 @@ describe('Create Blank Map module', () => {
 						}
 					]
 				}
-			});
+			};
 
-			const result = createBlankMap(map);
+			const result = createBlankObject(object);
 
 			const expectation = {
 				foo: {
@@ -237,7 +236,7 @@ describe('Create Blank Map module', () => {
 				}
 			};
 
-			expect(result.toJS()).to.deep.equal(expectation);
+			expect(result).to.deep.equal(expectation);
 
 		});
 

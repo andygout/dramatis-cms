@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { ProductionForm } from '../../components/instance-forms';
@@ -12,12 +12,12 @@ const Production = props => {
 	return (
 		<InstanceWrapper
 			instance={production}
-			formAction={productionFormData.get('action')}
+			formAction={productionFormData.action}
 		>
 
 			<ProductionForm
-				instance={productionFormData.get('instance', new Map())}
-				action={productionFormData.get('action', 'Submit')}
+				instance={productionFormData.instance || {}}
+				action={productionFormData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -26,13 +26,13 @@ const Production = props => {
 };
 
 Production.propTypes = {
-	production: ImmutablePropTypes.map.isRequired,
-	productionFormData: ImmutablePropTypes.map.isRequired
+	production: PropTypes.object.isRequired,
+	productionFormData: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	production: state.get('production'),
-	productionFormData: state.get('productionFormData')
+	production: state.production,
+	productionFormData: state.productionFormData
 });
 
 export default connect(mapStateToProps)(Production);

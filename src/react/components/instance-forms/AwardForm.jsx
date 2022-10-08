@@ -8,19 +8,19 @@ const AwardForm = props => {
 
 	const { instance, action } = props;
 
-	const [name, setName] = useState(instance.get('name'));
-	const [differentiator, setDifferentiator] = useState(instance.get('differentiator'));
-	const [errors, setErrors] = useState(instance.get('errors'));
+	const [name, setName] = useState(instance.name);
+	const [differentiator, setDifferentiator] = useState(instance.differentiator);
+	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
-		setName(instance.get('name'));
-		setDifferentiator(instance.get('differentiator'));
-		setErrors(instance.get('errors'));
+		setName(instance.name);
+		setDifferentiator(instance.differentiator);
+		setErrors(instance.errors);
 	}, [instance]);
 
 	const actionableInstance = {
-		model: instance.get('model'),
-		uuid: instance.get('uuid'),
+		model: instance.model,
+		uuid: instance.uuid,
 		name,
 		differentiator
 	};
@@ -35,7 +35,7 @@ const AwardForm = props => {
 
 				<InputAndErrors
 					value={name}
-					errors={errors?.get('name')}
+					errors={errors?.name}
 					handleChange={event => handleChange(name, setName, [], event)}
 				/>
 
@@ -45,7 +45,7 @@ const AwardForm = props => {
 
 				<InputAndErrors
 					value={differentiator}
-					errors={errors?.get('differentiator')}
+					errors={errors?.differentiator}
 					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
 

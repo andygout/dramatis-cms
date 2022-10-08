@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { MaterialForm } from '../../components/instance-forms';
@@ -12,12 +12,12 @@ const Material = props => {
 	return (
 		<InstanceWrapper
 			instance={material}
-			formAction={materialFormData.get('action')}
+			formAction={materialFormData.action}
 		>
 
 			<MaterialForm
-				instance={materialFormData.get('instance', new Map())}
-				action={materialFormData.get('action', 'Submit')}
+				instance={materialFormData.instance || {}}
+				action={materialFormData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -26,13 +26,13 @@ const Material = props => {
 };
 
 Material.propTypes = {
-	material: ImmutablePropTypes.map.isRequired,
-	materialFormData: ImmutablePropTypes.map.isRequired
+	material: PropTypes.object.isRequired,
+	materialFormData: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	material: state.get('material'),
-	materialFormData: state.get('materialFormData')
+	material: state.material,
+	materialFormData: state.materialFormData
 });
 
 export default connect(mapStateToProps)(Material);

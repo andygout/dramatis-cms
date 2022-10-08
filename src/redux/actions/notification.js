@@ -1,3 +1,4 @@
+import { getIn } from '../../lib/object-interactions';
 import createAction from './base';
 import {
 	ACTIVATE_NOTIFICATION,
@@ -8,7 +9,7 @@ const activateNotification = notification => createAction(ACTIVATE_NOTIFICATION,
 
 const deactivateNotification = () => (dispatch, getState) => {
 
-	if (getState().getIn(['notification', 'isActive'])) {
+	if (getIn(getState(), ['notification', 'isActive'])) {
 
 		dispatch(createAction(DEACTIVATE_NOTIFICATION, { isActive: false }));
 

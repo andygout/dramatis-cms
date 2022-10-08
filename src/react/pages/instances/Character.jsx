@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { CharacterForm } from '../../components/instance-forms';
@@ -12,12 +12,12 @@ const Character = props => {
 	return (
 		<InstanceWrapper
 			instance={character}
-			formAction={characterFormData.get('action')}
+			formAction={characterFormData.action}
 		>
 
 			<CharacterForm
-				instance={characterFormData.get('instance', new Map())}
-				action={characterFormData.get('action', 'Submit')}
+				instance={characterFormData.instance || {}}
+				action={characterFormData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -26,13 +26,13 @@ const Character = props => {
 };
 
 Character.propTypes = {
-	character: ImmutablePropTypes.map.isRequired,
-	characterFormData: ImmutablePropTypes.map.isRequired
+	character: PropTypes.object.isRequired,
+	characterFormData: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	character: state.get('character'),
-	characterFormData: state.get('characterFormData')
+	character: state.character,
+	characterFormData: state.characterFormData
 });
 
 export default connect(mapStateToProps)(Character);

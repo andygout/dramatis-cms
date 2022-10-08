@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { useLocation, useMatch, useNavigate } from 'react-router-dom';
@@ -36,16 +35,16 @@ const FetchDataOnMountWrapper = props => {
 
 	useEffect(() => {
 
-		if (redirect.get('isActive')) {
+		if (redirect.isActive) {
 
 			const redirectOptions = {
 				state: {
 					isRedirectActive: true,
-					notification: redirect.get('notification')
+					notification: redirect.notification
 				}
 			};
 
-			navigate(redirect.get('path'), redirectOptions);
+			navigate(redirect.path, redirectOptions);
 
 		}
 
@@ -67,23 +66,23 @@ const FetchDataOnMountWrapper = props => {
 			<main className="main-content">
 
 				{
-					notification.get('isActive') && (
+					notification.isActive && (
 						<ScrollToTop />
 					)
 				}
 
 				{
-					notification.get('isActive') && (
+					notification.isActive && (
 						<Notification
-							text={notification.get('text')}
-							status={notification.get('status')}
+							text={notification.text}
+							status={notification.status}
 						/>
 					)
 				}
 
 				{
-					error.get('isExistent')
-						? <ErrorMessage errorText={error.get('message')} />
+					error.isExistent
+						? <ErrorMessage errorText={error.message} />
 						: children
 				}
 
@@ -101,16 +100,16 @@ FetchDataOnMountWrapper.propTypes = {
 	documentTitle: PropTypes.func.isRequired,
 	fetchData: PropTypes.array.isRequired,
 	dispatch: PropTypes.func.isRequired,
-	error: ImmutablePropTypes.map.isRequired,
-	notification: ImmutablePropTypes.map.isRequired,
-	redirect: ImmutablePropTypes.map.isRequired,
+	error: PropTypes.object.isRequired,
+	notification: PropTypes.object.isRequired,
+	redirect: PropTypes.object.isRequired,
 	children: PropTypes.node.isRequired
 };
 
 const mapStateToProps = state => ({
-	error: state.get('error'),
-	notification: state.get('notification'),
-	redirect: state.get('redirect')
+	error: state.error,
+	notification: state.notification,
+	redirect: state.redirect
 });
 
 export default connect(mapStateToProps)(FetchDataOnMountWrapper);

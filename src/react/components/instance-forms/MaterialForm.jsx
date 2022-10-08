@@ -1,40 +1,41 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
+import { getIn } from '../../../lib/object-interactions';
 import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
-import { handleChange, checkIsLastListItem, handleCreationClick, handleRemovalClick } from '../../utils/FormUtils';
+import { handleChange, checkIsLastArrayItem, handleCreationClick, handleRemovalClick } from '../../utils/FormUtils';
 import { CREDIT_TYPES, MODELS } from '../../../utils/constants';
 
 const MaterialForm = props => {
 
 	const { instance, action } = props;
 
-	const [name, setName] = useState(instance.get('name'));
-	const [differentiator, setDifferentiator] = useState(instance.get('differentiator'));
-	const [format, setFormat] = useState(instance.get('format'));
-	const [year, setYear] = useState(instance.get('year'));
-	const [originalVersionMaterial, setOriginalVersionMaterial] = useState(instance.get('originalVersionMaterial'));
-	const [writingCredits, setWritingCredits] = useState(instance.get('writingCredits'));
-	const [subMaterials, setSubMaterials] = useState(instance.get('subMaterials'));
-	const [characterGroups, setCharacterGroups] = useState(instance.get('characterGroups'));
-	const [errors, setErrors] = useState(instance.get('errors'));
+	const [name, setName] = useState(instance.name);
+	const [differentiator, setDifferentiator] = useState(instance.differentiator);
+	const [format, setFormat] = useState(instance.format);
+	const [year, setYear] = useState(instance.year);
+	const [originalVersionMaterial, setOriginalVersionMaterial] = useState(instance.originalVersionMaterial);
+	const [writingCredits, setWritingCredits] = useState(instance.writingCredits);
+	const [subMaterials, setSubMaterials] = useState(instance.subMaterials);
+	const [characterGroups, setCharacterGroups] = useState(instance.characterGroups);
+	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
-		setName(instance.get('name'));
-		setDifferentiator(instance.get('differentiator'));
-		setFormat(instance.get('format'));
-		setYear(instance.get('year'));
-		setOriginalVersionMaterial(instance.get('originalVersionMaterial'));
-		setWritingCredits(instance.get('writingCredits'));
-		setSubMaterials(instance.get('subMaterials'));
-		setCharacterGroups(instance.get('characterGroups'));
-		setErrors(instance.get('errors'));
+		setName(instance.name);
+		setDifferentiator(instance.differentiator);
+		setFormat(instance.format);
+		setYear(instance.year);
+		setOriginalVersionMaterial(instance.originalVersionMaterial);
+		setWritingCredits(instance.writingCredits);
+		setSubMaterials(instance.subMaterials);
+		setCharacterGroups(instance.characterGroups);
+		setErrors(instance.errors);
 	}, [instance]);
 
 	const actionableInstance = {
-		model: instance.get('model'),
-		uuid: instance.get('uuid'),
+		model: instance.model,
+		uuid: instance.uuid,
 		name,
 		differentiator,
 		format,
@@ -55,7 +56,7 @@ const MaterialForm = props => {
 
 						const statePath = entitiesStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, entities.size);
+						const isLastListItem = checkIsLastArrayItem(index, entities.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -69,11 +70,11 @@ const MaterialForm = props => {
 									}
 								/>
 
-								<FieldsetComponent label={`${capitalise(entity.get('model'))} name`} isArrayItem={true}>
+								<FieldsetComponent label={`${capitalise(entity.model)} name`} isArrayItem={true}>
 
 									<InputAndErrors
-										value={entity.get('name')}
-										errors={entity.getIn(['errors', 'name'])}
+										value={entity.name}
+										errors={getIn(entity, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												writingCredits,
@@ -89,8 +90,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={entity.get('differentiator')}
-										errors={entity.getIn(['errors', 'differentiator'])}
+										value={entity.differentiator}
+										errors={getIn(entity, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												writingCredits,
@@ -108,7 +109,7 @@ const MaterialForm = props => {
 									<input
 										type={'radio'}
 										value={MODELS.PERSON}
-										checked={entity.get('model') === MODELS.PERSON}
+										checked={entity.model === MODELS.PERSON}
 										onChange={event =>
 											handleChange(
 												writingCredits,
@@ -123,7 +124,7 @@ const MaterialForm = props => {
 									<input
 										type={'radio'}
 										value={MODELS.COMPANY}
-										checked={entity.get('model') === MODELS.COMPANY}
+										checked={entity.model === MODELS.COMPANY}
 										onChange={event =>
 											handleChange(
 												writingCredits,
@@ -138,7 +139,7 @@ const MaterialForm = props => {
 									<input
 										type={'radio'}
 										value={MODELS.MATERIAL}
-										checked={entity.get('model') === MODELS.MATERIAL}
+										checked={entity.model === MODELS.MATERIAL}
 										onChange={event =>
 											handleChange(writingCredits,
 												setWritingCredits,
@@ -172,7 +173,7 @@ const MaterialForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, writingCredits.size);
+						const isLastListItem = checkIsLastArrayItem(index, writingCredits.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -189,8 +190,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={writingCredit.get('name')}
-										errors={writingCredit.getIn(['errors', 'name'])}
+										value={writingCredit.name}
+										errors={getIn(writingCredit, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												writingCredits,
@@ -208,7 +209,7 @@ const MaterialForm = props => {
 									<input
 										type={'radio'}
 										value={''}
-										checked={!writingCredit.get('creditType')}
+										checked={!writingCredit.creditType}
 										onChange={event =>
 											handleChange(
 												writingCredits,
@@ -223,7 +224,7 @@ const MaterialForm = props => {
 									<input
 										type={'radio'}
 										value={CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
-										checked={writingCredit.get('creditType') === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
+										checked={writingCredit.creditType === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
 										onChange={event =>
 											handleChange(
 												writingCredits,
@@ -238,7 +239,7 @@ const MaterialForm = props => {
 									<input
 										type={'radio'}
 										value={CREDIT_TYPES.RIGHTS_GRANTOR}
-										checked={writingCredit.get('creditType') === CREDIT_TYPES.RIGHTS_GRANTOR}
+										checked={writingCredit.creditType === CREDIT_TYPES.RIGHTS_GRANTOR}
 										onChange={event =>
 											handleChange(writingCredits,
 												setWritingCredits,
@@ -251,7 +252,7 @@ const MaterialForm = props => {
 
 								</FieldsetComponent>
 
-								{ renderWritingEntities(writingCredit.get('entities'), statePath.concat(['entities'])) }
+								{ renderWritingEntities(writingCredit.entities, statePath.concat(['entities'])) }
 
 							</div>
 						);
@@ -274,7 +275,7 @@ const MaterialForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, subMaterials.size);
+						const isLastListItem = checkIsLastArrayItem(index, subMaterials.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -291,8 +292,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Material name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={subMaterial.get('name')}
-										errors={subMaterial.getIn(['errors', 'name'])}
+										value={subMaterial.name}
+										errors={getIn(subMaterial, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												subMaterials,
@@ -308,8 +309,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={subMaterial.get('differentiator')}
-										errors={subMaterial.getIn(['errors', 'differentiator'])}
+										value={subMaterial.differentiator}
+										errors={getIn(subMaterial, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												subMaterials,
@@ -343,7 +344,7 @@ const MaterialForm = props => {
 
 						const statePath = charactersStatePath.concat([index]);
 
-						const isLastListItem = checkIsLastListItem(index, characters.size);
+						const isLastListItem = checkIsLastArrayItem(index, characters.length);
 
 						return (
 							<div className={'fieldset__module fieldset__module--nested'} key={index}>
@@ -360,8 +361,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Character name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={character.get('name')}
-										errors={character.getIn(['errors', 'name'])}
+										value={character.name}
+										errors={getIn(character, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -377,8 +378,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Underlying name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={character.get('underlyingName')}
-										errors={character.getIn(['errors', 'underlyingName'])}
+										value={character.underlyingName}
+										errors={getIn(character, ['errors', 'underlyingName'])}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -394,8 +395,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={character.get('differentiator')}
-										errors={character.getIn(['errors', 'differentiator'])}
+										value={character.differentiator}
+										errors={getIn(character, ['errors', 'differentiator'])}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -411,8 +412,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Qualifier'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={character.get('qualifier')}
-										errors={character.getIn(['errors', 'qualifier'])}
+										value={character.qualifier}
+										errors={getIn(character, ['errors', 'qualifier'])}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -446,7 +447,7 @@ const MaterialForm = props => {
 
 						const statePath = [index];
 
-						const isLastListItem = checkIsLastListItem(index, characterGroups.size);
+						const isLastListItem = checkIsLastArrayItem(index, characterGroups.length);
 
 						return (
 							<div className={'fieldset__module'} key={index}>
@@ -463,8 +464,8 @@ const MaterialForm = props => {
 								<FieldsetComponent label={'Group name'} isArrayItem={true}>
 
 									<InputAndErrors
-										value={characterGroup.get('name')}
-										errors={characterGroup.getIn(['errors', 'name'])}
+										value={characterGroup.name}
+										errors={getIn(characterGroup, ['errors', 'name'])}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -477,7 +478,7 @@ const MaterialForm = props => {
 
 								</FieldsetComponent>
 
-								{ renderCharacters(characterGroup.get('characters'), statePath.concat(['characters'])) }
+								{ renderCharacters(characterGroup.characters, statePath.concat(['characters'])) }
 
 							</div>
 						);
@@ -500,7 +501,7 @@ const MaterialForm = props => {
 
 				<InputAndErrors
 					value={name}
-					errors={errors?.get('name')}
+					errors={errors?.name}
 					handleChange={event => handleChange(name, setName, [], event)}
 				/>
 
@@ -510,7 +511,7 @@ const MaterialForm = props => {
 
 				<InputAndErrors
 					value={differentiator}
-					errors={errors?.get('differentiator')}
+					errors={errors?.differentiator}
 					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
 
@@ -520,7 +521,7 @@ const MaterialForm = props => {
 
 				<InputAndErrors
 					value={format}
-					errors={errors?.get('format')}
+					errors={errors?.format}
 					handleChange={event => handleChange(format, setFormat, [], event)}
 				/>
 
@@ -531,7 +532,7 @@ const MaterialForm = props => {
 				<InputAndErrors
 					type={'number'}
 					value={year}
-					errors={errors?.get('year')}
+					errors={errors?.year}
 					handleChange={event => handleChange(year, setYear, [], event)}
 				/>
 
@@ -542,8 +543,8 @@ const MaterialForm = props => {
 				<FieldsetComponent label={'Name'}>
 
 					<InputAndErrors
-						value={originalVersionMaterial?.get('name')}
-						errors={originalVersionMaterial?.getIn(['errors', 'name'])}
+						value={originalVersionMaterial?.name}
+						errors={originalVersionMaterial && getIn(originalVersionMaterial, ['errors', 'name'])}
 						handleChange={event =>
 							handleChange(
 								originalVersionMaterial,
@@ -559,8 +560,8 @@ const MaterialForm = props => {
 				<FieldsetComponent label={'Differentiator'}>
 
 					<InputAndErrors
-						value={originalVersionMaterial?.get('differentiator')}
-						errors={originalVersionMaterial?.getIn(['errors', 'differentiator'])}
+						value={originalVersionMaterial?.differentiator}
+						errors={originalVersionMaterial && getIn(originalVersionMaterial, ['errors', 'differentiator'])}
 						handleChange={event =>
 							handleChange(
 								originalVersionMaterial,

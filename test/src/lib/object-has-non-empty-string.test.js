@@ -1,9 +1,8 @@
 import { expect } from 'chai';
-import { fromJS } from 'immutable';
 
-import mapHasNonEmptyString from '../../../src/lib/map-has-non-empty-string';
+import objectHasNonEmptyString from '../../../src/lib/object-has-non-empty-string';
 
-describe('Map Has Non-Empty String module', () => {
+describe('Object Has Non-Empty String module', () => {
 
 	context('non-empty string exists', () => {
 
@@ -11,7 +10,7 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns true when top level attribute is non-empty string', () => {
 
-				const map = fromJS({
+				const object = {
 					foo: 'string',
 					bar: {
 						baz: '',
@@ -26,9 +25,9 @@ describe('Map Has Non-Empty String module', () => {
 							corge: ''
 						}
 					]
-				});
+				};
 
-				const result = mapHasNonEmptyString(map);
+				const result = objectHasNonEmptyString(object);
 
 				expect(result).to.be.true;
 
@@ -36,7 +35,7 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns true when nested level attribute is non-empty string', () => {
 
-				const map = fromJS({
+				const object = {
 					foo: '',
 					bar: {
 						baz: 'string',
@@ -51,9 +50,9 @@ describe('Map Has Non-Empty String module', () => {
 							corge: ''
 						}
 					]
-				});
+				};
 
-				const result = mapHasNonEmptyString(map);
+				const result = objectHasNonEmptyString(object);
 
 				expect(result).to.be.true;
 
@@ -61,7 +60,7 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns true when top level array object attribute is non-empty string', () => {
 
-				const map = fromJS({
+				const object = {
 					foo: '',
 					bar: {
 						baz: '',
@@ -76,9 +75,9 @@ describe('Map Has Non-Empty String module', () => {
 							corge: 'string'
 						}
 					]
-				});
+				};
 
-				const result = mapHasNonEmptyString(map);
+				const result = objectHasNonEmptyString(object);
 
 				expect(result).to.be.true;
 
@@ -86,7 +85,7 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns true when nested level array object attribute is non-empty string', () => {
 
-				const map = fromJS({
+				const object = {
 					foo: '',
 					bar: {
 						baz: '',
@@ -101,9 +100,9 @@ describe('Map Has Non-Empty String module', () => {
 							corge: ''
 						}
 					]
-				});
+				};
 
-				const result = mapHasNonEmptyString(map);
+				const result = objectHasNonEmptyString(object);
 
 				expect(result).to.be.true;
 
@@ -115,7 +114,7 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns false when top level attribute is non-empty string', () => {
 
-				const map = fromJS({
+				const object = {
 					model: 'string',
 					bar: {
 						baz: '',
@@ -130,9 +129,9 @@ describe('Map Has Non-Empty String module', () => {
 							corge: ''
 						}
 					]
-				});
+				};
 
-				const result = mapHasNonEmptyString(map);
+				const result = objectHasNonEmptyString(object);
 
 				expect(result).to.be.false;
 
@@ -140,7 +139,7 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns false when nested level attribute is non-empty string', () => {
 
-				const map = fromJS({
+				const object = {
 					foo: '',
 					bar: {
 						model: 'string',
@@ -155,9 +154,9 @@ describe('Map Has Non-Empty String module', () => {
 							corge: ''
 						}
 					]
-				});
+				};
 
-				const result = mapHasNonEmptyString(map);
+				const result = objectHasNonEmptyString(object);
 
 				expect(result).to.be.false;
 
@@ -165,7 +164,7 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns false when top level array object attribute is non-empty string', () => {
 
-				const map = fromJS({
+				const object = {
 					foo: '',
 					bar: {
 						baz: '',
@@ -180,9 +179,9 @@ describe('Map Has Non-Empty String module', () => {
 							model: 'string'
 						}
 					]
-				});
+				};
 
-				const result = mapHasNonEmptyString(map);
+				const result = objectHasNonEmptyString(object);
 
 				expect(result).to.be.false;
 
@@ -190,7 +189,7 @@ describe('Map Has Non-Empty String module', () => {
 
 			it('returns false when nested level array object attribute is non-empty string', () => {
 
-				const map = fromJS({
+				const object = {
 					foo: '',
 					bar: {
 						baz: '',
@@ -205,9 +204,9 @@ describe('Map Has Non-Empty String module', () => {
 							corge: ''
 						}
 					]
-				});
+				};
 
-				const result = mapHasNonEmptyString(map);
+				const result = objectHasNonEmptyString(object);
 
 				expect(result).to.be.false;
 
@@ -221,7 +220,7 @@ describe('Map Has Non-Empty String module', () => {
 
 		it('returns false when non-empty string does not exist at any level', () => {
 
-			const map = fromJS({
+			const object = {
 				foo: '',
 				bar: {
 					baz: '',
@@ -236,9 +235,9 @@ describe('Map Has Non-Empty String module', () => {
 						corge: ''
 					}
 				]
-			});
+			};
 
-			const result = mapHasNonEmptyString(map);
+			const result = objectHasNonEmptyString(object);
 
 			expect(result).to.be.false;
 

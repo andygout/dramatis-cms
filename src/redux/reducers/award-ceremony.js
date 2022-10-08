@@ -1,5 +1,3 @@
-import { Map, OrderedMap } from 'immutable';
-
 import {
 	REQUEST_AWARD_CEREMONY,
 	RECEIVE_AWARD_CEREMONY,
@@ -11,7 +9,7 @@ import {
 	RECEIVE_AWARD_CEREMONY_DELETE
 } from '../utils/model-action-names';
 
-const awardCeremony = (state = Map(), action) => {
+const awardCeremony = (state = {}, action) => {
 
 	switch (action.type) {
 
@@ -19,7 +17,7 @@ const awardCeremony = (state = Map(), action) => {
 		case RECEIVE_AWARD_CEREMONY_CREATE:
 		case RECEIVE_AWARD_CEREMONY_UPDATE:
 		case RECEIVE_AWARD_CEREMONY_DELETE:
-			return OrderedMap(action.payload);
+			return action.payload;
 
 		case REQUEST_AWARD_CEREMONY:
 		case REQUEST_AWARD_CEREMONY_CREATE:
