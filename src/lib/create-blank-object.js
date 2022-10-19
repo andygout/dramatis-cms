@@ -1,4 +1,4 @@
-import { isObjectWithKeys } from './is-object-with-keys';
+import isObjectWithKeys from './is-object-with-keys';
 
 const createBlankObject = object => {
 
