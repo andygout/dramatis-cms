@@ -7,7 +7,7 @@ import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { ErrorMessage, Footer, Header, Navigation, Notification } from '../components';
 import ScrollToTop from './ScrollToTop';
 import { activateNotification } from '../../redux/actions/notification';
-import { cancelRedirect } from '../../redux/actions/redirect';
+import { deactivateRedirect } from '../../redux/actions/redirect';
 
 const FetchDataOnMountWrapper = props => {
 
@@ -25,7 +25,7 @@ const FetchDataOnMountWrapper = props => {
 
 		if (location.state?.isRedirectActive) {
 
-			dispatch(cancelRedirect());
+			dispatch(deactivateRedirect());
 
 			dispatch(activateNotification(location.state?.notification));
 
@@ -81,7 +81,7 @@ const FetchDataOnMountWrapper = props => {
 				}
 
 				{
-					error.isExistent
+					error.isActive
 						? <ErrorMessage errorText={error.message} />
 						: children
 				}

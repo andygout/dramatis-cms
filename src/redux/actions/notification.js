@@ -5,7 +5,8 @@ import {
 	DEACTIVATE_NOTIFICATION
 } from '../utils/notification-action-names';
 
-const activateNotification = notification => createAction(ACTIVATE_NOTIFICATION, notification);
+const activateNotification = notificationData =>
+	createAction(ACTIVATE_NOTIFICATION, { isActive: true, ...notificationData });
 
 const deactivateNotification = () => (dispatch, getState) => {
 

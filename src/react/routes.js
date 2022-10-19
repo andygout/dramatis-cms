@@ -19,7 +19,7 @@ import {
 	NotFound
 } from './pages';
 
-import { cancelError } from '../redux/actions/error';
+import { deactivateError } from '../redux/actions/error';
 import { fetchList, fetchInstanceTemplate, fetchInstance } from '../redux/actions/model';
 import { deactivateNotification } from '../redux/actions/notification';
 import { MODELS, PLURALISED_MODELS } from '../utils/constants';
@@ -30,7 +30,7 @@ export default [
 		documentTitle: () => 'Home',
 		component: Home,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification())
 		]
 	},
@@ -39,7 +39,7 @@ export default [
 		documentTitle: () => 'Award ceremonies',
 		component: AwardCeremonies,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList(PLURALISED_MODELS.AWARD_CEREMONIES))
 		]
@@ -49,7 +49,7 @@ export default [
 		documentTitle: () => 'New award ceremony',
 		component: AwardCeremony,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate(MODELS.AWARD_CEREMONY))
 		]
@@ -59,7 +59,7 @@ export default [
 		documentTitle: () => 'Award ceremony',
 		component: AwardCeremony,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD_CEREMONY, uuid))
 		]
@@ -69,7 +69,7 @@ export default [
 		documentTitle: () => 'Awards',
 		component: Awards,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList(PLURALISED_MODELS.AWARDS))
 		]
@@ -79,7 +79,7 @@ export default [
 		documentTitle: () => 'New award',
 		component: Award,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate(MODELS.AWARD))
 		]
@@ -89,7 +89,7 @@ export default [
 		documentTitle: () => 'Award',
 		component: Award,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD, uuid))
 		]
@@ -99,7 +99,7 @@ export default [
 		documentTitle: () => 'Characters',
 		component: Characters,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList(PLURALISED_MODELS.CHARACTERS))
 		]
@@ -109,7 +109,7 @@ export default [
 		documentTitle: () => 'New character',
 		component: Character,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate(MODELS.CHARACTER))
 		]
@@ -119,7 +119,7 @@ export default [
 		documentTitle: () => 'Character',
 		component: Character,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.CHARACTER, uuid))
 		]
@@ -129,7 +129,7 @@ export default [
 		documentTitle: () => 'Companies',
 		component: Companies,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList(PLURALISED_MODELS.COMPANIES))
 		]
@@ -139,7 +139,7 @@ export default [
 		documentTitle: () => 'New company',
 		component: Company,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate(MODELS.COMPANY))
 		]
@@ -149,7 +149,7 @@ export default [
 		documentTitle: () => 'Company',
 		component: Company,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.COMPANY, uuid))
 		]
@@ -159,7 +159,7 @@ export default [
 		documentTitle: () => 'Materials',
 		component: Materials,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList(PLURALISED_MODELS.MATERIALS))
 		]
@@ -169,7 +169,7 @@ export default [
 		documentTitle: () => 'New material',
 		component: Material,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate(MODELS.MATERIAL))
 		]
@@ -179,7 +179,7 @@ export default [
 		documentTitle: () => 'Material',
 		component: Material,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.MATERIAL, uuid))
 		]
@@ -189,7 +189,7 @@ export default [
 		documentTitle: () => 'People',
 		component: People,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList(PLURALISED_MODELS.PEOPLE))
 		]
@@ -199,7 +199,7 @@ export default [
 		documentTitle: () => 'New person',
 		component: Person,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate(MODELS.PERSON))
 		]
@@ -209,7 +209,7 @@ export default [
 		documentTitle: () => 'Person',
 		component: Person,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.PERSON, uuid))
 		]
@@ -219,7 +219,7 @@ export default [
 		documentTitle: () => 'Productions',
 		component: Productions,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList(PLURALISED_MODELS.PRODUCTIONS))
 		]
@@ -229,7 +229,7 @@ export default [
 		documentTitle: () => 'New production',
 		component: Production,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate(MODELS.PRODUCTION))
 		]
@@ -239,7 +239,7 @@ export default [
 		documentTitle: () => 'Production',
 		component: Production,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.PRODUCTION, uuid))
 		]
@@ -249,7 +249,7 @@ export default [
 		documentTitle: () => 'Venues',
 		component: Venues,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchList(PLURALISED_MODELS.VENUES))
 		]
@@ -259,7 +259,7 @@ export default [
 		documentTitle: () => 'New venue',
 		component: Venue,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			dispatch => dispatch(fetchInstanceTemplate(MODELS.VENUE))
 		]
@@ -269,7 +269,7 @@ export default [
 		documentTitle: () => 'Venue',
 		component: Venue,
 		fetchData: [
-			dispatch => dispatch(cancelError()),
+			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.VENUE, uuid))
 		]

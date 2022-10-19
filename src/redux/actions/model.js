@@ -1,8 +1,8 @@
 import nodeFetch from 'node-fetch';
 
 import createAction from './base';
-import { receiveError } from './error';
-import { receiveRedirect } from './redirect';
+import { activateError } from './error';
+import { activateRedirect } from './redirect';
 import { activateNotification, deactivateNotification } from './notification';
 import * as actions from '../utils/model-action-names';
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
@@ -78,7 +78,7 @@ const fetchList = pluralisedModel => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError(message));
+		dispatch(activateError({ message }));
 
 		dispatch(deactivateNotification());
 
@@ -104,7 +104,7 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError(message));
+		dispatch(activateError({ message }));
 
 		dispatch(deactivateNotification());
 
@@ -141,8 +141,7 @@ const createInstance = instance => async dispatch => {
 
 			notification = {
 				text: `This ${MODEL_TO_DISPLAY_NAME_MAP[model]} contains errors`,
-				status: NOTIFICATION_STATUSES.failure,
-				isActive: true
+				status: NOTIFICATION_STATUSES.failure
 			};
 
 			dispatch(activateNotification(notification));
@@ -155,11 +154,10 @@ const createInstance = instance => async dispatch => {
 
 			notification = {
 				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been created`,
-				status: NOTIFICATION_STATUSES.success,
-				isActive: true
+				status: NOTIFICATION_STATUSES.success
 			};
 
-			dispatch(receiveRedirect({ path: `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}`, notification, isActive: true }));
+			dispatch(activateRedirect({ path: `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}`, notification }));
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
@@ -167,7 +165,7 @@ const createInstance = instance => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError(message));
+		dispatch(activateError({ message }));
 
 		dispatch(deactivateNotification());
 
@@ -200,7 +198,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError(message));
+		dispatch(activateError({ message }));
 
 		dispatch(deactivateNotification());
 
@@ -235,8 +233,7 @@ const updateInstance = instance => async dispatch => {
 
 			notification = {
 				text: `This ${MODEL_TO_DISPLAY_NAME_MAP[model]} contains errors`,
-				status: NOTIFICATION_STATUSES.failure,
-				isActive: true
+				status: NOTIFICATION_STATUSES.failure
 			};
 
 		} else {
@@ -247,8 +244,7 @@ const updateInstance = instance => async dispatch => {
 
 			notification = {
 				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been updated`,
-				status: NOTIFICATION_STATUSES.success,
-				isActive: true
+				status: NOTIFICATION_STATUSES.success
 			};
 
 		}
@@ -259,7 +255,7 @@ const updateInstance = instance => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError(message));
+		dispatch(activateError({ message }));
 
 		dispatch(deactivateNotification());
 
@@ -295,8 +291,7 @@ const deleteInstance = instance => async dispatch => {
 					it has associations with instances
 					of the following models: ${associations.join(', ')}`
 				,
-				status: NOTIFICATION_STATUSES.failure,
-				isActive: true
+				status: NOTIFICATION_STATUSES.failure
 			};
 
 			dispatch(activateNotification(notification));
@@ -309,11 +304,10 @@ const deleteInstance = instance => async dispatch => {
 
 			notification = {
 				text: `${name} (${MODEL_TO_DISPLAY_NAME_MAP[model]})${getDifferentiatorSuffix(differentiator)} has been deleted`,
-				status: NOTIFICATION_STATUSES.success,
-				isActive: true
+				status: NOTIFICATION_STATUSES.success
 			};
 
-			dispatch(receiveRedirect({ path: `/${MODEL_TO_ROUTE_MAP[model]}`, notification, isActive: true }));
+			dispatch(activateRedirect({ path: `/${MODEL_TO_ROUTE_MAP[model]}`, notification }));
 
 			dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
@@ -321,7 +315,7 @@ const deleteInstance = instance => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(receiveError(message));
+		dispatch(activateError({ message }));
 
 		dispatch(deactivateNotification());
 
