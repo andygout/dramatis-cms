@@ -3,7 +3,12 @@ import React, { useEffect, useState } from 'react';
 
 import { getIn } from '../../../lib/object-interactions';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
-import { handleChange, checkIsLastArrayItem, handleCreationClick, handleRemovalClick } from '../../utils/FormUtils';
+import {
+	handleChange,
+	checkIsLastArrayItem,
+	handleAppendArrayItemClick,
+	handleRemoveArrayItemClick
+} from '../../utils/FormUtils';
 
 const VenueForm = props => {
 
@@ -48,8 +53,8 @@ const VenueForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(subVenues, setSubVenues, statePath, event)
-											: handleRemovalClick(subVenues, setSubVenues, statePath, event)
+											? handleAppendArrayItemClick(subVenues, setSubVenues, statePath, event)
+											: handleRemoveArrayItemClick(subVenues, setSubVenues, statePath, event)
 									}
 								/>
 

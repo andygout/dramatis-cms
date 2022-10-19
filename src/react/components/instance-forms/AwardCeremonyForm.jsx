@@ -7,8 +7,8 @@ import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputA
 import {
 	handleChange,
 	checkIsLastArrayItem,
-	handleCreationClick,
-	handleRemovalClick,
+	handleAppendArrayItemClick,
+	handleRemoveArrayItemClick,
 	handleChangeToPerson,
 	handleChangeToCompany
 } from '../../utils/FormUtils';
@@ -60,8 +60,8 @@ const AwardCeremonyForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(categories, setCategories, statePath, event)
-											: handleRemovalClick(categories, setCategories, statePath, event)
+											? handleAppendArrayItemClick(categories, setCategories, statePath, event)
+											: handleRemoveArrayItemClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -129,8 +129,8 @@ const AwardCeremonyForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(categories, setCategories, statePath, event)
-											: handleRemovalClick(categories, setCategories, statePath, event)
+											? handleAppendArrayItemClick(categories, setCategories, statePath, event)
+											: handleRemoveArrayItemClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -198,8 +198,8 @@ const AwardCeremonyForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(categories, setCategories, statePath, event)
-											: handleRemovalClick(categories, setCategories, statePath, event)
+											? handleAppendArrayItemClick(categories, setCategories, statePath, event)
+											: handleRemoveArrayItemClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -250,8 +250,8 @@ const AwardCeremonyForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(categories, setCategories, statePath, event)
-											: handleRemovalClick(categories, setCategories, statePath, event)
+											? handleAppendArrayItemClick(categories, setCategories, statePath, event)
+											: handleRemoveArrayItemClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -394,8 +394,8 @@ const AwardCeremonyForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(categories, setCategories, statePath, event)
-											: handleRemovalClick(categories, setCategories, statePath, event)
+											? handleAppendArrayItemClick(categories, setCategories, statePath, event)
+											: handleRemoveArrayItemClick(categories, setCategories, statePath, event)
 									}
 								/>
 
@@ -435,8 +435,8 @@ const AwardCeremonyForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(categories, setCategories, statePath, event)
-											: handleRemovalClick(categories, setCategories, statePath, event)
+											? handleAppendArrayItemClick(categories, setCategories, statePath, event)
+											: handleRemoveArrayItemClick(categories, setCategories, statePath, event)
 									}
 								/>
 

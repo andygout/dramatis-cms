@@ -4,7 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { getIn } from '../../../lib/object-interactions';
 import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
-import { handleChange, checkIsLastArrayItem, handleCreationClick, handleRemovalClick } from '../../utils/FormUtils';
+import {
+	handleChange,
+	checkIsLastArrayItem,
+	handleAppendArrayItemClick,
+	handleRemoveArrayItemClick
+} from '../../utils/FormUtils';
 import { CREDIT_TYPES, MODELS } from '../../../utils/constants';
 
 const MaterialForm = props => {
@@ -65,8 +70,18 @@ const MaterialForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(writingCredits, setWritingCredits, statePath, event)
-											: handleRemovalClick(writingCredits, setWritingCredits, statePath, event)
+											? handleAppendArrayItemClick(
+												writingCredits,
+												setWritingCredits,
+												statePath,
+												event
+											)
+											: handleRemoveArrayItemClick(
+												writingCredits,
+												setWritingCredits,
+												statePath,
+												event
+											)
 									}
 								/>
 
@@ -182,8 +197,18 @@ const MaterialForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(writingCredits, setWritingCredits, statePath, event)
-											: handleRemovalClick(writingCredits, setWritingCredits, statePath, event)
+											? handleAppendArrayItemClick(
+												writingCredits,
+												setWritingCredits,
+												statePath,
+												event
+											)
+											: handleRemoveArrayItemClick(
+												writingCredits,
+												setWritingCredits,
+												statePath,
+												event
+											)
 									}
 								/>
 
@@ -284,8 +309,18 @@ const MaterialForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(subMaterials, setSubMaterials, statePath, event)
-											: handleRemovalClick(subMaterials, setSubMaterials, statePath, event)
+											? handleAppendArrayItemClick(
+												subMaterials,
+												setSubMaterials,
+												statePath,
+												event
+											)
+											: handleRemoveArrayItemClick(
+												subMaterials,
+												setSubMaterials,
+												statePath,
+												event
+											)
 									}
 								/>
 
@@ -353,8 +388,18 @@ const MaterialForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(characterGroups, setCharacterGroups, statePath, event)
-											: handleRemovalClick(characterGroups, setCharacterGroups, statePath, event)
+											? handleAppendArrayItemClick(
+												characterGroups,
+												setCharacterGroups,
+												statePath,
+												event
+											)
+											: handleRemoveArrayItemClick(
+												characterGroups,
+												setCharacterGroups,
+												statePath,
+												event
+											)
 									}
 								/>
 
@@ -456,8 +501,18 @@ const MaterialForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(characterGroups, setCharacterGroups, statePath, event)
-											: handleRemovalClick(characterGroups, setCharacterGroups, statePath, event)
+											? handleAppendArrayItemClick(
+												characterGroups,
+												setCharacterGroups,
+												statePath,
+												event
+											)
+											: handleRemoveArrayItemClick(
+												characterGroups,
+												setCharacterGroups,
+												statePath,
+												event
+											)
 									}
 								/>
 
