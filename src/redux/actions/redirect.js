@@ -1,23 +1,24 @@
 import { getIn } from '../../lib/object-interactions';
 import createAction from './base';
 import {
-	RECEIVE_REDIRECT,
-	CANCEL_REDIRECT
+	ACTIVATE_REDIRECT,
+	DEACTIVATE_REDIRECT
 } from '../utils/redirect-action-names';
 
-const receiveRedirect = redirectData => createAction(RECEIVE_REDIRECT, redirectData);
+const activateRedirect = redirectData =>
+	createAction(ACTIVATE_REDIRECT, { isActive: true, ...redirectData });
 
-const cancelRedirect = () => (dispatch, getState) => {
+const deactivateRedirect = () => (dispatch, getState) => {
 
 	if (getIn(getState(), ['redirect', 'isActive'])) {
 
-		dispatch(createAction(CANCEL_REDIRECT, { isActive: false }));
+		createAction(DEACTIVATE_REDIRECT, { isActive: false });
 
 	}
 
 };
 
 export {
-	receiveRedirect,
-	cancelRedirect
+	activateRedirect,
+	deactivateRedirect
 };

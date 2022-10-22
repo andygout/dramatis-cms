@@ -61,7 +61,7 @@ const checkIsLastArrayItem = (index, arrayLength) => {
 
 };
 
-const handleCreationClick = (stateValue, setStateValue, statePath, event) => {
+const handleAppendArrayItemClick = (stateValue, setStateValue, statePath, event) => {
 
 	event.preventDefault();
 
@@ -72,7 +72,7 @@ const handleCreationClick = (stateValue, setStateValue, statePath, event) => {
 
 };
 
-const handleRemovalClick = (stateValue, setStateValue, statePath, event) => {
+const handleRemoveArrayItemClick = (stateValue, setStateValue, statePath, event) => {
 
 	event.preventDefault();
 
@@ -134,8 +134,8 @@ const handleDelete = (event, instance, deleteInstance) => {
 export {
 	checkIsLastArrayItem,
 	handleChange,
-	handleCreationClick,
-	handleRemovalClick,
+	handleAppendArrayItemClick,
+	handleRemoveArrayItemClick,
 	handleChangeToPerson,
 	handleChangeToCompany,
 	handleSubmit,

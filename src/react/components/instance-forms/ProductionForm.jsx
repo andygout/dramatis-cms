@@ -7,11 +7,11 @@ import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputA
 import {
 	handleChange,
 	checkIsLastArrayItem,
-	handleCreationClick,
-	handleRemovalClick,
+	handleAppendArrayItemClick,
+	handleRemoveArrayItemClick,
 	handleChangeToPerson,
 	handleChangeToCompany
-} from '../../utils/FormUtils';
+} from '../../utils/form';
 import { MODELS } from '../../../utils/constants';
 
 const ProductionForm = props => {
@@ -78,8 +78,8 @@ const ProductionForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(stateValue, setStateValue, statePath, event)
-											: handleRemovalClick(stateValue, setStateValue, statePath, event)
+											? handleAppendArrayItemClick(stateValue, setStateValue, statePath, event)
+											: handleRemoveArrayItemClick(stateValue, setStateValue, statePath, event)
 									}
 								/>
 
@@ -147,8 +147,8 @@ const ProductionForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(stateValue, setStateValue, statePath, event)
-											: handleRemovalClick(stateValue, setStateValue, statePath, event)
+											? handleAppendArrayItemClick(stateValue, setStateValue, statePath, event)
+											: handleRemoveArrayItemClick(stateValue, setStateValue, statePath, event)
 									}
 								/>
 
@@ -262,8 +262,18 @@ const ProductionForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(producerCredits, setProducerCredits, statePath, event)
-											: handleRemovalClick(producerCredits, setProducerCredits, statePath, event)
+											? handleAppendArrayItemClick(
+												producerCredits,
+												setProducerCredits,
+												statePath,
+												event
+											)
+											: handleRemoveArrayItemClick(
+												producerCredits,
+												setProducerCredits,
+												statePath,
+												event
+											)
 									}
 								/>
 
@@ -324,8 +334,8 @@ const ProductionForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(cast, setCast, statePath, event)
-											: handleRemovalClick(cast, setCast, statePath, event)
+											? handleAppendArrayItemClick(cast, setCast, statePath, event)
+											: handleRemoveArrayItemClick(cast, setCast, statePath, event)
 									}
 								/>
 
@@ -444,8 +454,8 @@ const ProductionForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(cast, setCast, statePath, event)
-											: handleRemovalClick(cast, setCast, statePath, event)
+											? handleAppendArrayItemClick(cast, setCast, statePath, event)
+											: handleRemoveArrayItemClick(cast, setCast, statePath, event)
 									}
 								/>
 
@@ -515,8 +525,18 @@ const ProductionForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(creativeCredits, setCreativeCredits, statePath, event)
-											: handleRemovalClick(creativeCredits, setCreativeCredits, statePath, event)
+											? handleAppendArrayItemClick(
+												creativeCredits,
+												setCreativeCredits,
+												statePath,
+												event
+											)
+											: handleRemoveArrayItemClick(
+												creativeCredits,
+												setCreativeCredits,
+												statePath,
+												event
+											)
 									}
 								/>
 
@@ -577,8 +597,8 @@ const ProductionForm = props => {
 									isLastListItem={isLastListItem}
 									handleClick={event =>
 										isLastListItem
-											? handleCreationClick(crewCredits, setCrewCredits, statePath, event)
-											: handleRemovalClick(crewCredits, setCrewCredits, statePath, event)
+											? handleAppendArrayItemClick(crewCredits, setCrewCredits, statePath, event)
+											: handleRemoveArrayItemClick(crewCredits, setCrewCredits, statePath, event)
 									}
 								/>
 

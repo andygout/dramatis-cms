@@ -1,4 +1,4 @@
-import { isObjectWithKeys } from './is-object-with-keys';
+import isObjectWithKeys from './is-object-with-keys';
 import { FORM_CONCEALED_KEYS } from '../utils/constants';
 
 const pruneInstance = (instance, recursions = 0) => {

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import pruneInstance from '../../../src/lib/prune-instance';
 
-describe('prune Instance module', () => {
+describe('Prune Instance module', () => {
 
 	it('removes top-level concealed attributes (e.g. \'errors\')', () => {
 
