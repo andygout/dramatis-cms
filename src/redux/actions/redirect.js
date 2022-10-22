@@ -12,7 +12,7 @@ const deactivateRedirect = () => (dispatch, getState) => {
 
 	if (getIn(getState(), ['redirect', 'isActive'])) {
 
-		dispatch(createAction(DEACTIVATE_REDIRECT, { isActive: false }));
+		createAction(DEACTIVATE_REDIRECT, { isActive: false });
 
 	}
 
