@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { capitalise } from '../../../lib/strings';
-import { handleDelete, handleSubmit } from '../../utils/FormUtils';
+import { handleDelete, handleSubmit } from '../../utils/form';
 import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
 import { ACTIONS } from '../../../utils/constants';
 

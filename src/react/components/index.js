@@ -7,6 +7,7 @@ import InstanceLabel from './InstanceLabel';
 import Navigation from './Navigation';
 import Notification from './Notification';
 import PageTitle from './PageTitle';
+import ScrollToTop from './ScrollToTop';
 import withInstancePageTitle from './withInstancePageTitle';
 
 export {
@@ -19,5 +20,6 @@ export {
 	Navigation,
 	Notification,
 	PageTitle,
+	ScrollToTop,
 	withInstancePageTitle
 };

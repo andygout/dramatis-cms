@@ -11,7 +11,7 @@ import {
 	handleRemoveArrayItemClick,
 	handleChangeToPerson,
 	handleChangeToCompany
-} from '../../utils/FormUtils';
+} from '../../utils/form';
 import { MODELS } from '../../../utils/constants';
 
 const AwardCeremonyForm = props => {

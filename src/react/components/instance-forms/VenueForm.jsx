@@ -8,7 +8,7 @@ import {
 	checkIsLastArrayItem,
 	handleAppendArrayItemClick,
 	handleRemoveArrayItemClick
-} from '../../utils/FormUtils';
+} from '../../utils/form';
 
 const VenueForm = props => {
 

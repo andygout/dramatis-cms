@@ -4,12 +4,11 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 
-import { ErrorMessage, Footer, Header, Navigation, Notification } from '../components';
-import ScrollToTop from './ScrollToTop';
-import { activateNotification } from '../../redux/actions/notification';
-import { deactivateRedirect } from '../../redux/actions/redirect';
+import { ErrorMessage, Footer, Header, Navigation, Notification, ScrollToTop } from './components';
+import { activateNotification } from '../redux/actions/notification';
+import { deactivateRedirect } from '../redux/actions/redirect';
 
-const FetchDataOnMountWrapper = props => {
+const Layout = props => {
 
 	const { path, documentTitle, error, notification, redirect, children } = props;
 
@@ -95,7 +94,7 @@ const FetchDataOnMountWrapper = props => {
 
 };
 
-FetchDataOnMountWrapper.propTypes = {
+Layout.propTypes = {
 	path: PropTypes.string.isRequired,
 	documentTitle: PropTypes.func.isRequired,
 	fetchData: PropTypes.array.isRequired,
@@ -112,4 +111,4 @@ const mapStateToProps = state => ({
 	redirect: state.redirect
 });
 
-export default connect(mapStateToProps)(FetchDataOnMountWrapper);
+export default connect(mapStateToProps)(Layout);

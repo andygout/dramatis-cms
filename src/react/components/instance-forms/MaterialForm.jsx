@@ -9,7 +9,7 @@ import {
 	checkIsLastArrayItem,
 	handleAppendArrayItemClick,
 	handleRemoveArrayItemClick
-} from '../../utils/FormUtils';
+} from '../../utils/form';
 import { CREDIT_TYPES, MODELS } from '../../../utils/constants';
 
 const MaterialForm = props => {

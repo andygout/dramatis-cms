@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 import { Fieldset, FormWrapper, InputAndErrors } from '../form';
-import { handleChange } from '../../utils/FormUtils';
+import { handleChange } from '../../utils/form';
 
 const CompanyForm = props => {
 
