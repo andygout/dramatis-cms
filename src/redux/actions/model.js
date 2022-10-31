@@ -1,5 +1,3 @@
-import nodeFetch from 'node-fetch';
-
 import createAction from './base';
 import { activateError } from './error';
 import { activateRedirect } from './redirect';
@@ -53,8 +51,6 @@ const receiveDelete = instance =>
 	createAction(actions[`RECEIVE_${instance.model}_DELETE`], instance);
 
 const performFetch = async (url, settings) => {
-
-	const fetch = global.fetch || nodeFetch;
 
 	const response = await fetch(url, settings);
 
