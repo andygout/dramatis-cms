@@ -24,6 +24,7 @@ const ProductionForm = props => {
 	const [endDate, setEndDate] = useState(instance.endDate);
 	const [material, setMaterial] = useState(instance.material);
 	const [venue, setVenue] = useState(instance.venue);
+	const [subProductions, setSubProductions] = useState(instance.subProductions);
 	const [producerCredits, setProducerCredits] = useState(instance.producerCredits);
 	const [cast, setCast] = useState(instance.cast);
 	const [creativeCredits, setCreativeCredits] = useState(instance.creativeCredits);
@@ -37,6 +38,7 @@ const ProductionForm = props => {
 		setEndDate(instance.endDate);
 		setMaterial(instance.material);
 		setVenue(instance.venue);
+		setSubProductions(instance.subProductions);
 		setProducerCredits(instance.producerCredits);
 		setCast(instance.cast);
 		setCreativeCredits(instance.creativeCredits);
@@ -53,10 +55,73 @@ const ProductionForm = props => {
 		endDate,
 		material,
 		venue,
+		subProductions,
 		producerCredits,
 		cast,
 		creativeCredits,
 		crewCredits
+	};
+
+	const renderSubProductions = () => {
+
+		return (
+			<Fieldset header={'Sub-productions'}>
+
+				{
+					subProductions?.map((subProduction, index) => {
+
+						const statePath = [index];
+
+						const isLastListItem = checkIsLastArrayItem(index, subProductions.length);
+
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? handleAppendArrayItemClick(
+												subProductions,
+												setSubProductions,
+												statePath,
+												event
+											)
+											: handleRemoveArrayItemClick(
+												subProductions,
+												setSubProductions,
+												statePath,
+												event
+											)
+									}
+								/>
+
+								<FieldsetComponent label={'Production UUID'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={subProduction.uuid}
+										errors={getIn(subProduction, ['errors', 'uuid'])}
+										handleChange={event =>
+											handleChange(
+												subProductions,
+												setSubProductions,
+												statePath.concat(['uuid']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
+				}
+
+			</Fieldset>
+		);
+
 	};
 
 	const renderMembers = (stateValue, setStateValue, members, membersStatePath) => {
@@ -740,6 +805,8 @@ const ProductionForm = props => {
 				</FieldsetComponent>
 
 			</Fieldset>
+
+			{ Boolean(subProductions) && renderSubProductions() }
 
 			{ Boolean(producerCredits) && renderProducerCredits() }
 
