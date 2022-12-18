@@ -12,7 +12,7 @@ const deactivateNotification = () => (dispatch, getState) => {
 
 	if (getIn(getState(), ['notification', 'isActive'])) {
 
-		createAction(DEACTIVATE_NOTIFICATION, { isActive: false });
+		dispatch(createAction(DEACTIVATE_NOTIFICATION, { isActive: false }));
 
 	}
 
