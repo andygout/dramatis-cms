@@ -12,7 +12,7 @@ const deactivateError = () => (dispatch, getState) => {
 
 	if (getIn(getState(), ['error', 'isActive'])) {
 
-		createAction(DEACTIVATE_ERROR, { isActive: false });
+		dispatch(createAction(DEACTIVATE_ERROR, { isActive: false }));
 
 	}
 
