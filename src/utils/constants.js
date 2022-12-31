@@ -69,7 +69,7 @@ const MODEL_TO_PROP_NAME_MAP = {
 
 const MODEL_TO_ROUTE_MAP = {
 	[AWARD]: 'awards',
-	[AWARD_CEREMONY]: 'awards/ceremonies',
+	[AWARD_CEREMONY]: 'award-ceremonies',
 	[CHARACTER]: 'characters',
 	[COMPANY]: 'companies',
 	[MATERIAL]: 'materials',
@@ -96,7 +96,7 @@ const PLURALISED_MODELS = {
 
 const PLURALISED_MODEL_TO_ROUTE_MAP = {
 	[AWARDS]: 'awards',
-	[AWARD_CEREMONIES]: 'awards/ceremonies',
+	[AWARD_CEREMONIES]: 'award-ceremonies',
 	[CHARACTERS]: 'characters',
 	[COMPANIES]: 'companies',
 	[MATERIALS]: 'materials',

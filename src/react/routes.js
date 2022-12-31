@@ -35,36 +35,6 @@ export default [
 		]
 	},
 	{
-		path: '/awards/ceremonies',
-		documentTitle: () => 'Award ceremonies',
-		component: AwardCeremonies,
-		fetchData: [
-			dispatch => dispatch(deactivateError()),
-			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchList(PLURALISED_MODELS.AWARD_CEREMONIES))
-		]
-	},
-	{
-		path: '/awards/ceremonies/new',
-		documentTitle: () => 'New award ceremony',
-		component: AwardCeremony,
-		fetchData: [
-			dispatch => dispatch(deactivateError()),
-			dispatch => dispatch(deactivateNotification()),
-			dispatch => dispatch(fetchInstanceTemplate(MODELS.AWARD_CEREMONY))
-		]
-	},
-	{
-		path: '/awards/ceremonies/:uuid',
-		documentTitle: () => 'Award ceremony',
-		component: AwardCeremony,
-		fetchData: [
-			dispatch => dispatch(deactivateError()),
-			dispatch => dispatch(deactivateNotification()),
-			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD_CEREMONY, uuid))
-		]
-	},
-	{
 		path: '/awards',
 		documentTitle: () => 'Awards',
 		component: Awards,
@@ -92,6 +62,36 @@ export default [
 			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD, uuid))
+		]
+	},
+	{
+		path: '/award-ceremonies',
+		documentTitle: () => 'Award ceremonies',
+		component: AwardCeremonies,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.AWARD_CEREMONIES))
+		]
+	},
+	{
+		path: '/award-ceremonies/new',
+		documentTitle: () => 'New award ceremony',
+		component: AwardCeremony,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.AWARD_CEREMONY))
+		]
+	},
+	{
+		path: '/award-ceremonies/:uuid',
+		documentTitle: () => 'Award ceremony',
+		component: AwardCeremony,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD_CEREMONY, uuid))
 		]
 	},
 	{
