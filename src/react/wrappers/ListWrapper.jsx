@@ -8,13 +8,13 @@ const ListWrapper = props => {
 	const { pageTitleText, instances } = props;
 
 	return (
-		<React.Fragment>
+		<>
 
 			<PageTitle text={pageTitleText} />
 
 			<FormattedJson data={instances} />
 
-		</React.Fragment>
+		</>
 	);
 
 };

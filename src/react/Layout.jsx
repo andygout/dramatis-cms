@@ -50,7 +50,7 @@ const Layout = props => {
 	}, [redirect]);
 
 	return (
-		<React.Fragment>
+		<>
 
 			<Helmet
 				defaultTitle='TheatreBase'
@@ -89,7 +89,7 @@ const Layout = props => {
 
 			<Footer />
 
-		</React.Fragment>
+		</>
 	);
 
 };
