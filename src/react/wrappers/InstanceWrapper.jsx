@@ -24,7 +24,7 @@ const InstanceWrapper = props => {
 	const differentiatorSuffix = getDifferentiatorSuffix(instance.differentiator);
 
 	return (
-		<React.Fragment>
+		<>
 
 			{
 				name && modelDisplayName && formAction && (
@@ -50,7 +50,7 @@ const InstanceWrapper = props => {
 
 			{ children }
 
-		</React.Fragment>
+		</>
 	);
 
 };

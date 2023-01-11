@@ -8,7 +8,7 @@ const InputAndErrors = props => {
 	const { type, value, errors, handleChange } = props;
 
 	return (
-		<React.Fragment>
+		<>
 
 			<Input
 				type={type}
@@ -23,7 +23,7 @@ const InputAndErrors = props => {
 				)
 			}
 
-		</React.Fragment>
+		</>
 	);
 
 };
