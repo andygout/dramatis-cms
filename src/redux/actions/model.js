@@ -175,7 +175,7 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 	// add `getState` to this function's args:
 	// `const fetchInstance = (model, uuid = null) => async (dispatch, getState) => {`
 	// and wrap the remaining code of this function in a conditional based on `apiCallRequired`:
-	// `const apiCallRequired = isInstance ? getIn(getState(), [model, 'uuid']) !== uuid : !getState()[model].length;`
+	// `const apiCallRequired = isInstance ? getState()[model].uuid !== uuid : !getState()[model].length;`
 	// This is not applied here because it is necessary for a CMS to display the most current data from source.
 
 	dispatch(requestInstance(model));

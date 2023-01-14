@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { getIn } from '../../../lib/object-interactions';
 import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
 import {
@@ -100,7 +99,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={subProduction.uuid}
-										errors={getIn(subProduction, ['errors', 'uuid'])}
+										errors={subProduction.errors.uuid}
 										handleChange={event =>
 											handleChange(
 												subProductions,
@@ -152,7 +151,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={member.name}
-										errors={getIn(member, ['errors', 'name'])}
+										errors={member.errors.name}
 										handleChange={event =>
 											handleChange(
 												stateValue,
@@ -169,7 +168,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={member.differentiator}
-										errors={getIn(member, ['errors', 'differentiator'])}
+										errors={member.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												stateValue,
@@ -221,7 +220,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={entity.name}
-										errors={getIn(entity, ['errors', 'name'])}
+										errors={entity.errors.name}
 										handleChange={event =>
 											handleChange(
 												stateValue,
@@ -238,7 +237,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={entity.differentiator}
-										errors={getIn(entity, ['errors', 'differentiator'])}
+										errors={entity.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												stateValue,
@@ -346,7 +345,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={producerCredit.name}
-										errors={getIn(producerCredit, ['errors', 'name'])}
+										errors={producerCredit.errors.name}
 										handleChange={event =>
 											handleChange(
 												producerCredits,
@@ -408,7 +407,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={role.name}
-										errors={getIn(role, ['errors', 'name'])}
+										errors={role.errors.name}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -425,7 +424,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={role.characterName}
-										errors={getIn(role, ['errors', 'characterName'])}
+										errors={role.errors.characterName}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -442,7 +441,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={role.characterDifferentiator}
-										errors={getIn(role, ['errors', 'characterDifferentiator'])}
+										errors={role.errors.characterDifferentiator}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -459,7 +458,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={role.qualifier}
-										errors={getIn(role, ['errors', 'qualifier'])}
+										errors={role.errors.qualifier}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -528,7 +527,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={castMember.name}
-										errors={getIn(castMember, ['errors', 'name'])}
+										errors={castMember.errors.name}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -545,7 +544,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={castMember.differentiator}
-										errors={getIn(castMember, ['errors', 'differentiator'])}
+										errors={castMember.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												cast,
@@ -609,7 +608,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={creativeCredit.name}
-										errors={getIn(creativeCredit, ['errors', 'name'])}
+										errors={creativeCredit.errors.name}
 										handleChange={event =>
 											handleChange(
 												creativeCredits,
@@ -671,7 +670,7 @@ const ProductionForm = props => {
 
 									<InputAndErrors
 										value={crewCredit.name}
-										errors={getIn(crewCredit, ['errors', 'name'])}
+										errors={crewCredit.errors.name}
 										handleChange={event =>
 											handleChange(
 												crewCredits,
@@ -764,7 +763,7 @@ const ProductionForm = props => {
 
 					<InputAndErrors
 						value={material?.name}
-						errors={material && getIn(material, ['errors', 'name'])}
+						errors={material?.errors.name}
 						handleChange={event => handleChange(material, setMaterial, ['name'], event)}
 					/>
 
@@ -774,7 +773,7 @@ const ProductionForm = props => {
 
 					<InputAndErrors
 						value={material?.differentiator}
-						errors={material && getIn(material, ['errors', 'differentiator'])}
+						errors={material?.errors.differentiator}
 						handleChange={event => handleChange(material, setMaterial, ['differentiator'], event)}
 					/>
 
@@ -788,7 +787,7 @@ const ProductionForm = props => {
 
 					<InputAndErrors
 						value={venue?.name}
-						errors={venue && getIn(venue, ['errors', 'name'])}
+						errors={venue?.errors.name}
 						handleChange={event => handleChange(venue, setVenue, ['name'], event)}
 					/>
 
@@ -798,7 +797,7 @@ const ProductionForm = props => {
 
 					<InputAndErrors
 						value={venue?.differentiator}
-						errors={venue && getIn(venue, ['errors', 'differentiator'])}
+						errors={venue?.errors.differentiator}
 						handleChange={event => handleChange(venue, setVenue, ['differentiator'], event)}
 					/>
 

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { getIn } from '../../../lib/object-interactions';
 import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
 import {
@@ -89,7 +88,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={entity.name}
-										errors={getIn(entity, ['errors', 'name'])}
+										errors={entity.errors.name}
 										handleChange={event =>
 											handleChange(
 												writingCredits,
@@ -106,7 +105,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={entity.differentiator}
-										errors={getIn(entity, ['errors', 'differentiator'])}
+										errors={entity.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												writingCredits,
@@ -216,7 +215,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={writingCredit.name}
-										errors={getIn(writingCredit, ['errors', 'name'])}
+										errors={writingCredit.errors.name}
 										handleChange={event =>
 											handleChange(
 												writingCredits,
@@ -328,7 +327,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={subMaterial.name}
-										errors={getIn(subMaterial, ['errors', 'name'])}
+										errors={subMaterial.errors.name}
 										handleChange={event =>
 											handleChange(
 												subMaterials,
@@ -345,7 +344,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={subMaterial.differentiator}
-										errors={getIn(subMaterial, ['errors', 'differentiator'])}
+										errors={subMaterial.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												subMaterials,
@@ -407,7 +406,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={character.name}
-										errors={getIn(character, ['errors', 'name'])}
+										errors={character.errors.name}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -424,7 +423,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={character.underlyingName}
-										errors={getIn(character, ['errors', 'underlyingName'])}
+										errors={character.errors.underlyingName}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -441,7 +440,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={character.differentiator}
-										errors={getIn(character, ['errors', 'differentiator'])}
+										errors={character.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -458,7 +457,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={character.qualifier}
-										errors={getIn(character, ['errors', 'qualifier'])}
+										errors={character.errors.qualifier}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -520,7 +519,7 @@ const MaterialForm = props => {
 
 									<InputAndErrors
 										value={characterGroup.name}
-										errors={getIn(characterGroup, ['errors', 'name'])}
+										errors={characterGroup.errors.name}
 										handleChange={event =>
 											handleChange(
 												characterGroups,
@@ -599,7 +598,7 @@ const MaterialForm = props => {
 
 					<InputAndErrors
 						value={originalVersionMaterial?.name}
-						errors={originalVersionMaterial && getIn(originalVersionMaterial, ['errors', 'name'])}
+						errors={originalVersionMaterial?.errors.name}
 						handleChange={event =>
 							handleChange(
 								originalVersionMaterial,
@@ -616,7 +615,7 @@ const MaterialForm = props => {
 
 					<InputAndErrors
 						value={originalVersionMaterial?.differentiator}
-						errors={originalVersionMaterial && getIn(originalVersionMaterial, ['errors', 'differentiator'])}
+						errors={originalVersionMaterial?.errors.differentiator}
 						handleChange={event =>
 							handleChange(
 								originalVersionMaterial,

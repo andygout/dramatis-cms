@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { getIn } from '../../../lib/object-interactions';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
 import {
 	handleChange,
@@ -62,7 +61,7 @@ const VenueForm = props => {
 
 									<InputAndErrors
 										value={subVenue.name}
-										errors={getIn(subVenue, ['errors', 'name'])}
+										errors={subVenue.errors.name}
 										handleChange={event =>
 											handleChange(
 												subVenues,
@@ -79,7 +78,7 @@ const VenueForm = props => {
 
 									<InputAndErrors
 										value={subVenue.differentiator}
-										errors={getIn(subVenue, ['errors', 'differentiator'])}
+										errors={subVenue.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												subVenues,

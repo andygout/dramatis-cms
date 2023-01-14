@@ -1,4 +1,3 @@
-import { getIn } from '../../lib/object-interactions';
 import createAction from './base';
 import {
 	ACTIVATE_REDIRECT,
@@ -10,7 +9,7 @@ const activateRedirect = redirectData =>
 
 const deactivateRedirect = () => (dispatch, getState) => {
 
-	if (getIn(getState(), ['redirect', 'isActive'])) {
+	if (getState().redirect.isActive) {
 
 		dispatch(createAction(DEACTIVATE_REDIRECT, { isActive: false }));
 
