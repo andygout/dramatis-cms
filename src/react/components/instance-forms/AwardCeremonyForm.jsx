@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { getIn } from '../../../lib/object-interactions';
 import { capitalise } from '../../../lib/strings';
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
 import {
@@ -69,7 +68,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={member.name}
-										errors={getIn(member, ['errors', 'name'])}
+										errors={member.errors.name}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -86,7 +85,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={member.differentiator}
-										errors={getIn(member, ['errors', 'differentiator'])}
+										errors={member.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -138,7 +137,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={material.name}
-										errors={getIn(material, ['errors', 'name'])}
+										errors={material.errors.name}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -155,7 +154,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={material.differentiator}
-										errors={getIn(material, ['errors', 'differentiator'])}
+										errors={material.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -207,7 +206,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={production.uuid}
-										errors={getIn(production, ['errors', 'uuid'])}
+										errors={production.errors.uuid}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -259,7 +258,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={entity.name}
-										errors={getIn(entity, ['errors', 'name'])}
+										errors={entity.errors.name}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -276,7 +275,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={entity.differentiator}
-										errors={getIn(entity, ['errors', 'differentiator'])}
+										errors={entity.errors.differentiator}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -377,7 +376,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={nomination.customType}
-										errors={getIn(nomination, ['errors', 'customType'])}
+										errors={nomination.errors.customType}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -444,7 +443,7 @@ const AwardCeremonyForm = props => {
 
 									<InputAndErrors
 										value={category.name}
-										errors={getIn(category, ['errors', 'name'])}
+										errors={category.errors.name}
 										handleChange={event =>
 											handleChange(
 												categories,
@@ -492,7 +491,7 @@ const AwardCeremonyForm = props => {
 
 					<InputAndErrors
 						value={award?.name}
-						errors={award && getIn(award, ['errors', 'name'])}
+						errors={award?.errors.name}
 						handleChange={event => handleChange(award, setAward, ['name'], event)}
 					/>
 
@@ -502,7 +501,7 @@ const AwardCeremonyForm = props => {
 
 					<InputAndErrors
 						value={award?.differentiator}
-						errors={award && getIn(award, ['errors', 'differentiator'])}
+						errors={award?.errors.differentiator}
 						handleChange={event => handleChange(award, setAward, ['differentiator'], event)}
 					/>
 
