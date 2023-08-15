@@ -22,6 +22,9 @@ import productionFormData from './production-form-data';
 import production from './production';
 import productions from './productions';
 import redirect from './redirect';
+import seasonFormData from './season-form-data';
+import season from './season';
+import seasons from './seasons';
 import venueFormData from './venue-form-data';
 import venue from './venue';
 import venues from './venues';
@@ -51,6 +54,9 @@ export default {
 	production,
 	productions,
 	redirect,
+	seasonFormData,
+	season,
+	seasons,
 	venueFormData,
 	venue,
 	venues

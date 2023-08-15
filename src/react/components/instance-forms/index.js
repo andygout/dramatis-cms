@@ -6,6 +6,7 @@ import MaterialForm from './MaterialForm';
 import PersonForm from './PersonForm';
 import ProductionForm from './ProductionForm';
 import VenueForm from './VenueForm';
+import SeasonForm from './SeasonForm';
 
 export {
 	AwardForm,
@@ -15,5 +16,6 @@ export {
 	MaterialForm,
 	PersonForm,
 	ProductionForm,
+	SeasonForm,
 	VenueForm
 };
