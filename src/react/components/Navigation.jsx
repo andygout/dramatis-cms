@@ -24,6 +24,8 @@ const Navigation = () => {
 
 				<li><Link to={'/productions'}>Productions</Link></li>
 
+				<li><Link to={'/seasons'}>Seasons</Link></li>
+
 				<li><Link to={'/venues'}>Venues</Link></li>
 
 				<li><Link to={'/awards/new'}>New award</Link></li>
@@ -39,6 +41,8 @@ const Navigation = () => {
 				<li><Link to={'/people/new'}>New person</Link></li>
 
 				<li><Link to={'/productions/new'}>New production</Link></li>
+
+				<li><Link to={'/seasons/new'}>New season</Link></li>
 
 				<li><Link to={'/venues/new'}>New venue</Link></li>
 
