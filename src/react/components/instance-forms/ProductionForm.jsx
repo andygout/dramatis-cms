@@ -23,6 +23,7 @@ const ProductionForm = props => {
 	const [endDate, setEndDate] = useState(instance.endDate);
 	const [material, setMaterial] = useState(instance.material);
 	const [venue, setVenue] = useState(instance.venue);
+	const [season, setSeason] = useState(instance.season);
 	const [subProductions, setSubProductions] = useState(instance.subProductions);
 	const [producerCredits, setProducerCredits] = useState(instance.producerCredits);
 	const [cast, setCast] = useState(instance.cast);
@@ -37,6 +38,7 @@ const ProductionForm = props => {
 		setEndDate(instance.endDate);
 		setMaterial(instance.material);
 		setVenue(instance.venue);
+		setSeason(instance.season);
 		setSubProductions(instance.subProductions);
 		setProducerCredits(instance.producerCredits);
 		setCast(instance.cast);
@@ -54,6 +56,7 @@ const ProductionForm = props => {
 		endDate,
 		material,
 		venue,
+		season,
 		subProductions,
 		producerCredits,
 		cast,
@@ -799,6 +802,30 @@ const ProductionForm = props => {
 						value={venue?.differentiator}
 						errors={venue?.errors.differentiator}
 						handleChange={event => handleChange(venue, setVenue, ['differentiator'], event)}
+					/>
+
+				</FieldsetComponent>
+
+			</Fieldset>
+
+			<Fieldset header={'Season'}>
+
+				<FieldsetComponent label={'Name'}>
+
+					<InputAndErrors
+						value={season?.name}
+						errors={season?.errors.name}
+						handleChange={event => handleChange(season, setSeason, ['name'], event)}
+					/>
+
+				</FieldsetComponent>
+
+				<FieldsetComponent label={'Differentiator'}>
+
+					<InputAndErrors
+						value={season?.differentiator}
+						errors={season?.errors.differentiator}
+						handleChange={event => handleChange(season, setSeason, ['differentiator'], event)}
 					/>
 
 				</FieldsetComponent>
