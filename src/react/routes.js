@@ -7,6 +7,8 @@ import {
 	Characters,
 	Company,
 	Companies,
+	Festival,
+	Festivals,
 	Material,
 	Materials,
 	Person,
@@ -154,6 +156,36 @@ export default [
 			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.COMPANY, uuid))
+		]
+	},
+	{
+		path: '/festivals',
+		documentTitle: () => 'Festivals',
+		component: Festivals,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.FESTIVALS))
+		]
+	},
+	{
+		path: '/festivals/new',
+		documentTitle: () => 'New festival',
+		component: Festival,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.FESTIVAL))
+		]
+	},
+	{
+		path: '/festivals/:uuid',
+		documentTitle: () => 'Festival',
+		component: Festival,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.FESTIVAL, uuid))
 		]
 	},
 	{

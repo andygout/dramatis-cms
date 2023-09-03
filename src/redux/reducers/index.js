@@ -11,6 +11,9 @@ import companyFormData from './company-form-data';
 import company from './company';
 import companies from './companies';
 import error from './error';
+import festivalFormData from './festival-form-data';
+import festival from './festival';
+import festivals from './festivals';
 import materialFormData from './material-form-data';
 import material from './material';
 import materials from './materials';
@@ -43,6 +46,9 @@ export default {
 	company,
 	companies,
 	error,
+	festivalFormData,
+	festival,
+	festivals,
 	materialFormData,
 	material,
 	materials,
