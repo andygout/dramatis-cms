@@ -18,6 +18,8 @@ const Navigation = () => {
 
 				<li><Link to={'/companies'}>Companies</Link></li>
 
+				<li><Link to={'/festival-serieses'}>Festival serieses</Link></li>
+
 				<li><Link to={'/festivals'}>Festivals</Link></li>
 
 				<li><Link to={'/materials'}>Materials</Link></li>
@@ -37,6 +39,8 @@ const Navigation = () => {
 				<li><Link to={'/characters/new'}>New character</Link></li>
 
 				<li><Link to={'/companies/new'}>New company</Link></li>
+
+				<li><Link to={'/festival-serieses/new'}>New festival series</Link></li>
 
 				<li><Link to={'/festivals/new'}>New festival</Link></li>
 

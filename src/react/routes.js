@@ -9,6 +9,8 @@ import {
 	Companies,
 	Festival,
 	Festivals,
+	FestivalSeries,
+	FestivalSerieses,
 	Material,
 	Materials,
 	Person,
@@ -186,6 +188,36 @@ export default [
 			dispatch => dispatch(deactivateError()),
 			dispatch => dispatch(deactivateNotification()),
 			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.FESTIVAL, uuid))
+		]
+	},
+	{
+		path: '/festival-serieses',
+		documentTitle: () => 'Festival serieses',
+		component: FestivalSerieses,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchList(PLURALISED_MODELS.FESTIVAL_SERIESES))
+		]
+	},
+	{
+		path: '/festival-serieses/new',
+		documentTitle: () => 'New festival series',
+		component: FestivalSeries,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			dispatch => dispatch(fetchInstanceTemplate(MODELS.FESTIVAL_SERIES))
+		]
+	},
+	{
+		path: '/festival-serieses/:uuid',
+		documentTitle: () => 'Festival series',
+		component: FestivalSeries,
+		fetchData: [
+			dispatch => dispatch(deactivateError()),
+			dispatch => dispatch(deactivateNotification()),
+			(dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.FESTIVAL_SERIES, uuid))
 		]
 	},
 	{
