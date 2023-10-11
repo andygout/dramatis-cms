@@ -14,6 +14,9 @@ import error from './error';
 import festivalFormData from './festival-form-data';
 import festival from './festival';
 import festivals from './festivals';
+import festivalSeriesFormData from './festival-series-form-data';
+import festivalSeries from './festival-series';
+import festivalSerieses from './festival-serieses';
 import materialFormData from './material-form-data';
 import material from './material';
 import materials from './materials';
@@ -49,6 +52,9 @@ export default {
 	festivalFormData,
 	festival,
 	festivals,
+	festivalSeriesFormData,
+	festivalSeries,
+	festivalSerieses,
 	materialFormData,
 	material,
 	materials,
