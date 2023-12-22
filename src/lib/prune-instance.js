@@ -24,10 +24,10 @@ const pruneInstance = (instance, recursions = 0) => {
 			accumulator[key] =
 				instance[key]
 					.filter((item, index) =>
-						index === 0 || !Object.prototype.hasOwnProperty.call(item, 'name') || Boolean(item.name)
+						index === 0 || !Object.hasOwn(item, 'name') || Boolean(item.name)
 					)
 					.filter((item, index) =>
-						index === 0 || !Object.prototype.hasOwnProperty.call(item, 'uuid') || Boolean(item.uuid)
+						index === 0 || !Object.hasOwn(item, 'uuid') || Boolean(item.uuid)
 					)
 					.map(item => isObjectWithKeys(item) ? pruneInstance(item, recursions + 1) : item);
 
