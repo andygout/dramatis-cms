@@ -17,6 +17,7 @@ const MaterialForm = props => {
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
+	const [subtitle, setSubtitle] = useState(instance.subtitle);
 	const [format, setFormat] = useState(instance.format);
 	const [year, setYear] = useState(instance.year);
 	const [originalVersionMaterial, setOriginalVersionMaterial] = useState(instance.originalVersionMaterial);
@@ -28,6 +29,7 @@ const MaterialForm = props => {
 	useEffect(() => {
 		setName(instance.name);
 		setDifferentiator(instance.differentiator);
+		setSubtitle(instance.subtitle);
 		setFormat(instance.format);
 		setYear(instance.year);
 		setOriginalVersionMaterial(instance.originalVersionMaterial);
@@ -42,6 +44,7 @@ const MaterialForm = props => {
 		uuid: instance.uuid,
 		name,
 		differentiator,
+		subtitle,
 		format,
 		year,
 		originalVersionMaterial,
@@ -567,6 +570,16 @@ const MaterialForm = props => {
 					value={differentiator}
 					errors={errors?.differentiator}
 					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+				/>
+
+			</Fieldset>
+
+			<Fieldset header={'Subtitle'}>
+
+				<InputAndErrors
+					value={subtitle}
+					errors={errors?.subtitle}
+					handleChange={event => handleChange(subtitle, setSubtitle, [], event)}
 				/>
 
 			</Fieldset>
