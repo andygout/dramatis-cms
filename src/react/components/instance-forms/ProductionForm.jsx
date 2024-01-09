@@ -18,6 +18,7 @@ const ProductionForm = props => {
 	const { instance, action } = props;
 
 	const [name, setName] = useState(instance.name);
+	const [subtitle, setSubtitle] = useState(instance.subtitle);
 	const [startDate, setStartDate] = useState(instance.startDate);
 	const [pressDate, setPressDate] = useState(instance.pressDate);
 	const [endDate, setEndDate] = useState(instance.endDate);
@@ -34,6 +35,7 @@ const ProductionForm = props => {
 
 	useEffect(() => {
 		setName(instance.name);
+		setSubtitle(instance.subtitle);
 		setStartDate(instance.startDate);
 		setPressDate(instance.pressDate);
 		setEndDate(instance.endDate);
@@ -53,6 +55,7 @@ const ProductionForm = props => {
 		model: instance.model,
 		uuid: instance.uuid,
 		name,
+		subtitle,
 		startDate,
 		pressDate,
 		endDate,
@@ -722,6 +725,16 @@ const ProductionForm = props => {
 					value={name}
 					errors={errors?.name}
 					handleChange={event => handleChange(name, setName, [], event)}
+				/>
+
+			</Fieldset>
+
+			<Fieldset header={'Subtitle'}>
+
+				<InputAndErrors
+					value={subtitle}
+					errors={errors?.subtitle}
+					handleChange={event => handleChange(subtitle, setSubtitle, [], event)}
 				/>
 
 			</Fieldset>
