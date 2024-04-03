@@ -4,13 +4,13 @@
 	margin: 0;
 	padding: 0;
 	font-family: arial, sans-serif;
-	color: color-variables.$default-text-color;
 	text-decoration: none;
 }
 
 html {
 	height: 100%;
 	text-align: center;
+	color: color-variables.$default-text-color;
 	background-color: color-variables.$html-background-color;
 }
 
@@ -26,6 +26,10 @@ a {
 	&:hover {
 		color: color-variables.$default-text-color;
 	}
+}
+
+button {
+	cursor: pointer;
 }
 
 .page-container {

@@ -8,6 +8,7 @@ import Navigation from './Navigation';
 import Notification from './Notification';
 import PageTitle from './PageTitle';
 import ScrollToTop from './ScrollToTop';
+import SearchBar from './SearchBar';
 import withInstancePageTitle from './withInstancePageTitle';
 
 export {
@@ -21,5 +22,6 @@ export {
 	Notification,
 	PageTitle,
 	ScrollToTop,
+	SearchBar,
 	withInstancePageTitle
 };
