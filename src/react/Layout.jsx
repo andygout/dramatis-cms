@@ -53,8 +53,8 @@ const Layout = props => {
 		<>
 
 			<Helmet
-				defaultTitle='TheatreBase'
-				titleTemplate='%s | TheatreBase'
+				defaultTitle='Dramatis'
+				titleTemplate='%s | Dramatis'
 				title={documentTitle()}
 			/>
 
