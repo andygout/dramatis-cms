@@ -12,7 +12,7 @@ import {
 	PLURALISED_MODEL_TO_ROUTE_MAP
 } from '../../utils/constants';
 
-const URL_BASE = 'http://localhost:3000';
+const API_URL_BASE = 'http://localhost:3000';
 
 const requestList = pluralisedModel =>
 	createAction(actions[`REQUEST_${pluralisedModel}`]);
@@ -64,11 +64,11 @@ const fetchList = pluralisedModel => async dispatch => {
 
 	dispatch(requestList(pluralisedModel));
 
-	const url = `${URL_BASE}/${PLURALISED_MODEL_TO_ROUTE_MAP[pluralisedModel]}`;
+	const apiUrl = `${API_URL_BASE}/${PLURALISED_MODEL_TO_ROUTE_MAP[pluralisedModel]}`;
 
 	try {
 
-		const fetchedList = await performFetch(url, { mode: 'cors' });
+		const fetchedList = await performFetch(apiUrl, { mode: 'cors' });
 
 		dispatch(receiveList(fetchedList, pluralisedModel));
 
@@ -86,11 +86,11 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	dispatch(requestInstance(model));
 
-	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[model]}/new`;
+	const apiUrl = `${API_URL_BASE}/${MODEL_TO_ROUTE_MAP[model]}/new`;
 
 	try {
 
-		const fetchedInstance = await performFetch(url, { mode: 'cors' });
+		const fetchedInstance = await performFetch(apiUrl, { mode: 'cors' });
 
 		const prunedInstance = pruneInstance(fetchedInstance);
 
@@ -112,7 +112,7 @@ const createInstance = instance => async dispatch => {
 
 	dispatch(requestCreate(instance.model));
 
-	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}`;
+	const apiUrl = `${API_URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}`;
 
 	const fetchSettings = {
 		headers: {
@@ -125,7 +125,7 @@ const createInstance = instance => async dispatch => {
 
 	try {
 
-		const fetchedInstance = await performFetch(url, fetchSettings);
+		const fetchedInstance = await performFetch(apiUrl, fetchSettings);
 
 		const { model, uuid, name, differentiator, hasErrors } = fetchedInstance;
 
@@ -180,11 +180,11 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	dispatch(requestInstance(model));
 
-	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[model]}/${uuid}/edit`;
+	const apiUrl = `${API_URL_BASE}/${MODEL_TO_ROUTE_MAP[model]}/${uuid}/edit`;
 
 	try {
 
-		const fetchedInstance = await performFetch(url, { mode: 'cors' });
+		const fetchedInstance = await performFetch(apiUrl, { mode: 'cors' });
 
 		const prunedInstance = pruneInstance(fetchedInstance);
 
@@ -206,7 +206,7 @@ const updateInstance = instance => async dispatch => {
 
 	dispatch(requestUpdate(instance.model));
 
-	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`;
+	const apiUrl = `${API_URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`;
 
 	const fetchSettings = {
 		headers: {
@@ -219,7 +219,7 @@ const updateInstance = instance => async dispatch => {
 
 	try {
 
-		const fetchedInstance = await performFetch(url, fetchSettings);
+		const fetchedInstance = await performFetch(apiUrl, fetchSettings);
 
 		const { model, name, differentiator, hasErrors } = fetchedInstance;
 
@@ -263,7 +263,7 @@ const deleteInstance = instance => async dispatch => {
 
 	dispatch(requestDelete(instance.model));
 
-	const url = `${URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`;
+	const apiUrl = `${API_URL_BASE}/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`;
 
 	const fetchSettings = {
 		mode: 'cors',
@@ -272,7 +272,7 @@ const deleteInstance = instance => async dispatch => {
 
 	try {
 
-		const fetchedInstance = await performFetch(url, fetchSettings);
+		const fetchedInstance = await performFetch(apiUrl, fetchSettings);
 
 		const { model, name, differentiator, hasErrors } = fetchedInstance;
 
