@@ -31,6 +31,7 @@ const ProductionForm = props => {
 	const [cast, setCast] = useState(instance.cast);
 	const [creativeCredits, setCreativeCredits] = useState(instance.creativeCredits);
 	const [crewCredits, setCrewCredits] = useState(instance.crewCredits);
+	const [reviews, setReviews] = useState(instance.reviews);
 	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
@@ -48,6 +49,7 @@ const ProductionForm = props => {
 		setCast(instance.cast);
 		setCreativeCredits(instance.creativeCredits);
 		setCrewCredits(instance.crewCredits);
+		setReviews(instance.reviews);
 		setErrors(instance.errors);
 	}, [instance]);
 
@@ -67,7 +69,8 @@ const ProductionForm = props => {
 		producerCredits,
 		cast,
 		creativeCredits,
-		crewCredits
+		crewCredits,
+		reviews
 	};
 
 	const renderSubProductions = () => {
@@ -713,6 +716,160 @@ const ProductionForm = props => {
 
 	};
 
+	const renderReviews = () => {
+
+		return (
+			<Fieldset header={'Reviews'}>
+
+				{
+					reviews.map((review, index) => {
+
+						const statePath = [index];
+
+						const isLastListItem = checkIsLastArrayItem(index, reviews.length);
+
+						return (
+							<div className={'fieldset__module'} key={index}>
+
+								<ArrayItemActionButton
+									isLastListItem={isLastListItem}
+									handleClick={event =>
+										isLastListItem
+											? handleAppendArrayItemClick(reviews, setReviews, statePath, event)
+											: handleRemoveArrayItemClick(reviews, setReviews, statePath, event)
+									}
+								/>
+
+								<FieldsetComponent label={'URL'} isArrayItem={true}>
+
+									<InputAndErrors
+										value={review.url}
+										errors={review.errors.url}
+										handleChange={event =>
+											handleChange(
+												reviews,
+												setReviews,
+												statePath.concat(['url']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Date'} isArrayItem={true}>
+
+									<InputAndErrors
+										type={'date'}
+										value={review.date}
+										errors={review.errors.date}
+										handleChange={event =>
+											handleChange(
+												reviews,
+												setReviews,
+												statePath.concat(['date']),
+												event
+											)
+										}
+									/>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Publication (company)'} isArrayItem={true}>
+
+									<div className={'fieldset__module fieldset__module--nested'}>
+
+										<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+											<InputAndErrors
+												value={review.publication.name}
+												errors={review.publication.errors.name}
+												handleChange={event =>
+													handleChange(
+														reviews,
+														setReviews,
+														statePath.concat(['publication', 'name']),
+														event
+													)
+												}
+											/>
+
+										</FieldsetComponent>
+
+										<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+
+											<InputAndErrors
+												value={review.publication.differentiator}
+												errors={review.publication.errors.differentiator}
+												handleChange={event =>
+													handleChange(
+														reviews,
+														setReviews,
+														statePath.concat(['publication', 'differentiator']),
+														event
+													)
+												}
+											/>
+
+										</FieldsetComponent>
+
+									</div>
+
+								</FieldsetComponent>
+
+								<FieldsetComponent label={'Critic (person)'} isArrayItem={true}>
+
+									<div className={'fieldset__module fieldset__module--nested'}>
+
+										<FieldsetComponent label={'Name'} isArrayItem={true}>
+
+											<InputAndErrors
+												value={review.critic.name}
+												errors={review.critic.errors.name}
+												handleChange={event =>
+													handleChange(
+														reviews,
+														setReviews,
+														statePath.concat(['critic', 'name']),
+														event
+													)
+												}
+											/>
+
+										</FieldsetComponent>
+
+										<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+
+											<InputAndErrors
+												value={review.critic.differentiator}
+												errors={review.critic.errors.differentiator}
+												handleChange={event =>
+													handleChange(
+														reviews,
+														setReviews,
+														statePath.concat(['critic', 'differentiator']),
+														event
+													)
+												}
+											/>
+
+										</FieldsetComponent>
+
+									</div>
+
+								</FieldsetComponent>
+
+							</div>
+						);
+
+					})
+				}
+
+			</Fieldset>
+		);
+
+	};
+
 	return (
 		<FormWrapper
 			action={action}
@@ -881,6 +1038,8 @@ const ProductionForm = props => {
 			{ Boolean(creativeCredits) && renderCreativeCredits() }
 
 			{ Boolean(crewCredits) && renderCrewCredits() }
+
+			{ Boolean(reviews) && renderReviews() }
 
 		</FormWrapper>
 	);
