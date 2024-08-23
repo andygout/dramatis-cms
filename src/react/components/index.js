@@ -1,15 +1,15 @@
-import ErrorMessage from './ErrorMessage';
-import Footer from './Footer';
-import FormattedJson from './FormattedJson';
-import Header from './Header';
-import InstanceDocumentTitle from './InstanceDocumentTitle';
-import InstanceLabel from './InstanceLabel';
-import Navigation from './Navigation';
-import Notification from './Notification';
-import PageTitle from './PageTitle';
-import ScrollToTop from './ScrollToTop';
-import SearchBar from './SearchBar';
-import withInstancePageTitle from './withInstancePageTitle';
+import ErrorMessage from './ErrorMessage.jsx';
+import Footer from './Footer.jsx';
+import FormattedJson from './FormattedJson.jsx';
+import Header from './Header.jsx';
+import InstanceDocumentTitle from './InstanceDocumentTitle.jsx';
+import InstanceLabel from './InstanceLabel.jsx';
+import Navigation from './Navigation.jsx';
+import Notification from './Notification.jsx';
+import PageTitle from './PageTitle.jsx';
+import ScrollToTop from './ScrollToTop.jsx';
+import SearchBar from './SearchBar.jsx';
+import withInstancePageTitle from './withInstancePageTitle.jsx';
 
 export {
 	ErrorMessage,

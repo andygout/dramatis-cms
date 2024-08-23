@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { getIn, removeIn, setIn, pushIn } from '../../../src/lib/object-interactions';
+import { getIn, removeIn, setIn, pushIn } from '../../../src/lib/object-interactions.js';
 
 describe('Object Interactions module', () => {
 

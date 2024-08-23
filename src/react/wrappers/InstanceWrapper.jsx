@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix';
+import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix.js';
 import {
 	FormattedJson,
 	InstanceDocumentTitle,
 	InstanceLabel,
 	PageTitle,
 	withInstancePageTitle
-} from '../components';
-import { MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants';
+} from '../components/index.js';
+import { MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants.js';
 
 const InstanceWrapper = props => {
 

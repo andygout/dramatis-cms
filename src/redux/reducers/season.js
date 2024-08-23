@@ -7,7 +7,7 @@ import {
 	RECEIVE_SEASON_UPDATE,
 	REQUEST_SEASON_DELETE,
 	RECEIVE_SEASON_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const season = (state = {}, action) => {
 

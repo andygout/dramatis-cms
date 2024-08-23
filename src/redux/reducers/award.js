@@ -7,7 +7,7 @@ import {
 	RECEIVE_AWARD_UPDATE,
 	REQUEST_AWARD_DELETE,
 	RECEIVE_AWARD_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const award = (state = {}, action) => {
 

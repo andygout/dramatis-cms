@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 import {
 	handleChange,
 	checkIsLastArrayItem,
 	handleAppendArrayItemClick,
 	handleRemoveArrayItemClick
-} from '../../utils/form';
+} from '../../utils/form.js';
 
 const VenueForm = props => {
 

@@ -1,7 +1,7 @@
 import {
 	ACTIVATE_REDIRECT,
 	DEACTIVATE_REDIRECT
-} from '../utils/redirect-action-names';
+} from '../utils/redirect-action-names.js';
 
 const redirect = (state = { isActive: false }, action) => {
 

@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { PersonForm } from '../../components/instance-forms';
-import { InstanceWrapper } from '../../wrappers';
+import { PersonForm } from '../../components/instance-forms/index.js';
+import { InstanceWrapper } from '../../wrappers/index.js';
 
 const Person = props => {
 

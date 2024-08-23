@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import { ACTIONS } from '../../utils/constants';
+import { ACTIONS } from '../../utils/constants.js';
 
 const InstanceDocumentTitle = props => {
 

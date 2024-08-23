@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { Fieldset, FormWrapper, InputAndErrors } from '../form';
-import { handleChange } from '../../utils/form';
+import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
+import { handleChange } from '../../utils/form.js';
 
 const SeasonForm = props => {
 

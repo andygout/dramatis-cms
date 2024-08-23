@@ -1,8 +1,8 @@
-import createAction from './base';
+import createAction from './base.js';
 import {
 	ACTIVATE_REDIRECT,
 	DEACTIVATE_REDIRECT
-} from '../utils/redirect-action-names';
+} from '../utils/redirect-action-names.js';
 
 const activateRedirect = redirectData =>
 	createAction(ACTIVATE_REDIRECT, { isActive: true, ...redirectData });

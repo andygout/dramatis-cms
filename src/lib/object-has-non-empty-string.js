@@ -1,5 +1,5 @@
-import isObjectWithKeys from './is-object-with-keys';
-import { FORM_UNEDITABLE_KEYS } from '../utils/constants';
+import isObjectWithKeys from './is-object-with-keys.js';
+import { FORM_UNEDITABLE_KEYS } from '../utils/constants.js';
 
 const isNonEmptyString = value => typeof value === 'string' && Boolean(value);
 

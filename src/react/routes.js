@@ -23,12 +23,12 @@ import {
 	Venues,
 	Home,
 	NotFound
-} from './pages';
+} from './pages/index.js';
 
-import { deactivateError } from '../redux/actions/error';
-import { fetchList, fetchInstanceTemplate, fetchInstance } from '../redux/actions/model';
-import { deactivateNotification } from '../redux/actions/notification';
-import { MODELS, PLURALISED_MODELS } from '../utils/constants';
+import { deactivateError } from '../redux/actions/error.js';
+import { fetchList, fetchInstanceTemplate, fetchInstance } from '../redux/actions/model.js';
+import { deactivateNotification } from '../redux/actions/notification.js';
+import { MODELS, PLURALISED_MODELS } from '../utils/constants.js';
 
 export default [
 	{

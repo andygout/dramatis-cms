@@ -1,10 +1,10 @@
-import ArrayItemActionButton from './ArrayItemActionButton';
-import Fieldset from './Fieldset';
-import FieldsetComponent from './FieldsetComponent';
-import FormWrapper from './FormWrapper';
-import Input from './Input';
-import InputAndErrors from './InputAndErrors';
-import InputErrors from './InputErrors';
+import ArrayItemActionButton from './ArrayItemActionButton.jsx';
+import Fieldset from './Fieldset.jsx';
+import FieldsetComponent from './FieldsetComponent.jsx';
+import FormWrapper from './FormWrapper.jsx';
+import Input from './Input.jsx';
+import InputAndErrors from './InputAndErrors.jsx';
+import InputErrors from './InputErrors.jsx';
 
 export {
 	ArrayItemActionButton,

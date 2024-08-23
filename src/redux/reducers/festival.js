@@ -7,7 +7,7 @@ import {
 	RECEIVE_FESTIVAL_UPDATE,
 	REQUEST_FESTIVAL_DELETE,
 	RECEIVE_FESTIVAL_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const festival = (state = {}, action) => {
 

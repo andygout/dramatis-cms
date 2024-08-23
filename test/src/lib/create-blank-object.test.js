@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import createBlankObject from '../../../src/lib/create-blank-object';
+import createBlankObject from '../../../src/lib/create-blank-object.js';
 
 describe('Create Blank Object module', () => {
 

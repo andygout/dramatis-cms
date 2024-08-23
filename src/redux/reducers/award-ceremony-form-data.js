@@ -1,8 +1,8 @@
 import {
 	RECEIVE_AWARD_CEREMONY_NEW_FORM_DATA,
 	RECEIVE_AWARD_CEREMONY_EDIT_FORM_DATA
-} from '../utils/model-action-names';
-import { ACTIONS } from '../../utils/constants';
+} from '../utils/model-action-names.js';
+import { ACTIONS } from '../../utils/constants.js';
 
 const awardCeremonyFormData = (state = {}, action) => {
 

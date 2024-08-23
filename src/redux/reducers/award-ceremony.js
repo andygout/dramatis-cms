@@ -7,7 +7,7 @@ import {
 	RECEIVE_AWARD_CEREMONY_UPDATE,
 	REQUEST_AWARD_CEREMONY_DELETE,
 	RECEIVE_AWARD_CEREMONY_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const awardCeremony = (state = {}, action) => {
 

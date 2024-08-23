@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import objectHasNonEmptyString from '../../../src/lib/object-has-non-empty-string';
+import objectHasNonEmptyString from '../../../src/lib/object-has-non-empty-string.js';
 
 describe('Object Has Non-Empty String module', () => {
 
