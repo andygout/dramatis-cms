@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { FormattedJson, PageTitle } from '../components';
+import { FormattedJson, PageTitle } from '../components/index.js';
 
 const ListWrapper = props => {
 

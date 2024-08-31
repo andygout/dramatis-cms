@@ -7,7 +7,7 @@ import {
 	RECEIVE_PERSON_UPDATE,
 	REQUEST_PERSON_DELETE,
 	RECEIVE_PERSON_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const person = (state = {}, action) => {
 

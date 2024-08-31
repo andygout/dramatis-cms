@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { capitalise } from '../../../lib/strings';
-import { handleDelete, handleSubmit } from '../../utils/form';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model';
-import { ACTIONS } from '../../../utils/constants';
+import { capitalise } from '../../../lib/strings.js';
+import { handleDelete, handleSubmit } from '../../utils/form.js';
+import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model.js';
+import { ACTIONS } from '../../../utils/constants.js';
 
 const FormWrapper = props => {
 

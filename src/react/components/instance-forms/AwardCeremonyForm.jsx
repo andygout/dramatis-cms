@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { capitalise } from '../../../lib/strings';
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
+import { capitalise } from '../../../lib/strings.js';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 import {
 	handleChange,
 	checkIsLastArrayItem,
@@ -10,8 +10,8 @@ import {
 	handleRemoveArrayItemClick,
 	handleChangeToPerson,
 	handleChangeToCompany
-} from '../../utils/form';
-import { MODELS } from '../../../utils/constants';
+} from '../../utils/form.js';
+import { MODELS } from '../../../utils/constants.js';
 
 const AwardCeremonyForm = props => {
 

@@ -7,7 +7,7 @@ import {
 	RECEIVE_PRODUCTION_UPDATE,
 	REQUEST_PRODUCTION_DELETE,
 	RECEIVE_PRODUCTION_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const production = (state = {}, action) => {
 

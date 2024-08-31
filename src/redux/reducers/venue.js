@@ -7,7 +7,7 @@ import {
 	RECEIVE_VENUE_UPDATE,
 	REQUEST_VENUE_DELETE,
 	RECEIVE_VENUE_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const venue = (state = {}, action) => {
 

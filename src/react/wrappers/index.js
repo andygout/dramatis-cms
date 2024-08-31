@@ -1,5 +1,5 @@
-import InstanceWrapper from './InstanceWrapper';
-import ListWrapper from './ListWrapper';
+import InstanceWrapper from './InstanceWrapper.jsx';
+import ListWrapper from './ListWrapper.jsx';
 
 export {
 	InstanceWrapper,

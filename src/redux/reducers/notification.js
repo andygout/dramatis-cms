@@ -1,7 +1,7 @@
 import {
 	ACTIVATE_NOTIFICATION,
 	DEACTIVATE_NOTIFICATION
-} from '../utils/notification-action-names';
+} from '../utils/notification-action-names.js';
 
 const notification = (state = { isActive: false }, action) => {
 

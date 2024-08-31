@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ProductionForm } from '../../components/instance-forms';
-import { InstanceWrapper } from '../../wrappers';
+import { ProductionForm } from '../../components/instance-forms/index.js';
+import { InstanceWrapper } from '../../wrappers/index.js';
 
 const Production = props => {
 

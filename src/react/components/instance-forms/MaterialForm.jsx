@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-import { capitalise } from '../../../lib/strings';
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form';
+import { capitalise } from '../../../lib/strings.js';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 import {
 	handleChange,
 	checkIsLastArrayItem,
 	handleAppendArrayItemClick,
 	handleRemoveArrayItemClick
-} from '../../utils/form';
-import { CREDIT_TYPES, MODELS } from '../../../utils/constants';
+} from '../../utils/form.js';
+import { CREDIT_TYPES, MODELS } from '../../../utils/constants.js';
 
 const MaterialForm = props => {
 

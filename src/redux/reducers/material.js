@@ -7,7 +7,7 @@ import {
 	RECEIVE_MATERIAL_UPDATE,
 	REQUEST_MATERIAL_DELETE,
 	RECEIVE_MATERIAL_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const material = (state = {}, action) => {
 

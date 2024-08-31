@@ -4,9 +4,9 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 
-import { ErrorMessage, Footer, Header, Navigation, Notification, ScrollToTop } from './components';
-import { activateNotification } from '../redux/actions/notification';
-import { deactivateRedirect } from '../redux/actions/redirect';
+import { ErrorMessage, Footer, Header, Navigation, Notification, ScrollToTop } from './components/index.js';
+import { activateNotification } from '../redux/actions/notification.js';
+import { deactivateRedirect } from '../redux/actions/redirect.js';
 
 const Layout = props => {
 

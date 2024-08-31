@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import pruneInstance from '../../../src/lib/prune-instance';
+import pruneInstance from '../../../src/lib/prune-instance.js';
 
 describe('Prune Instance module', () => {
 

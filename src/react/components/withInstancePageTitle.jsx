@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { ACTIONS } from '../../utils/constants';
+import { ACTIONS } from '../../utils/constants.js';
 
 const withInstancePageTitle = PageTitle => {
 

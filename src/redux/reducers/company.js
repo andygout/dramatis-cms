@@ -7,7 +7,7 @@ import {
 	RECEIVE_COMPANY_UPDATE,
 	REQUEST_COMPANY_DELETE,
 	RECEIVE_COMPANY_DELETE
-} from '../utils/model-action-names';
+} from '../utils/model-action-names.js';
 
 const company = (state = {}, action) => {
 

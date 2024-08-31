@@ -1,7 +1,7 @@
-import createBlankObject from '../../lib/create-blank-object';
-import objectHasNonEmptyString from '../../lib/object-has-non-empty-string';
-import { getIn, removeIn, setIn, pushIn } from '../../lib/object-interactions';
-import { ACTIONS, MODELS } from '../../utils/constants';
+import createBlankObject from '../../lib/create-blank-object.js';
+import objectHasNonEmptyString from '../../lib/object-has-non-empty-string.js';
+import { getIn, removeIn, setIn, pushIn } from '../../lib/object-interactions.js';
+import { ACTIONS, MODELS } from '../../utils/constants.js';
 
 const applyRevisionToStateValue = (stateValue, statePath, revision) => {
 
