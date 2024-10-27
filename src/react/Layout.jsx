@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { useLocation, useMatch, useNavigate } from 'react-router-dom';
