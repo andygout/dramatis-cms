@@ -33,7 +33,8 @@ const serverBundle = {
 		'react-router-dom',
 		'react-router-dom/server.js',
 		'redux',
-		'redux-thunk'
+		'redux-thunk',
+		'serve-favicon'
 	],
 	watch: {
 		clearScreen: false
