@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
-import { Input, InputErrors } from './index.js';
+import Input from './Input.jsx';
+import InputErrors from './InputErrors.jsx';
 
 const InputAndErrors = props => {
 
