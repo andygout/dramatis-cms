@@ -4,7 +4,7 @@ import { ACTIONS } from '../../utils/constants.js';
 
 const withInstancePageTitle = PageTitle => {
 
-	const _InstancePageTitle = props => {
+	const _InstancePageTitle = props => { // eslint-disable-line no-underscore-dangle
 
 		const { name, modelDisplayName, differentiatorSuffix, formAction } = props;
 
