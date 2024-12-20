@@ -15,6 +15,7 @@ const serverBundle = {
 		sourcemap: 'inline'
 	},
 	external: [
+		'@reduxjs/toolkit',
 		'classnames',
 		'express',
 		'express-handlebars',

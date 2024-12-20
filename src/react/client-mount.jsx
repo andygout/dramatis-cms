@@ -1,24 +1,28 @@
+import { configureStore } from '@reduxjs/toolkit';
 import { hydrateRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { applyMiddleware, createStore, combineReducers } from 'redux';
-import { createLogger } from 'redux-logger';
-import { thunk as thunkMiddleware } from 'redux-thunk';
+import reduxLoggerMiddleware from 'redux-logger';
 
 import AppRoutes from './AppRoutes.jsx';
 import reducers from '../redux/reducers/index.js';
 
 window.onload = () => {
 
-	const preloadedState = JSON.parse(document.getElementById('react-client-data').innerText);
+	const store = configureStore({
+		reducer: reducers,
+		preloadedState: JSON.parse(document.getElementById('react-client-data').innerText),
+		middleware: getDefaultMiddleware => {
+			const middleware = getDefaultMiddleware();
 
-	const loggerMiddleware = createLogger();
+			if (process.env.NODE_ENV !== 'production') {
+				middleware.push(reduxLoggerMiddleware);
+			}
 
-	const store = createStore(
-		combineReducers(reducers),
-		preloadedState,
-		applyMiddleware(...[thunkMiddleware, loggerMiddleware])
-	);
+			return middleware;
+		},
+		devTools: process.env.NODE_ENV !== 'production'
+	});
 
 	hydrateRoot(
 		document.getElementById('page-container'),
