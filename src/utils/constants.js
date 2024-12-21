@@ -115,6 +115,20 @@ const PLURALISED_MODELS = {
 	[VENUES]: VENUES
 };
 
+const PLURALISED_MODEL_TO_PROP_NAME_MAP = {
+	[AWARDS]: 'awards',
+	[AWARD_CEREMONIES]: 'awardCeremonies',
+	[CHARACTERS]: 'characters',
+	[COMPANIES]: 'companies',
+	[FESTIVALS]: 'festivals',
+	[FESTIVAL_SERIESES]: 'festivalSerieses',
+	[MATERIALS]: 'materials',
+	[PEOPLE]: 'people',
+	[PRODUCTIONS]: 'productions',
+	[SEASONS]: 'seasons',
+	[VENUES]: 'venues'
+};
+
 const PLURALISED_MODEL_TO_ROUTE_MAP = {
 	[AWARDS]: 'awards',
 	[AWARD_CEREMONIES]: 'award-ceremonies',
@@ -140,5 +154,6 @@ export {
 	MODEL_TO_ROUTE_MAP,
 	NOTIFICATION_STATUSES,
 	PLURALISED_MODELS,
+	PLURALISED_MODEL_TO_PROP_NAME_MAP,
 	PLURALISED_MODEL_TO_ROUTE_MAP
 };
