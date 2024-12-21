@@ -1,7 +1,7 @@
 import createAction from './base.js';
-import { activateError } from './error.js';
 import { activateRedirect } from './redirect.js';
-import { activateNotification, deactivateNotification } from './notification.js';
+import { errorActivated } from '../features/errorSlice.js';
+import { notificationActivated, notificationDeactivated } from '../features/notificationSlice.js';
 import * as actions from '../utils/model-action-names.js';
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix.js';
 import pruneInstance from '../../lib/prune-instance.js';
@@ -74,9 +74,9 @@ const fetchList = pluralisedModel => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(activateError({ message }));
+		dispatch(errorActivated({ message }));
 
-		dispatch(deactivateNotification());
+		dispatch(notificationDeactivated());
 
 	}
 
@@ -100,9 +100,9 @@ const fetchInstanceTemplate = model => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(activateError({ message }));
+		dispatch(errorActivated({ message }));
 
-		dispatch(deactivateNotification());
+		dispatch(notificationDeactivated());
 
 	}
 
@@ -140,7 +140,7 @@ const createInstance = instance => async dispatch => {
 				status: NOTIFICATION_STATUSES.failure
 			};
 
-			dispatch(activateNotification(notification));
+			dispatch(notificationActivated(notification));
 
 		} else {
 
@@ -161,9 +161,9 @@ const createInstance = instance => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(activateError({ message }));
+		dispatch(errorActivated({ message }));
 
-		dispatch(deactivateNotification());
+		dispatch(notificationDeactivated());
 
 	}
 
@@ -194,9 +194,9 @@ const fetchInstance = (model, uuid = null) => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(activateError({ message }));
+		dispatch(errorActivated({ message }));
 
-		dispatch(deactivateNotification());
+		dispatch(notificationDeactivated());
 
 	}
 
@@ -245,15 +245,15 @@ const updateInstance = instance => async dispatch => {
 
 		}
 
-		dispatch(activateNotification(notification));
+		dispatch(notificationActivated(notification));
 
 		dispatch(receiveEditFormData({ instance: fetchedInstance }));
 
 	} catch ({ message }) {
 
-		dispatch(activateError({ message }));
+		dispatch(errorActivated({ message }));
 
-		dispatch(deactivateNotification());
+		dispatch(notificationDeactivated());
 
 	}
 
@@ -290,7 +290,7 @@ const deleteInstance = instance => async dispatch => {
 				status: NOTIFICATION_STATUSES.failure
 			};
 
-			dispatch(activateNotification(notification));
+			dispatch(notificationActivated(notification));
 
 		} else {
 
@@ -311,9 +311,9 @@ const deleteInstance = instance => async dispatch => {
 
 	} catch ({ message }) {
 
-		dispatch(activateError({ message }));
+		dispatch(errorActivated({ message }));
 
-		dispatch(deactivateNotification());
+		dispatch(notificationDeactivated());
 
 	}
 

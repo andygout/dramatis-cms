@@ -18,9 +18,13 @@ const Layout = props => {
 
 	useEffect(() => {
 
-		const { fetchData, dispatch } = props;
+		const { fetchData, deactivateError, deactivateNotification, dispatch } = props;
 
 		if (fetchData) fetchData.map(fetchDataFunction => fetchDataFunction(dispatch, match));
+
+		if (deactivateError) deactivateError(dispatch, error.isActive);
+
+		if (deactivateNotification) deactivateNotification(dispatch, notification.isActive);
 
 		if (location.state?.isRedirectActive) {
 

@@ -6,11 +6,13 @@ import reduxLoggerMiddleware from 'redux-logger';
 
 import AppRoutes from './AppRoutes.jsx';
 import reducers from '../redux/reducers/index.js';
+import reducersFromFeatures from '../redux/features/index.js';
 
 window.onload = () => {
 
 	const store = configureStore({
-		reducer: reducers,
+		// reducer: reducers,
+		reducer: Object.assign({}, reducers, reducersFromFeatures), // TODO: Just `reducers` as value.
 		preloadedState: JSON.parse(document.getElementById('react-client-data').innerText),
 		middleware: getDefaultMiddleware => {
 			const middleware = getDefaultMiddleware();

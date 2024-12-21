@@ -5,12 +5,14 @@ import { matchPath } from 'react-router-dom';
 
 import getReactHtml from '../react/react-html.jsx';
 import reducers from '../redux/reducers/index.js';
+import reducersFromFeatures from '../redux/features/index.js';
 import routes from '../react/routes.js';
 
 const router = new Router();
 
 const store = configureStore({
-	reducer: reducers
+	// reducer: reducers
+	reducer: Object.assign({}, reducers, reducersFromFeatures) // TODO: Just `reducers` as value.
 });
 
 router.get('*', async (request, response, next) => {
