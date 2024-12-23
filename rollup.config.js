@@ -15,6 +15,7 @@ const serverBundle = {
 		sourcemap: 'inline'
 	},
 	external: [
+		'@reduxjs/toolkit',
 		'classnames',
 		'express',
 		'express-handlebars',
@@ -32,8 +33,6 @@ const serverBundle = {
 		'react-redux',
 		'react-router-dom',
 		'react-router-dom/server.js',
-		'redux',
-		'redux-thunk',
 		'serve-favicon'
 	],
 	watch: {
