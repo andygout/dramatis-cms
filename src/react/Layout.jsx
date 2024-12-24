@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 import { ErrorMessage, Footer, Header, Navigation, Notification, ScrollToTop } from './components/index.js';
-import { activateNotification } from '../redux/actions/notification.js';
-import { deactivateRedirect } from '../redux/actions/redirect.js';
+import { deactivateRedirect } from '../redux/action-handlers/redirect.js';
+import { notificationActivated } from '../redux/actions/index.js';
 
 const Layout = props => {
 
@@ -18,15 +18,19 @@ const Layout = props => {
 
 	useEffect(() => {
 
-		const { fetchData, dispatch } = props;
+		const { fetchData, deactivateError, deactivateNotification, dispatch } = props;
 
-		if (fetchData) fetchData.map(fetchDataFunction => fetchDataFunction(dispatch, match));
+		if (fetchData) fetchData(dispatch, match);
+
+		if (deactivateError) dispatch(deactivateError());
+
+		if (deactivateNotification) dispatch(deactivateNotification());
 
 		if (location.state?.isRedirectActive) {
 
 			dispatch(deactivateRedirect());
 
-			dispatch(activateNotification(location.state?.notification));
+			dispatch(notificationActivated(location.state.notification));
 
 		}
 
@@ -97,7 +101,9 @@ const Layout = props => {
 Layout.propTypes = {
 	path: PropTypes.string.isRequired,
 	documentTitle: PropTypes.func.isRequired,
-	fetchData: PropTypes.array.isRequired,
+	fetchData: PropTypes.func,
+	deactivateError: PropTypes.func,
+	deactivateNotification: PropTypes.func.isRequired,
 	dispatch: PropTypes.func.isRequired,
 	error: PropTypes.object.isRequired,
 	notification: PropTypes.object.isRequired,

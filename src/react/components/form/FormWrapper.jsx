@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { capitalise } from '../../../lib/strings.js';
 import { handleDelete, handleSubmit } from '../../utils/form.js';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/actions/model.js';
+import { createInstance, updateInstance, deleteInstance } from '../../../redux/action-handlers/model.js';
 import { ACTIONS } from '../../../utils/constants.js';
 
 const FormWrapper = props => {
