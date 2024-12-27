@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { ListWrapper } from '../../wrappers/index.js';
+import { useGetProductionsQuery } from '../../../redux/slices/api.js';
 
-const Productions = props => {
+const Productions = () => {
+
+	const { data: productions = [] } = useGetProductionsQuery();
 
 	return (
 		<ListWrapper
-			instances={props.productions}
+			instances={productions}
 			pageTitleText='Productions'
 		>
 		</ListWrapper>
@@ -15,12 +15,4 @@ const Productions = props => {
 
 };
 
-Productions.propTypes = {
-	productions: PropTypes.array.isRequired
-};
-
-const mapStateToProps = state => ({
-	productions: state.productions
-});
-
-export default connect(mapStateToProps)(Productions);
+export default Productions;

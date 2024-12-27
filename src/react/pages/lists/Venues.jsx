@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { ListWrapper } from '../../wrappers/index.js';
+import { useGetVenuesQuery } from '../../../redux/slices/api.js';
 
-const Venues = props => {
+const Venues = () => {
+
+	const { data: venues = [] } = useGetVenuesQuery();
 
 	return (
 		<ListWrapper
-			instances={props.venues}
+			instances={venues}
 			pageTitleText='Venues'
 		>
 		</ListWrapper>
@@ -15,12 +15,4 @@ const Venues = props => {
 
 };
 
-Venues.propTypes = {
-	venues: PropTypes.array.isRequired
-};
-
-const mapStateToProps = state => ({
-	venues: state.venues
-});
-
-export default connect(mapStateToProps)(Venues);
+export default Venues;

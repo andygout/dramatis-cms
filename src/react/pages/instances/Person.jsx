@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { PersonForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetPersonQuery } from '../../../redux/slices/api.js';
 
-const Person = props => {
+const Person = () => {
 
-	const { person, personFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetPersonQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={person}
-			formAction={personFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<PersonForm
-				instance={personFormData.instance || {}}
-				action={personFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const Person = props => {
 
 };
 
-Person.propTypes = {
-	person: PropTypes.object.isRequired,
-	personFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	person: state.person,
-	personFormData: state.personFormData
-});
-
-export default connect(mapStateToProps)(Person);
+export default Person;

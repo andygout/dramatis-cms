@@ -9,11 +9,20 @@ import {
 	handleAppendArrayItemClick,
 	handleRemoveArrayItemClick
 } from '../../utils/form.js';
+import {
+	useCreateMaterialMutation,
+	useUpdateMaterialMutation,
+	useDeleteMaterialMutation
+} from '../../../redux/slices/api.js';
 import { CREDIT_TYPES, MODELS } from '../../../utils/constants.js';
 
 const MaterialForm = props => {
 
 	const { instance, action } = props;
+
+	const [createMaterial] = useCreateMaterialMutation();
+	const [updateMaterial] = useUpdateMaterialMutation();
+	const [deleteMaterial] = useDeleteMaterialMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
@@ -552,6 +561,9 @@ const MaterialForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createMaterial}
+			updateInstance={updateMaterial}
+			deleteInstance={deleteMaterial}
 		>
 
 			<Fieldset header={'Name'}>

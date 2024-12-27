@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { ListWrapper } from '../../wrappers/index.js';
+import { useGetAwardCeremoniesQuery } from '../../../redux/slices/api.js';
 
-const AwardCeremonies = props => {
+const AwardCeremonies = () => {
+
+	const { data: awardCeremonies = [] } = useGetAwardCeremoniesQuery();
 
 	return (
 		<ListWrapper
-			instances={props.awardCeremonies}
+			instances={awardCeremonies}
 			pageTitleText='Award ceremonies'
 		>
 		</ListWrapper>
@@ -15,12 +15,4 @@ const AwardCeremonies = props => {
 
 };
 
-AwardCeremonies.propTypes = {
-	awardCeremonies: PropTypes.array.isRequired
-};
-
-const mapStateToProps = state => ({
-	awardCeremonies: state.awardCeremonies
-});
-
-export default connect(mapStateToProps)(AwardCeremonies);
+export default AwardCeremonies;

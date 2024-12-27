@@ -24,18 +24,14 @@ import {
 	Home,
 	NotFound
 } from './pages/index.js';
-
 import { deactivateError } from '../redux/action-handlers/error.js';
-import { fetchList, fetchInstanceTemplate, fetchInstance } from '../redux/action-handlers/model.js';
 import { deactivateNotification } from '../redux/action-handlers/notification.js';
-import { MODELS, PLURALISED_MODELS } from '../utils/constants.js';
 
 export default [
 	{
 		path: '/',
 		documentTitle: () => 'Home',
 		component: Home,
-		fetchData: null,
 		deactivateError,
 		deactivateNotification
 	},
@@ -43,7 +39,6 @@ export default [
 		path: '/awards',
 		documentTitle: () => 'Awards',
 		component: Awards,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.AWARDS)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -51,7 +46,6 @@ export default [
 		path: '/awards/new',
 		documentTitle: () => 'New award',
 		component: Award,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.AWARD)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -59,7 +53,6 @@ export default [
 		path: '/awards/:uuid',
 		documentTitle: () => 'Award',
 		component: Award,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -67,7 +60,6 @@ export default [
 		path: '/award-ceremonies',
 		documentTitle: () => 'Award ceremonies',
 		component: AwardCeremonies,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.AWARD_CEREMONIES)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -75,7 +67,6 @@ export default [
 		path: '/award-ceremonies/new',
 		documentTitle: () => 'New award ceremony',
 		component: AwardCeremony,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.AWARD_CEREMONY)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -83,7 +74,6 @@ export default [
 		path: '/award-ceremonies/:uuid',
 		documentTitle: () => 'Award ceremony',
 		component: AwardCeremony,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.AWARD_CEREMONY, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -91,7 +81,6 @@ export default [
 		path: '/characters',
 		documentTitle: () => 'Characters',
 		component: Characters,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.CHARACTERS)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -99,7 +88,6 @@ export default [
 		path: '/characters/new',
 		documentTitle: () => 'New character',
 		component: Character,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.CHARACTER)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -107,7 +95,6 @@ export default [
 		path: '/characters/:uuid',
 		documentTitle: () => 'Character',
 		component: Character,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.CHARACTER, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -115,7 +102,6 @@ export default [
 		path: '/companies',
 		documentTitle: () => 'Companies',
 		component: Companies,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.COMPANIES)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -123,7 +109,6 @@ export default [
 		path: '/companies/new',
 		documentTitle: () => 'New company',
 		component: Company,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.COMPANY)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -131,7 +116,6 @@ export default [
 		path: '/companies/:uuid',
 		documentTitle: () => 'Company',
 		component: Company,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.COMPANY, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -139,7 +123,6 @@ export default [
 		path: '/festivals',
 		documentTitle: () => 'Festivals',
 		component: Festivals,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.FESTIVALS)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -147,7 +130,6 @@ export default [
 		path: '/festivals/new',
 		documentTitle: () => 'New festival',
 		component: Festival,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.FESTIVAL)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -155,7 +137,6 @@ export default [
 		path: '/festivals/:uuid',
 		documentTitle: () => 'Festival',
 		component: Festival,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.FESTIVAL, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -163,7 +144,6 @@ export default [
 		path: '/festival-serieses',
 		documentTitle: () => 'Festival serieses',
 		component: FestivalSerieses,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.FESTIVAL_SERIESES)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -171,7 +151,6 @@ export default [
 		path: '/festival-serieses/new',
 		documentTitle: () => 'New festival series',
 		component: FestivalSeries,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.FESTIVAL_SERIES)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -179,7 +158,6 @@ export default [
 		path: '/festival-serieses/:uuid',
 		documentTitle: () => 'Festival series',
 		component: FestivalSeries,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.FESTIVAL_SERIES, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -187,7 +165,6 @@ export default [
 		path: '/materials',
 		documentTitle: () => 'Materials',
 		component: Materials,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.MATERIALS)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -195,7 +172,6 @@ export default [
 		path: '/materials/new',
 		documentTitle: () => 'New material',
 		component: Material,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.MATERIAL)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -203,7 +179,6 @@ export default [
 		path: '/materials/:uuid',
 		documentTitle: () => 'Material',
 		component: Material,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.MATERIAL, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -211,7 +186,6 @@ export default [
 		path: '/people',
 		documentTitle: () => 'People',
 		component: People,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.PEOPLE)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -219,7 +193,6 @@ export default [
 		path: '/people/new',
 		documentTitle: () => 'New person',
 		component: Person,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.PERSON)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -227,7 +200,6 @@ export default [
 		path: '/people/:uuid',
 		documentTitle: () => 'Person',
 		component: Person,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.PERSON, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -235,7 +207,6 @@ export default [
 		path: '/productions',
 		documentTitle: () => 'Productions',
 		component: Productions,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.PRODUCTIONS)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -243,7 +214,6 @@ export default [
 		path: '/productions/new',
 		documentTitle: () => 'New production',
 		component: Production,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.PRODUCTION)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -251,7 +221,6 @@ export default [
 		path: '/productions/:uuid',
 		documentTitle: () => 'Production',
 		component: Production,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.PRODUCTION, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -259,7 +228,6 @@ export default [
 		path: '/seasons',
 		documentTitle: () => 'Seasons',
 		component: Seasons,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.SEASONS)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -267,7 +235,6 @@ export default [
 		path: '/seasons/new',
 		documentTitle: () => 'New season',
 		component: Season,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.SEASON)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -275,7 +242,6 @@ export default [
 		path: '/seasons/:uuid',
 		documentTitle: () => 'Season',
 		component: Season,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.SEASON, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -283,7 +249,6 @@ export default [
 		path: '/venues',
 		documentTitle: () => 'Venues',
 		component: Venues,
-		fetchData: dispatch => dispatch(fetchList(PLURALISED_MODELS.VENUES)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -291,7 +256,6 @@ export default [
 		path: '/venues/new',
 		documentTitle: () => 'New venue',
 		component: Venue,
-		fetchData: dispatch => dispatch(fetchInstanceTemplate(MODELS.VENUE)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -299,7 +263,6 @@ export default [
 		path: '/venues/:uuid',
 		documentTitle: () => 'Venue',
 		component: Venue,
-		fetchData: (dispatch, { params: { uuid } }) => dispatch(fetchInstance(MODELS.VENUE, uuid)),
 		deactivateError,
 		deactivateNotification
 	},
@@ -307,7 +270,6 @@ export default [
 		path: '*',
 		documentTitle: () => 'Not Found',
 		component: NotFound,
-		fetchData: null,
 		deactivateError: null,
 		deactivateNotification
 	}

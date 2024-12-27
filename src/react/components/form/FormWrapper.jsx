@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import { capitalise } from '../../../lib/strings.js';
 import { handleDelete, handleSubmit } from '../../utils/form.js';
-import { createInstance, updateInstance, deleteInstance } from '../../../redux/action-handlers/model.js';
 import { ACTIONS } from '../../../utils/constants.js';
 
 const FormWrapper = props => {
@@ -47,4 +45,4 @@ FormWrapper.propTypes = {
 	children: PropTypes.node.isRequired
 };
 
-export default connect(null, { createInstance, updateInstance, deleteInstance })(FormWrapper);
+export default FormWrapper;

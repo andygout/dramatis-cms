@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { ListWrapper } from '../../wrappers/index.js';
+import { useGetPeopleQuery } from '../../../redux/slices/api.js';
 
-const People = props => {
+const People = () => {
+
+	const { data: people = [] } = useGetPeopleQuery();
 
 	return (
 		<ListWrapper
-			instances={props.people}
+			instances={people}
 			pageTitleText='People'
 		>
 		</ListWrapper>
@@ -15,12 +15,4 @@ const People = props => {
 
 };
 
-People.propTypes = {
-	people: PropTypes.array.isRequired
-};
-
-const mapStateToProps = state => ({
-	people: state.people
-});
-
-export default connect(mapStateToProps)(People);
+export default People;

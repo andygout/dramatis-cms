@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { CompanyForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetCompanyQuery } from '../../../redux/slices/api.js';
 
-const Company = props => {
+const Company = () => {
 
-	const { company, companyFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetCompanyQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={company}
-			formAction={companyFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<CompanyForm
-				instance={companyFormData.instance || {}}
-				action={companyFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const Company = props => {
 
 };
 
-Company.propTypes = {
-	company: PropTypes.object.isRequired,
-	companyFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	company: state.company,
-	companyFormData: state.companyFormData
-});
-
-export default connect(mapStateToProps)(Company);
+export default Company;

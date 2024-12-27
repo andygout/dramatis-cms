@@ -3,10 +3,19 @@ import { useEffect, useState } from 'react';
 
 import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 import { handleChange } from '../../utils/form.js';
+import {
+	useCreateCharacterMutation,
+	useUpdateCharacterMutation,
+	useDeleteCharacterMutation
+} from '../../../redux/slices/api.js';
 
 const CharacterForm = props => {
 
 	const { instance, action } = props;
+
+	const [createCharacter] = useCreateCharacterMutation();
+	const [updateCharacter] = useUpdateCharacterMutation();
+	const [deleteCharacter] = useDeleteCharacterMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
@@ -29,6 +38,9 @@ const CharacterForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createCharacter}
+			updateInstance={updateCharacter}
+			deleteInstance={deleteCharacter}
 		>
 
 			<Fieldset header={'Name'}>

@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { ProductionForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetProductionQuery } from '../../../redux/slices/api.js';
 
-const Production = props => {
+const Production = () => {
 
-	const { production, productionFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetProductionQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={production}
-			formAction={productionFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<ProductionForm
-				instance={productionFormData.instance || {}}
-				action={productionFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const Production = props => {
 
 };
 
-Production.propTypes = {
-	production: PropTypes.object.isRequired,
-	productionFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	production: state.production,
-	productionFormData: state.productionFormData
-});
-
-export default connect(mapStateToProps)(Production);
+export default Production;

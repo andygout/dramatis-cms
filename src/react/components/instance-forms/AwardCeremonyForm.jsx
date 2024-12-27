@@ -11,11 +11,20 @@ import {
 	handleChangeToPerson,
 	handleChangeToCompany
 } from '../../utils/form.js';
+import {
+	useCreateAwardCeremonyMutation,
+	useUpdateAwardCeremonyMutation,
+	useDeleteAwardCeremonyMutation
+} from '../../../redux/slices/api.js';
 import { MODELS } from '../../../utils/constants.js';
 
 const AwardCeremonyForm = props => {
 
 	const { instance, action } = props;
+
+	const [createAwardCeremony] = useCreateAwardCeremonyMutation();
+	const [updateAwardCeremony] = useUpdateAwardCeremonyMutation();
+	const [deleteAwardCeremony] = useDeleteAwardCeremonyMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
@@ -473,6 +482,9 @@ const AwardCeremonyForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createAwardCeremony}
+			updateInstance={updateAwardCeremony}
+			deleteInstance={deleteAwardCeremony}
 		>
 
 			<Fieldset header={'Name'}>

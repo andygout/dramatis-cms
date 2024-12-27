@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { CharacterForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetCharacterQuery } from '../../../redux/slices/api.js';
 
-const Character = props => {
+const Character = () => {
 
-	const { character, characterFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetCharacterQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={character}
-			formAction={characterFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<CharacterForm
-				instance={characterFormData.instance || {}}
-				action={characterFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const Character = props => {
 
 };
 
-Character.propTypes = {
-	character: PropTypes.object.isRequired,
-	characterFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	character: state.character,
-	characterFormData: state.characterFormData
-});
-
-export default connect(mapStateToProps)(Character);
+export default Character;
