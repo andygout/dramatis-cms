@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { SeasonForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetSeasonQuery } from '../../../redux/slices/api.js';
 
-const Season = props => {
+const Season = () => {
 
-	const { season, seasonFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetSeasonQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={season}
-			formAction={seasonFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<SeasonForm
-				instance={seasonFormData.instance || {}}
-				action={seasonFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const Season = props => {
 
 };
 
-Season.propTypes = {
-	season: PropTypes.object.isRequired,
-	seasonFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	season: state.season,
-	seasonFormData: state.seasonFormData
-});
-
-export default connect(mapStateToProps)(Season);
+export default Season;

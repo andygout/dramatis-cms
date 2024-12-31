@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { ListWrapper } from '../../wrappers/index.js';
+import { useGetSeasonsQuery } from '../../../redux/slices/api.js';
 
-const Seasons = props => {
+const Seasons = () => {
+
+	const { data: seasons = [] } = useGetSeasonsQuery();
 
 	return (
 		<ListWrapper
-			instances={props.seasons}
+			instances={seasons}
 			pageTitleText='Seasons'
 		>
 		</ListWrapper>
@@ -15,12 +15,4 @@ const Seasons = props => {
 
 };
 
-Seasons.propTypes = {
-	seasons: PropTypes.array.isRequired
-};
-
-const mapStateToProps = state => ({
-	seasons: state.seasons
-});
-
-export default connect(mapStateToProps)(Seasons);
+export default Seasons;

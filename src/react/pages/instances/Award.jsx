@@ -1,37 +1,30 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { AwardForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetAwardQuery } from '../../../redux/slices/api.js';
 
-const Award = props => {
+const Award = () => {
 
-	const { award, awardFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetAwardQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={award}
-			formAction={awardFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<AwardForm
-				instance={awardFormData.instance || {}}
-				action={awardFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
 	);
 
 };
-
-Award.propTypes = {
-	award: PropTypes.object.isRequired,
-	awardFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	award: state.award,
-	awardFormData: state.awardFormData
-});
-
-export default connect(mapStateToProps)(Award);
+export default Award;

@@ -16,6 +16,7 @@ const serverBundle = {
 	},
 	external: [
 		'@reduxjs/toolkit',
+		'@reduxjs/toolkit/query/react',
 		'classnames',
 		'express',
 		'express-handlebars',

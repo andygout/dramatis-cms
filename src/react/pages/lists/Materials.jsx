@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { ListWrapper } from '../../wrappers/index.js';
+import { useGetMaterialsQuery } from '../../../redux/slices/api.js';
 
-const Materials = props => {
+const Materials = () => {
+
+	const { data: materials = [] } = useGetMaterialsQuery();
 
 	return (
 		<ListWrapper
-			instances={props.materials}
+			instances={materials}
 			pageTitleText='Materials'
 		>
 		</ListWrapper>
@@ -15,12 +15,4 @@ const Materials = props => {
 
 };
 
-Materials.propTypes = {
-	materials: PropTypes.array.isRequired
-};
-
-const mapStateToProps = state => ({
-	materials: state.materials
-});
-
-export default connect(mapStateToProps)(Materials);
+export default Materials;

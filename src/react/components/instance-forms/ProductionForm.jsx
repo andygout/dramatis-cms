@@ -11,11 +11,20 @@ import {
 	handleChangeToPerson,
 	handleChangeToCompany
 } from '../../utils/form.js';
+import {
+	useCreateProductionMutation,
+	useUpdateProductionMutation,
+	useDeleteProductionMutation
+} from '../../../redux/slices/api.js';
 import { MODELS } from '../../../utils/constants.js';
 
 const ProductionForm = props => {
 
 	const { instance, action } = props;
+
+	const [createProduction] = useCreateProductionMutation();
+	const [updateProduction] = useUpdateProductionMutation();
+	const [deleteProduction] = useDeleteProductionMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [subtitle, setSubtitle] = useState(instance.subtitle);
@@ -874,6 +883,9 @@ const ProductionForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createProduction}
+			updateInstance={updateProduction}
+			deleteInstance={deleteProduction}
 		>
 
 			<Fieldset header={'Name'}>

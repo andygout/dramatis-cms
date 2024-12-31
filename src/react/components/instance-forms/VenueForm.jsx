@@ -8,10 +8,19 @@ import {
 	handleAppendArrayItemClick,
 	handleRemoveArrayItemClick
 } from '../../utils/form.js';
+import {
+	useCreateVenueMutation,
+	useUpdateVenueMutation,
+	useDeleteVenueMutation
+} from '../../../redux/slices/api.js';
 
 const VenueForm = props => {
 
 	const { instance, action } = props;
+
+	const [createVenue] = useCreateVenueMutation();
+	const [updateVenue] = useUpdateVenueMutation();
+	const [deleteVenue] = useDeleteVenueMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
@@ -106,6 +115,9 @@ const VenueForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createVenue}
+			updateInstance={updateVenue}
+			deleteInstance={deleteVenue}
 		>
 
 			<Fieldset header={'Name'}>

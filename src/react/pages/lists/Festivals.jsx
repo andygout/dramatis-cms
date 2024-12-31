@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { ListWrapper } from '../../wrappers/index.js';
+import { useGetFestivalsQuery } from '../../../redux/slices/api.js';
 
-const Festivals = props => {
+const Festivals = () => {
+
+	const { data: festivals = [] } = useGetFestivalsQuery();
 
 	return (
 		<ListWrapper
-			instances={props.festivals}
+			instances={festivals}
 			pageTitleText='Festivals'
 		>
 		</ListWrapper>
@@ -15,12 +15,4 @@ const Festivals = props => {
 
 };
 
-Festivals.propTypes = {
-	festivals: PropTypes.array.isRequired
-};
-
-const mapStateToProps = state => ({
-	festivals: state.festivals
-});
-
-export default connect(mapStateToProps)(Festivals);
+export default Festivals;

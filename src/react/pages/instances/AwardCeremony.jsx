@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { AwardCeremonyForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetAwardCeremonyQuery } from '../../../redux/slices/api.js';
 
-const AwardCeremony = props => {
+const AwardCeremony = () => {
 
-	const { awardCeremony, awardCeremonyFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetAwardCeremonyQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={awardCeremony}
-			formAction={awardCeremonyFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<AwardCeremonyForm
-				instance={awardCeremonyFormData.instance || {}}
-				action={awardCeremonyFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const AwardCeremony = props => {
 
 };
 
-AwardCeremony.propTypes = {
-	awardCeremony: PropTypes.object.isRequired,
-	awardCeremonyFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	awardCeremony: state.awardCeremony,
-	awardCeremonyFormData: state.awardCeremonyFormData
-});
-
-export default connect(mapStateToProps)(AwardCeremony);
+export default AwardCeremony;

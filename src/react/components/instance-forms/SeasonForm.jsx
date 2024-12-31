@@ -3,10 +3,19 @@ import { useEffect, useState } from 'react';
 
 import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 import { handleChange } from '../../utils/form.js';
+import {
+	useCreateSeasonMutation,
+	useUpdateSeasonMutation,
+	useDeleteSeasonMutation
+} from '../../../redux/slices/api.js';
 
 const SeasonForm = props => {
 
 	const { instance, action } = props;
+
+	const [createSeason] = useCreateSeasonMutation();
+	const [updateSeason] = useUpdateSeasonMutation();
+	const [deleteSeason] = useDeleteSeasonMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
@@ -29,6 +38,9 @@ const SeasonForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createSeason}
+			updateInstance={updateSeason}
+			deleteInstance={deleteSeason}
 		>
 
 			<Fieldset header={'Name'}>

@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { VenueForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetVenueQuery } from '../../../redux/slices/api.js';
 
-const Venue = props => {
+const Venue = () => {
 
-	const { venue, venueFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetVenueQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={venue}
-			formAction={venueFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<VenueForm
-				instance={venueFormData.instance || {}}
-				action={venueFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const Venue = props => {
 
 };
 
-Venue.propTypes = {
-	venue: PropTypes.object.isRequired,
-	venueFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	venue: state.venue,
-	venueFormData: state.venueFormData
-});
-
-export default connect(mapStateToProps)(Venue);
+export default Venue;

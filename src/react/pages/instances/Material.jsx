@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { MaterialForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetMaterialQuery } from '../../../redux/slices/api.js';
 
-const Material = props => {
+const Material = () => {
 
-	const { material, materialFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetMaterialQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={material}
-			formAction={materialFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<MaterialForm
-				instance={materialFormData.instance || {}}
-				action={materialFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const Material = props => {
 
 };
 
-Material.propTypes = {
-	material: PropTypes.object.isRequired,
-	materialFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	material: state.material,
-	materialFormData: state.materialFormData
-});
-
-export default connect(mapStateToProps)(Material);
+export default Material;

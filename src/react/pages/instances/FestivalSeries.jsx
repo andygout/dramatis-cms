@@ -1,22 +1,26 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { FestivalSeriesForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
+import { useGetFestivalSeriesQuery } from '../../../redux/slices/api.js';
 
-const FestivalSeries = props => {
+const FestivalSeries = () => {
 
-	const { festivalSeries, festivalSeriesFormData } = props;
+	const { uuid } = useParams();
+
+	const { data = {} } = useGetFestivalSeriesQuery(uuid);
+
+	const { instance = {}, formData = {} } = data;
 
 	return (
 		<InstanceWrapper
-			instance={festivalSeries}
-			formAction={festivalSeriesFormData.action}
+			instance={instance}
+			formAction={formData.action}
 		>
 
 			<FestivalSeriesForm
-				instance={festivalSeriesFormData.instance || {}}
-				action={festivalSeriesFormData.action || 'Submit'}
+				instance={formData.instance || {}}
+				action={formData.action || 'Submit'}
 			/>
 
 		</InstanceWrapper>
@@ -24,14 +28,4 @@ const FestivalSeries = props => {
 
 };
 
-FestivalSeries.propTypes = {
-	festivalSeries: PropTypes.object.isRequired,
-	festivalSeriesFormData: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-	festivalSeries: state.festivalSeries,
-	festivalSeriesFormData: state.festivalSeriesFormData
-});
-
-export default connect(mapStateToProps)(FestivalSeries);
+export default FestivalSeries;

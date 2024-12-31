@@ -3,10 +3,19 @@ import { useEffect, useState } from 'react';
 
 import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 import { handleChange } from '../../utils/form.js';
+import {
+	useCreateAwardMutation,
+	useUpdateAwardMutation,
+	useDeleteAwardMutation
+} from '../../../redux/slices/api.js';
 
 const AwardForm = props => {
 
 	const { instance, action } = props;
+
+	const [createAward] = useCreateAwardMutation();
+	const [updateAward] = useUpdateAwardMutation();
+	const [deleteAward] = useDeleteAwardMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
@@ -29,6 +38,9 @@ const AwardForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createAward}
+			updateInstance={updateAward}
+			deleteInstance={deleteAward}
 		>
 
 			<Fieldset header={'Name'}>

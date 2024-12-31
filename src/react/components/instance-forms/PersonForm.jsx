@@ -3,10 +3,19 @@ import { useEffect, useState } from 'react';
 
 import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 import { handleChange } from '../../utils/form.js';
+import {
+	useCreatePersonMutation,
+	useUpdatePersonMutation,
+	useDeletePersonMutation
+} from '../../../redux/slices/api.js';
 
 const PersonForm = props => {
 
 	const { instance, action } = props;
+
+	const [createPerson] = useCreatePersonMutation();
+	const [updatePerson] = useUpdatePersonMutation();
+	const [deletePerson] = useDeletePersonMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
@@ -29,6 +38,9 @@ const PersonForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createPerson}
+			updateInstance={updatePerson}
+			deleteInstance={deletePerson}
 		>
 
 			<Fieldset header={'Name'}>

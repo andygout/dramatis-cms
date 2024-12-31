@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { useLocation, useMatch, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ErrorMessage, Footer, Header, Navigation, Notification, ScrollToTop } from './components/index.js';
 import { deactivateRedirect } from '../redux/action-handlers/redirect.js';
@@ -10,17 +10,14 @@ import { notificationActivated } from '../redux/actions/index.js';
 
 const Layout = props => {
 
-	const { path, documentTitle, error, notification, redirect, children } = props;
+	const { documentTitle, error, notification, redirect, children } = props;
 
 	const location = useLocation();
-	const match = useMatch(path);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 
-		const { fetchData, deactivateError, deactivateNotification, dispatch } = props;
-
-		if (fetchData) fetchData(dispatch, match);
+		const { deactivateError, deactivateNotification, dispatch } = props;
 
 		if (deactivateError) dispatch(deactivateError());
 
@@ -99,10 +96,8 @@ const Layout = props => {
 };
 
 Layout.propTypes = {
-	path: PropTypes.string.isRequired,
 	documentTitle: PropTypes.func.isRequired,
-	fetchData: PropTypes.func,
-	deactivateError: PropTypes.func,
+	deactivateError: PropTypes.func.isRequired,
 	deactivateNotification: PropTypes.func.isRequired,
 	dispatch: PropTypes.func.isRequired,
 	error: PropTypes.object.isRequired,

@@ -3,10 +3,19 @@ import { useEffect, useState } from 'react';
 
 import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 import { handleChange } from '../../utils/form.js';
+import {
+	useCreateFestivalSeriesMutation,
+	useUpdateFestivalSeriesMutation,
+	useDeleteFestivalSeriesMutation
+} from '../../../redux/slices/api.js';
 
 const FestivalSeriesForm = props => {
 
 	const { instance, action } = props;
+
+	const [createFestivalSeries] = useCreateFestivalSeriesMutation();
+	const [updateFestivalSeries] = useUpdateFestivalSeriesMutation();
+	const [deleteFestivalSeries] = useDeleteFestivalSeriesMutation();
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
@@ -29,6 +38,9 @@ const FestivalSeriesForm = props => {
 		<FormWrapper
 			action={action}
 			instance={actionableInstance}
+			createInstance={createFestivalSeries}
+			updateInstance={updateFestivalSeries}
+			deleteInstance={deleteFestivalSeries}
 		>
 
 			<Fieldset header={'Name'}>
