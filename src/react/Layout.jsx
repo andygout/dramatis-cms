@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 import { ErrorMessage, Footer, Header, Navigation, Notification, ScrollToTop } from './components/index.js';
 import { deactivateRedirect } from '../redux/action-handlers/redirect.js';
