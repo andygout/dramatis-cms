@@ -266,6 +266,7 @@ const transformGetResponse = (response, meta, queryUuidArg) => {
 
 export const api = createApi({
 	baseQuery,
+	refetchOnMountOrArgChange: true,
 	endpoints: build => ({
 		getAwards: build.query({
 			query: () => getInstancesQuery(PLURALISED_MODELS.AWARDS)
