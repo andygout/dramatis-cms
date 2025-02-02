@@ -29,7 +29,7 @@ const Layout = props => {
 
 		if (deactivateNotification) dispatch(deactivateNotification());
 
-		if (location.state?.isRedirectActive) {
+		if (redirect.isActive) {
 
 			dispatch(deactivateRedirect());
 
@@ -45,7 +45,6 @@ const Layout = props => {
 
 			const redirectOptions = {
 				state: {
-					isRedirectActive: true,
 					notification: redirect.notification
 				}
 			};
