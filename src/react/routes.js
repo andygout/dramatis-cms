@@ -30,245 +30,245 @@ import { deactivateNotification } from '../redux/action-handlers/notification.js
 export default [
 	{
 		path: '/',
-		documentTitle: () => 'Home',
+		pageTitle: 'Home',
 		component: Home,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/awards',
-		documentTitle: () => 'Awards',
+		pageTitle: 'Awards',
 		component: Awards,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/awards/new',
-		documentTitle: () => 'New award',
+		pageTitle: 'New award',
 		component: Award,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/awards/:uuid',
-		documentTitle: () => 'Award',
+		pageTitle: 'Award',
 		component: Award,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/award-ceremonies',
-		documentTitle: () => 'Award ceremonies',
+		pageTitle: 'Award ceremonies',
 		component: AwardCeremonies,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/award-ceremonies/new',
-		documentTitle: () => 'New award ceremony',
+		pageTitle: 'New award ceremony',
 		component: AwardCeremony,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/award-ceremonies/:uuid',
-		documentTitle: () => 'Award ceremony',
+		pageTitle: 'Award ceremony',
 		component: AwardCeremony,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/characters',
-		documentTitle: () => 'Characters',
+		pageTitle: 'Characters',
 		component: Characters,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/characters/new',
-		documentTitle: () => 'New character',
+		pageTitle: 'New character',
 		component: Character,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/characters/:uuid',
-		documentTitle: () => 'Character',
+		pageTitle: 'Character',
 		component: Character,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/companies',
-		documentTitle: () => 'Companies',
+		pageTitle: 'Companies',
 		component: Companies,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/companies/new',
-		documentTitle: () => 'New company',
+		pageTitle: 'New company',
 		component: Company,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/companies/:uuid',
-		documentTitle: () => 'Company',
+		pageTitle: 'Company',
 		component: Company,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/festivals',
-		documentTitle: () => 'Festivals',
+		pageTitle: 'Festivals',
 		component: Festivals,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/festivals/new',
-		documentTitle: () => 'New festival',
+		pageTitle: 'New festival',
 		component: Festival,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/festivals/:uuid',
-		documentTitle: () => 'Festival',
+		pageTitle: 'Festival',
 		component: Festival,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/festival-serieses',
-		documentTitle: () => 'Festival serieses',
+		pageTitle: 'Festival serieses',
 		component: FestivalSerieses,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/festival-serieses/new',
-		documentTitle: () => 'New festival series',
+		pageTitle: 'New festival series',
 		component: FestivalSeries,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/festival-serieses/:uuid',
-		documentTitle: () => 'Festival series',
+		pageTitle: 'Festival series',
 		component: FestivalSeries,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/materials',
-		documentTitle: () => 'Materials',
+		pageTitle: 'Materials',
 		component: Materials,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/materials/new',
-		documentTitle: () => 'New material',
+		pageTitle: 'New material',
 		component: Material,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/materials/:uuid',
-		documentTitle: () => 'Material',
+		pageTitle: 'Material',
 		component: Material,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/people',
-		documentTitle: () => 'People',
+		pageTitle: 'People',
 		component: People,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/people/new',
-		documentTitle: () => 'New person',
+		pageTitle: 'New person',
 		component: Person,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/people/:uuid',
-		documentTitle: () => 'Person',
+		pageTitle: 'Person',
 		component: Person,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/productions',
-		documentTitle: () => 'Productions',
+		pageTitle: 'Productions',
 		component: Productions,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/productions/new',
-		documentTitle: () => 'New production',
+		pageTitle: 'New production',
 		component: Production,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/productions/:uuid',
-		documentTitle: () => 'Production',
+		pageTitle: 'Production',
 		component: Production,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/seasons',
-		documentTitle: () => 'Seasons',
+		pageTitle: 'Seasons',
 		component: Seasons,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/seasons/new',
-		documentTitle: () => 'New season',
+		pageTitle: 'New season',
 		component: Season,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/seasons/:uuid',
-		documentTitle: () => 'Season',
+		pageTitle: 'Season',
 		component: Season,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/venues',
-		documentTitle: () => 'Venues',
+		pageTitle: 'Venues',
 		component: Venues,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/venues/new',
-		documentTitle: () => 'New venue',
+		pageTitle: 'New venue',
 		component: Venue,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '/venues/:uuid',
-		documentTitle: () => 'Venue',
+		pageTitle: 'Venue',
 		component: Venue,
 		deactivateError,
 		deactivateNotification
 	},
 	{
 		path: '*',
-		documentTitle: () => 'Not Found',
+		pageTitle: 'Not Found',
 		component: NotFound,
 		deactivateError: null,
 		deactivateNotification

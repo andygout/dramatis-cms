@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
 
+import getDocumentTitle from '../lib/get-document-title.js';
 import { ErrorMessage, Footer, Header, Navigation, Notification, ScrollToTop } from './components/index.js';
 import { deactivateRedirect } from '../redux/action-handlers/redirect.js';
 import { notificationActivated } from '../redux/actions/index.js';
 
 const Layout = props => {
 
-	const { documentTitle, children } = props;
+	const { pageTitle, children } = props;
+
+	const documentTitle = getDocumentTitle(pageTitle);
 
 	const dispatch = useDispatch();
 
@@ -57,11 +59,7 @@ const Layout = props => {
 	return (
 		<>
 
-			<Helmet
-				defaultTitle='Dramatis'
-				titleTemplate='%s | Dramatis'
-				title={documentTitle()}
-			/>
+			<title>{documentTitle}</title>
 
 			<Header />
 
