@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const ArrayItemActionButton = props => {
 
 	const { isLastListItem, handleClick } = props;
@@ -15,11 +13,6 @@ const ArrayItemActionButton = props => {
 		</div>
 	);
 
-};
-
-ArrayItemActionButton.propTypes = {
-	isLastListItem: PropTypes.bool.isRequired,
-	handleClick: PropTypes.func.isRequired
 };
 
 export default ArrayItemActionButton;

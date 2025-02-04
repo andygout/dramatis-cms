@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { NOTIFICATION_STATUSES } from '../../utils/constants.js';
@@ -19,11 +18,6 @@ const Notification = props => {
 		</div>
 	);
 
-};
-
-Notification.propTypes = {
-	text: PropTypes.string.isRequired,
-	status: PropTypes.string.isRequired
 };
 
 export default Notification;

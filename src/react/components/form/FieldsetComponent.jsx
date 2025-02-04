@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 
 const FieldsetComponent = props => {
 
@@ -22,12 +21,6 @@ const FieldsetComponent = props => {
 		</div>
 	);
 
-};
-
-FieldsetComponent.propTypes = {
-	label: PropTypes.string.isRequired,
-	isArrayItem: PropTypes.bool,
-	children: PropTypes.node.isRequired
 };
 
 export default FieldsetComponent;

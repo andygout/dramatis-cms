@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 import { ACTIONS } from '../../utils/constants.js';
@@ -25,13 +24,6 @@ const InstanceDocumentTitle = props => {
 		<Helmet title={documentTitle} />
 	);
 
-};
-
-InstanceDocumentTitle.propTypes = {
-	name: PropTypes.string.isRequired,
-	modelDisplayName: PropTypes.string.isRequired,
-	differentiatorSuffix: PropTypes.string,
-	formAction: PropTypes.string.isRequired
 };
 
 export default InstanceDocumentTitle;

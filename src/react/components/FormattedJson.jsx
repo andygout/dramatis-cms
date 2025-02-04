@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const FormattedJson = props => {
 
 	return (
@@ -8,13 +6,6 @@ const FormattedJson = props => {
 		</pre>
 	);
 
-};
-
-FormattedJson.propTypes = {
-	data: PropTypes.oneOfType([
-		PropTypes.array.isRequired,
-		PropTypes.object.isRequired
-	])
 };
 
 export default FormattedJson;

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import Input from './Input.jsx';
 import InputErrors from './InputErrors.jsx';
 
@@ -26,16 +24,6 @@ const InputAndErrors = props => {
 		</>
 	);
 
-};
-
-InputAndErrors.propTypes = {
-	type: PropTypes.string,
-	value: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number
-	]),
-	errors: PropTypes.array,
-	handleChange: PropTypes.func.isRequired
 };
 
 export default InputAndErrors;
