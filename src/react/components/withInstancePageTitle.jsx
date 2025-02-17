@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import { ACTIONS } from '../../utils/constants.js';
 
 const withInstancePageTitle = PageTitle => {
@@ -31,13 +29,6 @@ const withInstancePageTitle = PageTitle => {
 			<PageTitle text={pageTitle} isNewInstance={isNewInstance} />
 		);
 
-	};
-
-	_InstancePageTitle.propTypes = {
-		name: PropTypes.string,
-		modelDisplayName: PropTypes.string,
-		differentiatorSuffix: PropTypes.string,
-		formAction: PropTypes.string
 	};
 
 	return _InstancePageTitle;

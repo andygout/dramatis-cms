@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
@@ -145,11 +144,6 @@ const VenueForm = props => {
 		</FormWrapper>
 	);
 
-};
-
-VenueForm.propTypes = {
-	action: PropTypes.string.isRequired,
-	instance: PropTypes.object.isRequired
 };
 
 export default VenueForm;

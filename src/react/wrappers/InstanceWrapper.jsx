@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix.js';
 import {
 	FormattedJson,
@@ -52,12 +50,6 @@ const InstanceWrapper = props => {
 		</>
 	);
 
-};
-
-InstanceWrapper.propTypes = {
-	instance: PropTypes.object.isRequired,
-	formAction: PropTypes.string,
-	children: PropTypes.node.isRequired
 };
 
 export default InstanceWrapper;

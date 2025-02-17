@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const InputErrors = props => {
 
 	const { errors } = props;
@@ -14,10 +12,6 @@ const InputErrors = props => {
 		)
 	);
 
-};
-
-InputErrors.propTypes = {
-	errors: PropTypes.array.isRequired
 };
 
 export default InputErrors;

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import { FormattedJson, PageTitle } from '../components/index.js';
 
 const ListWrapper = props => {
@@ -16,11 +14,6 @@ const ListWrapper = props => {
 		</>
 	);
 
-};
-
-ListWrapper.propTypes = {
-	pageTitleText: PropTypes.string.isRequired,
-	instances: PropTypes.array.isRequired
 };
 
 export default ListWrapper;

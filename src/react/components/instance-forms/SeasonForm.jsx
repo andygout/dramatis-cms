@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
@@ -66,11 +65,6 @@ const SeasonForm = props => {
 		</FormWrapper>
 	);
 
-};
-
-SeasonForm.propTypes = {
-	action: PropTypes.string.isRequired,
-	instance: PropTypes.object.isRequired
 };
 
 export default SeasonForm;

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const PageTitle = props => {
@@ -16,11 +15,6 @@ const PageTitle = props => {
 		</h1>
 	);
 
-};
-
-PageTitle.propTypes = {
-	text: PropTypes.string.isRequired,
-	isNewInstance: PropTypes.bool
 };
 
 export default PageTitle;

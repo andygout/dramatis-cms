@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import { capitalise } from '../../../lib/strings.js';
 import { handleDelete, handleSubmit } from '../../utils/form.js';
 import { ACTIONS } from '../../../utils/constants.js';
@@ -34,15 +32,6 @@ const FormWrapper = props => {
 		</form>
 	);
 
-};
-
-FormWrapper.propTypes = {
-	action: PropTypes.string.isRequired,
-	instance: PropTypes.object.isRequired,
-	createInstance: PropTypes.func.isRequired,
-	updateInstance: PropTypes.func.isRequired,
-	deleteInstance: PropTypes.func.isRequired,
-	children: PropTypes.node.isRequired
 };
 
 export default FormWrapper;

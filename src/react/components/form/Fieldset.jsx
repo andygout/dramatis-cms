@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const Fieldset = props => {
 
 	const { header, children } = props;
@@ -14,11 +12,6 @@ const Fieldset = props => {
 		</fieldset>
 	);
 
-};
-
-Fieldset.propTypes = {
-	header: PropTypes.string.isRequired,
-	children: PropTypes.node
 };
 
 export default Fieldset;

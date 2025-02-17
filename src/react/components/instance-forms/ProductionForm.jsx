@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 import { capitalise } from '../../../lib/strings.js';
@@ -1056,11 +1055,6 @@ const ProductionForm = props => {
 		</FormWrapper>
 	);
 
-};
-
-ProductionForm.propTypes = {
-	action: PropTypes.string.isRequired,
-	instance: PropTypes.object.isRequired
 };
 
 export default ProductionForm;

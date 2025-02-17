@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 import { capitalise } from '../../../lib/strings.js';
@@ -664,11 +663,6 @@ const MaterialForm = props => {
 		</FormWrapper>
 	);
 
-};
-
-MaterialForm.propTypes = {
-	action: PropTypes.string.isRequired,
-	instance: PropTypes.object.isRequired
 };
 
 export default MaterialForm;
