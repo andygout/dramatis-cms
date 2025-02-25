@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from 'react-router';
 
-import Layout from './Layout.jsx';
+import Main from './Main.jsx';
 import routes from './routes.js';
 
 const AppRoutes = () => {
@@ -18,14 +18,14 @@ const AppRoutes = () => {
 							key={index}
 							path={route.path}
 							element={
-								<Layout
+								<Main
 									key={location.pathname}
 									pageTitle={route.pageTitle}
 									deactivateError={route.deactivateError}
 									deactivateNotification={route.deactivateNotification}
 								>
 									<RouteComponent />
-								</Layout>
+								</Main>
 							}
 						/>
 					);
