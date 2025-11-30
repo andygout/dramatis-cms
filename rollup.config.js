@@ -21,7 +21,6 @@ const serverBundle = {
 		'@reduxjs/toolkit/query/react',
 		'classnames',
 		'express',
-		'express-handlebars',
 		'express-session',
 		'morgan',
 		'node:http',
