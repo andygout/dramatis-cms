@@ -25,14 +25,30 @@ router.use(async (request, response, next) => {
 
 		const documentTitle = getDocumentTitle();
 
-		response.render(
-			'react-mount',
-			{
-				documentTitleHtml: `<title>${documentTitle}</title>`,
-				clientData: JSON.stringify(preloadedState),
-				reactHtml
-			}
-		);
+		const html = `
+			<!DOCTYPE html>
+
+			<html lang="en-GB">
+
+				<head>
+					<title>${documentTitle}</title>
+					<link rel="stylesheet" href="/main.css">
+					<script src="/main.js"></script>
+					<meta charset="utf-8">
+				</head>
+
+				<script id="react-client-data" type="text/json">
+					${JSON.stringify(preloadedState)}
+				</script>
+
+				<div id="page-container" class="page-container">
+					${reactHtml}
+				</div>
+
+			</html>
+		`.split('\n').map(line => line.trim()).join('');
+
+		response.send(html);
 
 	} catch (error) {
 
