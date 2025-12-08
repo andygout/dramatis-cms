@@ -1,5 +1,5 @@
 import createBlankObject from '../../lib/create-blank-object.js';
-import objectHasNonEmptyString from '../../lib/object-has-non-empty-string.js';
+import hasNonEmptyString from '../../lib/has-non-empty-string.js';
 import { getIn, removeIn, setIn, pushIn } from '../../lib/object-interactions.js';
 import { ACTIONS, MODELS } from '../../utils/constants.js';
 
@@ -29,7 +29,7 @@ const appendBlankArrayItemToStateValue = (stateValue, statePath, opts = {}) => {
 
 		const lastArrayItem = innermostArray.at(-1);
 
-		const blankArrayItemAppendageRequired = opts.isGuaranteedAppendage || objectHasNonEmptyString(lastArrayItem);
+		const blankArrayItemAppendageRequired = opts.isGuaranteedAppendage || hasNonEmptyString(lastArrayItem);
 
 		if (blankArrayItemAppendageRequired) {
 

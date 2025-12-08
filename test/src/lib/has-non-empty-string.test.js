@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 
-import objectHasNonEmptyString from '../../../src/lib/object-has-non-empty-string.js';
+import hasNonEmptyString from '../../../src/lib/has-non-empty-string.js';
 
-describe('Object Has Non-Empty String module', () => {
+describe('Has Non-Empty String module', () => {
 
 	context('non-empty string exists', () => {
 
@@ -27,7 +27,7 @@ describe('Object Has Non-Empty String module', () => {
 					]
 				};
 
-				const result = objectHasNonEmptyString(object);
+				const result = hasNonEmptyString(object);
 
 				expect(result).to.be.true;
 
@@ -52,7 +52,7 @@ describe('Object Has Non-Empty String module', () => {
 					]
 				};
 
-				const result = objectHasNonEmptyString(object);
+				const result = hasNonEmptyString(object);
 
 				expect(result).to.be.true;
 
@@ -77,7 +77,7 @@ describe('Object Has Non-Empty String module', () => {
 					]
 				};
 
-				const result = objectHasNonEmptyString(object);
+				const result = hasNonEmptyString(object);
 
 				expect(result).to.be.true;
 
@@ -102,7 +102,7 @@ describe('Object Has Non-Empty String module', () => {
 					]
 				};
 
-				const result = objectHasNonEmptyString(object);
+				const result = hasNonEmptyString(object);
 
 				expect(result).to.be.true;
 
@@ -131,7 +131,7 @@ describe('Object Has Non-Empty String module', () => {
 					]
 				};
 
-				const result = objectHasNonEmptyString(object);
+				const result = hasNonEmptyString(object);
 
 				expect(result).to.be.false;
 
@@ -156,7 +156,7 @@ describe('Object Has Non-Empty String module', () => {
 					]
 				};
 
-				const result = objectHasNonEmptyString(object);
+				const result = hasNonEmptyString(object);
 
 				expect(result).to.be.false;
 
@@ -181,7 +181,7 @@ describe('Object Has Non-Empty String module', () => {
 					]
 				};
 
-				const result = objectHasNonEmptyString(object);
+				const result = hasNonEmptyString(object);
 
 				expect(result).to.be.false;
 
@@ -206,7 +206,7 @@ describe('Object Has Non-Empty String module', () => {
 					]
 				};
 
-				const result = objectHasNonEmptyString(object);
+				const result = hasNonEmptyString(object);
 
 				expect(result).to.be.false;
 
@@ -237,7 +237,7 @@ describe('Object Has Non-Empty String module', () => {
 				]
 			};
 
-			const result = objectHasNonEmptyString(object);
+			const result = hasNonEmptyString(object);
 
 			expect(result).to.be.false;
 
