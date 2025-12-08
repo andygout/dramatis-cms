@@ -3,9 +3,9 @@ import { FORM_UNEDITABLE_KEYS } from '../utils/constants.js';
 
 const isNonEmptyString = value => typeof value === 'string' && Boolean(value);
 
-const isObjectWithNonEmptyString = value => isObjectWithKeys(value) && searchForNonEmptyString(value);
+const isObjectWithKeysAndNonEmptyString = value => isObjectWithKeys(value) && hasNonEmptyString(value);
 
-const searchForNonEmptyString = object => {
+const hasNonEmptyString = object => {
 
 	const objectToSearch = {};
 
@@ -19,9 +19,9 @@ const searchForNonEmptyString = object => {
 
 		if (isNonEmptyString(value)) return true;
 
-		if (isObjectWithNonEmptyString(value)) return true;
+		if (isObjectWithKeysAndNonEmptyString(value)) return true;
 
-		if (Array.isArray(value) && value.find(item => isObjectWithNonEmptyString(item))) return true;
+		if (Array.isArray(value) && value.find(item => isObjectWithKeysAndNonEmptyString(item))) return true;
 
 	}
 
@@ -29,4 +29,4 @@ const searchForNonEmptyString = object => {
 
 };
 
-export default searchForNonEmptyString;
+export default hasNonEmptyString;
