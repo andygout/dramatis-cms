@@ -43,7 +43,7 @@ const serverBundle = {
 		}),
 		copy({
 			targets: [
-				{ src: './src/client/assets/favicon.ico', dest: 'built/assets' }
+				{ src: './src/server/assets/favicon.ico', dest: 'built/assets' }
 			]
 		})
 	]
