@@ -1,0 +1,10 @@
+.title-text {
+	margin: 0 5px 20px 5px;
+	padding-bottom: 0px;
+	font-size: xx-large;
+	color: var(--default-text-color);
+}
+
+.title-text--muted {
+	color: var(--muted-text-color);
+}

@@ -1,20 +1,16 @@
-@use 'lib/color-variables';
-
-$action-button-height: 18px;
-
 .form {
 	margin-top: 40px;
 }
 
 .fieldset {
 	padding: 10px 10px 20px;
-	background-color: color-variables.$form-background-color;
-	border: 2px solid color-variables.$border-color;
+	background-color: var(--form-background-color);
+	border: 2px solid var(--border-color);
 	border-radius: 5px;
-}
 
-.fieldset:not(:first-child) {
-	margin-top: 20px;
+	&:not(:first-child) {
+		margin-top: 20px;
+	}
 }
 
 .fieldset__header {
@@ -29,7 +25,7 @@ $action-button-height: 18px;
 .fieldset__module {
 	padding: 5px;
 	margin-bottom: 5px;
-	border: 1px dashed color-variables.$border-color;
+	border: 1px dashed var(--border-color);
 	border-radius: 5px;
 }
 
@@ -47,18 +43,20 @@ $action-button-height: 18px;
 }
 
 .fieldset__action-button {
+	--action-button-height: 18px;
+
 	padding: 0px 10px;
-	height: $action-button-height;
+	height: var(--action-button-height);
 	width: 36px;
-	line-height: $action-button-height;
-	color: color-variables.$interactive-text-color;
-	background-color: color-variables.$content-background-color;
-	border: 1px solid color-variables.$border-color;
+	line-height: var(--action-button-height);
+	color: var(--interactive-text-color);
+	background-color: var(--content-background-color);
+	border: 1px solid var(--border-color);
 	border-radius: 5px;
 	cursor: pointer;
 
 	&:hover {
-		color: color-variables.$default-text-color;
+		color: var(--default-text-color);
 	}
 }
 
@@ -69,21 +67,21 @@ $action-button-height: 18px;
 .field__input {
 	box-sizing: border-box;
 	width: 100%;
+}
 
-	&--has-errors {
-		border-color: color-variables.$error-color;
-	}
+.field__input--has-errors {
+	border-color: var(--error-color);
 }
 
 .field__error-list-item {
 	list-style: disc inside none;
-	color: color-variables.$error-color;
+	color: var(--error-color);
 }
 
 .button {
 	margin-top: 40px;
 	height: 22px;
 	width: 170px;
-	background-color: color-variables.$button-background-color;
+	background-color: var(--button-background-color);
 	cursor: pointer;
 }
