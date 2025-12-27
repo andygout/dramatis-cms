@@ -111,14 +111,24 @@ const clientStylesBundle = {
 					src: 'src/client/stylesheets/**/*.css',
 					dest: 'public/stylesheets',
 					flatten: false
+				},
+				{
+					src: 'node_modules/react-bootstrap-typeahead/css/Typeahead.css',
+					dest: 'public/stylesheets',
+					rename: 'react-bootstrap-typeahead.css'
+				},
+				{
+					src: 'node_modules/react-bootstrap-typeahead/css/Typeahead.bs5.css',
+					dest: 'public/stylesheets',
+					rename: 'react-bootstrap-typeahead.bs5.css'
 				}
 			]
 		})
 	]
 };
 
-const clientBootstrapStylesBundle = {
-	input: 'src/client/stylesheets/bootstrap.scss',
+const clientScssImportsStylesBundle = {
+	input: 'src/client/stylesheets/scss-imports/index.scss',
 	output: {
 		dir: 'public'
 	},
@@ -127,10 +137,10 @@ const clientBootstrapStylesBundle = {
 	},
 	plugins: [
 		watchGlobs([
-			'src/client/stylesheets/bootstrap.scss'
+			'src/client/stylesheets/scss-imports/**/*.scss'
 		]),
 		sassPlugin({
-			output: 'public/stylesheets/bootstrap.css',
+			output: 'public/stylesheets/scss-imports.css',
 			api: 'modern',
 			runtime: sass,
 			options: {
@@ -153,5 +163,5 @@ export default [
 	serverBundle,
 	clientScriptsBundle,
 	clientStylesBundle,
-	clientBootstrapStylesBundle
+	clientScssImportsStylesBundle
 ];
