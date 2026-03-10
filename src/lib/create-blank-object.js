@@ -1,15 +1,11 @@
 import isObjectWithKeys from './is-object-with-keys.js';
 
-const createBlankObject = object => {
-
+const createBlankObject = (object) => {
 	const blankObject = {};
 
 	Object.entries(object).forEach(([key, value]) => {
-
 		blankObject[key] = (() => {
-
 			switch (true) {
-
 				case key === 'errors':
 					return {};
 
@@ -24,15 +20,11 @@ const createBlankObject = object => {
 
 				default:
 					return '';
-
 			}
-
 		})();
-
 	});
 
 	return blankObject;
-
 };
 
 export default createBlankObject;

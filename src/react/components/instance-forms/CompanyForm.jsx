@@ -8,8 +8,7 @@ import {
 	useDeleteCompanyMutation
 } from '../../../redux/slices/api.js';
 
-const CompanyForm = props => {
-
+const CompanyForm = (props) => {
 	const { instance, action } = props;
 
 	const [createCompany] = useCreateCompanyMutation();
@@ -41,30 +40,23 @@ const CompanyForm = props => {
 			updateInstance={updateCompany}
 			deleteInstance={deleteCompany}
 		>
-
 			<Fieldset header={'Name'}>
-
 				<InputAndErrors
 					value={name}
 					errors={errors?.name}
-					handleChange={event => handleChange(name, setName, [], event)}
+					handleChange={(event) => handleChange(name, setName, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Differentiator'}>
-
 				<InputAndErrors
 					value={differentiator}
 					errors={errors?.differentiator}
-					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+					handleChange={(event) => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
-
 			</Fieldset>
-
 		</FormWrapper>
 	);
-
 };
 
 export default CompanyForm;

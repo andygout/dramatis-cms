@@ -31,14 +31,9 @@ const CREDIT_TYPES = {
 	RIGHTS_GRANTOR: 'RIGHTS_GRANTOR'
 };
 
-const FORM_CONCEALED_KEYS = new Set([
-	'errors'
-]);
+const FORM_CONCEALED_KEYS = new Set(['errors']);
 
-const FORM_UNEDITABLE_KEYS = new Set([
-	'errors',
-	'model'
-]);
+const FORM_UNEDITABLE_KEYS = new Set(['errors', 'model']);
 
 const MODELS = {
 	[AWARD]: AWARD,

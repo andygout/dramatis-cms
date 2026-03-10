@@ -1,15 +1,11 @@
 import { ACTIONS } from '../../utils/constants.js';
 
-const withInstancePageTitle = PageTitle => {
-
-	const InstancePageTitle = props => {
-
+const withInstancePageTitle = (PageTitle) => {
+	const InstancePageTitle = (props) => {
 		const { name, modelDisplayName, differentiatorSuffix, formAction } = props;
 
-		const pageTitle = (action => {
-
+		const pageTitle = ((action) => {
 			switch (action) {
-
 				case ACTIONS.CREATE:
 					return `New ${modelDisplayName}`;
 
@@ -18,21 +14,15 @@ const withInstancePageTitle = PageTitle => {
 
 				default:
 					return '';
-
 			}
-
 		})(formAction);
 
 		const isNewInstance = formAction === ACTIONS.CREATE;
 
-		return (
-			<PageTitle text={pageTitle} isNewInstance={isNewInstance} />
-		);
-
+		return <PageTitle text={pageTitle} isNewInstance={isNewInstance} />;
 	};
 
 	return InstancePageTitle;
-
 };
 
 export default withInstancePageTitle;

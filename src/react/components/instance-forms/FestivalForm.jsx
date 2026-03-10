@@ -8,8 +8,7 @@ import {
 	useDeleteFestivalMutation
 } from '../../../redux/slices/api.js';
 
-const FestivalForm = props => {
-
+const FestivalForm = (props) => {
 	const { instance, action } = props;
 
 	const [createFestival] = useCreateFestivalMutation();
@@ -44,54 +43,43 @@ const FestivalForm = props => {
 			updateInstance={updateFestival}
 			deleteInstance={deleteFestival}
 		>
-
 			<Fieldset header={'Name'}>
-
 				<InputAndErrors
 					value={name}
 					errors={errors?.name}
-					handleChange={event => handleChange(name, setName, [], event)}
+					handleChange={(event) => handleChange(name, setName, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Differentiator'}>
-
 				<InputAndErrors
 					value={differentiator}
 					errors={errors?.differentiator}
-					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+					handleChange={(event) => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Festival series'}>
-
 				<FieldsetComponent label={'Name'}>
-
 					<InputAndErrors
 						value={festivalSeries?.name}
 						errors={festivalSeries?.errors.name}
-						handleChange={event => handleChange(festivalSeries, setFestivalSeries, ['name'], event)}
+						handleChange={(event) => handleChange(festivalSeries, setFestivalSeries, ['name'], event)}
 					/>
-
 				</FieldsetComponent>
 
 				<FieldsetComponent label={'Differentiator'}>
-
 					<InputAndErrors
 						value={festivalSeries?.differentiator}
 						errors={festivalSeries?.errors.differentiator}
-						handleChange={event => handleChange(festivalSeries, setFestivalSeries, ['differentiator'], event)}
+						handleChange={(event) =>
+							handleChange(festivalSeries, setFestivalSeries, ['differentiator'], event)
+						}
 					/>
-
 				</FieldsetComponent>
-
 			</Fieldset>
-
 		</FormWrapper>
 	);
-
 };
 
 export default FestivalForm;

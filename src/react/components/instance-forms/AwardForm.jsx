@@ -2,14 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 import { handleChange } from '../../utils/form.js';
-import {
-	useCreateAwardMutation,
-	useUpdateAwardMutation,
-	useDeleteAwardMutation
-} from '../../../redux/slices/api.js';
+import { useCreateAwardMutation, useUpdateAwardMutation, useDeleteAwardMutation } from '../../../redux/slices/api.js';
 
-const AwardForm = props => {
-
+const AwardForm = (props) => {
 	const { instance, action } = props;
 
 	const [createAward] = useCreateAwardMutation();
@@ -41,30 +36,23 @@ const AwardForm = props => {
 			updateInstance={updateAward}
 			deleteInstance={deleteAward}
 		>
-
 			<Fieldset header={'Name'}>
-
 				<InputAndErrors
 					value={name}
 					errors={errors?.name}
-					handleChange={event => handleChange(name, setName, [], event)}
+					handleChange={(event) => handleChange(name, setName, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Differentiator'}>
-
 				<InputAndErrors
 					value={differentiator}
 					errors={errors?.differentiator}
-					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+					handleChange={(event) => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
-
 			</Fieldset>
-
 		</FormWrapper>
 	);
-
 };
 
 export default AwardForm;

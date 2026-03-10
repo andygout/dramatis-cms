@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 
-const PageTitle = props => {
-
+const PageTitle = (props) => {
 	const { text, isNewInstance } = props;
 
 	const className = classNames({
@@ -9,12 +8,7 @@ const PageTitle = props => {
 		'title-text--muted': isNewInstance
 	});
 
-	return (
-		<h1 className={className}>
-			{ text }
-		</h1>
-	);
-
+	return <h1 className={className}>{text}</h1>;
 };
 
 export default PageTitle;

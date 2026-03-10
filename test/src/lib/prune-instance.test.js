@@ -3,9 +3,7 @@ import { expect } from 'chai';
 import pruneInstance from '../../../src/lib/prune-instance.js';
 
 describe('Prune Instance module', () => {
-
-	it('removes top-level concealed attributes (e.g. \'errors\')', () => {
-
+	it("removes top-level concealed attributes (e.g. 'errors')", () => {
 		const instance = {
 			name: 'King Lear',
 			errors: {}
@@ -18,11 +16,9 @@ describe('Prune Instance module', () => {
 		};
 
 		expect(result).to.deep.equal(expectation);
-
 	});
 
-	it('retains top-level \'model\' and \'uuid\' attributes', () => {
-
+	it("retains top-level 'model' and 'uuid' attributes", () => {
 		const instance = {
 			model: 'PRODUCTION',
 			uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -38,11 +34,9 @@ describe('Prune Instance module', () => {
 		};
 
 		expect(result).to.deep.equal(expectation);
-
 	});
 
-	it('removes nested-level concealed attributes (e.g. \'errors\', and \'model\')', () => {
-
+	it("removes nested-level concealed attributes (e.g. 'errors', and 'model')", () => {
 		const instance = {
 			name: 'King Lear',
 			cast: [
@@ -82,15 +76,11 @@ describe('Prune Instance module', () => {
 		};
 
 		expect(result).to.deep.equal(expectation);
-
 	});
 
 	describe('filters out array items that have empty string name', () => {
-
 		context('array items with non-empty strings exist', () => {
-
 			it('filters out array items that have empty string name values', () => {
-
 				const instance = {
 					name: 'King Lear',
 					cast: [
@@ -137,15 +127,11 @@ describe('Prune Instance module', () => {
 				};
 
 				expect(result).to.deep.equal(expectation);
-
 			});
-
 		});
 
 		context('array items with non-empty strings do not exist', () => {
-
 			it('leaves single array item that has empty string name value', () => {
-
 				const instance = {
 					name: 'King Lear',
 					cast: [
@@ -179,19 +165,13 @@ describe('Prune Instance module', () => {
 				};
 
 				expect(result).to.deep.equal(expectation);
-
 			});
-
 		});
-
 	});
 
 	describe('filters out array items that have empty string uuid', () => {
-
 		context('array items with non-empty strings exist', () => {
-
 			it('filters out array items that have empty string uuid values', () => {
-
 				const instance = {
 					name: '2020',
 					productions: [
@@ -216,15 +196,11 @@ describe('Prune Instance module', () => {
 				};
 
 				expect(result).to.deep.equal(expectation);
-
 			});
-
 		});
 
 		context('array items with non-empty strings do not exist', () => {
-
 			it('leaves single array item that has empty string name value', () => {
-
 				const instance = {
 					name: '2020',
 					productions: [
@@ -246,15 +222,11 @@ describe('Prune Instance module', () => {
 				};
 
 				expect(result).to.deep.equal(expectation);
-
 			});
-
 		});
-
 	});
 
 	it('retains array items that do not have name or uuid property (i.e. each item in nominations array)', () => {
-
 		const instance = {
 			name: '2019',
 			categories: [
@@ -308,11 +280,9 @@ describe('Prune Instance module', () => {
 		};
 
 		expect(result).to.deep.equal(expectation);
-
 	});
 
 	it('prunes a sample production instance as per specification', () => {
-
 		const instance = {
 			model: 'PRODUCTION',
 			uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
@@ -396,11 +366,9 @@ describe('Prune Instance module', () => {
 		};
 
 		expect(result).to.deep.equal(expectation);
-
 	});
 
 	it('prunes a sample award ceremony instance as per specification', () => {
-
 		const instance = {
 			model: 'AWARD_CEREMONY',
 			name: '',
@@ -485,7 +453,5 @@ describe('Prune Instance module', () => {
 		};
 
 		expect(result).to.deep.equal(expectation);
-
 	});
-
 });

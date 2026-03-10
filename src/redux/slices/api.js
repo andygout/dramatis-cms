@@ -3,11 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix.js';
 import pruneInstance from '../../lib/prune-instance.js';
 import { deactivateNotification } from '../action-handlers/notification.js';
-import {
-	errorActivated,
-	notificationActivated,
-	redirectActivated
-} from '../actions/index.js';
+import { errorActivated, notificationActivated, redirectActivated } from '../actions/index.js';
 import {
 	ACTIONS,
 	MODELS,
@@ -22,9 +18,7 @@ import {
 const API_BASE_URL = 'http://localhost:3000';
 
 const baseQuery = async ({ apiRoute, fetchSettings = {} }, { dispatch }) => {
-
 	try {
-
 		const apiUrl = `${API_BASE_URL}${apiRoute}`;
 
 		const response = await fetch(apiUrl, { ...fetchSettings, mode: 'cors' });
@@ -34,39 +28,28 @@ const baseQuery = async ({ apiRoute, fetchSettings = {} }, { dispatch }) => {
 		const responseJson = await response.json();
 
 		return { data: responseJson };
-
 	} catch (error) {
-
 		dispatch(errorActivated({ message: error.message }));
 
 		dispatch(deactivateNotification());
 
 		return { error: error.toString() };
-
 	}
-
 };
 
-const getInstancesQuery = pluralisedModel => {
-
+const getInstancesQuery = (pluralisedModel) => {
 	return {
 		apiRoute: `/${PLURALISED_MODEL_TO_ROUTE_MAP[pluralisedModel]}`
 	};
-
 };
 
 const getInstanceQuery = ({ model, uuid }) => {
-
 	return {
-		apiRoute: uuid
-			? `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}/edit`
-			: `/${MODEL_TO_ROUTE_MAP[model]}/new`
+		apiRoute: uuid ? `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}/edit` : `/${MODEL_TO_ROUTE_MAP[model]}/new`
 	};
-
 };
 
-const createQuery = instance => {
-
+const createQuery = (instance) => {
 	return {
 		apiRoute: `/${MODEL_TO_ROUTE_MAP[instance.model]}`,
 		fetchSettings: {
@@ -77,11 +60,9 @@ const createQuery = instance => {
 			}
 		}
 	};
-
 };
 
-const updateQuery = instance => {
-
+const updateQuery = (instance) => {
 	return {
 		apiRoute: `/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`,
 		fetchSettings: {
@@ -92,22 +73,18 @@ const updateQuery = instance => {
 			}
 		}
 	};
-
 };
 
-const deleteQuery = instance => {
-
+const deleteQuery = (instance) => {
 	return {
 		apiRoute: `/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`,
 		fetchSettings: {
 			method: 'DELETE'
 		}
 	};
-
 };
 
 const onCreateQueryStarted = async (queryArg, { dispatch, queryFulfilled }) => {
-
 	const { data: instance } = await queryFulfilled;
 
 	const { model, uuid, name, differentiator, hasErrors } = instance;
@@ -117,7 +94,6 @@ const onCreateQueryStarted = async (queryArg, { dispatch, queryFulfilled }) => {
 	let notification;
 
 	if (hasErrors) {
-
 		notification = {
 			text: `This ${modelDisplayName} contains errors`,
 			status: NOTIFICATION_STATUSES.failure
@@ -131,30 +107,21 @@ const onCreateQueryStarted = async (queryArg, { dispatch, queryFulfilled }) => {
 		};
 
 		dispatch(
-			api.util.updateQueryData(
-				`get${MODEL_TO_PASCAL_CASE_MAP[model]}`,
-				undefined,
-				draft => {
-					draft.formData = formData;
-				}
-			)
+			api.util.updateQueryData(`get${MODEL_TO_PASCAL_CASE_MAP[model]}`, undefined, (draft) => {
+				draft.formData = formData;
+			})
 		);
-
 	} else {
-
 		notification = {
 			text: `${name} (${modelDisplayName})${getDifferentiatorSuffix(differentiator)} has been created`,
 			status: NOTIFICATION_STATUSES.success
 		};
 
 		dispatch(redirectActivated({ path: `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}`, notification }));
-
 	}
-
 };
 
 const onUpdateQueryStarted = async (queryArg, { dispatch, queryFulfilled }) => {
-
 	const { data: instance } = await queryFulfilled;
 
 	const { model, name, differentiator, hasErrors } = instance;
@@ -169,24 +136,17 @@ const onUpdateQueryStarted = async (queryArg, { dispatch, queryFulfilled }) => {
 	};
 
 	if (hasErrors) {
-
 		notification = {
 			text: `This ${modelDisplayName} contains errors`,
 			status: NOTIFICATION_STATUSES.failure
 		};
 
 		dispatch(
-			api.util.updateQueryData(
-				`get${MODEL_TO_PASCAL_CASE_MAP[model]}`,
-				queryArg.uuid,
-				draft => {
-					draft.formData = formData;
-				}
-			)
+			api.util.updateQueryData(`get${MODEL_TO_PASCAL_CASE_MAP[model]}`, queryArg.uuid, (draft) => {
+				draft.formData = formData;
+			})
 		);
-
 	} else {
-
 		notification = {
 			text: `${name} (${modelDisplayName})${getDifferentiatorSuffix(differentiator)} has been updated`,
 			status: NOTIFICATION_STATUSES.success
@@ -204,15 +164,12 @@ const onUpdateQueryStarted = async (queryArg, { dispatch, queryFulfilled }) => {
 				() => updatedGetInstanceQueryData
 			)
 		);
-
 	}
 
 	dispatch(notificationActivated(notification));
-
 };
 
 const onDeleteQueryStarted = async (queryArg, { dispatch, queryFulfilled }) => {
-
 	const { data: instance } = await queryFulfilled;
 
 	const { model, name, differentiator, hasErrors, errors } = instance;
@@ -222,34 +179,27 @@ const onDeleteQueryStarted = async (queryArg, { dispatch, queryFulfilled }) => {
 	let notification;
 
 	if (hasErrors) {
-
 		const { associations } = errors;
 
 		notification = {
 			text: `This ${modelDisplayName} cannot be deleted because
 				it has associations with instances
-				of the following models: ${associations.join(', ')}`
-			,
+				of the following models: ${associations.join(', ')}`,
 			status: NOTIFICATION_STATUSES.failure
 		};
 
 		dispatch(notificationActivated(notification));
-
 	} else {
-
 		notification = {
 			text: `${name} (${modelDisplayName})${getDifferentiatorSuffix(differentiator)} has been deleted`,
 			status: NOTIFICATION_STATUSES.success
 		};
 
 		dispatch(redirectActivated({ path: `/${MODEL_TO_ROUTE_MAP[model]}`, notification }));
-
 	}
-
 };
 
 const transformGetResponse = (response, meta, queryUuidArg) => {
-
 	const instance = response;
 
 	const isExistingInstance = Boolean(queryUuidArg);
@@ -261,18 +211,17 @@ const transformGetResponse = (response, meta, queryUuidArg) => {
 			instance
 		}
 	};
-
 };
 
 export const api = createApi({
 	baseQuery,
 	refetchOnMountOrArgChange: true,
-	endpoints: build => ({
+	endpoints: (build) => ({
 		getAwards: build.query({
 			query: () => getInstancesQuery(PLURALISED_MODELS.AWARDS)
 		}),
 		getAward: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.AWARD, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.AWARD, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createAward: build.mutation({
@@ -291,7 +240,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.AWARD_CEREMONIES)
 		}),
 		getAwardCeremony: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.AWARD_CEREMONY, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.AWARD_CEREMONY, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createAwardCeremony: build.mutation({
@@ -310,7 +259,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.CHARACTERS)
 		}),
 		getCharacter: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.CHARACTER, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.CHARACTER, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createCharacter: build.mutation({
@@ -329,7 +278,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.COMPANIES)
 		}),
 		getCompany: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.COMPANY, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.COMPANY, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createCompany: build.mutation({
@@ -348,7 +297,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.FESTIVALS)
 		}),
 		getFestival: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.FESTIVAL, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.FESTIVAL, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createFestival: build.mutation({
@@ -367,7 +316,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.FESTIVAL_SERIESES)
 		}),
 		getFestivalSeries: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.FESTIVAL_SERIES, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.FESTIVAL_SERIES, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createFestivalSeries: build.mutation({
@@ -386,7 +335,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.MATERIALS)
 		}),
 		getMaterial: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.MATERIAL, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.MATERIAL, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createMaterial: build.mutation({
@@ -405,7 +354,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.PEOPLE)
 		}),
 		getPerson: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.PERSON, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.PERSON, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createPerson: build.mutation({
@@ -424,7 +373,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.PRODUCTIONS)
 		}),
 		getProduction: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.PRODUCTION, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.PRODUCTION, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createProduction: build.mutation({
@@ -443,7 +392,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.SEASONS)
 		}),
 		getSeason: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.SEASON, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.SEASON, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createSeason: build.mutation({
@@ -462,7 +411,7 @@ export const api = createApi({
 			query: () => getInstancesQuery(PLURALISED_MODELS.VENUES)
 		}),
 		getVenue: build.query({
-			query: uuid => getInstanceQuery({ model: MODELS.VENUE, uuid }),
+			query: (uuid) => getInstanceQuery({ model: MODELS.VENUE, uuid }),
 			transformResponse: transformGetResponse
 		}),
 		createVenue: build.mutation({

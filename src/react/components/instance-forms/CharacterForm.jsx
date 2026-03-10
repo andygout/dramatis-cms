@@ -8,8 +8,7 @@ import {
 	useDeleteCharacterMutation
 } from '../../../redux/slices/api.js';
 
-const CharacterForm = props => {
-
+const CharacterForm = (props) => {
 	const { instance, action } = props;
 
 	const [createCharacter] = useCreateCharacterMutation();
@@ -41,30 +40,23 @@ const CharacterForm = props => {
 			updateInstance={updateCharacter}
 			deleteInstance={deleteCharacter}
 		>
-
 			<Fieldset header={'Name'}>
-
 				<InputAndErrors
 					value={name}
 					errors={errors?.name}
-					handleChange={event => handleChange(name, setName, [], event)}
+					handleChange={(event) => handleChange(name, setName, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Differentiator'}>
-
 				<InputAndErrors
 					value={differentiator}
 					errors={errors?.differentiator}
-					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+					handleChange={(event) => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
-
 			</Fieldset>
-
 		</FormWrapper>
 	);
-
 };
 
 export default CharacterForm;

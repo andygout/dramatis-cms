@@ -6,12 +6,4 @@ import Input from './Input.jsx';
 import InputAndErrors from './InputAndErrors.jsx';
 import InputErrors from './InputErrors.jsx';
 
-export {
-	ArrayItemActionButton,
-	Fieldset,
-	FieldsetComponent,
-	FormWrapper,
-	Input,
-	InputAndErrors,
-	InputErrors
-};
+export { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, Input, InputAndErrors, InputErrors };

@@ -17,8 +17,7 @@ import {
 } from '../../../redux/slices/api.js';
 import { MODELS } from '../../../utils/constants.js';
 
-const ProductionForm = props => {
-
+const ProductionForm = (props) => {
 	const { instance, action } = props;
 
 	const [createProduction] = useCreateProductionMutation();
@@ -82,800 +81,583 @@ const ProductionForm = props => {
 	};
 
 	const renderSubProductions = () => {
-
 		return (
 			<Fieldset header={'Sub-productions'}>
+				{subProductions?.map((subProduction, index) => {
+					const statePath = [index];
 
-				{
-					subProductions?.map((subProduction, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, subProductions.length);
 
-						const statePath = [index];
-
-						const isLastListItem = checkIsLastArrayItem(index, subProductions.length);
-
-						return (
-							<div className={'fieldset__module'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(
+					return (
+						<div className={'fieldset__module'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(
 												subProductions,
 												setSubProductions,
 												statePath,
 												event
 											)
-											: handleRemoveArrayItemClick(
+										: handleRemoveArrayItemClick(
 												subProductions,
 												setSubProductions,
 												statePath,
 												event
 											)
+								}
+							/>
+
+							<FieldsetComponent label={'Production UUID'} isArrayItem={true}>
+								<InputAndErrors
+									value={subProduction.uuid}
+									errors={subProduction.errors.uuid}
+									handleChange={(event) =>
+										handleChange(
+											subProductions,
+											setSubProductions,
+											statePath.concat(['uuid']),
+											event
+										)
 									}
 								/>
-
-								<FieldsetComponent label={'Production UUID'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={subProduction.uuid}
-										errors={subProduction.errors.uuid}
-										handleChange={event =>
-											handleChange(
-												subProductions,
-												setSubProductions,
-												statePath.concat(['uuid']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-							</div>
-						);
-
-					})
-				}
-
+							</FieldsetComponent>
+						</div>
+					);
+				})}
 			</Fieldset>
 		);
-
 	};
 
 	const renderMembers = (stateValue, setStateValue, members, membersStatePath) => {
-
 		return (
 			<FieldsetComponent label={'Credited company members (people)'} isArrayItem={true}>
+				{members.map((member, index) => {
+					const statePath = membersStatePath.concat([index]);
 
-				{
-					members.map((member, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, members.length);
 
-						const statePath = membersStatePath.concat([index]);
+					return (
+						<div className={'fieldset__module fieldset__module--nested'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(stateValue, setStateValue, statePath, event)
+										: handleRemoveArrayItemClick(stateValue, setStateValue, statePath, event)
+								}
+							/>
 
-						const isLastListItem = checkIsLastArrayItem(index, members.length);
-
-						return (
-							<div className={'fieldset__module fieldset__module--nested'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(stateValue, setStateValue, statePath, event)
-											: handleRemoveArrayItemClick(stateValue, setStateValue, statePath, event)
+							<FieldsetComponent label={'Person name'} isArrayItem={true}>
+								<InputAndErrors
+									value={member.name}
+									errors={member.errors.name}
+									handleChange={(event) =>
+										handleChange(stateValue, setStateValue, statePath.concat(['name']), event)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Person name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={member.name}
-										errors={member.errors.name}
-										handleChange={event =>
-											handleChange(
-												stateValue,
-												setStateValue,
-												statePath.concat(['name']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={member.differentiator}
-										errors={member.errors.differentiator}
-										handleChange={event =>
-											handleChange(
-												stateValue,
-												setStateValue,
-												statePath.concat(['differentiator']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-							</div>
-						);
-
-					})
-				}
-
+							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+								<InputAndErrors
+									value={member.differentiator}
+									errors={member.errors.differentiator}
+									handleChange={(event) =>
+										handleChange(
+											stateValue,
+											setStateValue,
+											statePath.concat(['differentiator']),
+											event
+										)
+									}
+								/>
+							</FieldsetComponent>
+						</div>
+					);
+				})}
 			</FieldsetComponent>
 		);
-
 	};
 
 	const renderEntities = (stateValue, setStateValue, entities, entitiesStatePath, teamName) => {
-
 		return (
 			<FieldsetComponent label={`${teamName} entities (people, companies)`} isArrayItem={true}>
+				{entities.map((entity, index) => {
+					const statePath = entitiesStatePath.concat([index]);
 
-				{
-					entities.map((entity, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, entities.length);
 
-						const statePath = entitiesStatePath.concat([index]);
+					return (
+						<div className={'fieldset__module fieldset__module--nested'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(stateValue, setStateValue, statePath, event)
+										: handleRemoveArrayItemClick(stateValue, setStateValue, statePath, event)
+								}
+							/>
 
-						const isLastListItem = checkIsLastArrayItem(index, entities.length);
-
-						return (
-							<div className={'fieldset__module fieldset__module--nested'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(stateValue, setStateValue, statePath, event)
-											: handleRemoveArrayItemClick(stateValue, setStateValue, statePath, event)
+							<FieldsetComponent label={`${capitalise(entity.model)} name`} isArrayItem={true}>
+								<InputAndErrors
+									value={entity.name}
+									errors={entity.errors.name}
+									handleChange={(event) =>
+										handleChange(stateValue, setStateValue, statePath.concat(['name']), event)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={`${capitalise(entity.model)} name`} isArrayItem={true}>
+							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+								<InputAndErrors
+									value={entity.differentiator}
+									errors={entity.errors.differentiator}
+									handleChange={(event) =>
+										handleChange(
+											stateValue,
+											setStateValue,
+											statePath.concat(['differentiator']),
+											event
+										)
+									}
+								/>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={entity.name}
-										errors={entity.errors.name}
-										handleChange={event =>
-											handleChange(
-												stateValue,
-												setStateValue,
-												statePath.concat(['name']),
-												event
-											)
-										}
-									/>
+							<FieldsetComponent label={'Model'} isArrayItem={true}>
+								<input
+									type={'radio'}
+									value={MODELS.PERSON}
+									checked={entity.model === MODELS.PERSON}
+									onChange={(event) =>
+										handleChangeToPerson(stateValue, setStateValue, statePath, entity, event)
+									}
+								/>
+								<label>{' Person'}</label>
 
-								</FieldsetComponent>
+								<input
+									type={'radio'}
+									value={MODELS.COMPANY}
+									checked={entity.model === MODELS.COMPANY}
+									onChange={(event) =>
+										handleChangeToCompany(stateValue, setStateValue, statePath, entity, event)
+									}
+								/>
+								<label>{' Company'}</label>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={entity.differentiator}
-										errors={entity.errors.differentiator}
-										handleChange={event =>
-											handleChange(
-												stateValue,
-												setStateValue,
-												statePath.concat(['differentiator']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Model'} isArrayItem={true}>
-
-									<input
-										type={'radio'}
-										value={MODELS.PERSON}
-										checked={entity.model === MODELS.PERSON}
-										onChange={event =>
-											handleChangeToPerson(
-												stateValue,
-												setStateValue,
-												statePath,
-												entity,
-												event
-											)
-										}
-									/>
-									<label>{' Person'}</label>
-
-									<input
-										type={'radio'}
-										value={MODELS.COMPANY}
-										checked={entity.model === MODELS.COMPANY}
-										onChange={event =>
-											handleChangeToCompany(
-												stateValue,
-												setStateValue,
-												statePath,
-												entity,
-												event
-											)
-										}
-									/>
-									<label>{' Company'}</label>
-
-								</FieldsetComponent>
-
-								{
-									entity.model === MODELS.COMPANY &&
-									renderMembers(
-										stateValue,
-										setStateValue,
-										entity.members || [],
-										statePath.concat(['members'])
-									)
-								}
-
-							</div>
-						);
-
-					})
-				}
-
+							{entity.model === MODELS.COMPANY &&
+								renderMembers(
+									stateValue,
+									setStateValue,
+									entity.members || [],
+									statePath.concat(['members'])
+								)}
+						</div>
+					);
+				})}
 			</FieldsetComponent>
 		);
-
 	};
 
 	const renderProducerCredits = () => {
-
 		return (
 			<Fieldset header={'Producer team credits'}>
+				{producerCredits.map((producerCredit, index) => {
+					const statePath = [index];
 
-				{
-					producerCredits.map((producerCredit, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, producerCredits.length);
 
-						const statePath = [index];
-
-						const isLastListItem = checkIsLastArrayItem(index, producerCredits.length);
-
-						return (
-							<div className={'fieldset__module'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(
+					return (
+						<div className={'fieldset__module'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(
 												producerCredits,
 												setProducerCredits,
 												statePath,
 												event
 											)
-											: handleRemoveArrayItemClick(
+										: handleRemoveArrayItemClick(
 												producerCredits,
 												setProducerCredits,
 												statePath,
 												event
 											)
+								}
+							/>
+
+							<FieldsetComponent label={'Credit name'} isArrayItem={true}>
+								<InputAndErrors
+									value={producerCredit.name}
+									errors={producerCredit.errors.name}
+									handleChange={(event) =>
+										handleChange(
+											producerCredits,
+											setProducerCredits,
+											statePath.concat(['name']),
+											event
+										)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={producerCredit.name}
-										errors={producerCredit.errors.name}
-										handleChange={event =>
-											handleChange(
-												producerCredits,
-												setProducerCredits,
-												statePath.concat(['name']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								{
-									renderEntities(
-										producerCredits,
-										setProducerCredits,
-										producerCredit.entities,
-										statePath.concat(['entities']),
-										'Producer'
-									)
-								}
-
-							</div>
-						);
-
-					})
-				}
-
+							{renderEntities(
+								producerCredits,
+								setProducerCredits,
+								producerCredit.entities,
+								statePath.concat(['entities']),
+								'Producer'
+							)}
+						</div>
+					);
+				})}
 			</Fieldset>
 		);
-
 	};
 
 	const renderCastMemberRoles = (roles, rolesStatePath) => {
-
 		return (
 			<FieldsetComponent label={'Roles'} isArrayItem={true}>
+				{roles.map((role, index) => {
+					const statePath = rolesStatePath.concat([index]);
 
-				{
-					roles.map((role, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, roles.length);
 
-						const statePath = rolesStatePath.concat([index]);
+					return (
+						<div className={'fieldset__module fieldset__module--nested'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(cast, setCast, statePath, event)
+										: handleRemoveArrayItemClick(cast, setCast, statePath, event)
+								}
+							/>
 
-						const isLastListItem = checkIsLastArrayItem(index, roles.length);
-
-						return (
-							<div className={'fieldset__module fieldset__module--nested'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(cast, setCast, statePath, event)
-											: handleRemoveArrayItemClick(cast, setCast, statePath, event)
+							<FieldsetComponent label={'Role name'} isArrayItem={true}>
+								<InputAndErrors
+									value={role.name}
+									errors={role.errors.name}
+									handleChange={(event) =>
+										handleChange(cast, setCast, statePath.concat(['name']), event)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Role name'} isArrayItem={true}>
+							<FieldsetComponent label={'Character name'} isArrayItem={true}>
+								<InputAndErrors
+									value={role.characterName}
+									errors={role.errors.characterName}
+									handleChange={(event) =>
+										handleChange(cast, setCast, statePath.concat(['characterName']), event)
+									}
+								/>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={role.name}
-										errors={role.errors.name}
-										handleChange={event =>
-											handleChange(
-												cast,
-												setCast,
-												statePath.concat(['name']),
-												event
-											)
-										}
-									/>
+							<FieldsetComponent label={'Character differentiator'} isArrayItem={true}>
+								<InputAndErrors
+									value={role.characterDifferentiator}
+									errors={role.errors.characterDifferentiator}
+									handleChange={(event) =>
+										handleChange(
+											cast,
+											setCast,
+											statePath.concat(['characterDifferentiator']),
+											event
+										)
+									}
+								/>
+							</FieldsetComponent>
 
-								</FieldsetComponent>
+							<FieldsetComponent label={'Qualifier'} isArrayItem={true}>
+								<InputAndErrors
+									value={role.qualifier}
+									errors={role.errors.qualifier}
+									handleChange={(event) =>
+										handleChange(cast, setCast, statePath.concat(['qualifier']), event)
+									}
+								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Character name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={role.characterName}
-										errors={role.errors.characterName}
-										handleChange={event =>
-											handleChange(
-												cast,
-												setCast,
-												statePath.concat(['characterName']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Character differentiator'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={role.characterDifferentiator}
-										errors={role.errors.characterDifferentiator}
-										handleChange={event =>
-											handleChange(
-												cast,
-												setCast,
-												statePath.concat(['characterDifferentiator']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Qualifier'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={role.qualifier}
-										errors={role.errors.qualifier}
-										handleChange={event =>
-											handleChange(
-												cast,
-												setCast,
-												statePath.concat(['qualifier']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Alternate'} isArrayItem={true}>
-
-									<input
-										type="checkbox"
-										checked={role.isAlternate}
-										onChange={event =>
-											handleChange(
-												cast,
-												setCast,
-												statePath.concat(['isAlternate']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-							</div>
-						);
-
-					})
-				}
-
+							<FieldsetComponent label={'Alternate'} isArrayItem={true}>
+								<input
+									type="checkbox"
+									checked={role.isAlternate}
+									onChange={(event) =>
+										handleChange(cast, setCast, statePath.concat(['isAlternate']), event)
+									}
+								/>
+							</FieldsetComponent>
+						</div>
+					);
+				})}
 			</FieldsetComponent>
 		);
-
 	};
 
 	const renderCast = () => {
-
 		return (
 			<Fieldset header={'Cast'}>
+				{cast.map((castMember, index) => {
+					const statePath = [index];
 
-				{
-					cast.map((castMember, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, cast.length);
 
-						const statePath = [index];
+					return (
+						<div className={'fieldset__module'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(cast, setCast, statePath, event)
+										: handleRemoveArrayItemClick(cast, setCast, statePath, event)
+								}
+							/>
 
-						const isLastListItem = checkIsLastArrayItem(index, cast.length);
-
-						return (
-							<div className={'fieldset__module'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(cast, setCast, statePath, event)
-											: handleRemoveArrayItemClick(cast, setCast, statePath, event)
+							<FieldsetComponent label={'Person name'} isArrayItem={true}>
+								<InputAndErrors
+									value={castMember.name}
+									errors={castMember.errors.name}
+									handleChange={(event) =>
+										handleChange(cast, setCast, statePath.concat(['name']), event)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Person name'} isArrayItem={true}>
+							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+								<InputAndErrors
+									value={castMember.differentiator}
+									errors={castMember.errors.differentiator}
+									handleChange={(event) =>
+										handleChange(cast, setCast, statePath.concat(['differentiator']), event)
+									}
+								/>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={castMember.name}
-										errors={castMember.errors.name}
-										handleChange={event =>
-											handleChange(
-												cast,
-												setCast,
-												statePath.concat(['name']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={castMember.differentiator}
-										errors={castMember.errors.differentiator}
-										handleChange={event =>
-											handleChange(
-												cast,
-												setCast,
-												statePath.concat(['differentiator']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								{ renderCastMemberRoles(castMember.roles, statePath.concat(['roles'])) }
-
-							</div>
-						);
-
-					})
-				}
-
+							{renderCastMemberRoles(castMember.roles, statePath.concat(['roles']))}
+						</div>
+					);
+				})}
 			</Fieldset>
 		);
-
 	};
 
 	const renderCreativeCredits = () => {
-
 		return (
 			<Fieldset header={'Creative team credits'}>
+				{creativeCredits.map((creativeCredit, index) => {
+					const statePath = [index];
 
-				{
-					creativeCredits.map((creativeCredit, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, creativeCredits.length);
 
-						const statePath = [index];
-
-						const isLastListItem = checkIsLastArrayItem(index, creativeCredits.length);
-
-						return (
-							<div className={'fieldset__module'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(
+					return (
+						<div className={'fieldset__module'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(
 												creativeCredits,
 												setCreativeCredits,
 												statePath,
 												event
 											)
-											: handleRemoveArrayItemClick(
+										: handleRemoveArrayItemClick(
 												creativeCredits,
 												setCreativeCredits,
 												statePath,
 												event
 											)
+								}
+							/>
+
+							<FieldsetComponent label={'Credit name'} isArrayItem={true}>
+								<InputAndErrors
+									value={creativeCredit.name}
+									errors={creativeCredit.errors.name}
+									handleChange={(event) =>
+										handleChange(
+											creativeCredits,
+											setCreativeCredits,
+											statePath.concat(['name']),
+											event
+										)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={creativeCredit.name}
-										errors={creativeCredit.errors.name}
-										handleChange={event =>
-											handleChange(
-												creativeCredits,
-												setCreativeCredits,
-												statePath.concat(['name']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								{
-									renderEntities(
-										creativeCredits,
-										setCreativeCredits,
-										creativeCredit.entities,
-										statePath.concat(['entities']),
-										'Creative'
-									)
-								}
-
-							</div>
-						);
-
-					})
-				}
-
+							{renderEntities(
+								creativeCredits,
+								setCreativeCredits,
+								creativeCredit.entities,
+								statePath.concat(['entities']),
+								'Creative'
+							)}
+						</div>
+					);
+				})}
 			</Fieldset>
 		);
-
 	};
 
 	const renderCrewCredits = () => {
-
 		return (
 			<Fieldset header={'Crew credits'}>
+				{crewCredits.map((crewCredit, index) => {
+					const statePath = [index];
 
-				{
-					crewCredits.map((crewCredit, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, crewCredits.length);
 
-						const statePath = [index];
+					return (
+						<div className={'fieldset__module'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(crewCredits, setCrewCredits, statePath, event)
+										: handleRemoveArrayItemClick(crewCredits, setCrewCredits, statePath, event)
+								}
+							/>
 
-						const isLastListItem = checkIsLastArrayItem(index, crewCredits.length);
-
-						return (
-							<div className={'fieldset__module'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(crewCredits, setCrewCredits, statePath, event)
-											: handleRemoveArrayItemClick(crewCredits, setCrewCredits, statePath, event)
+							<FieldsetComponent label={'Credit name'} isArrayItem={true}>
+								<InputAndErrors
+									value={crewCredit.name}
+									errors={crewCredit.errors.name}
+									handleChange={(event) =>
+										handleChange(crewCredits, setCrewCredits, statePath.concat(['name']), event)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Credit name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={crewCredit.name}
-										errors={crewCredit.errors.name}
-										handleChange={event =>
-											handleChange(
-												crewCredits,
-												setCrewCredits,
-												statePath.concat(['name']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								{
-									renderEntities(
-										crewCredits,
-										setCrewCredits,
-										crewCredit.entities,
-										statePath.concat(['entities']),
-										'Crew'
-									)
-								}
-
-							</div>
-						);
-
-					})
-				}
-
+							{renderEntities(
+								crewCredits,
+								setCrewCredits,
+								crewCredit.entities,
+								statePath.concat(['entities']),
+								'Crew'
+							)}
+						</div>
+					);
+				})}
 			</Fieldset>
 		);
-
 	};
 
 	const renderReviews = () => {
-
 		return (
 			<Fieldset header={'Reviews'}>
+				{reviews.map((review, index) => {
+					const statePath = [index];
 
-				{
-					reviews.map((review, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, reviews.length);
 
-						const statePath = [index];
+					return (
+						<div className={'fieldset__module'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(reviews, setReviews, statePath, event)
+										: handleRemoveArrayItemClick(reviews, setReviews, statePath, event)
+								}
+							/>
 
-						const isLastListItem = checkIsLastArrayItem(index, reviews.length);
-
-						return (
-							<div className={'fieldset__module'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(reviews, setReviews, statePath, event)
-											: handleRemoveArrayItemClick(reviews, setReviews, statePath, event)
+							<FieldsetComponent label={'URL'} isArrayItem={true}>
+								<InputAndErrors
+									value={review.url}
+									errors={review.errors.url}
+									handleChange={(event) =>
+										handleChange(reviews, setReviews, statePath.concat(['url']), event)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'URL'} isArrayItem={true}>
+							<FieldsetComponent label={'Date'} isArrayItem={true}>
+								<InputAndErrors
+									type={'date'}
+									value={review.date}
+									errors={review.errors.date}
+									handleChange={(event) =>
+										handleChange(reviews, setReviews, statePath.concat(['date']), event)
+									}
+								/>
+							</FieldsetComponent>
 
-									<InputAndErrors
-										value={review.url}
-										errors={review.errors.url}
-										handleChange={event =>
-											handleChange(
-												reviews,
-												setReviews,
-												statePath.concat(['url']),
-												event
-											)
-										}
-									/>
+							<FieldsetComponent label={'Publication (company)'} isArrayItem={true}>
+								<div className={'fieldset__module fieldset__module--nested'}>
+									<FieldsetComponent label={'Name'} isArrayItem={true}>
+										<InputAndErrors
+											value={review.publication.name}
+											errors={review.publication.errors.name}
+											handleChange={(event) =>
+												handleChange(
+													reviews,
+													setReviews,
+													statePath.concat(['publication', 'name']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
 
-								</FieldsetComponent>
+									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+										<InputAndErrors
+											value={review.publication.differentiator}
+											errors={review.publication.errors.differentiator}
+											handleChange={(event) =>
+												handleChange(
+													reviews,
+													setReviews,
+													statePath.concat(['publication', 'differentiator']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
+								</div>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Date'} isArrayItem={true}>
+							<FieldsetComponent label={'Critic (person)'} isArrayItem={true}>
+								<div className={'fieldset__module fieldset__module--nested'}>
+									<FieldsetComponent label={'Name'} isArrayItem={true}>
+										<InputAndErrors
+											value={review.critic.name}
+											errors={review.critic.errors.name}
+											handleChange={(event) =>
+												handleChange(
+													reviews,
+													setReviews,
+													statePath.concat(['critic', 'name']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
 
-									<InputAndErrors
-										type={'date'}
-										value={review.date}
-										errors={review.errors.date}
-										handleChange={event =>
-											handleChange(
-												reviews,
-												setReviews,
-												statePath.concat(['date']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Publication (company)'} isArrayItem={true}>
-
-									<div className={'fieldset__module fieldset__module--nested'}>
-
-										<FieldsetComponent label={'Name'} isArrayItem={true}>
-
-											<InputAndErrors
-												value={review.publication.name}
-												errors={review.publication.errors.name}
-												handleChange={event =>
-													handleChange(
-														reviews,
-														setReviews,
-														statePath.concat(['publication', 'name']),
-														event
-													)
-												}
-											/>
-
-										</FieldsetComponent>
-
-										<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
-
-											<InputAndErrors
-												value={review.publication.differentiator}
-												errors={review.publication.errors.differentiator}
-												handleChange={event =>
-													handleChange(
-														reviews,
-														setReviews,
-														statePath.concat(['publication', 'differentiator']),
-														event
-													)
-												}
-											/>
-
-										</FieldsetComponent>
-
-									</div>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Critic (person)'} isArrayItem={true}>
-
-									<div className={'fieldset__module fieldset__module--nested'}>
-
-										<FieldsetComponent label={'Name'} isArrayItem={true}>
-
-											<InputAndErrors
-												value={review.critic.name}
-												errors={review.critic.errors.name}
-												handleChange={event =>
-													handleChange(
-														reviews,
-														setReviews,
-														statePath.concat(['critic', 'name']),
-														event
-													)
-												}
-											/>
-
-										</FieldsetComponent>
-
-										<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
-
-											<InputAndErrors
-												value={review.critic.differentiator}
-												errors={review.critic.errors.differentiator}
-												handleChange={event =>
-													handleChange(
-														reviews,
-														setReviews,
-														statePath.concat(['critic', 'differentiator']),
-														event
-													)
-												}
-											/>
-
-										</FieldsetComponent>
-
-									</div>
-
-								</FieldsetComponent>
-
-							</div>
-						);
-
-					})
-				}
-
+									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+										<InputAndErrors
+											value={review.critic.differentiator}
+											errors={review.critic.errors.differentiator}
+											handleChange={(event) =>
+												handleChange(
+													reviews,
+													setReviews,
+													statePath.concat(['critic', 'differentiator']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
+								</div>
+							</FieldsetComponent>
+						</div>
+					);
+				})}
 			</Fieldset>
 		);
-
 	};
 
 	return (
@@ -886,175 +668,136 @@ const ProductionForm = props => {
 			updateInstance={updateProduction}
 			deleteInstance={deleteProduction}
 		>
-
 			<Fieldset header={'Name'}>
-
 				<InputAndErrors
 					value={name}
 					errors={errors?.name}
-					handleChange={event => handleChange(name, setName, [], event)}
+					handleChange={(event) => handleChange(name, setName, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Subtitle'}>
-
 				<InputAndErrors
 					value={subtitle}
 					errors={errors?.subtitle}
-					handleChange={event => handleChange(subtitle, setSubtitle, [], event)}
+					handleChange={(event) => handleChange(subtitle, setSubtitle, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Dates'}>
-
 				<FieldsetComponent label={'Start date'}>
-
 					<InputAndErrors
 						type={'date'}
 						value={startDate}
 						errors={errors?.startDate}
-						handleChange={event => handleChange(startDate, setStartDate, [], event)}
+						handleChange={(event) => handleChange(startDate, setStartDate, [], event)}
 					/>
-
 				</FieldsetComponent>
 
 				<FieldsetComponent label={'Press date'}>
-
 					<InputAndErrors
 						type={'date'}
 						value={pressDate}
 						errors={errors?.pressDate}
-						handleChange={event => handleChange(pressDate, setPressDate, [], event)}
+						handleChange={(event) => handleChange(pressDate, setPressDate, [], event)}
 					/>
-
 				</FieldsetComponent>
 
 				<FieldsetComponent label={'End date'}>
-
 					<InputAndErrors
 						type={'date'}
 						value={endDate}
 						errors={errors?.endDate}
-						handleChange={event => handleChange(endDate, setEndDate, [], event)}
+						handleChange={(event) => handleChange(endDate, setEndDate, [], event)}
 					/>
-
 				</FieldsetComponent>
-
 			</Fieldset>
 
 			<Fieldset header={'Material'}>
-
 				<FieldsetComponent label={'Name'}>
-
 					<InputAndErrors
 						value={material?.name}
 						errors={material?.errors.name}
-						handleChange={event => handleChange(material, setMaterial, ['name'], event)}
+						handleChange={(event) => handleChange(material, setMaterial, ['name'], event)}
 					/>
-
 				</FieldsetComponent>
 
 				<FieldsetComponent label={'Differentiator'}>
-
 					<InputAndErrors
 						value={material?.differentiator}
 						errors={material?.errors.differentiator}
-						handleChange={event => handleChange(material, setMaterial, ['differentiator'], event)}
+						handleChange={(event) => handleChange(material, setMaterial, ['differentiator'], event)}
 					/>
-
 				</FieldsetComponent>
-
 			</Fieldset>
 
 			<Fieldset header={'Venue'}>
-
 				<FieldsetComponent label={'Name'}>
-
 					<InputAndErrors
 						value={venue?.name}
 						errors={venue?.errors.name}
-						handleChange={event => handleChange(venue, setVenue, ['name'], event)}
+						handleChange={(event) => handleChange(venue, setVenue, ['name'], event)}
 					/>
-
 				</FieldsetComponent>
 
 				<FieldsetComponent label={'Differentiator'}>
-
 					<InputAndErrors
 						value={venue?.differentiator}
 						errors={venue?.errors.differentiator}
-						handleChange={event => handleChange(venue, setVenue, ['differentiator'], event)}
+						handleChange={(event) => handleChange(venue, setVenue, ['differentiator'], event)}
 					/>
-
 				</FieldsetComponent>
-
 			</Fieldset>
 
 			<Fieldset header={'Season'}>
-
 				<FieldsetComponent label={'Name'}>
-
 					<InputAndErrors
 						value={season?.name}
 						errors={season?.errors.name}
-						handleChange={event => handleChange(season, setSeason, ['name'], event)}
+						handleChange={(event) => handleChange(season, setSeason, ['name'], event)}
 					/>
-
 				</FieldsetComponent>
 
 				<FieldsetComponent label={'Differentiator'}>
-
 					<InputAndErrors
 						value={season?.differentiator}
 						errors={season?.errors.differentiator}
-						handleChange={event => handleChange(season, setSeason, ['differentiator'], event)}
+						handleChange={(event) => handleChange(season, setSeason, ['differentiator'], event)}
 					/>
-
 				</FieldsetComponent>
-
 			</Fieldset>
 
 			<Fieldset header={'Festival'}>
-
 				<FieldsetComponent label={'Name'}>
-
 					<InputAndErrors
 						value={festival?.name}
 						errors={festival?.errors.name}
-						handleChange={event => handleChange(festival, setFestival, ['name'], event)}
+						handleChange={(event) => handleChange(festival, setFestival, ['name'], event)}
 					/>
-
 				</FieldsetComponent>
 
 				<FieldsetComponent label={'Differentiator'}>
-
 					<InputAndErrors
 						value={festival?.differentiator}
 						errors={festival?.errors.differentiator}
-						handleChange={event => handleChange(festival, setFestival, ['differentiator'], event)}
+						handleChange={(event) => handleChange(festival, setFestival, ['differentiator'], event)}
 					/>
-
 				</FieldsetComponent>
-
 			</Fieldset>
 
-			{ Boolean(subProductions) && renderSubProductions() }
+			{Boolean(subProductions) && renderSubProductions()}
 
-			{ Boolean(producerCredits) && renderProducerCredits() }
+			{Boolean(producerCredits) && renderProducerCredits()}
 
-			{ Boolean(cast) && renderCast() }
+			{Boolean(cast) && renderCast()}
 
-			{ Boolean(creativeCredits) && renderCreativeCredits() }
+			{Boolean(creativeCredits) && renderCreativeCredits()}
 
-			{ Boolean(crewCredits) && renderCrewCredits() }
+			{Boolean(crewCredits) && renderCrewCredits()}
 
-			{ Boolean(reviews) && renderReviews() }
-
+			{Boolean(reviews) && renderReviews()}
 		</FormWrapper>
 	);
-
 };
 
 export default ProductionForm;

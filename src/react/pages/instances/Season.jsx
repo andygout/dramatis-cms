@@ -5,7 +5,6 @@ import { InstanceWrapper } from '../../wrappers/index.js';
 import { useGetSeasonQuery } from '../../../redux/slices/api.js';
 
 const Season = () => {
-
 	const { uuid } = useParams();
 
 	const { data = {} } = useGetSeasonQuery(uuid);
@@ -13,19 +12,10 @@ const Season = () => {
 	const { instance = {}, formData = {} } = data;
 
 	return (
-		<InstanceWrapper
-			instance={instance}
-			formAction={formData.action}
-		>
-
-			<SeasonForm
-				instance={formData.instance || {}}
-				action={formData.action || 'Submit'}
-			/>
-
+		<InstanceWrapper instance={instance} formAction={formData.action}>
+			<SeasonForm instance={formData.instance || {}} action={formData.action || 'Submit'} />
 		</InstanceWrapper>
 	);
-
 };
 
 export default Season;

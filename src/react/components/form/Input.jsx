@@ -1,11 +1,10 @@
 import classNames from 'classnames';
 
-const Input = props => {
-
+const Input = (props) => {
 	const { type, value, hasErrors, handleChange } = props;
 
 	const className = classNames({
-		'field__input': true,
+		field__input: true,
 		'field__input--has-errors': hasErrors
 	});
 
@@ -18,7 +17,6 @@ const Input = props => {
 			onChange={handleChange}
 		/>
 	);
-
 };
 
 export default Input;
