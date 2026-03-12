@@ -5,7 +5,6 @@ import { InstanceWrapper } from '../../wrappers/index.js';
 import { useGetFestivalQuery } from '../../../redux/slices/api.js';
 
 const Festival = () => {
-
 	const { uuid } = useParams();
 
 	const { data = {} } = useGetFestivalQuery(uuid);
@@ -13,19 +12,10 @@ const Festival = () => {
 	const { instance = {}, formData = {} } = data;
 
 	return (
-		<InstanceWrapper
-			instance={instance}
-			formAction={formData.action}
-		>
-
-			<FestivalForm
-				instance={formData.instance || {}}
-				action={formData.action || 'Submit'}
-			/>
-
+		<InstanceWrapper instance={instance} formAction={formData.action}>
+			<FestivalForm instance={formData.instance || {}} action={formData.action || 'Submit'} />
 		</InstanceWrapper>
 	);
-
 };
 
 export default Festival;

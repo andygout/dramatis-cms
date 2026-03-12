@@ -7,23 +7,21 @@ import { ErrorMessage, Notification, ScrollToTop } from './components/index.js';
 import { deactivateRedirect } from '../redux/action-handlers/redirect.js';
 import { notificationActivated } from '../redux/actions/index.js';
 
-const Main = props => {
-
+const Main = (props) => {
 	const { pageTitle, children } = props;
 
 	const documentTitle = getDocumentTitle(pageTitle);
 
 	const dispatch = useDispatch();
 
-	const error = useSelector(state => state.error);
-	const notification = useSelector(state => state.notification);
-	const redirect = useSelector(state => state.redirect);
+	const error = useSelector((state) => state.error);
+	const notification = useSelector((state) => state.notification);
+	const redirect = useSelector((state) => state.redirect);
 
 	const location = useLocation();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-
 		const { deactivateError, deactivateNotification } = props;
 
 		if (deactivateError) dispatch(deactivateError());
@@ -31,19 +29,14 @@ const Main = props => {
 		if (deactivateNotification) dispatch(deactivateNotification());
 
 		if (redirect.isActive) {
-
 			dispatch(deactivateRedirect());
 
 			dispatch(notificationActivated(location.state.notification));
-
 		}
-
 	}, []);
 
 	useEffect(() => {
-
 		if (redirect.isActive) {
-
 			const redirectOptions = {
 				state: {
 					notification: redirect.notification
@@ -51,44 +44,22 @@ const Main = props => {
 			};
 
 			navigate(redirect.path, redirectOptions);
-
 		}
-
 	}, [redirect]);
 
 	return (
 		<>
-
 			<title>{documentTitle}</title>
 
 			<main className="main-content">
+				{notification.isActive && <ScrollToTop />}
 
-				{
-					notification.isActive && (
-						<ScrollToTop />
-					)
-				}
+				{notification.isActive && <Notification text={notification.text} status={notification.status} />}
 
-				{
-					notification.isActive && (
-						<Notification
-							text={notification.text}
-							status={notification.status}
-						/>
-					)
-				}
-
-				{
-					error.isActive
-						? <ErrorMessage errorText={error.message} />
-						: children
-				}
-
+				{error.isActive ? <ErrorMessage errorText={error.message} /> : children}
 			</main>
-
 		</>
 	);
-
 };
 
 export default Main;

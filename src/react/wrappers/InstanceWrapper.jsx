@@ -8,8 +8,7 @@ import {
 } from '../components/index.js';
 import { MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants.js';
 
-const InstanceWrapper = props => {
-
+const InstanceWrapper = (props) => {
 	const { instance, formAction, children } = props;
 
 	const InstancePageTitle = withInstancePageTitle(PageTitle);
@@ -22,17 +21,14 @@ const InstanceWrapper = props => {
 
 	return (
 		<>
-
-			{
-				name && modelDisplayName && formAction && (
-					<InstanceDocumentTitle
-						name={name}
-						modelDisplayName={modelDisplayName}
-						differentiatorSuffix={differentiatorSuffix}
-						formAction={formAction}
-					/>
-				)
-			}
+			{name && modelDisplayName && formAction && (
+				<InstanceDocumentTitle
+					name={name}
+					modelDisplayName={modelDisplayName}
+					differentiatorSuffix={differentiatorSuffix}
+					formAction={formAction}
+				/>
+			)}
 
 			<InstanceLabel model={instance.model || ''} />
 
@@ -45,11 +41,9 @@ const InstanceWrapper = props => {
 
 			<FormattedJson data={instance} />
 
-			{ children }
-
+			{children}
 		</>
 	);
-
 };
 
 export default InstanceWrapper;

@@ -5,7 +5,6 @@ import { InstanceWrapper } from '../../wrappers/index.js';
 import { useGetAwardQuery } from '../../../redux/slices/api.js';
 
 const Award = () => {
-
 	const { uuid } = useParams();
 
 	const { data = {} } = useGetAwardQuery(uuid);
@@ -13,19 +12,10 @@ const Award = () => {
 	const { instance = {}, formData = {} } = data;
 
 	return (
-		<InstanceWrapper
-			instance={instance}
-			formAction={formData.action}
-		>
-
-			<AwardForm
-				instance={formData.instance || {}}
-				action={formData.action || 'Submit'}
-			/>
-
+		<InstanceWrapper instance={instance} formAction={formData.action}>
+			<AwardForm instance={formData.instance || {}} action={formData.action || 'Submit'} />
 		</InstanceWrapper>
 	);
-
 };
 
 export default Award;

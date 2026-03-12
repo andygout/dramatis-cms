@@ -8,8 +8,7 @@ import {
 	useDeleteFestivalSeriesMutation
 } from '../../../redux/slices/api.js';
 
-const FestivalSeriesForm = props => {
-
+const FestivalSeriesForm = (props) => {
 	const { instance, action } = props;
 
 	const [createFestivalSeries] = useCreateFestivalSeriesMutation();
@@ -41,30 +40,23 @@ const FestivalSeriesForm = props => {
 			updateInstance={updateFestivalSeries}
 			deleteInstance={deleteFestivalSeries}
 		>
-
 			<Fieldset header={'Name'}>
-
 				<InputAndErrors
 					value={name}
 					errors={errors?.name}
-					handleChange={event => handleChange(name, setName, [], event)}
+					handleChange={(event) => handleChange(name, setName, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Differentiator'}>
-
 				<InputAndErrors
 					value={differentiator}
 					errors={errors?.differentiator}
-					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+					handleChange={(event) => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
-
 			</Fieldset>
-
 		</FormWrapper>
 	);
-
 };
 
 export default FestivalSeriesForm;

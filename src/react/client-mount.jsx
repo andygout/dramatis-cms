@@ -10,19 +10,16 @@ import reducers from '../redux/reducers/index.js';
 import { api } from '../redux/slices/api.js';
 
 window.onload = () => {
-
 	const preloadedState = JSON.parse(document.getElementById('react-client-data').innerText);
 
-	const middleware = getDefaultMiddleware => {
-
-		const middleware = getDefaultMiddleware().concat(api.middleware);;
+	const middleware = (getDefaultMiddleware) => {
+		const middleware = getDefaultMiddleware().concat(api.middleware);
 
 		if (process.env.NODE_ENV !== 'production') {
 			middleware.push(reduxLoggerMiddleware);
 		}
 
 		return middleware;
-
 	};
 
 	const store = configureStore({
@@ -42,5 +39,4 @@ window.onload = () => {
 			</BrowserRouter>
 		</Provider>
 	);
-
 };

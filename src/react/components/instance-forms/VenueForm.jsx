@@ -7,14 +7,9 @@ import {
 	handleAppendArrayItemClick,
 	handleRemoveArrayItemClick
 } from '../../utils/form.js';
-import {
-	useCreateVenueMutation,
-	useUpdateVenueMutation,
-	useDeleteVenueMutation
-} from '../../../redux/slices/api.js';
+import { useCreateVenueMutation, useUpdateVenueMutation, useDeleteVenueMutation } from '../../../redux/slices/api.js';
 
-const VenueForm = props => {
-
+const VenueForm = (props) => {
 	const { instance, action } = props;
 
 	const [createVenue] = useCreateVenueMutation();
@@ -42,72 +37,53 @@ const VenueForm = props => {
 	};
 
 	const renderSubVenues = () => {
-
 		return (
 			<Fieldset header={'Sub-venues'}>
+				{subVenues?.map((subVenue, index) => {
+					const statePath = [index];
 
-				{
-					subVenues?.map((subVenue, index) => {
+					const isLastListItem = checkIsLastArrayItem(index, subVenues.length);
 
-						const statePath = [index];
+					return (
+						<div className={'fieldset__module'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(subVenues, setSubVenues, statePath, event)
+										: handleRemoveArrayItemClick(subVenues, setSubVenues, statePath, event)
+								}
+							/>
 
-						const isLastListItem = checkIsLastArrayItem(index, subVenues.length);
-
-						return (
-							<div className={'fieldset__module'} key={index}>
-
-								<ArrayItemActionButton
-									isLastListItem={isLastListItem}
-									handleClick={event =>
-										isLastListItem
-											? handleAppendArrayItemClick(subVenues, setSubVenues, statePath, event)
-											: handleRemoveArrayItemClick(subVenues, setSubVenues, statePath, event)
+							<FieldsetComponent label={'Venue name'} isArrayItem={true}>
+								<InputAndErrors
+									value={subVenue.name}
+									errors={subVenue.errors.name}
+									handleChange={(event) =>
+										handleChange(subVenues, setSubVenues, statePath.concat(['name']), event)
 									}
 								/>
+							</FieldsetComponent>
 
-								<FieldsetComponent label={'Venue name'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={subVenue.name}
-										errors={subVenue.errors.name}
-										handleChange={event =>
-											handleChange(
-												subVenues,
-												setSubVenues,
-												statePath.concat(['name']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-								<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
-
-									<InputAndErrors
-										value={subVenue.differentiator}
-										errors={subVenue.errors.differentiator}
-										handleChange={event =>
-											handleChange(
-												subVenues,
-												setSubVenues,
-												statePath.concat(['differentiator']),
-												event
-											)
-										}
-									/>
-
-								</FieldsetComponent>
-
-							</div>
-						);
-
-					})
-				}
-
+							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+								<InputAndErrors
+									value={subVenue.differentiator}
+									errors={subVenue.errors.differentiator}
+									handleChange={(event) =>
+										handleChange(
+											subVenues,
+											setSubVenues,
+											statePath.concat(['differentiator']),
+											event
+										)
+									}
+								/>
+							</FieldsetComponent>
+						</div>
+					);
+				})}
 			</Fieldset>
 		);
-
 	};
 
 	return (
@@ -118,32 +94,25 @@ const VenueForm = props => {
 			updateInstance={updateVenue}
 			deleteInstance={deleteVenue}
 		>
-
 			<Fieldset header={'Name'}>
-
 				<InputAndErrors
 					value={name}
 					errors={errors?.name}
-					handleChange={event => handleChange(name, setName, [], event)}
+					handleChange={(event) => handleChange(name, setName, [], event)}
 				/>
-
 			</Fieldset>
 
 			<Fieldset header={'Differentiator'}>
-
 				<InputAndErrors
 					value={differentiator}
 					errors={errors?.differentiator}
-					handleChange={event => handleChange(differentiator, setDifferentiator, [], event)}
+					handleChange={(event) => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
-
 			</Fieldset>
 
-			{ Boolean(subVenues) && renderSubVenues() }
-
+			{Boolean(subVenues) && renderSubVenues()}
 		</FormWrapper>
 	);
-
 };
 
 export default VenueForm;
