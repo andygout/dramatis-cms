@@ -1,10 +1,10 @@
-const API_URL_BASE = 'http://localhost:3000';
+import { DRAMATIS_API_BASE_URL } from '../utils/constants.js';
 
-const fetchFromApi = async (apiPath) => {
-	const apiUrl = `${API_URL_BASE}${apiPath}`;
+const fetchFromApi = async (apiPath, fetchSettings = {}) => {
+	const apiUrl = `${DRAMATIS_API_BASE_URL}${apiPath}`;
 
 	try {
-		const response = await fetch(apiUrl);
+		const response = await fetch(apiUrl, fetchSettings);
 
 		if (response.status !== 200) {
 			const { status, statusText } = response;

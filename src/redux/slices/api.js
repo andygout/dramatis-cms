@@ -5,6 +5,7 @@ import pruneInstance from '../../lib/prune-instance.js';
 import { deactivateNotification } from '../action-handlers/notification.js';
 import { errorActivated, notificationActivated, redirectActivated } from '../actions/index.js';
 import {
+	DRAMATIS_CMS_BASE_URL,
 	ACTIONS,
 	MODELS,
 	MODEL_TO_DISPLAY_NAME_MAP,
@@ -15,11 +16,9 @@ import {
 	PLURALISED_MODEL_TO_ROUTE_MAP
 } from '../../utils/constants.js';
 
-const API_BASE_URL = 'http://localhost:3000';
-
 const baseQuery = async ({ apiRoute, fetchSettings = {} }, { dispatch }) => {
 	try {
-		const apiUrl = `${API_BASE_URL}${apiRoute}`;
+		const apiUrl = `${DRAMATIS_CMS_BASE_URL}/api/${apiRoute}`;
 
 		const response = await fetch(apiUrl, { ...fetchSettings, mode: 'cors' });
 
@@ -39,19 +38,19 @@ const baseQuery = async ({ apiRoute, fetchSettings = {} }, { dispatch }) => {
 
 const getInstancesQuery = (pluralisedModel) => {
 	return {
-		apiRoute: `/${PLURALISED_MODEL_TO_ROUTE_MAP[pluralisedModel]}`
+		apiRoute: `${PLURALISED_MODEL_TO_ROUTE_MAP[pluralisedModel]}`
 	};
 };
 
 const getInstanceQuery = ({ model, uuid }) => {
 	return {
-		apiRoute: uuid ? `/${MODEL_TO_ROUTE_MAP[model]}/${uuid}/edit` : `/${MODEL_TO_ROUTE_MAP[model]}/new`
+		apiRoute: uuid ? `${MODEL_TO_ROUTE_MAP[model]}/${uuid}/edit` : `${MODEL_TO_ROUTE_MAP[model]}/new`
 	};
 };
 
 const createQuery = (instance) => {
 	return {
-		apiRoute: `/${MODEL_TO_ROUTE_MAP[instance.model]}`,
+		apiRoute: `${MODEL_TO_ROUTE_MAP[instance.model]}`,
 		fetchSettings: {
 			method: 'POST',
 			body: JSON.stringify(instance),
@@ -64,7 +63,7 @@ const createQuery = (instance) => {
 
 const updateQuery = (instance) => {
 	return {
-		apiRoute: `/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`,
+		apiRoute: `${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`,
 		fetchSettings: {
 			method: 'PUT',
 			body: JSON.stringify(instance),
@@ -77,7 +76,7 @@ const updateQuery = (instance) => {
 
 const deleteQuery = (instance) => {
 	return {
-		apiRoute: `/${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`,
+		apiRoute: `${MODEL_TO_ROUTE_MAP[instance.model]}/${instance.uuid}`,
 		fetchSettings: {
 			method: 'DELETE'
 		}
