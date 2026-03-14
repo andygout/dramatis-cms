@@ -36,7 +36,7 @@ const baseQuery = async ({ apiRoute, fetchSettings = {} }, { dispatch }) => {
 	}
 };
 
-const getInstancesQuery = (pluralisedModel) => {
+const getListQuery = (pluralisedModel) => {
 	return {
 		apiRoute: `${PLURALISED_MODEL_TO_ROUTE_MAP[pluralisedModel]}`
 	};
@@ -217,7 +217,7 @@ export const api = createApi({
 	refetchOnMountOrArgChange: true,
 	endpoints: (build) => ({
 		getAwards: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.AWARDS)
+			query: () => getListQuery(PLURALISED_MODELS.AWARDS)
 		}),
 		getAward: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.AWARD, uuid }),
@@ -236,7 +236,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getAwardCeremonies: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.AWARD_CEREMONIES)
+			query: () => getListQuery(PLURALISED_MODELS.AWARD_CEREMONIES)
 		}),
 		getAwardCeremony: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.AWARD_CEREMONY, uuid }),
@@ -255,7 +255,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getCharacters: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.CHARACTERS)
+			query: () => getListQuery(PLURALISED_MODELS.CHARACTERS)
 		}),
 		getCharacter: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.CHARACTER, uuid }),
@@ -274,7 +274,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getCompanies: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.COMPANIES)
+			query: () => getListQuery(PLURALISED_MODELS.COMPANIES)
 		}),
 		getCompany: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.COMPANY, uuid }),
@@ -293,7 +293,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getFestivals: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.FESTIVALS)
+			query: () => getListQuery(PLURALISED_MODELS.FESTIVALS)
 		}),
 		getFestival: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.FESTIVAL, uuid }),
@@ -312,7 +312,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getFestivalSerieses: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.FESTIVAL_SERIESES)
+			query: () => getListQuery(PLURALISED_MODELS.FESTIVAL_SERIESES)
 		}),
 		getFestivalSeries: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.FESTIVAL_SERIES, uuid }),
@@ -331,7 +331,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getMaterials: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.MATERIALS)
+			query: () => getListQuery(PLURALISED_MODELS.MATERIALS)
 		}),
 		getMaterial: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.MATERIAL, uuid }),
@@ -350,7 +350,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getPeople: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.PEOPLE)
+			query: () => getListQuery(PLURALISED_MODELS.PEOPLE)
 		}),
 		getPerson: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.PERSON, uuid }),
@@ -369,7 +369,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getProductions: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.PRODUCTIONS)
+			query: () => getListQuery(PLURALISED_MODELS.PRODUCTIONS)
 		}),
 		getProduction: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.PRODUCTION, uuid }),
@@ -388,7 +388,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getSeasons: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.SEASONS)
+			query: () => getListQuery(PLURALISED_MODELS.SEASONS)
 		}),
 		getSeason: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.SEASON, uuid }),
@@ -407,7 +407,7 @@ export const api = createApi({
 			onQueryStarted: onDeleteQueryStarted
 		}),
 		getVenues: build.query({
-			query: () => getInstancesQuery(PLURALISED_MODELS.VENUES)
+			query: () => getListQuery(PLURALISED_MODELS.VENUES)
 		}),
 		getVenue: build.query({
 			query: (uuid) => getInstanceQuery({ model: MODELS.VENUE, uuid }),
