@@ -1,6 +1,9 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
 import hasNonEmptyString from '../../../src/lib/has-non-empty-string.js';
+
+const context = describe;
 
 describe('Has Non-Empty String module', () => {
 	context('non-empty string exists', () => {
@@ -25,7 +28,7 @@ describe('Has Non-Empty String module', () => {
 
 				const result = hasNonEmptyString(object);
 
-				expect(result).to.be.true;
+				assert.equal(result, true);
 			});
 
 			it('returns true when nested level attribute is non-empty string', () => {
@@ -48,7 +51,7 @@ describe('Has Non-Empty String module', () => {
 
 				const result = hasNonEmptyString(object);
 
-				expect(result).to.be.true;
+				assert.equal(result, true);
 			});
 
 			it('returns true when top level array object attribute is non-empty string', () => {
@@ -71,7 +74,7 @@ describe('Has Non-Empty String module', () => {
 
 				const result = hasNonEmptyString(object);
 
-				expect(result).to.be.true;
+				assert.equal(result, true);
 			});
 
 			it('returns true when nested level array object attribute is non-empty string', () => {
@@ -94,7 +97,7 @@ describe('Has Non-Empty String module', () => {
 
 				const result = hasNonEmptyString(object);
 
-				expect(result).to.be.true;
+				assert.equal(result, true);
 			});
 		});
 
@@ -119,7 +122,7 @@ describe('Has Non-Empty String module', () => {
 
 				const result = hasNonEmptyString(object);
 
-				expect(result).to.be.false;
+				assert.equal(result, false);
 			});
 
 			it('returns false when nested level attribute is non-empty string', () => {
@@ -142,7 +145,7 @@ describe('Has Non-Empty String module', () => {
 
 				const result = hasNonEmptyString(object);
 
-				expect(result).to.be.false;
+				assert.equal(result, false);
 			});
 
 			it('returns false when top level array object attribute is non-empty string', () => {
@@ -165,7 +168,7 @@ describe('Has Non-Empty String module', () => {
 
 				const result = hasNonEmptyString(object);
 
-				expect(result).to.be.false;
+				assert.equal(result, false);
 			});
 
 			it('returns false when nested level array object attribute is non-empty string', () => {
@@ -188,7 +191,7 @@ describe('Has Non-Empty String module', () => {
 
 				const result = hasNonEmptyString(object);
 
-				expect(result).to.be.false;
+				assert.equal(result, false);
 			});
 		});
 	});
@@ -214,7 +217,7 @@ describe('Has Non-Empty String module', () => {
 
 			const result = hasNonEmptyString(object);
 
-			expect(result).to.be.false;
+			assert.equal(result, false);
 		});
 	});
 });

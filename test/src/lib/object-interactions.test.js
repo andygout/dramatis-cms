@@ -1,6 +1,9 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
 import { getIn, removeIn, setIn, pushIn } from '../../../src/lib/object-interactions.js';
+
+const context = describe;
 
 describe('Object Interactions module', () => {
 	describe('getIn function', () => {
@@ -30,7 +33,7 @@ describe('Object Interactions module', () => {
 
 			const result = getIn(object, ['0', 'foo', '0', 'bar']);
 
-			expect(result).to.equal('qux');
+			assert.equal(result, 'qux');
 		});
 	});
 
@@ -104,8 +107,8 @@ describe('Object Interactions module', () => {
 
 			const result = removeIn(object, ['0', 'foo', '0']);
 
-			expect(result).to.deep.equal(expectedResult);
-			expect(object).to.deep.equal(expectedInputObjectState);
+			assert.deepEqual(result, expectedResult);
+			assert.deepEqual(object, expectedInputObjectState);
 		});
 	});
 
@@ -118,7 +121,7 @@ describe('Object Interactions module', () => {
 
 				const result = setIn(object, [], 'foo');
 
-				expect(result).to.deep.equal(expectedResult);
+				assert.deepEqual(result, expectedResult);
 			});
 		});
 
@@ -195,8 +198,8 @@ describe('Object Interactions module', () => {
 
 				const result = setIn(object, ['0', 'foo', '0', 'bar'], 'garply');
 
-				expect(result).to.deep.equal(expectedResult);
-				expect(object).to.deep.equal(expectedInputObjectState);
+				assert.deepEqual(result, expectedResult);
+				assert.deepEqual(object, expectedInputObjectState);
 			});
 		});
 	});
@@ -341,8 +344,8 @@ describe('Object Interactions module', () => {
 
 				const result = pushIn(object, [], { foo: [{ bar: [{ qux: '' }] }, { baz: [{ qux: '' }] }] });
 
-				expect(result).to.deep.equal(expectedResult);
-				expect(object).to.deep.equal(expectedInputObjectState);
+				assert.deepEqual(result, expectedResult);
+				assert.deepEqual(object, expectedInputObjectState);
 			});
 		});
 
@@ -470,8 +473,8 @@ describe('Object Interactions module', () => {
 
 				const result = pushIn(object, ['0', 'foo', '0', 'bar'], { qux: 'waldo' });
 
-				expect(result).to.deep.equal(expectedResult);
-				expect(object).to.deep.equal(expectedInputObjectState);
+				assert.deepEqual(result, expectedResult);
+				assert.deepEqual(object, expectedInputObjectState);
 			});
 		});
 	});
