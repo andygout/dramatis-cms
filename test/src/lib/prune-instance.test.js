@@ -1,6 +1,9 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
 import pruneInstance from '../../../src/lib/prune-instance.js';
+
+const context = describe;
 
 describe('Prune Instance module', () => {
 	it("removes top-level concealed attributes (e.g. 'errors')", () => {
@@ -15,7 +18,7 @@ describe('Prune Instance module', () => {
 			name: 'King Lear'
 		};
 
-		expect(result).to.deep.equal(expectation);
+		assert.deepEqual(result, expectation);
 	});
 
 	it("retains top-level 'model' and 'uuid' attributes", () => {
@@ -33,7 +36,7 @@ describe('Prune Instance module', () => {
 			name: 'King Lear'
 		};
 
-		expect(result).to.deep.equal(expectation);
+		assert.deepEqual(result, expectation);
 	});
 
 	it("removes nested-level concealed attributes (e.g. 'errors', and 'model')", () => {
@@ -75,7 +78,7 @@ describe('Prune Instance module', () => {
 			]
 		};
 
-		expect(result).to.deep.equal(expectation);
+		assert.deepEqual(result, expectation);
 	});
 
 	describe('filters out array items that have empty string name', () => {
@@ -126,7 +129,7 @@ describe('Prune Instance module', () => {
 					]
 				};
 
-				expect(result).to.deep.equal(expectation);
+				assert.deepEqual(result, expectation);
 			});
 		});
 
@@ -164,7 +167,7 @@ describe('Prune Instance module', () => {
 					]
 				};
 
-				expect(result).to.deep.equal(expectation);
+				assert.deepEqual(result, expectation);
 			});
 		});
 	});
@@ -195,7 +198,7 @@ describe('Prune Instance module', () => {
 					]
 				};
 
-				expect(result).to.deep.equal(expectation);
+				assert.deepEqual(result, expectation);
 			});
 		});
 
@@ -221,7 +224,7 @@ describe('Prune Instance module', () => {
 					]
 				};
 
-				expect(result).to.deep.equal(expectation);
+				assert.deepEqual(result, expectation);
 			});
 		});
 	});
@@ -279,7 +282,7 @@ describe('Prune Instance module', () => {
 			]
 		};
 
-		expect(result).to.deep.equal(expectation);
+		assert.deepEqual(result, expectation);
 	});
 
 	it('prunes a sample production instance as per specification', () => {
@@ -365,7 +368,7 @@ describe('Prune Instance module', () => {
 			]
 		};
 
-		expect(result).to.deep.equal(expectation);
+		assert.deepEqual(result, expectation);
 	});
 
 	it('prunes a sample award ceremony instance as per specification', () => {
@@ -452,6 +455,6 @@ describe('Prune Instance module', () => {
 			]
 		};
 
-		expect(result).to.deep.equal(expectation);
+		assert.deepEqual(result, expectation);
 	});
 });

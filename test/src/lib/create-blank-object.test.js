@@ -1,4 +1,5 @@
-import { expect } from 'chai';
+import assert from 'node:assert/strict';
+import { describe, it } from 'node:test';
 
 import createBlankObject from '../../../src/lib/create-blank-object.js';
 
@@ -17,7 +18,7 @@ describe('Create Blank Object module', () => {
 				errors: {}
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 
 		it("converts populated objects to empty objects for nested level 'errors' values", () => {
@@ -37,7 +38,7 @@ describe('Create Blank Object module', () => {
 				}
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 	});
 
@@ -53,7 +54,7 @@ describe('Create Blank Object module', () => {
 				model: 'PERSON'
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 
 		it("retains value for nested level 'model' values", () => {
@@ -71,7 +72,7 @@ describe('Create Blank Object module', () => {
 				}
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 	});
 
@@ -87,7 +88,7 @@ describe('Create Blank Object module', () => {
 				foo: ''
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 
 		it('converts strings to empty strings for nested level attributes', () => {
@@ -105,7 +106,7 @@ describe('Create Blank Object module', () => {
 				}
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 
 		it('converts strings to empty strings for top level array object attributes', () => {
@@ -127,7 +128,7 @@ describe('Create Blank Object module', () => {
 				]
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 
 		it('converts strings to empty strings for nested level array object attributes', () => {
@@ -153,7 +154,7 @@ describe('Create Blank Object module', () => {
 				}
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 
 		it('converts top level arrays to single item arrays with empty string values', () => {
@@ -178,7 +179,7 @@ describe('Create Blank Object module', () => {
 				]
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 
 		it('converts nested level arrays to single item arrays with empty string values', () => {
@@ -207,7 +208,7 @@ describe('Create Blank Object module', () => {
 				}
 			};
 
-			expect(result).to.deep.equal(expectation);
+			assert.deepEqual(result, expectation);
 		});
 	});
 });
