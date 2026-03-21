@@ -1,8 +1,8 @@
 import { useParams } from 'react-router';
 
+import { useGetAwardQuery } from '../../../redux/slices/api.js';
 import { AwardForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
-import { useGetAwardQuery } from '../../../redux/slices/api.js';
 
 const Award = () => {
 	const { uuid } = useParams();

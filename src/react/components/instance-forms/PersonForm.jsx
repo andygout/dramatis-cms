@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
-import { handleChange } from '../../utils/form.js';
 import {
 	useCreatePersonMutation,
 	useUpdatePersonMutation,
 	useDeletePersonMutation
 } from '../../../redux/slices/api.js';
+import { handleChange } from '../../utils/form.js';
+import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 
 const PersonForm = (props) => {
 	const { instance, action } = props;

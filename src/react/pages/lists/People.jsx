@@ -1,5 +1,5 @@
-import { ListWrapper } from '../../wrappers/index.js';
 import { useGetPeopleQuery } from '../../../redux/slices/api.js';
+import { ListWrapper } from '../../wrappers/index.js';
 
 const People = () => {
 	const { data: people = [] } = useGetPeopleQuery();

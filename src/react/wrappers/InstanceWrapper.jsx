@@ -1,4 +1,5 @@
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix.js';
+import { MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants.js';
 import {
 	FormattedJson,
 	InstanceDocumentTitle,
@@ -6,7 +7,6 @@ import {
 	PageTitle,
 	withInstancePageTitle
 } from '../components/index.js';
-import { MODEL_TO_DISPLAY_NAME_MAP } from '../../utils/constants.js';
 
 const InstanceWrapper = (props) => {
 	const { instance, formAction, children } = props;

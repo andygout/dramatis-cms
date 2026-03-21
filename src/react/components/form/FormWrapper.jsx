@@ -1,6 +1,6 @@
 import { capitalise } from '../../../lib/strings.js';
-import { handleDelete, handleSubmit } from '../../utils/form.js';
 import { ACTIONS } from '../../../utils/constants.js';
+import { handleDelete, handleSubmit } from '../../utils/form.js';
 
 const FormWrapper = (props) => {
 	const { action, instance, createInstance, updateInstance, deleteInstance, children } = props;

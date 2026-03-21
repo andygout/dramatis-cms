@@ -1,8 +1,8 @@
 import { useParams } from 'react-router';
 
+import { useGetProductionQuery } from '../../../redux/slices/api.js';
 import { ProductionForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
-import { useGetProductionQuery } from '../../../redux/slices/api.js';
 
 const Production = () => {
 	const { uuid } = useParams();

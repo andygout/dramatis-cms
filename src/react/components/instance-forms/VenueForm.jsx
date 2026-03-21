@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
+import { useCreateVenueMutation, useUpdateVenueMutation, useDeleteVenueMutation } from '../../../redux/slices/api.js';
 import {
 	handleChange,
 	checkIsLastArrayItem,
 	handleAppendArrayItemClick,
 	handleRemoveArrayItemClick
 } from '../../utils/form.js';
-import { useCreateVenueMutation, useUpdateVenueMutation, useDeleteVenueMutation } from '../../../redux/slices/api.js';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 
 const VenueForm = (props) => {
 	const { instance, action } = props;

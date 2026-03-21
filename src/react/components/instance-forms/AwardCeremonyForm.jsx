@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import { capitalise } from '../../../lib/strings.js';
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
+import {
+	useCreateAwardCeremonyMutation,
+	useUpdateAwardCeremonyMutation,
+	useDeleteAwardCeremonyMutation
+} from '../../../redux/slices/api.js';
+import { MODELS } from '../../../utils/constants.js';
 import {
 	handleChange,
 	checkIsLastArrayItem,
@@ -10,12 +15,7 @@ import {
 	handleChangeToPerson,
 	handleChangeToCompany
 } from '../../utils/form.js';
-import {
-	useCreateAwardCeremonyMutation,
-	useUpdateAwardCeremonyMutation,
-	useDeleteAwardCeremonyMutation
-} from '../../../redux/slices/api.js';
-import { MODELS } from '../../../utils/constants.js';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 
 const AwardCeremonyForm = (props) => {
 	const { instance, action } = props;

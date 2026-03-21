@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
-import { handleChange } from '../../utils/form.js';
 import {
 	useCreateFestivalSeriesMutation,
 	useUpdateFestivalSeriesMutation,
 	useDeleteFestivalSeriesMutation
 } from '../../../redux/slices/api.js';
+import { handleChange } from '../../utils/form.js';
+import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 
 const FestivalSeriesForm = (props) => {
 	const { instance, action } = props;

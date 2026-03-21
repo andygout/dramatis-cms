@@ -1,5 +1,5 @@
-import { ListWrapper } from '../../wrappers/index.js';
 import { useGetSeasonsQuery } from '../../../redux/slices/api.js';
+import { ListWrapper } from '../../wrappers/index.js';
 
 const Seasons = () => {
 	const { data: seasons = [] } = useGetSeasonsQuery();

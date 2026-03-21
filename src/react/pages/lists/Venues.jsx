@@ -1,5 +1,5 @@
-import { ListWrapper } from '../../wrappers/index.js';
 import { useGetVenuesQuery } from '../../../redux/slices/api.js';
+import { ListWrapper } from '../../wrappers/index.js';
 
 const Venues = () => {
 	const { data: venues = [] } = useGetVenuesQuery();

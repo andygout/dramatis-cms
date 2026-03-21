@@ -1,8 +1,8 @@
 import { useParams } from 'react-router';
 
+import { useGetSeasonQuery } from '../../../redux/slices/api.js';
 import { SeasonForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
-import { useGetSeasonQuery } from '../../../redux/slices/api.js';
 
 const Season = () => {
 	const { uuid } = useParams();

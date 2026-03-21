@@ -1,8 +1,8 @@
 import { useParams } from 'react-router';
 
+import { useGetCompanyQuery } from '../../../redux/slices/api.js';
 import { CompanyForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
-import { useGetCompanyQuery } from '../../../redux/slices/api.js';
 
 const Company = () => {
 	const { uuid } = useParams();
