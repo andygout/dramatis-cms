@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 
 import { capitalise } from '../../../lib/strings.js';
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
-import {
-	handleChange,
-	checkIsLastArrayItem,
-	handleAppendArrayItemClick,
-	handleRemoveArrayItemClick
-} from '../../utils/form.js';
 import {
 	useCreateMaterialMutation,
 	useUpdateMaterialMutation,
 	useDeleteMaterialMutation
 } from '../../../redux/slices/api.js';
 import { CREDIT_TYPES, MODELS } from '../../../utils/constants.js';
+import {
+	handleChange,
+	checkIsLastArrayItem,
+	handleAppendArrayItemClick,
+	handleRemoveArrayItemClick
+} from '../../utils/form.js';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 
 const MaterialForm = (props) => {
 	const { instance, action } = props;

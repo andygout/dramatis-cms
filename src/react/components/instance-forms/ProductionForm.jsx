@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import { capitalise } from '../../../lib/strings.js';
-import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
+import {
+	useCreateProductionMutation,
+	useUpdateProductionMutation,
+	useDeleteProductionMutation
+} from '../../../redux/slices/api.js';
+import { MODELS } from '../../../utils/constants.js';
 import {
 	handleChange,
 	checkIsLastArrayItem,
@@ -10,12 +15,7 @@ import {
 	handleChangeToPerson,
 	handleChangeToCompany
 } from '../../utils/form.js';
-import {
-	useCreateProductionMutation,
-	useUpdateProductionMutation,
-	useDeleteProductionMutation
-} from '../../../redux/slices/api.js';
-import { MODELS } from '../../../utils/constants.js';
+import { ArrayItemActionButton, Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 
 const ProductionForm = (props) => {
 	const { instance, action } = props;

@@ -1,8 +1,8 @@
 import { useParams } from 'react-router';
 
+import { useGetCharacterQuery } from '../../../redux/slices/api.js';
 import { CharacterForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
-import { useGetCharacterQuery } from '../../../redux/slices/api.js';
 
 const Character = () => {
 	const { uuid } = useParams();

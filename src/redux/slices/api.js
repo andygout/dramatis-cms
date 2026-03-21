@@ -2,8 +2,6 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 
 import getDifferentiatorSuffix from '../../lib/get-differentiator-suffix.js';
 import pruneInstance from '../../lib/prune-instance.js';
-import { deactivateNotification } from '../action-handlers/notification.js';
-import { errorActivated, notificationActivated, redirectActivated } from '../actions/index.js';
 import {
 	DRAMATIS_CMS_BASE_URL,
 	ACTIONS,
@@ -15,6 +13,8 @@ import {
 	PLURALISED_MODELS,
 	PLURALISED_MODEL_TO_ROUTE_MAP
 } from '../../utils/constants.js';
+import { deactivateNotification } from '../action-handlers/notification.js';
+import { errorActivated, notificationActivated, redirectActivated } from '../actions/index.js';
 
 const baseQuery = async ({ apiRoute, fetchSettings = {} }, { dispatch }) => {
 	try {

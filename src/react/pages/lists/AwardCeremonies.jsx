@@ -1,5 +1,5 @@
-import { ListWrapper } from '../../wrappers/index.js';
 import { useGetAwardCeremoniesQuery } from '../../../redux/slices/api.js';
+import { ListWrapper } from '../../wrappers/index.js';
 
 const AwardCeremonies = () => {
 	const { data: awardCeremonies = [] } = useGetAwardCeremoniesQuery();

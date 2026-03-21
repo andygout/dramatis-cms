@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
-import { handleChange } from '../../utils/form.js';
 import { useCreateAwardMutation, useUpdateAwardMutation, useDeleteAwardMutation } from '../../../redux/slices/api.js';
+import { handleChange } from '../../utils/form.js';
+import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
 
 const AwardForm = (props) => {
 	const { instance, action } = props;

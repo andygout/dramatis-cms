@@ -1,8 +1,8 @@
 import { useParams } from 'react-router';
 
+import { useGetPersonQuery } from '../../../redux/slices/api.js';
 import { PersonForm } from '../../components/instance-forms/index.js';
 import { InstanceWrapper } from '../../wrappers/index.js';
-import { useGetPersonQuery } from '../../../redux/slices/api.js';
 
 const Person = () => {
 	const { uuid } = useParams();
