@@ -21,3 +21,35 @@ Content Management System (CMS) for managing database of theatrical productions,
 ## To run unit tests
 
 - `$ npm run unit-test`
+
+## Architecture
+
+```mermaid
+flowchart LR
+	%% Containers and components
+	subgraph CLIENT_SIDE[Client-side]
+		BROWSER(Browser)
+	end
+
+	subgraph SERVER_SIDE[Server-side]
+		DRAMATIS_API(dramatis-api)
+		DRAMATIS_CMS(dramatis-cms)
+	end
+
+	%% Relationships
+	BROWSER -- 1. CRUD operations --> DRAMATIS_CMS
+
+	DRAMATIS_CMS -- 2. CRUD operations --> DRAMATIS_API
+
+	%% Style Definitions
+	classDef browser fill:#c2ad01,stroke:#625800,color:#FFFFFF
+
+	classDef dramatisCms fill:#7A1158,stroke:#470330,color:#FFFFFF
+
+	classDef dramatisApi fill:#006699,stroke:#042c53,color:#FFFFFF
+
+	%% Apply Styles
+	class DRAMATIS_API dramatisApi
+	class DRAMATIS_CMS dramatisCms
+	class BROWSER browser
+```
