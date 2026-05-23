@@ -47,6 +47,26 @@ const serverBundle = {
 	]
 };
 
+const clientAssetsBundle = {
+	input: 'src/client/assets/index.js',
+	output: {
+		dir: 'public'
+	},
+	watch: {
+		clearScreen: false
+	},
+	plugins: [
+		copy({
+			targets: [
+				{
+					src: './src/client/assets/*',
+					dest: 'public/assets'
+				}
+			]
+		})
+	]
+};
+
 const clientScriptsBundle = {
 	input: 'src/react/client-mount.jsx',
 	output: {
@@ -139,4 +159,10 @@ const clientScssImportsStylesBundle = {
 	]
 };
 
-export default [serverBundle, clientScriptsBundle, clientStylesBundle, clientScssImportsStylesBundle];
+export default [
+	serverBundle,
+	clientAssetsBundle,
+	clientScriptsBundle,
+	clientStylesBundle,
+	clientScssImportsStylesBundle
+];
