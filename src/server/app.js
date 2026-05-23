@@ -17,7 +17,7 @@ const app = express();
 
 app.use(
 	express.json(),
-	favicon(path.join(__dirname, 'assets', 'favicon.ico')),
+	favicon(path.join(__dirname, 'assets', 'favicon.png')),
 	logger('dev'),
 	session({ secret: 'secret', resave: false, saveUninitialized: true }),
 	express.static('public')
