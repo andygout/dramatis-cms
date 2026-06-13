@@ -89,6 +89,13 @@ router.put('/seasons/:uuid', (request, response, next) => instancesPutController
 router.delete('/seasons/:uuid', (request, response, next) => instancesDeleteController(request, response, next));
 router.get('/seasons', (request, response, next) => listsGetController(request, response, next));
 
+router.get('/times/new', (request, response, next) => instancesGetController(request, response, next));
+router.post('/times', (request, response, next) => instancesPostController(request, response, next));
+router.get('/times/:uuid/edit', (request, response, next) => instancesGetController(request, response, next));
+router.put('/times/:uuid', (request, response, next) => instancesPutController(request, response, next));
+router.delete('/times/:uuid', (request, response, next) => instancesDeleteController(request, response, next));
+router.get('/times', (request, response, next) => listsGetController(request, response, next));
+
 router.get('/search', (request, response, next) => searchGetController(request, response, next));
 
 router.get('/venues/new', (request, response, next) => instancesGetController(request, response, next));

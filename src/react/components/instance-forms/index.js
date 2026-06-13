@@ -8,6 +8,7 @@ import MaterialForm from './MaterialForm.jsx';
 import PersonForm from './PersonForm.jsx';
 import ProductionForm from './ProductionForm.jsx';
 import SeasonForm from './SeasonForm.jsx';
+import TimeForm from './TimeForm.jsx';
 import VenueForm from './VenueForm.jsx';
 
 export {
@@ -21,5 +22,6 @@ export {
 	PersonForm,
 	ProductionForm,
 	SeasonForm,
+	TimeForm,
 	VenueForm
 };

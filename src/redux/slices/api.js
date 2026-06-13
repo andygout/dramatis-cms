@@ -406,6 +406,25 @@ export const api = createApi({
 			query: deleteQuery,
 			onQueryStarted: onDeleteQueryStarted
 		}),
+		getTimes: build.query({
+			query: () => getListQuery(PLURALISED_MODELS.TIMES)
+		}),
+		getTime: build.query({
+			query: (uuid) => getInstanceQuery({ model: MODELS.TIME, uuid }),
+			transformResponse: transformGetResponse
+		}),
+		createTime: build.mutation({
+			query: createQuery,
+			onQueryStarted: onCreateQueryStarted
+		}),
+		updateTime: build.mutation({
+			query: updateQuery,
+			onQueryStarted: onUpdateQueryStarted
+		}),
+		deleteTime: build.mutation({
+			query: deleteQuery,
+			onQueryStarted: onDeleteQueryStarted
+		}),
 		getVenues: build.query({
 			query: () => getListQuery(PLURALISED_MODELS.VENUES)
 		}),
@@ -479,6 +498,11 @@ export const {
 	useCreateSeasonMutation,
 	useUpdateSeasonMutation,
 	useDeleteSeasonMutation,
+	useGetTimesQuery,
+	useGetTimeQuery,
+	useCreateTimeMutation,
+	useUpdateTimeMutation,
+	useDeleteTimeMutation,
 	useGetVenuesQuery,
 	useGetVenueQuery,
 	useCreateVenueMutation,
