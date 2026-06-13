@@ -21,6 +21,8 @@ const PRODUCTION = 'PRODUCTION';
 const PRODUCTIONS = 'PRODUCTIONS';
 const SEASON = 'SEASON';
 const SEASONS = 'SEASONS';
+const TIME = 'TIME';
+const TIMES = 'TIMES';
 const VENUE = 'VENUE';
 const VENUES = 'VENUES';
 
@@ -49,6 +51,7 @@ const MODELS = {
 	[PERSON]: PERSON,
 	[PRODUCTION]: PRODUCTION,
 	[SEASON]: SEASON,
+	[TIME]: TIME,
 	[VENUE]: VENUE
 };
 
@@ -63,6 +66,7 @@ const MODEL_TO_DISPLAY_NAME_MAP = {
 	[PERSON]: 'person',
 	[PRODUCTION]: 'production',
 	[SEASON]: 'season',
+	[TIME]: 'time',
 	[VENUE]: 'venue'
 };
 
@@ -77,6 +81,7 @@ const MODEL_TO_PASCAL_CASE_MAP = {
 	[PERSON]: 'Person',
 	[PRODUCTION]: 'Production',
 	[SEASON]: 'Season',
+	[TIME]: 'Time',
 	[VENUE]: 'Venue'
 };
 
@@ -91,6 +96,7 @@ const MODEL_TO_ROUTE_MAP = {
 	[PERSON]: 'people',
 	[PRODUCTION]: 'productions',
 	[SEASON]: 'seasons',
+	[TIME]: 'times',
 	[VENUE]: 'venues'
 };
 
@@ -110,6 +116,7 @@ const PLURALISED_MODELS = {
 	[PEOPLE]: PEOPLE,
 	[PRODUCTIONS]: PRODUCTIONS,
 	[SEASONS]: SEASONS,
+	[TIMES]: TIMES,
 	[VENUES]: VENUES
 };
 
@@ -124,6 +131,7 @@ const PLURALISED_MODEL_TO_ROUTE_MAP = {
 	[PEOPLE]: 'people',
 	[PRODUCTIONS]: 'productions',
 	[SEASONS]: 'seasons',
+	[TIMES]: 'times',
 	[VENUES]: 'venues'
 };
 

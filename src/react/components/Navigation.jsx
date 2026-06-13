@@ -49,6 +49,10 @@ const Navigation = () => {
 				</li>
 
 				<li>
+					<Link to={'/times'}>Times</Link>
+				</li>
+
+				<li>
 					<Link to={'/venues'}>Venues</Link>
 				</li>
 
@@ -90,6 +94,10 @@ const Navigation = () => {
 
 				<li>
 					<Link to={'/seasons/new'}>New season</Link>
+				</li>
+
+				<li>
+					<Link to={'/times/new'}>New time</Link>
 				</li>
 
 				<li>
