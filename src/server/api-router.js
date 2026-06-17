@@ -75,6 +75,13 @@ router.put('/people/:uuid', (request, response, next) => instancesPutController(
 router.delete('/people/:uuid', (request, response, next) => instancesDeleteController(request, response, next));
 router.get('/people', (request, response, next) => listsGetController(request, response, next));
 
+router.get('/places/new', (request, response, next) => instancesGetController(request, response, next));
+router.post('/places', (request, response, next) => instancesPostController(request, response, next));
+router.get('/places/:uuid/edit', (request, response, next) => instancesGetController(request, response, next));
+router.put('/places/:uuid', (request, response, next) => instancesPutController(request, response, next));
+router.delete('/places/:uuid', (request, response, next) => instancesDeleteController(request, response, next));
+router.get('/places', (request, response, next) => listsGetController(request, response, next));
+
 router.get('/productions/new', (request, response, next) => instancesGetController(request, response, next));
 router.post('/productions', (request, response, next) => instancesPostController(request, response, next));
 router.get('/productions/:uuid/edit', (request, response, next) => instancesGetController(request, response, next));

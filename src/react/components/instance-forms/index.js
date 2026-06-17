@@ -6,6 +6,7 @@ import FestivalForm from './FestivalForm.jsx';
 import FestivalSeriesForm from './FestivalSeriesForm.jsx';
 import MaterialForm from './MaterialForm.jsx';
 import PersonForm from './PersonForm.jsx';
+import PlaceForm from './PlaceForm.jsx';
 import ProductionForm from './ProductionForm.jsx';
 import SeasonForm from './SeasonForm.jsx';
 import TimeForm from './TimeForm.jsx';
@@ -20,6 +21,7 @@ export {
 	FestivalSeriesForm,
 	MaterialForm,
 	PersonForm,
+	PlaceForm,
 	ProductionForm,
 	SeasonForm,
 	TimeForm,

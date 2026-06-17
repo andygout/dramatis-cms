@@ -368,6 +368,25 @@ export const api = createApi({
 			query: deleteQuery,
 			onQueryStarted: onDeleteQueryStarted
 		}),
+		getPlaces: build.query({
+			query: () => getListQuery(PLURALISED_MODELS.PLACES)
+		}),
+		getPlace: build.query({
+			query: (uuid) => getInstanceQuery({ model: MODELS.PLACE, uuid }),
+			transformResponse: transformGetResponse
+		}),
+		createPlace: build.mutation({
+			query: createQuery,
+			onQueryStarted: onCreateQueryStarted
+		}),
+		updatePlace: build.mutation({
+			query: updateQuery,
+			onQueryStarted: onUpdateQueryStarted
+		}),
+		deletePlace: build.mutation({
+			query: deleteQuery,
+			onQueryStarted: onDeleteQueryStarted
+		}),
 		getProductions: build.query({
 			query: () => getListQuery(PLURALISED_MODELS.PRODUCTIONS)
 		}),
@@ -488,6 +507,11 @@ export const {
 	useCreatePersonMutation,
 	useUpdatePersonMutation,
 	useDeletePersonMutation,
+	useGetPlacesQuery,
+	useGetPlaceQuery,
+	useCreatePlaceMutation,
+	useUpdatePlaceMutation,
+	useDeletePlaceMutation,
 	useGetProductionsQuery,
 	useGetProductionQuery,
 	useCreateProductionMutation,

@@ -15,6 +15,8 @@ import {
 	Materials,
 	Person,
 	People,
+	Place,
+	Places,
 	Production,
 	Productions,
 	Season,
@@ -202,6 +204,27 @@ export default [
 		path: '/people/:uuid',
 		pageTitle: 'Person',
 		component: Person,
+		deactivateError,
+		deactivateNotification
+	},
+	{
+		path: '/places',
+		pageTitle: 'Places',
+		component: Places,
+		deactivateError,
+		deactivateNotification
+	},
+	{
+		path: '/places/new',
+		pageTitle: 'New place',
+		component: Place,
+		deactivateError,
+		deactivateNotification
+	},
+	{
+		path: '/places/:uuid',
+		pageTitle: 'Place',
+		component: Place,
 		deactivateError,
 		deactivateNotification
 	},
