@@ -4,6 +4,7 @@ import CharacterForm from './CharacterForm.jsx';
 import CompanyForm from './CompanyForm.jsx';
 import FestivalForm from './FestivalForm.jsx';
 import FestivalSeriesForm from './FestivalSeriesForm.jsx';
+import LocaleForm from './LocaleForm.jsx';
 import MaterialForm from './MaterialForm.jsx';
 import PersonForm from './PersonForm.jsx';
 import PlaceForm from './PlaceForm.jsx';
@@ -19,6 +20,7 @@ export {
 	CompanyForm,
 	FestivalForm,
 	FestivalSeriesForm,
+	LocaleForm,
 	MaterialForm,
 	PersonForm,
 	PlaceForm,
