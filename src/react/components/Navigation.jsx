@@ -33,6 +33,10 @@ const Navigation = () => {
 				</li>
 
 				<li>
+					<Link to={'/locales'}>Locales</Link>
+				</li>
+
+				<li>
 					<Link to={'/materials'}>Materials</Link>
 				</li>
 
@@ -82,6 +86,10 @@ const Navigation = () => {
 
 				<li>
 					<Link to={'/festivals/new'}>New festival</Link>
+				</li>
+
+				<li>
+					<Link to={'/locales/new'}>New locale</Link>
 				</li>
 
 				<li>

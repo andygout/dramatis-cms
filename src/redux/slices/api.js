@@ -330,6 +330,25 @@ export const api = createApi({
 			query: deleteQuery,
 			onQueryStarted: onDeleteQueryStarted
 		}),
+		getLocales: build.query({
+			query: () => getListQuery(PLURALISED_MODELS.LOCALES)
+		}),
+		getLocale: build.query({
+			query: (uuid) => getInstanceQuery({ model: MODELS.LOCALE, uuid }),
+			transformResponse: transformGetResponse
+		}),
+		createLocale: build.mutation({
+			query: createQuery,
+			onQueryStarted: onCreateQueryStarted
+		}),
+		updateLocale: build.mutation({
+			query: updateQuery,
+			onQueryStarted: onUpdateQueryStarted
+		}),
+		deleteLocale: build.mutation({
+			query: deleteQuery,
+			onQueryStarted: onDeleteQueryStarted
+		}),
 		getMaterials: build.query({
 			query: () => getListQuery(PLURALISED_MODELS.MATERIALS)
 		}),
@@ -497,6 +516,11 @@ export const {
 	useCreateFestivalSeriesMutation,
 	useUpdateFestivalSeriesMutation,
 	useDeleteFestivalSeriesMutation,
+	useGetLocalesQuery,
+	useGetLocaleQuery,
+	useCreateLocaleMutation,
+	useUpdateLocaleMutation,
+	useDeleteLocaleMutation,
 	useGetMaterialsQuery,
 	useGetMaterialQuery,
 	useCreateMaterialMutation,

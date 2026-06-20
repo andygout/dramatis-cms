@@ -61,6 +61,13 @@ router.delete('/festival-serieses/:uuid', (request, response, next) =>
 );
 router.get('/festival-serieses', (request, response, next) => listsGetController(request, response, next));
 
+router.get('/locales/new', (request, response, next) => instancesGetController(request, response, next));
+router.post('/locales', (request, response, next) => instancesPostController(request, response, next));
+router.get('/locales/:uuid/edit', (request, response, next) => instancesGetController(request, response, next));
+router.put('/locales/:uuid', (request, response, next) => instancesPutController(request, response, next));
+router.delete('/locales/:uuid', (request, response, next) => instancesDeleteController(request, response, next));
+router.get('/locales', (request, response, next) => listsGetController(request, response, next));
+
 router.get('/materials/new', (request, response, next) => instancesGetController(request, response, next));
 router.post('/materials', (request, response, next) => instancesPostController(request, response, next));
 router.get('/materials/:uuid/edit', (request, response, next) => instancesGetController(request, response, next));
