@@ -119,4 +119,11 @@ router.put('/venues/:uuid', (request, response, next) => instancesPutController(
 router.delete('/venues/:uuid', (request, response, next) => instancesDeleteController(request, response, next));
 router.get('/venues', (request, response, next) => listsGetController(request, response, next));
 
+router.use((request, response, next) => {
+	const error = new Error('Not Found');
+	error.status = 404;
+
+	return next(error);
+});
+
 export default router;
