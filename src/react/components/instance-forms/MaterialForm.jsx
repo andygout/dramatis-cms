@@ -30,6 +30,7 @@ const MaterialForm = (props) => {
 	const [originalVersionMaterial, setOriginalVersionMaterial] = useState(instance.originalVersionMaterial);
 	const [writingCredits, setWritingCredits] = useState(instance.writingCredits);
 	const [subMaterials, setSubMaterials] = useState(instance.subMaterials);
+	const [settings, setSettings] = useState(instance.settings);
 	const [characterGroups, setCharacterGroups] = useState(instance.characterGroups);
 	const [errors, setErrors] = useState(instance.errors);
 
@@ -42,6 +43,7 @@ const MaterialForm = (props) => {
 		setOriginalVersionMaterial(instance.originalVersionMaterial);
 		setWritingCredits(instance.writingCredits);
 		setSubMaterials(instance.subMaterials);
+		setSettings(instance.settings);
 		setCharacterGroups(instance.characterGroups);
 		setErrors(instance.errors);
 	}, [instance]);
@@ -57,6 +59,7 @@ const MaterialForm = (props) => {
 		originalVersionMaterial,
 		writingCredits,
 		subMaterials,
+		settings,
 		characterGroups
 	};
 
@@ -321,6 +324,133 @@ const MaterialForm = (props) => {
 		);
 	};
 
+	const renderSettings = () => {
+		return (
+			<Fieldset header={'Settings'}>
+				{settings.map((setting, index) => {
+					const statePath = [index];
+
+					const isLastListItem = checkIsLastArrayItem(index, settings.length);
+
+					return (
+						<div className={'fieldset__module'} key={index}>
+							<ArrayItemActionButton
+								isLastListItem={isLastListItem}
+								handleClick={(event) =>
+									isLastListItem
+										? handleAppendArrayItemClick(settings, setSettings, statePath, event)
+										: handleRemoveArrayItemClick(settings, setSettings, statePath, event)
+								}
+							/>
+
+							<FieldsetComponent label={'Time'} isArrayItem={true}>
+								<div className={'fieldset__module fieldset__module--nested'}>
+									<FieldsetComponent label={'Name'} isArrayItem={true}>
+										<InputAndErrors
+											value={setting.time.name}
+											errors={setting.time.errors.name}
+											handleChange={(event) =>
+												handleChange(
+													settings,
+													setSettings,
+													statePath.concat(['time', 'name']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
+
+									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+										<InputAndErrors
+											value={setting.time.differentiator}
+											errors={setting.time.errors.differentiator}
+											handleChange={(event) =>
+												handleChange(
+													settings,
+													setSettings,
+													statePath.concat(['time', 'differentiator']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
+								</div>
+							</FieldsetComponent>
+
+							<FieldsetComponent label={'Place'} isArrayItem={true}>
+								<div className={'fieldset__module fieldset__module--nested'}>
+									<FieldsetComponent label={'Name'} isArrayItem={true}>
+										<InputAndErrors
+											value={setting.place.name}
+											errors={setting.place.errors.name}
+											handleChange={(event) =>
+												handleChange(
+													settings,
+													setSettings,
+													statePath.concat(['place', 'name']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
+
+									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+										<InputAndErrors
+											value={setting.place.differentiator}
+											errors={setting.place.errors.differentiator}
+											handleChange={(event) =>
+												handleChange(
+													settings,
+													setSettings,
+													statePath.concat(['place', 'differentiator']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
+								</div>
+							</FieldsetComponent>
+
+							<FieldsetComponent label={'Locale'} isArrayItem={true}>
+								<div className={'fieldset__module fieldset__module--nested'}>
+									<FieldsetComponent label={'Name'} isArrayItem={true}>
+										<InputAndErrors
+											value={setting.locale.name}
+											errors={setting.locale.errors.name}
+											handleChange={(event) =>
+												handleChange(
+													settings,
+													setSettings,
+													statePath.concat(['locale', 'name']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
+
+									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+										<InputAndErrors
+											value={setting.locale.differentiator}
+											errors={setting.locale.errors.differentiator}
+											handleChange={(event) =>
+												handleChange(
+													settings,
+													setSettings,
+													statePath.concat(['locale', 'differentiator']),
+													event
+												)
+											}
+										/>
+									</FieldsetComponent>
+								</div>
+							</FieldsetComponent>
+						</div>
+					);
+				})}
+			</Fieldset>
+		);
+	};
+
 	const renderCharacters = (characters, charactersStatePath) => {
 		return (
 			<FieldsetComponent label={'Characters'} isArrayItem={true}>
@@ -542,6 +672,8 @@ const MaterialForm = (props) => {
 			{Boolean(writingCredits) && renderWritingCredits()}
 
 			{Boolean(subMaterials) && renderSubMaterials()}
+
+			{Boolean(settings) && renderSettings()}
 
 			{Boolean(characterGroups) && renderCharacterGroups()}
 		</FormWrapper>
