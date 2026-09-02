@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useCreateTimeMutation, useUpdateTimeMutation, useDeleteTimeMutation } from '../../../redux/slices/api.js';
 import { handleChange } from '../../utils/form.js';
-import { Fieldset, FormWrapper, InputAndErrors } from '../form/index.js';
+import { Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 
 const TimeForm = (props) => {
 	const { instance, action } = props;
@@ -13,11 +13,15 @@ const TimeForm = (props) => {
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
+	const [fromDate, setFromDate] = useState(instance.fromDate);
+	const [toDate, setToDate] = useState(instance.toDate);
 	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
 		setName(instance.name);
 		setDifferentiator(instance.differentiator);
+		setFromDate(instance.fromDate);
+		setToDate(instance.toDate);
 		setErrors(instance.errors);
 	}, [instance]);
 
@@ -25,7 +29,9 @@ const TimeForm = (props) => {
 		model: instance.model,
 		uuid: instance.uuid,
 		name,
-		differentiator
+		differentiator,
+		fromDate,
+		toDate
 	};
 
 	return (
@@ -50,6 +56,26 @@ const TimeForm = (props) => {
 					errors={errors?.differentiator}
 					handleChange={(event) => handleChange(differentiator, setDifferentiator, [], event)}
 				/>
+			</Fieldset>
+
+			<Fieldset header={'Dates'}>
+				<FieldsetComponent label={'From'}>
+					<InputAndErrors
+						type={'date'}
+						value={fromDate}
+						errors={errors?.fromDate}
+						handleChange={(event) => handleChange(fromDate, setFromDate, [], event)}
+					/>
+				</FieldsetComponent>
+
+				<FieldsetComponent label={'To'}>
+					<InputAndErrors
+						type={'date'}
+						value={toDate}
+						errors={errors?.toDate}
+						handleChange={(event) => handleChange(toDate, setToDate, [], event)}
+					/>
+				</FieldsetComponent>
 			</Fieldset>
 		</FormWrapper>
 	);
