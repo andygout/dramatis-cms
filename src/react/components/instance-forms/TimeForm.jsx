@@ -4,6 +4,13 @@ import { useCreateTimeMutation, useUpdateTimeMutation, useDeleteTimeMutation } f
 import { handleChange } from '../../utils/form.js';
 import { Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 
+const deconstructDate = (date) => ({
+	date: date?.replace(/^-/, ''),
+	isBce: date?.startsWith('-') || false
+});
+
+const reconstructDate = (date, isBce) => (date ? `${isBce ? '-' : ''}${date}` : date);
+
 const TimeForm = (props) => {
 	const { instance, action } = props;
 
@@ -13,15 +20,24 @@ const TimeForm = (props) => {
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
-	const [fromDate, setFromDate] = useState(instance.fromDate);
-	const [toDate, setToDate] = useState(instance.toDate);
+	const [fromDate, setFromDate] = useState(deconstructDate(instance.fromDate).date);
+	const [fromDateIsBce, setFromDateIsBce] = useState(deconstructDate(instance.fromDate).isBce);
+	const [toDate, setToDate] = useState(deconstructDate(instance.toDate).date);
+	const [toDateIsBce, setToDateIsBce] = useState(deconstructDate(instance.toDate).isBce);
 	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
 		setName(instance.name);
 		setDifferentiator(instance.differentiator);
-		setFromDate(instance.fromDate);
-		setToDate(instance.toDate);
+
+		const fromDateProperties = deconstructDate(instance.fromDate);
+		setFromDate(fromDateProperties.date);
+		setFromDateIsBce(fromDateProperties.isBce);
+
+		const toDateProperties = deconstructDate(instance.toDate);
+		setToDate(toDateProperties.date);
+		setToDateIsBce(toDateProperties.isBce);
+
 		setErrors(instance.errors);
 	}, [instance]);
 
@@ -30,8 +46,8 @@ const TimeForm = (props) => {
 		uuid: instance.uuid,
 		name,
 		differentiator,
-		fromDate,
-		toDate
+		fromDate: reconstructDate(fromDate, fromDateIsBce),
+		toDate: reconstructDate(toDate, toDateIsBce)
 	};
 
 	return (
@@ -68,12 +84,28 @@ const TimeForm = (props) => {
 					/>
 				</FieldsetComponent>
 
+				<FieldsetComponent label={'BCE'}>
+					<input
+						type="checkbox"
+						checked={fromDateIsBce}
+						onChange={(event) => setFromDateIsBce(event.target.checked)}
+					/>
+				</FieldsetComponent>
+
 				<FieldsetComponent label={'To'}>
 					<InputAndErrors
 						type={'date'}
 						value={toDate}
 						errors={errors?.toDate}
 						handleChange={(event) => handleChange(toDate, setToDate, [], event)}
+					/>
+				</FieldsetComponent>
+
+				<FieldsetComponent label={'BCE'}>
+					<input
+						type="checkbox"
+						checked={toDateIsBce}
+						onChange={(event) => setToDateIsBce(event.target.checked)}
 					/>
 				</FieldsetComponent>
 			</Fieldset>
