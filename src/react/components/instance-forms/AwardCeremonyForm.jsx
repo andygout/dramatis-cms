@@ -47,7 +47,7 @@ const AwardCeremonyForm = (props) => {
 		categories
 	};
 
-	const renderMembers = (members, membersStatePath) => {
+	const renderMembers = (members, membersStatePath, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={'Nominated company members (people)'} isArrayItem={true}>
 				{members.map((member, index) => {
@@ -66,7 +66,11 @@ const AwardCeremonyForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Person name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'name'].join('-')}
+								label={'Person name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={member.name}
 									errors={member.errors.name}
@@ -76,7 +80,11 @@ const AwardCeremonyForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={member.differentiator}
 									errors={member.errors.differentiator}
@@ -97,7 +105,7 @@ const AwardCeremonyForm = (props) => {
 		);
 	};
 
-	const renderMaterials = (materials, materialsStatePath) => {
+	const renderMaterials = (materials, materialsStatePath, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={'Nominated materials'} isArrayItem={true}>
 				{materials.map((material, index) => {
@@ -116,7 +124,11 @@ const AwardCeremonyForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Material name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'name'].join('-')}
+								label={'Material name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={material.name}
 									errors={material.errors.name}
@@ -126,7 +138,11 @@ const AwardCeremonyForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={material.differentiator}
 									errors={material.errors.differentiator}
@@ -147,7 +163,7 @@ const AwardCeremonyForm = (props) => {
 		);
 	};
 
-	const renderProductions = (productions, productionsStatePath) => {
+	const renderProductions = (productions, productionsStatePath, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={'Nominated productions'} isArrayItem={true}>
 				{productions.map((production, index) => {
@@ -166,7 +182,11 @@ const AwardCeremonyForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Production UUID'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'uuid'].join('-')}
+								label={'Production UUID'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={production.uuid}
 									errors={production.errors.uuid}
@@ -182,7 +202,7 @@ const AwardCeremonyForm = (props) => {
 		);
 	};
 
-	const renderEntities = (entities, entitiesStatePath) => {
+	const renderEntities = (entities, entitiesStatePath, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={'Nominated entities (people, companies)'} isArrayItem={true}>
 				{entities.map((entity, index) => {
@@ -201,7 +221,11 @@ const AwardCeremonyForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={`${capitalise(entity.model)} name`} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'name'].join('-')}
+								label={`${capitalise(entity.model)} name`}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={entity.name}
 									errors={entity.errors.name}
@@ -211,7 +235,11 @@ const AwardCeremonyForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={entity.differentiator}
 									errors={entity.errors.differentiator}
@@ -228,6 +256,7 @@ const AwardCeremonyForm = (props) => {
 
 							<FieldsetComponent label={'Model'} isArrayItem={true}>
 								<input
+									id={[fieldIdBase, ...statePath, 'model', 'person'].join('-')}
 									type={'radio'}
 									value={MODELS.PERSON}
 									checked={entity.model === MODELS.PERSON}
@@ -235,9 +264,12 @@ const AwardCeremonyForm = (props) => {
 										handleChangeToPerson(categories, setCategories, statePath, entity, event)
 									}
 								/>
-								<label>{' Person'}</label>
+								<label htmlFor={[fieldIdBase, ...statePath, 'model', 'person'].join('-')}>
+									{'Person'}
+								</label>
 
 								<input
+									id={[fieldIdBase, ...statePath, 'model', 'company'].join('-')}
 									type={'radio'}
 									value={MODELS.COMPANY}
 									checked={entity.model === MODELS.COMPANY}
@@ -245,11 +277,13 @@ const AwardCeremonyForm = (props) => {
 										handleChangeToCompany(categories, setCategories, statePath, entity, event)
 									}
 								/>
-								<label>{' Company'}</label>
+								<label htmlFor={[fieldIdBase, ...statePath, 'model', 'company'].join('-')}>
+									{'Company'}
+								</label>
 							</FieldsetComponent>
 
 							{entity.model === MODELS.COMPANY &&
-								renderMembers(entity.members || [], statePath.concat(['members']))}
+								renderMembers(entity.members || [], statePath.concat(['members']), fieldIdBase)}
 						</div>
 					);
 				})}
@@ -257,7 +291,7 @@ const AwardCeremonyForm = (props) => {
 		);
 	};
 
-	const renderNominations = (nominations, nominationsStatePath) => {
+	const renderNominations = (nominations, nominationsStatePath, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={'Nominations'} isArrayItem={true}>
 				{nominations.map((nomination, index) => {
@@ -267,8 +301,13 @@ const AwardCeremonyForm = (props) => {
 
 					return (
 						<div className={'fieldset__module fieldset__module--nested'} key={index}>
-							<FieldsetComponent label={'Winner'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'is-winner'].join('-')}
+								label={'Winner'}
+								isArrayItem={true}
+							>
 								<input
+									id={[fieldIdBase, ...statePath, 'is-winner'].join('-')}
 									type="checkbox"
 									checked={nomination.isWinner}
 									onChange={(event) =>
@@ -277,7 +316,10 @@ const AwardCeremonyForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Custom type'}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'custom-type'].join('-')}
+								label={'Custom type'}
+							>
 								<InputAndErrors
 									value={nomination.customType}
 									errors={nomination.errors.customType}
@@ -296,11 +338,11 @@ const AwardCeremonyForm = (props) => {
 								}
 							/>
 
-							{renderEntities(nomination.entities, statePath.concat('entities'))}
+							{renderEntities(nomination.entities, statePath.concat('entities'), fieldIdBase)}
 
-							{renderProductions(nomination.productions, statePath.concat('productions'))}
+							{renderProductions(nomination.productions, statePath.concat('productions'), fieldIdBase)}
 
-							{renderMaterials(nomination.materials, statePath.concat('materials'))}
+							{renderMaterials(nomination.materials, statePath.concat('materials'), fieldIdBase)}
 						</div>
 					);
 				})}
@@ -327,7 +369,11 @@ const AwardCeremonyForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Category name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['categories', ...statePath, 'name'].join('-')}
+								label={'Category name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={category.name}
 									errors={category.errors.name}
@@ -337,7 +383,7 @@ const AwardCeremonyForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							{renderNominations(category.nominations, statePath.concat(['nominations']))}
+							{renderNominations(category.nominations, statePath.concat(['nominations']), 'categories')}
 						</div>
 					);
 				})}
@@ -362,7 +408,7 @@ const AwardCeremonyForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Award'}>
-				<FieldsetComponent label={'Name'}>
+				<FieldsetComponent fieldId={'award-name'} label={'Name'}>
 					<InputAndErrors
 						value={award?.name}
 						errors={award?.errors.name}
@@ -370,7 +416,7 @@ const AwardCeremonyForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'Differentiator'}>
+				<FieldsetComponent fieldId={'award-differentiator'} label={'Differentiator'}>
 					<InputAndErrors
 						value={award?.differentiator}
 						errors={award?.errors.differentiator}

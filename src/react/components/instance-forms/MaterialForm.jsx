@@ -63,7 +63,7 @@ const MaterialForm = (props) => {
 		characterGroups
 	};
 
-	const renderWritingEntities = (entities, entitiesStatePath) => {
+	const renderWritingEntities = (entities, entitiesStatePath, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={'Writing entities (people, companies, materials)'} isArrayItem={true}>
 				{entities.map((entity, index) => {
@@ -92,7 +92,11 @@ const MaterialForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={`${capitalise(entity.model)} name`} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'name'].join('-')}
+								label={`${capitalise(entity.model)} name`}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={entity.name}
 									errors={entity.errors.name}
@@ -107,7 +111,11 @@ const MaterialForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={entity.differentiator}
 									errors={entity.errors.differentiator}
@@ -124,6 +132,7 @@ const MaterialForm = (props) => {
 
 							<FieldsetComponent label={'Model'} isArrayItem={true}>
 								<input
+									id={[fieldIdBase, ...statePath, 'model', 'person'].join('-')}
 									type={'radio'}
 									value={MODELS.PERSON}
 									checked={entity.model === MODELS.PERSON}
@@ -136,9 +145,12 @@ const MaterialForm = (props) => {
 										)
 									}
 								/>
-								<label>{' Person'}</label>
+								<label htmlFor={[fieldIdBase, ...statePath, 'model', 'person'].join('-')}>
+									{'Person'}
+								</label>
 
 								<input
+									id={[fieldIdBase, ...statePath, 'model', 'company'].join('-')}
 									type={'radio'}
 									value={MODELS.COMPANY}
 									checked={entity.model === MODELS.COMPANY}
@@ -151,9 +163,12 @@ const MaterialForm = (props) => {
 										)
 									}
 								/>
-								<label>{' Company'}</label>
+								<label htmlFor={[fieldIdBase, ...statePath, 'model', 'company'].join('-')}>
+									{'Company'}
+								</label>
 
 								<input
+									id={[fieldIdBase, ...statePath, 'model', 'material'].join('-')}
 									type={'radio'}
 									value={MODELS.MATERIAL}
 									checked={entity.model === MODELS.MATERIAL}
@@ -166,7 +181,9 @@ const MaterialForm = (props) => {
 										)
 									}
 								/>
-								<label>{' Material'}</label>
+								<label htmlFor={[fieldIdBase, ...statePath, 'model', 'material'].join('-')}>
+									{'Material'}
+								</label>
 							</FieldsetComponent>
 						</div>
 					);
@@ -204,7 +221,11 @@ const MaterialForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Credit name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['writing-credits', ...statePath, 'name'].join('-')}
+								label={'Credit name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={writingCredit.name}
 									errors={writingCredit.errors.name}
@@ -221,6 +242,7 @@ const MaterialForm = (props) => {
 
 							<FieldsetComponent label={'Credit type'} isArrayItem={true}>
 								<input
+									id={['writing-credits', ...statePath, 'credit-type', 'direct'].join('-')}
 									type={'radio'}
 									value={''}
 									checked={!writingCredit.creditType}
@@ -233,9 +255,17 @@ const MaterialForm = (props) => {
 										)
 									}
 								/>
-								<label>{' Direct'}</label>
+								<label htmlFor={['writing-credits', ...statePath, 'credit-type', 'direct'].join('-')}>
+									{'Direct'}
+								</label>
 
 								<input
+									id={[
+										'writing-credits',
+										...statePath,
+										'credit-type',
+										'non-specific-source-material'
+									].join('-')}
 									type={'radio'}
 									value={CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
 									checked={writingCredit.creditType === CREDIT_TYPES.NON_SPECIFIC_SOURCE_MATERIAL}
@@ -248,9 +278,19 @@ const MaterialForm = (props) => {
 										)
 									}
 								/>
-								<label>{' Non-specific source material'}</label>
+								<label
+									htmlFor={[
+										'writing-credits',
+										...statePath,
+										'credit-type',
+										'non-specific-source-material'
+									].join('-')}
+								>
+									{'Non-specific source material'}
+								</label>
 
 								<input
+									id={['writing-credits', ...statePath, 'credit-type', 'rights-grantor'].join('-')}
 									type={'radio'}
 									value={CREDIT_TYPES.RIGHTS_GRANTOR}
 									checked={writingCredit.creditType === CREDIT_TYPES.RIGHTS_GRANTOR}
@@ -263,10 +303,20 @@ const MaterialForm = (props) => {
 										)
 									}
 								/>
-								<label>{' Rights grantor'}</label>
+								<label
+									htmlFor={['writing-credits', ...statePath, 'credit-type', 'rights-grantor'].join(
+										'-'
+									)}
+								>
+									{'Rights grantor'}
+								</label>
 							</FieldsetComponent>
 
-							{renderWritingEntities(writingCredit.entities, statePath.concat(['entities']))}
+							{renderWritingEntities(
+								writingCredit.entities,
+								statePath.concat(['entities']),
+								'writing-credits'
+							)}
 						</div>
 					);
 				})}
@@ -293,7 +343,11 @@ const MaterialForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Material name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['sub-materials', ...statePath, 'name'].join('-')}
+								label={'Material name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={subMaterial.name}
 									errors={subMaterial.errors.name}
@@ -303,7 +357,11 @@ const MaterialForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['sub-materials', ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={subMaterial.differentiator}
 									errors={subMaterial.errors.differentiator}
@@ -345,7 +403,11 @@ const MaterialForm = (props) => {
 
 							<FieldsetComponent label={'Time'} isArrayItem={true}>
 								<div className={'fieldset__module fieldset__module--nested'}>
-									<FieldsetComponent label={'Name'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['settings', ...statePath, 'time', 'name'].join('-')}
+										label={'Name'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={setting.time.name}
 											errors={setting.time.errors.name}
@@ -360,7 +422,11 @@ const MaterialForm = (props) => {
 										/>
 									</FieldsetComponent>
 
-									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['settings', ...statePath, 'time', 'differentiator'].join('-')}
+										label={'Differentiator'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={setting.time.differentiator}
 											errors={setting.time.errors.differentiator}
@@ -379,7 +445,11 @@ const MaterialForm = (props) => {
 
 							<FieldsetComponent label={'Place'} isArrayItem={true}>
 								<div className={'fieldset__module fieldset__module--nested'}>
-									<FieldsetComponent label={'Name'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['settings', ...statePath, 'place', 'name'].join('-')}
+										label={'Name'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={setting.place.name}
 											errors={setting.place.errors.name}
@@ -394,7 +464,11 @@ const MaterialForm = (props) => {
 										/>
 									</FieldsetComponent>
 
-									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['settings', ...statePath, 'place', 'differentiator'].join('-')}
+										label={'Differentiator'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={setting.place.differentiator}
 											errors={setting.place.errors.differentiator}
@@ -413,7 +487,11 @@ const MaterialForm = (props) => {
 
 							<FieldsetComponent label={'Locale'} isArrayItem={true}>
 								<div className={'fieldset__module fieldset__module--nested'}>
-									<FieldsetComponent label={'Name'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['settings', ...statePath, 'locale', 'name'].join('-')}
+										label={'Name'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={setting.locale.name}
 											errors={setting.locale.errors.name}
@@ -428,7 +506,11 @@ const MaterialForm = (props) => {
 										/>
 									</FieldsetComponent>
 
-									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['settings', ...statePath, 'locale', 'differentiator'].join('-')}
+										label={'Differentiator'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={setting.locale.differentiator}
 											errors={setting.locale.errors.differentiator}
@@ -451,7 +533,7 @@ const MaterialForm = (props) => {
 		);
 	};
 
-	const renderCharacters = (characters, charactersStatePath) => {
+	const renderCharacters = (characters, charactersStatePath, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={'Characters'} isArrayItem={true}>
 				{characters.map((character, index) => {
@@ -480,7 +562,11 @@ const MaterialForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Character name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'name'].join('-')}
+								label={'Character name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={character.name}
 									errors={character.errors.name}
@@ -495,7 +581,11 @@ const MaterialForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Underlying name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'underlying-name'].join('-')}
+								label={'Underlying name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={character.underlyingName}
 									errors={character.errors.underlyingName}
@@ -510,7 +600,11 @@ const MaterialForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={character.differentiator}
 									errors={character.errors.differentiator}
@@ -525,7 +619,11 @@ const MaterialForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Qualifier'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'qualifier'].join('-')}
+								label={'Qualifier'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={character.qualifier}
 									errors={character.errors.qualifier}
@@ -575,7 +673,11 @@ const MaterialForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Group name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['character-groups', ...statePath, 'name'].join('-')}
+								label={'Group name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={characterGroup.name}
 									errors={characterGroup.errors.name}
@@ -590,7 +692,11 @@ const MaterialForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							{renderCharacters(characterGroup.characters, statePath.concat(['characters']))}
+							{renderCharacters(
+								characterGroup.characters,
+								statePath.concat(['characters']),
+								'character-groups'
+							)}
 						</div>
 					);
 				})}
@@ -648,7 +754,7 @@ const MaterialForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Original version material'}>
-				<FieldsetComponent label={'Name'}>
+				<FieldsetComponent fieldId={'original-version-material-name'} label={'Name'}>
 					<InputAndErrors
 						value={originalVersionMaterial?.name}
 						errors={originalVersionMaterial?.errors.name}
@@ -658,7 +764,7 @@ const MaterialForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'Differentiator'}>
+				<FieldsetComponent fieldId={'original-version-material-differentiator'} label={'Differentiator'}>
 					<InputAndErrors
 						value={originalVersionMaterial?.differentiator}
 						errors={originalVersionMaterial?.errors.differentiator}

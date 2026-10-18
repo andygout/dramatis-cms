@@ -75,7 +75,7 @@ const TimeForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Dates'}>
-				<FieldsetComponent label={'From'}>
+				<FieldsetComponent fieldId={'from-date'} label={'From'}>
 					<InputAndErrors
 						type={'date'}
 						value={fromDate}
@@ -84,15 +84,16 @@ const TimeForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'BCE'}>
+				<FieldsetComponent fieldId={'from-date-is-bce'} label={'BCE'}>
 					<input
+						id={'from-date-is-bce'}
 						type="checkbox"
 						checked={fromDateIsBce}
 						onChange={(event) => setFromDateIsBce(event.target.checked)}
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'To'}>
+				<FieldsetComponent fieldId={'to-date'} label={'To'}>
 					<InputAndErrors
 						type={'date'}
 						value={toDate}
@@ -101,8 +102,9 @@ const TimeForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'BCE'}>
+				<FieldsetComponent fieldId={'to-date-is-bce'} label={'BCE'}>
 					<input
+						id={'to-date-is-bce'}
 						type="checkbox"
 						checked={toDateIsBce}
 						onChange={(event) => setToDateIsBce(event.target.checked)}

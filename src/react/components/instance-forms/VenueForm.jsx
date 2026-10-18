@@ -55,7 +55,11 @@ const VenueForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Venue name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['sub-venues', ...statePath, 'name'].join('-')}
+								label={'Venue name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={subVenue.name}
 									errors={subVenue.errors.name}
@@ -65,7 +69,11 @@ const VenueForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['sub-venues', ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={subVenue.differentiator}
 									errors={subVenue.errors.differentiator}
