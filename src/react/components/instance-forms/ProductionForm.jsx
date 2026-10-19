@@ -109,7 +109,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Production UUID'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['sub-productions', ...statePath, 'uuid'].join('-')}
+								label={'Production UUID'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={subProduction.uuid}
 									errors={subProduction.errors.uuid}
@@ -130,7 +134,7 @@ const ProductionForm = (props) => {
 		);
 	};
 
-	const renderMembers = (stateValue, setStateValue, members, membersStatePath) => {
+	const renderMembers = (stateValue, setStateValue, members, membersStatePath, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={'Credited company members (people)'} isArrayItem={true}>
 				{members.map((member, index) => {
@@ -149,7 +153,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Person name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'name'].join('-')}
+								label={'Person name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={member.name}
 									errors={member.errors.name}
@@ -159,7 +167,11 @@ const ProductionForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'name'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={member.differentiator}
 									errors={member.errors.differentiator}
@@ -180,7 +192,7 @@ const ProductionForm = (props) => {
 		);
 	};
 
-	const renderEntities = (stateValue, setStateValue, entities, entitiesStatePath, teamName) => {
+	const renderEntities = (stateValue, setStateValue, entities, entitiesStatePath, teamName, fieldIdBase) => {
 		return (
 			<FieldsetComponent label={`${teamName} entities (people, companies)`} isArrayItem={true}>
 				{entities.map((entity, index) => {
@@ -199,7 +211,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={`${capitalise(entity.model)} name`} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'name'].join('-')}
+								label={`${capitalise(entity.model)} name`}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={entity.name}
 									errors={entity.errors.name}
@@ -209,7 +225,11 @@ const ProductionForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={[fieldIdBase, ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={entity.differentiator}
 									errors={entity.errors.differentiator}
@@ -226,6 +246,7 @@ const ProductionForm = (props) => {
 
 							<FieldsetComponent label={'Model'} isArrayItem={true}>
 								<input
+									id={[fieldIdBase, ...statePath, 'model', 'person'].join('-')}
 									type={'radio'}
 									value={MODELS.PERSON}
 									checked={entity.model === MODELS.PERSON}
@@ -233,9 +254,12 @@ const ProductionForm = (props) => {
 										handleChangeToPerson(stateValue, setStateValue, statePath, entity, event)
 									}
 								/>
-								<label>{' Person'}</label>
+								<label htmlFor={[fieldIdBase, ...statePath, 'model', 'person'].join('-')}>
+									{'Person'}
+								</label>
 
 								<input
+									id={[fieldIdBase, ...statePath, 'model', 'company'].join('-')}
 									type={'radio'}
 									value={MODELS.COMPANY}
 									checked={entity.model === MODELS.COMPANY}
@@ -243,7 +267,9 @@ const ProductionForm = (props) => {
 										handleChangeToCompany(stateValue, setStateValue, statePath, entity, event)
 									}
 								/>
-								<label>{' Company'}</label>
+								<label htmlFor={[fieldIdBase, ...statePath, 'model', 'company'].join('-')}>
+									{'Company'}
+								</label>
 							</FieldsetComponent>
 
 							{entity.model === MODELS.COMPANY &&
@@ -251,7 +277,8 @@ const ProductionForm = (props) => {
 									stateValue,
 									setStateValue,
 									entity.members || [],
-									statePath.concat(['members'])
+									statePath.concat(['members']),
+									fieldIdBase
 								)}
 						</div>
 					);
@@ -289,7 +316,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Credit name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['producer-credits', ...statePath, 'name'].join('-')}
+								label={'Credit name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={producerCredit.name}
 									errors={producerCredit.errors.name}
@@ -309,7 +340,8 @@ const ProductionForm = (props) => {
 								setProducerCredits,
 								producerCredit.entities,
 								statePath.concat(['entities']),
-								'Producer'
+								'Producer',
+								'producer-credits'
 							)}
 						</div>
 					);
@@ -337,7 +369,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Role name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['cast', ...statePath, 'name'].join('-')}
+								label={'Role name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={role.name}
 									errors={role.errors.name}
@@ -347,7 +383,11 @@ const ProductionForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Character name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['cast', ...statePath, 'character-name'].join('-')}
+								label={'Character name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={role.characterName}
 									errors={role.errors.characterName}
@@ -357,7 +397,11 @@ const ProductionForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Character differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['cast', ...statePath, 'character-differentiator'].join('-')}
+								label={'Character differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={role.characterDifferentiator}
 									errors={role.errors.characterDifferentiator}
@@ -372,7 +416,11 @@ const ProductionForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Qualifier'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['cast', ...statePath, 'qualifier'].join('-')}
+								label={'Qualifier'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={role.qualifier}
 									errors={role.errors.qualifier}
@@ -382,8 +430,13 @@ const ProductionForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Alternate'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['cast', ...statePath, 'is-alternate'].join('-')}
+								label={'Alternate'}
+								isArrayItem={true}
+							>
 								<input
+									id={['cast', ...statePath, 'is-alternate'].join('-')}
 									type="checkbox"
 									checked={role.isAlternate}
 									onChange={(event) =>
@@ -417,7 +470,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Person name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['cast', ...statePath, 'name'].join('-')}
+								label={'Person name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={castMember.name}
 									errors={castMember.errors.name}
@@ -427,7 +484,11 @@ const ProductionForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['cast', ...statePath, 'differentiator'].join('-')}
+								label={'Differentiator'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={castMember.differentiator}
 									errors={castMember.errors.differentiator}
@@ -474,7 +535,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Credit name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['creative-credits', ...statePath, 'name'].join('-')}
+								label={'Credit name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={creativeCredit.name}
 									errors={creativeCredit.errors.name}
@@ -494,7 +559,8 @@ const ProductionForm = (props) => {
 								setCreativeCredits,
 								creativeCredit.entities,
 								statePath.concat(['entities']),
-								'Creative'
+								'Creative',
+								'creative-credits'
 							)}
 						</div>
 					);
@@ -522,7 +588,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'Credit name'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['crew-credits', ...statePath, 'name'].join('-')}
+								label={'Credit name'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={crewCredit.name}
 									errors={crewCredit.errors.name}
@@ -537,7 +607,8 @@ const ProductionForm = (props) => {
 								setCrewCredits,
 								crewCredit.entities,
 								statePath.concat(['entities']),
-								'Crew'
+								'Crew',
+								'crew-credits'
 							)}
 						</div>
 					);
@@ -565,7 +636,11 @@ const ProductionForm = (props) => {
 								}
 							/>
 
-							<FieldsetComponent label={'URL'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['reviews', ...statePath, 'url'].join('-')}
+								label={'URL'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									value={review.url}
 									errors={review.errors.url}
@@ -575,7 +650,11 @@ const ProductionForm = (props) => {
 								/>
 							</FieldsetComponent>
 
-							<FieldsetComponent label={'Date'} isArrayItem={true}>
+							<FieldsetComponent
+								fieldId={['reviews', ...statePath, 'date'].join('-')}
+								label={'Date'}
+								isArrayItem={true}
+							>
 								<InputAndErrors
 									type={'date'}
 									value={review.date}
@@ -588,7 +667,11 @@ const ProductionForm = (props) => {
 
 							<FieldsetComponent label={'Publication (company)'} isArrayItem={true}>
 								<div className={'fieldset__module fieldset__module--nested'}>
-									<FieldsetComponent label={'Name'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['reviews', ...statePath, 'publication', 'name'].join('-')}
+										label={'Name'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={review.publication.name}
 											errors={review.publication.errors.name}
@@ -603,7 +686,11 @@ const ProductionForm = (props) => {
 										/>
 									</FieldsetComponent>
 
-									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['reviews', ...statePath, 'publication', 'differentiator'].join('-')}
+										label={'Differentiator'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={review.publication.differentiator}
 											errors={review.publication.errors.differentiator}
@@ -622,7 +709,11 @@ const ProductionForm = (props) => {
 
 							<FieldsetComponent label={'Critic (person)'} isArrayItem={true}>
 								<div className={'fieldset__module fieldset__module--nested'}>
-									<FieldsetComponent label={'Name'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['reviews', ...statePath, 'critic', 'name'].join('-')}
+										label={'Name'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={review.critic.name}
 											errors={review.critic.errors.name}
@@ -637,7 +728,11 @@ const ProductionForm = (props) => {
 										/>
 									</FieldsetComponent>
 
-									<FieldsetComponent label={'Differentiator'} isArrayItem={true}>
+									<FieldsetComponent
+										fieldId={['reviews', ...statePath, 'critic', 'differentiator'].join('-')}
+										label={'Differentiator'}
+										isArrayItem={true}
+									>
 										<InputAndErrors
 											value={review.critic.differentiator}
 											errors={review.critic.errors.differentiator}
@@ -685,7 +780,7 @@ const ProductionForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Dates'}>
-				<FieldsetComponent label={'Start date'}>
+				<FieldsetComponent fieldId={'start-date'} label={'Start date'}>
 					<InputAndErrors
 						type={'date'}
 						value={startDate}
@@ -694,7 +789,7 @@ const ProductionForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'Press date'}>
+				<FieldsetComponent fieldId={'press-date'} label={'Press date'}>
 					<InputAndErrors
 						type={'date'}
 						value={pressDate}
@@ -703,7 +798,7 @@ const ProductionForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'End date'}>
+				<FieldsetComponent fieldId={'end-date'} label={'End date'}>
 					<InputAndErrors
 						type={'date'}
 						value={endDate}
@@ -714,7 +809,7 @@ const ProductionForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Material'}>
-				<FieldsetComponent label={'Name'}>
+				<FieldsetComponent fieldId={'material-name'} label={'Name'}>
 					<InputAndErrors
 						value={material?.name}
 						errors={material?.errors.name}
@@ -722,7 +817,7 @@ const ProductionForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'Differentiator'}>
+				<FieldsetComponent fieldId={'material-differentiator'} label={'Differentiator'}>
 					<InputAndErrors
 						value={material?.differentiator}
 						errors={material?.errors.differentiator}
@@ -732,7 +827,7 @@ const ProductionForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Venue'}>
-				<FieldsetComponent label={'Name'}>
+				<FieldsetComponent fieldId={'venue-name'} label={'Name'}>
 					<InputAndErrors
 						value={venue?.name}
 						errors={venue?.errors.name}
@@ -740,7 +835,7 @@ const ProductionForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'Differentiator'}>
+				<FieldsetComponent fieldId={'venue-differentiator'} label={'Differentiator'}>
 					<InputAndErrors
 						value={venue?.differentiator}
 						errors={venue?.errors.differentiator}
@@ -750,7 +845,7 @@ const ProductionForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Season'}>
-				<FieldsetComponent label={'Name'}>
+				<FieldsetComponent fieldId={'season-name'} label={'Name'}>
 					<InputAndErrors
 						value={season?.name}
 						errors={season?.errors.name}
@@ -758,7 +853,7 @@ const ProductionForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'Differentiator'}>
+				<FieldsetComponent fieldId={'season-differentiator'} label={'Differentiator'}>
 					<InputAndErrors
 						value={season?.differentiator}
 						errors={season?.errors.differentiator}
@@ -768,7 +863,7 @@ const ProductionForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Festival'}>
-				<FieldsetComponent label={'Name'}>
+				<FieldsetComponent fieldId={'festival-name'} label={'Name'}>
 					<InputAndErrors
 						value={festival?.name}
 						errors={festival?.errors.name}
@@ -776,7 +871,7 @@ const ProductionForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'Differentiator'}>
+				<FieldsetComponent fieldId={'festival-differentiator'} label={'Differentiator'}>
 					<InputAndErrors
 						value={festival?.differentiator}
 						errors={festival?.errors.differentiator}

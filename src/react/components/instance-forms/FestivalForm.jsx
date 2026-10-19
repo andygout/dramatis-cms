@@ -60,7 +60,7 @@ const FestivalForm = (props) => {
 			</Fieldset>
 
 			<Fieldset header={'Festival series'}>
-				<FieldsetComponent label={'Name'}>
+				<FieldsetComponent fieldId={'festival-series-name'} label={'Name'}>
 					<InputAndErrors
 						value={festivalSeries?.name}
 						errors={festivalSeries?.errors.name}
@@ -68,7 +68,7 @@ const FestivalForm = (props) => {
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent label={'Differentiator'}>
+				<FieldsetComponent fieldId={'festival-series-differentiator'} label={'Differentiator'}>
 					<InputAndErrors
 						value={festivalSeries?.differentiator}
 						errors={festivalSeries?.errors.differentiator}
