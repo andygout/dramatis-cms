@@ -4,6 +4,8 @@ import { useCreatePlaceMutation, useUpdatePlaceMutation, useDeletePlaceMutation 
 import { handleChange } from '../../utils/form.js';
 import { Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 
+const toNullableNumber = (value) => (value === '' || value === null ? null : Number(value));
+
 const PlaceForm = (props) => {
 	const { instance, action } = props;
 
@@ -34,10 +36,10 @@ const PlaceForm = (props) => {
 		uuid: instance.uuid,
 		name,
 		differentiator,
-		minLatitude: minLatitude === null ? null : Number(minLatitude),
-		maxLatitude: maxLatitude === null ? null : Number(maxLatitude),
-		minLongitude: minLongitude === null ? null : Number(minLongitude),
-		maxLongitude: maxLongitude === null ? null : Number(maxLongitude)
+		minLatitude: toNullableNumber(minLatitude),
+		maxLatitude: toNullableNumber(maxLatitude),
+		minLongitude: toNullableNumber(minLongitude),
+		maxLongitude: toNullableNumber(maxLongitude)
 	};
 
 	return (

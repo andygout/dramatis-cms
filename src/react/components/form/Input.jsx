@@ -17,7 +17,7 @@ const Input = (props) => {
 		<input
 			id={fieldId}
 			type={type || 'text'}
-			value={value || ''}
+			value={value ?? ''}
 			className={className}
 			maxLength="1000"
 			onChange={handleChange}
