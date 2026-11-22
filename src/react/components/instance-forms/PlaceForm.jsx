@@ -4,8 +4,6 @@ import { useCreatePlaceMutation, useUpdatePlaceMutation, useDeletePlaceMutation 
 import { handleChange } from '../../utils/form.js';
 import { Fieldset, FieldsetComponent, FormWrapper, InputAndErrors } from '../form/index.js';
 
-const toNullableNumber = (value) => (value === '' || value === null ? null : Number(value));
-
 const PlaceForm = (props) => {
 	const { instance, action } = props;
 
@@ -15,19 +13,13 @@ const PlaceForm = (props) => {
 
 	const [name, setName] = useState(instance.name);
 	const [differentiator, setDifferentiator] = useState(instance.differentiator);
-	const [minLatitude, setMinLatitude] = useState(instance.minLatitude);
-	const [maxLatitude, setMaxLatitude] = useState(instance.maxLatitude);
-	const [minLongitude, setMinLongitude] = useState(instance.minLongitude);
-	const [maxLongitude, setMaxLongitude] = useState(instance.maxLongitude);
+	const [surPlace, setSurPlace] = useState(instance.surPlace);
 	const [errors, setErrors] = useState(instance.errors);
 
 	useEffect(() => {
 		setName(instance.name);
 		setDifferentiator(instance.differentiator);
-		setMinLatitude(instance.minLatitude);
-		setMaxLatitude(instance.maxLatitude);
-		setMinLongitude(instance.minLongitude);
-		setMaxLongitude(instance.maxLongitude);
+		setSurPlace(instance.surPlace);
 		setErrors(instance.errors);
 	}, [instance]);
 
@@ -36,10 +28,7 @@ const PlaceForm = (props) => {
 		uuid: instance.uuid,
 		name,
 		differentiator,
-		minLatitude: toNullableNumber(minLatitude),
-		maxLatitude: toNullableNumber(maxLatitude),
-		minLongitude: toNullableNumber(minLongitude),
-		maxLongitude: toNullableNumber(maxLongitude)
+		surPlace
 	};
 
 	return (
@@ -66,40 +55,20 @@ const PlaceForm = (props) => {
 				/>
 			</Fieldset>
 
-			<Fieldset header={'Bounding box coordinates'}>
-				<FieldsetComponent fieldId={'min-latitude'} label={'Minimum latitude'}>
+			<Fieldset header={'Sur-place'}>
+				<FieldsetComponent fieldId={'sur-place-name'} label={'Name'}>
 					<InputAndErrors
-						type={'number'}
-						value={minLatitude}
-						errors={errors?.minLatitude}
-						handleChange={(event) => handleChange(minLatitude, setMinLatitude, [], event)}
+						value={surPlace?.name}
+						errors={surPlace?.errors.name}
+						handleChange={(event) => handleChange(surPlace, setSurPlace, ['name'], event)}
 					/>
 				</FieldsetComponent>
 
-				<FieldsetComponent fieldId={'max-latitude'} label={'Maximum latitude'}>
+				<FieldsetComponent fieldId={'sur-place-differentiator'} label={'Differentiator'}>
 					<InputAndErrors
-						type={'number'}
-						value={maxLatitude}
-						errors={errors?.maxLatitude}
-						handleChange={(event) => handleChange(maxLatitude, setMaxLatitude, [], event)}
-					/>
-				</FieldsetComponent>
-
-				<FieldsetComponent fieldId={'min-longitude'} label={'Minimum longitude'}>
-					<InputAndErrors
-						type={'number'}
-						value={minLongitude}
-						errors={errors?.minLongitude}
-						handleChange={(event) => handleChange(minLongitude, setMinLongitude, [], event)}
-					/>
-				</FieldsetComponent>
-
-				<FieldsetComponent fieldId={'max-longitude'} label={'Maximum longitude'}>
-					<InputAndErrors
-						type={'number'}
-						value={maxLongitude}
-						errors={errors?.maxLongitude}
-						handleChange={(event) => handleChange(maxLongitude, setMaxLongitude, [], event)}
+						value={surPlace?.differentiator}
+						errors={surPlace?.errors.differentiator}
+						handleChange={(event) => handleChange(surPlace, setSurPlace, ['differentiator'], event)}
 					/>
 				</FieldsetComponent>
 			</Fieldset>
